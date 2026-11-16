@@ -552,7 +552,7 @@
                 ${stateBadge}
               </div>
               <div class="font-bold text-amber-900 flex items-center justify-between pt-1">
-                <span>💳 ${college.paymentInfo?.examName || "Direct / Management Quota"}</span>
+                <span>${college.paymentInfo?.examName || "Direct / Management Quota"}</span>
                 <span class="bg-emerald-100 text-emerald-800 px-1.5 py-0.2 rounded text-[10px]">Merit Waivers</span>
               </div>
               <div class="text-[10px] text-amber-800">
@@ -564,7 +564,7 @@
           paymentHighlightHtml = `
             <div class="mt-2.5 p-2.5 rounded-xl bg-amber-50/90 border border-amber-200 text-[11px] space-y-1">
               <div class="font-bold text-amber-900 flex items-center justify-between">
-                <span>💳 ${college.paymentInfo.examName}</span>
+                <span>${college.paymentInfo.examName}</span>
                 <span class="bg-emerald-100 text-emerald-800 px-1.5 py-0.2 rounded text-[10px]">Up to 100% Waiver</span>
               </div>
               <p class="text-amber-950 text-[10px] leading-snug">${college.paymentInfo.discounts[0]}</p>
@@ -807,7 +807,7 @@
 
         let statusBadge = "";
         if (college.exam === "payment") {
-          statusBadge = `<span class="px-2 py-0.5 rounded bg-amber-100 text-amber-900 font-bold text-[10px]">💳 Direct / Merit Seat</span>`;
+          statusBadge = `<span class="px-2 py-0.5 rounded bg-amber-100 text-amber-900 font-bold text-[10px]">Direct / Merit Seat</span>`;
         } else if (userRank <= cutoff) {
           statusBadge = `<span class="px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 font-bold text-[10px]">✅ Safe (Cutoff ~${cutoff.toLocaleString("en-IN")})</span>`;
         } else if (userRank <= Math.round(cutoff * 1.15)) {
@@ -990,7 +990,7 @@
         renderExplorer();
         runMockAllotmentSimulation();
         const stateMsg = (appState.state && appState.state !== "ALL") ? `in ${appState.state}` : "across All States";
-        showToast(`💳 Auto-filled top ${appState.priorityList.length} Payment / Management Quota options ${stateMsg} by priority!`, "💳");
+        showToast(`Auto-filled top ${appState.priorityList.length} Payment / Management Quota options ${stateMsg} by priority!`, "📋");
         return;
       }
 
@@ -1023,7 +1023,7 @@
         renderExplorer();
         runMockAllotmentSimulation();
         const stateMsg = (appState.state && appState.state !== "ALL") ? `in ${appState.state}` : "across All States";
-        showToast(`💳 Auto-filled top ${appState.priorityList.length} Payment / Management Quota options ${stateMsg} by priority!`, "💳");
+        showToast(`Auto-filled top ${appState.priorityList.length} Payment / Management Quota options ${stateMsg} by priority!`, "📋");
         return;
       }
 

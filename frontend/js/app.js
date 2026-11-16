@@ -3113,7 +3113,7 @@
               viteee: "VITEEE",
               srmjeee: "SRMJEEE",
               met: "MET",
-              payment: "💳 Payment Seat"
+              payment: "Payment Seat"
             };
             hint.textContent = labels[code] || code.toUpperCase();
           }
