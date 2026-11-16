@@ -28,51 +28,26 @@ const userSchema = new mongoose.Schema(
       type: String,
     },
     profile: {
-      fullName: {
-        type: String,
-        default: "Student Bridge",
-      },
-      email: {
-        type: String,
-      },
-      avatarUrl: {
-        type: String, // Base64 data URL or image URL for student profile picture
-        default: "",
-      },
-      phone: {
-        type: String,
-        default: "",
-      },
-      gender: {
-        type: String,
-        default: "",
-      },
-      dob: {
-        type: String,
-        default: "",
-      },
-      whatsapp: {
-        type: String,
-        default: "",
-      },
-      experience: {
-        type: String,
-        default: "Fresher",
-      },
-      emailVerified: {
-        type: Boolean,
-        default: true,
-      },
+      type: mongoose.Schema.Types.Mixed,
+      default: () => ({
+        fullName: "Student Bridge",
+        experience: "Fresher",
+        emailVerified: true
+      }),
     },
     prefs: {
-      exam: { type: String, default: "ap_cet" },
-      category: { type: String, default: "OC" },
-      region: { type: String, default: "ALL" },
-      branch: { type: String, default: "ALL" },
+      type: mongoose.Schema.Types.Mixed,
+      default: () => ({
+        exam: "ap_cet",
+        category: "OC",
+        region: "ALL",
+        branch: "ALL"
+      }),
     },
   },
   {
     timestamps: true,
+    strict: false,
   }
 );
 

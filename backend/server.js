@@ -7,7 +7,12 @@ const bcrypt = require("bcryptjs");
 const nodemailer = require("nodemailer");
 const { OAuth2Client } = require("google-auth-library");
 const { handleAiChatRequest } = require("./ai-counselor");
-require("dotenv").config();
+const rootEnv = path.resolve(__dirname, "..", ".env");
+if (fs.existsSync(rootEnv)) {
+  require("dotenv").config({ path: rootEnv });
+} else {
+  require("dotenv").config();
+}
 
 const app = express();
 
@@ -96,7 +101,7 @@ function persistUserData(email, userRecord) {
             updatedAt: new Date()
           }
         },
-        { upsert: true, new: true }
+        { upsert: true, returnDocument: 'after' }
       ).catch(mErr => console.warn("[MongoDB] Save error:", mErr.message));
     }
   } catch (err) {
@@ -218,6 +223,8 @@ app.get("/api/health", (req, res) => {
     collegesCount: colleges.length,
     districtsCount: districts.length,
     uptimeSeconds: Math.floor(process.uptime()),
+    mongoConnected: !!mongoConnected,
+    storage: mongoConnected ? "mongodb_atlas" : "json_fallback",
     timestamp: new Date().toISOString()
   });
 });
@@ -791,7 +798,7 @@ app.post("/api/profile/upload-avatar", async (req, res) => {
           await UserModel.findOneAndUpdate(
             { email: targetEmail },
             { $set: { "profile.avatarUrl": avatarUrl, updatedAt: new Date() } },
-            { upsert: true, new: true }
+            { upsert: true, returnDocument: 'after' }
           );
         } catch (mErr) {
           console.warn("[MongoDB] Failed to update avatar:", mErr.message);

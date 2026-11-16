@@ -3287,9 +3287,10 @@
 
       async function syncAiHistoryWithServer() {
         try {
+          const apiBase = (window.I2T_CONFIG && window.I2T_CONFIG.API_BASE) || "";
           const email = (typeof studentProfile !== "undefined" && studentProfile?.email) 
             || localStorage.getItem("bridge_user_email") || "guest";
-          await fetch("/api/ai/history", {
+          await fetch(apiBase + "/api/ai/history", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
@@ -3303,9 +3304,10 @@
 
       async function fetchServerAiHistory() {
         try {
+          const apiBase = (window.I2T_CONFIG && window.I2T_CONFIG.API_BASE) || "";
           const email = (typeof studentProfile !== "undefined" && studentProfile?.email) 
             || localStorage.getItem("bridge_user_email") || "guest";
-          const res = await fetch(`/api/ai/history?email=${encodeURIComponent(email)}`);
+          const res = await fetch(`${apiBase}/api/ai/history?email=${encodeURIComponent(email)}`);
           if (res.ok) {
             const data = await res.json();
             if (data && Array.isArray(data.sessions) && data.sessions.length > 0) {
@@ -4011,7 +4013,8 @@
 
         // 1. Primary path: Server /api/ai/chat endpoint (Live Gemini + Grounding)
         try {
-          const res = await fetch("/api/ai/chat", {
+          const apiBase = (window.I2T_CONFIG && window.I2T_CONFIG.API_BASE) || "";
+          const res = await fetch(apiBase + "/api/ai/chat", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
@@ -4383,10 +4386,11 @@ Student Profile Context:
           // 2. Persist to server backend dataset
           try {
             if (typeof saveCompleteStudentDataset === "function") saveCompleteStudentDataset();
-            if (window.X_CFG && window.X_CFG.API_BASE) {
+            const apiBase = (window.I2T_CONFIG && window.I2T_CONFIG.API_BASE) || (window.X_CFG && window.X_CFG.API_BASE) || "";
+            if (apiBase) {
               if (typeof xApi === "function") xApi("/api/profile", { profile: studentProfile, prefs: appState }).catch(() => {});
               if (studentProfile.email) {
-                fetch("/api/profile/save", {
+                fetch(apiBase + "/api/profile/save", {
                   method: "POST",
                   headers: { "Content-Type": "application/json" },
                   body: JSON.stringify({ email: studentProfile.email, profile: studentProfile, prefs: appState })
@@ -4694,10 +4698,11 @@ Student Profile Context:
           state: appState.state
         }));
 
-        if (window.X_CFG && window.X_CFG.API_BASE) {
-          xApi("/api/profile", { profile: studentProfile, prefs: fullDataset }).catch(() => {});
+        const apiBase = (window.I2T_CONFIG && window.I2T_CONFIG.API_BASE) || (window.X_CFG && window.X_CFG.API_BASE) || "";
+        if (apiBase) {
+          if (typeof xApi === "function") xApi("/api/profile", { profile: studentProfile, prefs: fullDataset }).catch(() => {});
           if (studentProfile.email) {
-            fetch("/api/profile/save", {
+            fetch(apiBase + "/api/profile/save", {
               method: "POST",
               headers: { "Content-Type": "application/json" },
               body: JSON.stringify({ email: studentProfile.email, profile: studentProfile, prefs: fullDataset })

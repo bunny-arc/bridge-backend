@@ -284,5 +284,43 @@
     },
     "createdAt": "2026-11-15T18:29:24.502Z",
     "updatedAt": "2026-11-15T18:29:24.520Z"
+  },
+  "atlas.verify.test@gmail.com": {
+    "email": "atlas.verify.test@gmail.com",
+    "createdAt": "2026-11-16T13:55:34.163Z",
+    "profile": {
+      "state": "Andhra Pradesh",
+      "region": "AU",
+      "district": "Visakhapatnam",
+      "targetBranch": "CSE",
+      "username": "AtlasTester",
+      "rank": 4250,
+      "category": "BC-B"
+    },
+    "prefs": {
+      "budget": 75000,
+      "selectedColleges": [
+        "AUCE",
+        "GVPCE"
+      ]
+    },
+    "username": "AtlasTester",
+    "updatedAt": "2026-11-16T13:55:34.163Z"
+  },
+  "test.student@bridge.dev": {
+    "email": "test.student@bridge.dev",
+    "phone": "9876543210",
+    "username": "VerifiedStudent",
+    "fullName": "VerifiedStudent",
+    "pwHash": "$2a$10$UFVZvUWBJI/3QTjL98Z.2.4WAK22oBwJkjJ2p6m2BFG0bKb0xvSX2",
+    "profile": {
+      "email": "test.student@bridge.dev",
+      "phone": "9876543210",
+      "username": "VerifiedStudent",
+      "fullName": "VerifiedStudent"
+    },
+    "prefs": {},
+    "updatedAt": "2026-11-16T13:57:38.063Z",
+    "createdAt": "2026-11-16T13:57:38.064Z"
   }
 }

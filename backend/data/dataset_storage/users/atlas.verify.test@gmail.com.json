@@ -1,0 +1,22 @@
+{
+  "email": "atlas.verify.test@gmail.com",
+  "createdAt": "2026-11-16T13:55:34.163Z",
+  "profile": {
+    "state": "Andhra Pradesh",
+    "region": "AU",
+    "district": "Visakhapatnam",
+    "targetBranch": "CSE",
+    "username": "AtlasTester",
+    "rank": 4250,
+    "category": "BC-B"
+  },
+  "prefs": {
+    "budget": 75000,
+    "selectedColleges": [
+      "AUCE",
+      "GVPCE"
+    ]
+  },
+  "username": "AtlasTester",
+  "updatedAt": "2026-11-16T13:55:34.163Z"
+}

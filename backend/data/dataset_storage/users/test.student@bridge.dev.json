@@ -1,0 +1,16 @@
+{
+  "email": "test.student@bridge.dev",
+  "phone": "9876543210",
+  "username": "VerifiedStudent",
+  "fullName": "VerifiedStudent",
+  "pwHash": "$2a$10$UFVZvUWBJI/3QTjL98Z.2.4WAK22oBwJkjJ2p6m2BFG0bKb0xvSX2",
+  "profile": {
+    "email": "test.student@bridge.dev",
+    "phone": "9876543210",
+    "username": "VerifiedStudent",
+    "fullName": "VerifiedStudent"
+  },
+  "prefs": {},
+  "updatedAt": "2026-11-16T13:57:38.063Z",
+  "createdAt": "2026-11-16T13:57:38.064Z"
+}
