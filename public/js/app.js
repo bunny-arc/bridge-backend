@@ -3693,7 +3693,7 @@
         if (/^(hey|hi|hello|hey there|hai|namaste|greetings)\b/i.test(q)) {
           return `
             <div class="space-y-2">
-              <div class="font-extrabold text-blue-600 text-sm">✨ Bridge AI • Powered by Gemini AI</div>
+              <div class="font-extrabold text-blue-600 text-sm flex items-center gap-1.5"><span>🤖</span> <span>Bridge AI • Powered by Gemini AI</span></div>
               <p class="text-slate-900 font-semibold text-sm">
                 Hey ${displayGreeting}! I am Bridge AI, how can I help you?
               </p>
@@ -3990,7 +3990,7 @@
         typingDiv.id = typingId;
         typingDiv.className = "flex justify-start";
         typingDiv.innerHTML = `<div class="bg-blue-50 border border-blue-200 text-blue-700 p-3 rounded-2xl rounded-tl-none text-xs flex items-center gap-2 shadow-xs">
-          <span class="animate-spin text-sm text-blue-600">✨</span>
+          <span class="animate-bounce inline-block text-sm">🤖</span>
           <span class="font-semibold text-slate-700">Bridge AI is reasoning with Gemini...</span>
         </div>`;
         msgBox?.appendChild(typingDiv);
