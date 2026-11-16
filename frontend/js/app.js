@@ -5817,71 +5817,241 @@ Student Profile Context:
         showToast("Account created! Please fill in your student profile details below.", "🎓");
       }, 250);
     }
+    // =========================================================================
+    // =========================================================================
+    // AUTHENTIC GOOGLE OAUTH 2.0 (GOOGLE IDENTITY SERVICES & TOKEN CLIENT)
+    // =========================================================================
+    const GOOGLE_CLIENT_ID = (window.I2T_CONFIG && window.I2T_CONFIG.GOOGLE_CLIENT_ID) || "347879525174-f5fkbf1qho1epabfifj1d6g03g4bl0fo.apps.googleusercontent.com";
+    let googleTokenClient = null;
+    let googleGsiInitialized = false;
+
     function xGoogleReady() {
       const apiBase = (window.I2T_CONFIG && window.I2T_CONFIG.API_BASE) || "";
-      ["google-login-btn", "signup-google-btn"].forEach(id => {
-        const container = document.getElementById(id);
-        if (container) {
-          container.replaceChildren();
-          container.setAttribute("aria-busy", "true");
-        }
-      });
-      fetch(apiBase + "/api/config")
-        .then(async response => {
-          const config = await response.json();
-          if (!response.ok || !config.googleClientId) {
-            throw new Error(config.error || "Google Sign-In is not configured on the server");
+
+      const setupGsiWithClientId = (clientId) => {
+        if (!clientId) return;
+
+        const initGsi = () => {
+          if (typeof window.google === "undefined" || !window.google.accounts || !window.google.accounts.id) {
+            setTimeout(initGsi, 150);
+            return;
           }
-          return config.googleClientId;
-        })
-        .then(clientId => {
-          const script = document.createElement("script");
-          script.src = "https://accounts.google.com/gsi/client";
-          script.async = true;
-          script.onload = () => {
+          if (googleGsiInitialized) return;
+          googleGsiInitialized = true;
+
+          try {
+            // 1. Initialize Google Identity Services ID Client
             window.google.accounts.id.initialize({
               client_id: clientId,
               callback: handleGoogleCredentialResponse,
               auto_select: false,
-              cancel_on_tap_outside: true
+              cancel_on_tap_outside: true,
+              context: "signin"
             });
-            ["google-login-btn", "signup-google-btn"].forEach(id => {
-              const container = document.getElementById(id);
-              if (!container) return;
-              container.removeAttribute("aria-busy");
-              window.google.accounts.id.renderButton(container, {
-                type: "icon",
-                shape: "circle",
+
+            // 2. Render Google Sign-In button in Slide 2 (Login)
+            const signinContainer = document.getElementById("google-signin-btn-container");
+            if (signinContainer) {
+              signinContainer.innerHTML = "";
+              window.google.accounts.id.renderButton(signinContainer, {
+                type: "standard",
+                shape: "pill",
                 theme: "outline",
-                size: "large"
+                text: "signin_with",
+                size: "large",
+                logo_alignment: "left",
+                width: 280
               });
-            });
-          };
-          script.onerror = () => {
-            ["google-login-btn", "signup-google-btn"].forEach(id => {
-              document.getElementById(id)?.removeAttribute("aria-busy");
-            });
-            showToast("Could not load Google Sign-In", "⚠️");
-          };
-          document.head.appendChild(script);
-        })
-        .catch(error => {
-          console.error("Google Sign-In initialization failed:", error);
-          ["google-login-btn", "signup-google-btn"].forEach(id => {
-            document.getElementById(id)?.removeAttribute("aria-busy");
-          });
-          showToast(error.message, "⚠️");
-        });
+            }
+
+            // 3. Render Google Sign-Up button in Slide 3 (Sign Up)
+            const signupContainer = document.getElementById("google-signup-btn-container");
+            if (signupContainer) {
+              signupContainer.innerHTML = "";
+              window.google.accounts.id.renderButton(signupContainer, {
+                type: "standard",
+                shape: "pill",
+                theme: "outline",
+                text: "signup_with",
+                size: "large",
+                logo_alignment: "left",
+                width: 280
+              });
+            }
+
+            // 4. Initialize OAuth2 Token Client for Custom Button / Icon Clicks
+            if (window.google.accounts.oauth2) {
+              googleTokenClient = window.google.accounts.oauth2.initTokenClient({
+                client_id: clientId,
+                scope: "email profile openid",
+                callback: async (tokenResponse) => {
+                  if (tokenResponse && tokenResponse.access_token) {
+                    await handleGoogleTokenResponse(tokenResponse.access_token);
+                  } else if (tokenResponse && tokenResponse.error) {
+                    console.warn("[Google OAuth] Popup closed or error:", tokenResponse.error);
+                  }
+                }
+              });
+            }
+
+            // 5. Wire Custom Google Round Icon Buttons
+            const bindTrigger = (btnId) => {
+              const btn = document.getElementById(btnId);
+              if (btn) {
+                btn.onclick = (e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  triggerGoogleLoginFlow();
+                };
+              }
+            };
+            bindTrigger("google-login-btn");
+            bindTrigger("signup-google-btn");
+
+            console.log("[Google OAuth 2.0] Fully initialized with client ID:", clientId);
+          } catch (e) {
+            console.error("[Google Identity Services Init Error]", e);
+          }
+        };
+
+        if (typeof window.google === "undefined" || !window.google.accounts) {
+          if (!document.querySelector('script[src*="accounts.google.com/gsi/client"]')) {
+            const script = document.createElement("script");
+            script.src = "https://accounts.google.com/gsi/client";
+            script.async = true;
+            script.defer = true;
+            script.onload = initGsi;
+            document.head.appendChild(script);
+          } else {
+            initGsi();
+          }
+        } else {
+          initGsi();
+        }
+      };
+
+      if (GOOGLE_CLIENT_ID) {
+        setupGsiWithClientId(GOOGLE_CLIENT_ID);
+      } else {
+        fetch(apiBase + "/api/config")
+          .then(res => res.json())
+          .then(cfg => {
+            if (cfg.googleClientId) setupGsiWithClientId(cfg.googleClientId);
+          })
+          .catch(err => console.warn("[Google Config]", err));
+      }
     }
 
+    // Trigger function for custom Google icon or button clicks
+    function triggerGoogleLoginFlow() {
+      if (googleTokenClient) {
+        // Official Google OAuth 2.0 popup
+        googleTokenClient.requestAccessToken({ prompt: "select_account" });
+      } else if (window.google && window.google.accounts && window.google.accounts.id) {
+        window.google.accounts.id.prompt();
+      } else {
+        showToast("Loading Google Sign-In...", "ℹ️");
+        xGoogleReady();
+      }
+    }
+
+    // Handler for Google Identity Services ID Token (JWT)
+    async function handleGoogleCredentialResponse(response) {
+      if (!response || !response.credential) return;
+      await processGoogleAuthPayload({ credential: response.credential });
+    }
+
+    // Handler for Google OAuth 2.0 Access Token
+    async function handleGoogleTokenResponse(accessToken) {
+      if (!accessToken) return;
+      await processGoogleAuthPayload({ accessToken: accessToken });
+    }
+
+    // Unified backend auth & user session processing
+    async function processGoogleAuthPayload(payload) {
+      const apiBase = (window.I2T_CONFIG && window.I2T_CONFIG.API_BASE) || "";
+      try {
+        showToast("Authenticating with Google...", "⏳");
+        const res = await fetch(apiBase + "/api/google", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload)
+        });
+
+        const data = await res.json();
+        if (!res.ok || !data.ok) {
+          throw new Error(data.error || "Google Sign-In failed on server");
+        }
+
+        // 1. Save authentication session
+        localStorage.setItem("bridge_token", data.token);
+        localStorage.setItem("bridge_user_email", data.email);
+        localStorage.setItem("bridge_last_user_email", data.email);
+        localStorage.setItem("bridge_user", JSON.stringify(data.user || data.profile || {}));
+        if (data.profile) {
+          localStorage.setItem("bridge_profile", JSON.stringify(data.profile));
+        }
+
+        // Update global studentProfile & session
+        if (typeof studentProfile !== "undefined") {
+          studentProfile.isLoggedIn = true;
+          Object.assign(studentProfile, data.profile || {}, {
+            email: data.email,
+            fullName: data.name || data.email,
+            googleConnected: true
+          });
+        }
+        if (typeof xLS !== "undefined") {
+          xLS.set("i2t_session_v9", {
+            token: data.token,
+            email: data.email,
+            profile: data.profile,
+            prefs: data.prefs,
+            googleConnected: true
+          });
+        }
+        if (typeof xRestore === "function") xRestore(data.profile || {}, data.prefs);
+        if (typeof applyAvatar === "function" && data.profile && data.profile.avatarUrl) {
+          applyAvatar(data.profile.avatarUrl);
+        }
+        if (typeof renderProfileView === "function") renderProfileView();
+        if (typeof updateStudentBannersAndSheetHeader === "function") updateStudentBannersAndSheetHeader();
+        if (typeof updateHeaderBadges === "function") updateHeaderBadges();
+
+        // 2. Hide auth modal overlay
+        const overlay = document.getElementById("auth-portal-overlay");
+        if (overlay) {
+          overlay.classList.add("hidden");
+        }
+
+        // 3. Show welcoming notification
+        if (data.existingAccount) {
+          showToast(`Welcome back, ${data.name || data.email}!`, "✅");
+        } else {
+          showToast(`Welcome to The Bridge, ${data.name || data.email}!`, "🎉");
+        }
+
+        // 4. Update navigation and switch to home view
+        if (typeof window.updateAppNavVisibility === "function") {
+          window.updateAppNavVisibility();
+        }
+        if (typeof switchMainView === "function") {
+          switchMainView("home");
+        }
+      } catch (err) {
+        console.error("[Google Auth Error]", err);
+        showToast("Google sign-in error: " + err.message, "⚠️");
+      }
+    }
     window.addEventListener("DOMContentLoaded", () => {
-      const fresh = id => { const e = xq(id), c = e.cloneNode(true); e.replaceWith(c); return c; };
+      const fresh = id => { const e = xq(id); if (!e) return { addEventListener: () => {} }; const c = e.cloneNode(true); e.replaceWith(c); return c; };
       xq("auth-tab-login")?.addEventListener("click", () => xSetMode("login"));
       xq("auth-tab-signup")?.addEventListener("click", () => xSetMode("signup"));
-      xq("auth-forgot-link")?.addEventListener("click", () => { xSetMode("forgot"); xq("fp-email").value = xq("login-email-input").value; });
+      xq("auth-forgot-link")?.addEventListener("click", () => { xSetMode("forgot"); const inp = xq("login-email-input"); if (inp && xq("fp-email")) xq("fp-email").value = inp.value; });
       xq("fp-back")?.addEventListener("click", () => xSetMode("login"));
       fresh("login-submit-btn").addEventListener("click", () => xMode === "signup" ? xSignup() : xLogin());
-      fresh("toggle-password-visibility").addEventListener("click", () => { const i = xq("login-password-input"); i.type = i.type === "password" ? "text" : "password"; });
+      fresh("toggle-password-visibility").addEventListener("click", () => { const i = xq("login-password-input"); if (i) i.type = i.type === "password" ? "text" : "password"; });
+      
       // Initialize Custom Radio Dropdowns (Pic 1 Style with White Theme)
       setupCustomRadioDropdowns();
 
@@ -5892,314 +6062,12 @@ Student Profile Context:
       setupProfileAvatarControls();
       setupLocationDetection();
       setupDatasetExport();
-      if (studentProfile.avatarUrl) {
+      if (typeof studentProfile !== "undefined" && studentProfile?.avatarUrl) {
         applyAvatar(studentProfile.avatarUrl);
       }
 
-      // =========================================================================
-      // GOOGLE OAUTH 2.0 WORKFLOW: POPUP CONSENT, AUTO-ACCOUNT CREATION & REDIRECT
-      // =========================================================================
-      function initGoogleOAuthWorkflow() {
-        const modal = document.getElementById("google-oauth-consent-modal");
-        if (!modal) return;
-
-        const closeBtn = document.getElementById("google-consent-close-btn");
-        const cancelBtn = document.getElementById("google-consent-cancel-btn");
-        const allowBtn = document.getElementById("google-consent-allow-btn");
-        const allowLabel = document.getElementById("google-consent-allow-label");
-        const switchAccBtn = document.getElementById("google-switch-account-btn");
-        const customBox = document.getElementById("google-custom-account-box");
-        const customInp = document.getElementById("google-custom-email-input");
-        const nameEl = document.getElementById("google-consent-name");
-        const emailEl = document.getElementById("google-consent-email");
-        const charEl = document.getElementById("google-consent-avatar-char");
-
-        function closeOAuthModal() {
-          modal.classList.add("hidden");
-          if (allowBtn) {
-            allowBtn.disabled = false;
-            allowBtn.classList.remove("opacity-70", "pointer-events-none");
-            if (allowLabel) allowLabel.textContent = "Allow & Continue";
-          }
-        }
-
-        window.openGoogleOAuthModal = function(preferredEmail, preferredName) {
-          let email = (preferredEmail ||
-                      document.getElementById("google-custom-email-input")?.value ||
-                      document.getElementById("login-email-input")?.value ||
-                      document.getElementById("signup-email-input")?.value || "").trim();
-          
-          let name = (preferredName ||
-                     (email ? email.split("@")[0].replace(/[._-]/g, " ").replace(/\b\w/g, c => c.toUpperCase()) : "Google User")).trim();
-
-          if (customInp) {
-            customInp.value = email;
-            setTimeout(() => { customInp.focus(); }, 150);
-          }
-
-          if (email) {
-            if (nameEl) nameEl.textContent = name;
-            if (emailEl) emailEl.textContent = email;
-            if (charEl) charEl.textContent = (name.charAt(0) || email.charAt(0) || "G").toUpperCase();
-            modal.dataset.currentEmail = email;
-            modal.dataset.currentName = name;
-          } else {
-            if (nameEl) nameEl.textContent = "Your Google Account";
-            if (emailEl) emailEl.textContent = "Enter your Google email above";
-            if (charEl) charEl.textContent = "G";
-            delete modal.dataset.currentEmail;
-            delete modal.dataset.currentName;
-          }
-
-          modal.classList.remove("hidden");
-        };
-
-        closeBtn?.addEventListener("click", closeOAuthModal);
-        cancelBtn?.addEventListener("click", closeOAuthModal);
-        modal.addEventListener("click", (e) => {
-          if (e.target === modal) closeOAuthModal();
-        });
-
-        switchAccBtn?.addEventListener("click", () => {
-          if (customBox) {
-            customBox.classList.toggle("hidden");
-            if (!customBox.classList.contains("hidden") && customInp) {
-              customInp.focus();
-              customInp.select();
-            }
-          }
-        });
-
-        customInp?.addEventListener("input", (e) => {
-          const val = (e.target.value || "").trim();
-          if (val) {
-            const email = val;
-            const name = val.split("@")[0].replace(/[._-]/g, " ").replace(/\b\w/g, c => c.toUpperCase()) || "Google Student";
-            if (nameEl) nameEl.textContent = name;
-            if (emailEl) emailEl.textContent = email;
-            if (charEl) charEl.textContent = (name.charAt(0) || "G").toUpperCase();
-            modal.dataset.currentEmail = email;
-            modal.dataset.currentName = name;
-          }
-        });
-
-        allowBtn?.addEventListener("click", async () => {
-          const email = (document.getElementById("google-custom-email-input")?.value || modal.dataset.currentEmail || "").trim().toLowerCase();
-          if (!email || !email.includes("@")) {
-            showToast("Please enter a valid Google / Gmail address", "⚠️");
-            document.getElementById("google-custom-email-input")?.focus();
-            return;
-          }
-          const name = (modal.dataset.currentName || nameEl?.textContent || email.split("@")[0]).trim();
-          const avatar = "";
-          const googleId = "google_sub_" + Math.abs([...email].reduce((acc, c) => ((acc << 5) - acc) + c.charCodeAt(0), 0));
-
-          allowBtn.disabled = true;
-          allowBtn.classList.add("opacity-70", "pointer-events-none");
-          if (allowLabel) {
-            allowLabel.innerHTML = `<span class="inline-flex items-center gap-2"><svg class="animate-spin w-3.5 h-3.5 text-white" viewBox="0 0 24 24" fill="none"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"></path></svg> Authenticating with Google...</span>`;
-          }
-
-          try {
-            let d = null;
-            if (window.X_CFG && window.X_CFG.API_BASE) {
-              d = await xApi("/api/google", { email, name, avatar, googleId });
-            } else {
-              const u = typeof xUsers === "function" ? xUsers() : {};
-              let user = u[email];
-              const isExisting = !!user;
-              if (!user) {
-                user = {
-                  email,
-                  username: email.split("@")[0],
-                  googleConnected: true,
-                  googleId,
-                  profile: { fullName: name, email, phone: "", username: email.split("@")[0], avatarUrl: avatar },
-                  prefs: { exam: "ap_cet", category: "OC", region: "ALL", branch: "ALL" },
-                  createdAt: new Date().toISOString()
-                };
-                u[email] = user;
-                if (typeof xLS !== "undefined") xLS.set("i2t_users_v9", u);
-              } else {
-                user.googleConnected = true;
-                if (avatar && user.profile) user.profile.avatarUrl = avatar;
-                u[email] = user;
-                if (typeof xLS !== "undefined") xLS.set("i2t_users_v9", u);
-              }
-              d = {
-                ok: true,
-                token: "jwt_google_" + Date.now(),
-                email,
-                name: user.profile?.fullName || name,
-                existingAccount: isExisting,
-                profile: user.profile,
-                prefs: user.prefs
-              };
-            }
-
-            if (!d || !d.ok) {
-              throw new Error((d && d.error) || "Google authentication failed");
-            }
-
-            const token = d.token || ("token_" + Date.now());
-            const fullProfile = Object.assign({}, d.profile || {}, {
-              fullName: d.name || name,
-              email: d.email || email,
-              username: (d.profile && d.profile.username) || email.split("@")[0],
-              avatarUrl: (d.profile && d.profile.avatarUrl) || avatar,
-              isLoggedIn: true
-            });
-
-            studentProfile.isLoggedIn = true;
-            Object.assign(studentProfile, fullProfile);
-
-            const sessionData = {
-              token: token,
-              email: fullProfile.email,
-              username: fullProfile.username,
-              profile: fullProfile,
-              prefs: d.prefs || {}
-            };
-
-            if (typeof xLS !== "undefined") xLS.set("i2t_session_v9", sessionData);
-            localStorage.setItem("bridge_token", token);
-            localStorage.setItem("bridge_user_email", fullProfile.email);
-            localStorage.setItem("bridge_last_user_email", fullProfile.email);
-            localStorage.setItem("bridge_profile", JSON.stringify(fullProfile));
-            localStorage.setItem("i2t_profile_v9", JSON.stringify(fullProfile));
-
-            if (typeof xRestore === "function") xRestore(fullProfile, d.prefs);
-            if (typeof applyAvatar === "function" && fullProfile.avatarUrl) applyAvatar(fullProfile.avatarUrl);
-            if (typeof renderProfileView === "function") renderProfileView();
-            if (typeof updateStudentBannersAndSheetHeader === "function") updateStudentBannersAndSheetHeader();
-            if (typeof updateHeaderBadges === "function") updateHeaderBadges();
-            if (typeof saveCompleteStudentDataset === "function") saveCompleteStudentDataset();
-
-            closeOAuthModal();
-            const authOverlay = document.getElementById("auth-portal-overlay");
-            if (authOverlay) authOverlay.classList.add("hidden");
-            const pickerBox = document.getElementById("google-account-picker");
-            if (pickerBox) pickerBox.classList.add("hidden");
-
-            if (typeof window.updateAppNavVisibility === "function") {
-              window.updateAppNavVisibility();
-            }
-
-            if (typeof switchMainView === "function") {
-              switchMainView("home");
-            }
-            window.scrollTo({ top: 0, behavior: "smooth" });
-
-            if (d.existingAccount) {
-              showToast(`Welcome back, ${fullProfile.fullName}! Google account connected.`, "✅");
-            } else {
-              showToast(`Google account created! Welcome to The Bridge, ${fullProfile.fullName}!`, "🎉");
-            }
-
-          } catch (err) {
-            console.error("[Google OAuth Error]", err);
-            showToast(err.message || "Google sign-in encountered an issue. Please try again.", "⚠️");
-            allowBtn.disabled = false;
-            allowBtn.classList.remove("opacity-70", "pointer-events-none");
-            if (allowLabel) allowLabel.textContent = "Allow & Continue";
-          }
-        });
-
-        // Trigger Button: Pic 1 Connect & Sign In with Google button (#google-connect-submit-btn)
-        const gConnectBtn = document.getElementById("google-connect-submit-btn");
-        if (gConnectBtn) {
-          gConnectBtn.onclick = (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            const em = (document.getElementById("google-email-input")?.value || "").trim();
-            const nm = (document.getElementById("google-name-input")?.value || "").trim();
-            window.openGoogleOAuthModal(em, nm);
-          };
-        }
-
-        
-
-        // Trigger Button: Google Sign-in button (#google-login-btn)
-        const gLoginBtn = document.getElementById("google-login-btn");
-        if (gLoginBtn) {
-          gLoginBtn.onclick = (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            const em = (document.getElementById("login-email-input")?.value || "").trim();
-            window.openGoogleOAuthModal(em);
-          };
-        }
-
-        // Trigger Button: Google Signup button (#signup-google-btn)
-        const gSignupBtn = document.getElementById("signup-google-btn");
-        if (gSignupBtn) {
-          gSignupBtn.onclick = (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            const em = (document.getElementById("signup-email-input")?.value || "").trim();
-            const nm = (document.getElementById("signup-name-input")?.value || "").trim();
-            window.openGoogleOAuthModal(em, nm);
-          };
-        }
-      }
-
-
-// Handler executed when user selects their Google account
-async function handleGoogleCredentialResponse(response) {
-  try {
-    const idToken = response.credential; // Cryptographic JWT from Google
-
-    // Send token to backend API for verification and account creation
-    const res = await fetch(((window.I2T_CONFIG && window.I2T_CONFIG.API_BASE) || "") + "/api/google", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ credential: idToken })
-    });
-
-    const data = await res.json();
-    if (!res.ok || !data.ok) {
-      throw new Error(data.error || "Google Sign-In failed on server");
-    }
-
-    // 1. Save authentication session
-    localStorage.setItem("bridge_token", data.token);
-    localStorage.setItem("bridge_user_email", data.email);
-    localStorage.setItem("bridge_profile", JSON.stringify(data.profile));
-
-    // Update global studentProfile & session if defined
-    if (typeof studentProfile !== "undefined") {
-      studentProfile.isLoggedIn = true;
-      Object.assign(studentProfile, data.profile || {}, { email: data.email, fullName: data.name || data.email });
-    }
-    if (typeof xLS !== "undefined") {
-      xLS.set("i2t_session_v9", { token: data.token, email: data.email, profile: data.profile, prefs: data.prefs });
-    }
-    if (typeof xRestore === "function") xRestore(data.profile || {}, data.prefs);
-    if (typeof renderProfileView === "function") renderProfileView();
-    if (typeof updateStudentBannersAndSheetHeader === "function") updateStudentBannersAndSheetHeader();
-    if (typeof updateHeaderBadges === "function") updateHeaderBadges();
-
-    // 2. Close login modal/overlay
-    document.getElementById("auth-portal-overlay")?.classList.add("hidden");
-
-    // 3. Show welcoming notification
-    if (data.existingAccount) {
-      showToast(`Welcome back, ${data.name || data.email}!`, "✅");
-    } else {
-      showToast(`Account created! Welcome to The Bridge, ${data.name || data.email}!`, "🎉");
-    }
-
-    // 4. Redirect to Main Dashboard / Home
-    if (typeof switchMainView === "function") {
-      switchMainView("home");
-    }
-  } catch (err) {
-    console.error("Google Auth Error:", err);
-    alert("Google authentication failed: " + err.message);
-  }
-}
-
-xGoogleReady();
+      // Initialize authentic Google Identity Services
+      xGoogleReady();
 
       fresh("proceed-to-student-details-btn").addEventListener("click", async () => {
         if (!studentProfile.emailVerified || !studentProfile.phoneVerified) return showToast("Verify both email and mobile OTP first", "⚠️");

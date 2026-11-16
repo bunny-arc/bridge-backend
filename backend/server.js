@@ -484,8 +484,10 @@ app.get("/api/config", (req, res) => {
 // 6. Google Sign-In & Account Connection (Google OAuth verification & Auto-Account Creation)
 app.post("/api/google", async (req, res) => {
   const credential = typeof req.body?.credential === "string" ? req.body.credential.trim() : "";
-  if (!credential) {
-    return res.status(400).json({ ok: false, error: "Google credential is required" });
+  const accessToken = typeof req.body?.accessToken === "string" ? req.body.accessToken.trim() : "";
+
+  if (!credential && !accessToken) {
+    return res.status(400).json({ ok: false, error: "Google credential or access token is required" });
   }
   if (!GOOGLE_CLIENT_ID) {
     return res.status(503).json({ ok: false, error: "Google Sign-In is not configured on the server" });
@@ -493,18 +495,30 @@ app.post("/api/google", async (req, res) => {
 
   let payload;
   try {
-    const ticket = await googleClient.verifyIdToken({
-      idToken: credential,
-      audience: GOOGLE_CLIENT_ID,
-    });
-    payload = ticket.getPayload();
+    if (credential) {
+      // Flow 1: Google Identity Services ID Token (JWT)
+      const ticket = await googleClient.verifyIdToken({
+        idToken: credential,
+        audience: GOOGLE_CLIENT_ID,
+      });
+      payload = ticket.getPayload();
+    } else {
+      // Flow 2: Google OAuth 2.0 Access Token
+      const resp = await fetch("https://www.googleapis.com/oauth2/v3/userinfo", {
+        headers: { Authorization: `Bearer ${accessToken}` }
+      });
+      if (!resp.ok) {
+        throw new Error(`Google UserInfo API returned status ${resp.status}`);
+      }
+      payload = await resp.json();
+    }
   } catch (err) {
     console.warn("[Google Auth] Credential verification failed:", err.message);
-    return res.status(401).json({ ok: false, error: "Google credential is invalid or expired" });
+    return res.status(401).json({ ok: false, error: "Google credential is invalid or expired: " + err.message });
   }
 
-  if (!payload?.sub || !payload.email || payload.email_verified !== true) {
-    return res.status(401).json({ ok: false, error: "Google did not provide a verified account" });
+  if (!payload?.sub || !payload.email || (payload.email_verified !== true && payload.email_verified !== "true")) {
+    return res.status(401).json({ ok: false, error: "Google did not provide a verified email account" });
   }
 
   const email = payload.email.toLowerCase().trim();
@@ -518,7 +532,7 @@ app.post("/api/google", async (req, res) => {
     const isExisting = Boolean(user);
 
     if (!isExisting) {
-      // REQUIREMENT 3: Automatically create new user account
+      // Automatically create new user account with student defaults
       user = {
         email,
         username: email.split("@")[0],
@@ -544,7 +558,7 @@ app.post("/api/google", async (req, res) => {
       users[email] = user;
       console.log(`[Google Auth] Created NEW account: ${email} (${name})`);
     } else {
-      // REQUIREMENT 3: Existing user - Log in directly & link Google info
+      // Existing user - Log in directly & link Google credentials
       user.googleConnected = true;
       user.googleId = googleId;
       if (!user.profile) user.profile = {};
@@ -555,9 +569,23 @@ app.post("/api/google", async (req, res) => {
       console.log(`[Google Auth] Logged in EXISTING account: ${email}`);
     }
 
-    // Save changes to database
+    // Save changes to database and disk cache
     writeJsonSafe(USERS_FILE, users);
     persistUserData(email, user);
+
+    // Persist to MongoDB Atlas if connected
+    if (mongoConnected && UserModel) {
+      try {
+        await UserModel.findOneAndUpdate(
+          { email },
+          { $set: user },
+          { upsert: true, returnDocument: 'after' }
+        );
+        console.log(`[Google Auth] Successfully persisted user ${email} to MongoDB Atlas`);
+      } catch (mErr) {
+        console.warn("[MongoDB] Error upserting Google user in Atlas:", mErr.message);
+      }
+    }
 
     // Generate application session JWT
     const token = jwt.sign(
@@ -566,7 +594,7 @@ app.post("/api/google", async (req, res) => {
       { expiresIn: "30d" }
     );
 
-    // REQUIREMENT 4: Return authenticated session data
+    // Return authenticated session data
     return res.status(200).json({
       ok: true,
       token,
@@ -575,7 +603,14 @@ app.post("/api/google", async (req, res) => {
       googleConnected: true,
       existingAccount: isExisting,
       profile: user.profile || null,
-      prefs: user.prefs || null
+      prefs: user.prefs || null,
+      user: {
+        email: user.email,
+        username: user.username,
+        profile: user.profile,
+        prefs: user.prefs,
+        googleConnected: true
+      }
     });
   } catch (err) {
     console.error("[Google Auth Error]:", err);
