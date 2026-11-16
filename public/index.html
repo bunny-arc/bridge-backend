@@ -13,6 +13,7 @@
   <script src="js/config.js"></script>
   <title>The Bridge - AP CET & National B.Tech College, Priority Web Options & Counseling Checklist</title>
   <link rel="icon" type="image/jpeg" href="logo.jpg">
+  <link rel="manifest" href="manifest.json">
   <script src="https://cdn.tailwindcss.com/3.4.17"></script>
   <script src="all_colleges_dataset.js"></script>
   <script>
@@ -3656,5 +3657,14 @@
   <script src="js/colleges-data.js"></script>
   <script src="js/counseling.js"></script>
   <script src="js/app.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function() {
+        navigator.serviceWorker.register('/sw.js')
+          .then(function(reg) { console.log('The Bridge Service Worker registered:', reg.scope); })
+          .catch(function(err) { console.log('Service Worker skipped:', err); });
+      });
+    }
+  </script>
 </body>
 </html>

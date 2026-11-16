@@ -67,3 +67,12 @@ node_modules/
 
 # dataconnect generated files
 .dataconnect
+
+# Avoid duplicate heavy images in frontend (served via public/college_images)
+frontend/college_images/
+
+# IDE and agent metadata
+.agents/
+.claude/
+.vscode/
+skills-lock.json
