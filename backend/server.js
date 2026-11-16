@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const path = require("path");
 const fs = require("fs");
+const BASE_BACKEND = fs.existsSync(path.join(__dirname, "backend", "data")) ? path.join(__dirname, "backend") : __dirname;
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const nodemailer = require("nodemailer");
@@ -27,7 +28,7 @@ try {
         mongoConnected = true;
         console.log("[MongoDB] Connected to database successfully");
         try {
-          UserModel = require("./models/User");
+          UserModel = require(path.join(BASE_BACKEND, "models", "User"));
         } catch (mErr) {
           console.warn("[MongoDB] Could not load User model:", mErr.message);
         }
@@ -41,7 +42,7 @@ try {
 }
 const PORT = process.env.PORT || 3000;
 const JWT_SECRET = process.env.JWT_SECRET || "i2t_jwt_secret_super_secure_key_2025_2026";
-const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID || "";
+const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID || "347879525174-f5fkbf1qho1epabfifj1d6g03g4bl0fo.apps.googleusercontent.com";
 const googleClient = new OAuth2Client(GOOGLE_CLIENT_ID);
 const DEV_FALLBACK_OTP = process.env.DEV_FALLBACK_OTP !== "false"; // default true for seamless local testing
 
@@ -51,7 +52,7 @@ app.use(express.json({ limit: "500mb" }));
 app.use(express.urlencoded({ extended: true, limit: "500mb" }));
 
 // Paths
-const DATA_DIR = path.join(__dirname, "data");
+const DATA_DIR = path.join(BASE_BACKEND, "data");
 const USERS_FILE = path.join(DATA_DIR, "users.json");
 const HISTORY_FILE = path.join(DATA_DIR, "history.json");
 const COLLEGES_FILE = path.join(DATA_DIR, "colleges.json");
@@ -594,6 +595,62 @@ app.post("/api/google", async (req, res) => {
       { expiresIn: "30d" }
     );
 
+    // Send Welcome & Registration Confirmation Email with Direct Priority List Link
+    try {
+      if (mailTransporter && typeof mailTransporter.sendMail === "function") {
+        const candidateName = user.profile?.fullName || name || "Student";
+        const emailSubject = `🎓 Welcome to The Bridge! Your Registration is Confirmed`;
+        const emailHtml = `
+          <div style="font-family: Arial, sans-serif; max-width: 620px; margin: 0 auto; border: 1px solid #e2e8f0; border-radius: 14px; overflow: hidden; background-color: #ffffff;">
+            <div style="background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%); padding: 30px 24px; text-align: center; color: white;">
+              <h1 style="margin: 0; font-size: 24px; font-weight: 800;">The Bridge</h1>
+              <p style="margin: 6px 0 0; font-size: 13px; color: #93c5fd;">Bridge to the B.Tech • AP CET & National B.Tech Counseling</p>
+            </div>
+            <div style="padding: 28px 24px;">
+              <div style="display: inline-block; background-color: #dcfce7; color: #15803d; font-size: 11px; font-weight: bold; padding: 4px 10px; border-radius: 9999px; margin-bottom: 14px;">
+                ✓ Registration Confirmed
+              </div>
+              <h2 style="margin: 0 0 10px; font-size: 20px; color: #0f172a;">Welcome, ${candidateName}!</h2>
+              <p style="margin: 0 0 18px; font-size: 14px; line-height: 1.6; color: #475569;">
+                Your account on <strong>The Bridge</strong> has been successfully registered and linked with your Google Account (<strong>${email}</strong>).
+              </p>
+              <div style="background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 20px; margin: 20px 0; text-align: center;">
+                <h3 style="margin: 0 0 6px; font-size: 15px; color: #1e293b;">📋 Direct Access to Your Priority Web Options</h3>
+                <p style="margin: 0 0 16px; font-size: 13px; color: #64748b;">
+                  Plan your counseling choices across 658 colleges, evaluate cutoffs, and share your PDF priority sheet directly to your email.
+                </p>
+                <a href="https://birdge-to-btech.web.app/?tab=priority" style="display: inline-block; background-color: #2563eb; color: #ffffff; text-decoration: none; font-weight: 700; font-size: 13px; padding: 12px 24px; border-radius: 8px;">
+                  Open Priority Web Options →
+                </a>
+                <div style="margin-top: 8px; font-size: 11px; color: #94a3b8;">
+                  Custom Domain: <a href="https://bridgetothebtech.com/?tab=priority" style="color: #2563eb;">bridgetothebtech.com/?tab=priority</a>
+                </div>
+              </div>
+              <p style="margin: 0; font-size: 12px; color: #64748b; line-height: 1.5;">
+                💡 <em>Tip: You can reorder choices anytime by cutoff ranks and click "Send PDF to Email" inside your Priority tab to share your official list directly to your inbox.</em>
+              </p>
+            </div>
+            <div style="background-color: #f1f5f9; padding: 14px; text-align: center; font-size: 11px; color: #94a3b8;">
+              The Bridge • Verified AP CET & National B.Tech Counseling Platform
+            </div>
+          </div>
+        `;
+
+        mailTransporter.sendMail({
+          from: process.env.EMAIL_FROM || '"The Bridge" <athotasridharchakravarthy@gmail.com>',
+          to: email,
+          subject: emailSubject,
+          html: emailHtml
+        }).then(() => {
+          console.log(`[Google Auth] Registration confirmation email sent to ${email}`);
+        }).catch(mErr => {
+          console.warn(`[Google Auth] Mailer notice: ${mErr.message}`);
+        });
+      }
+    } catch (e) {
+      console.warn("[Google Auth Mail Error]", e.message);
+    }
+
     // Return authenticated session data
     return res.status(200).json({
       ok: true,
@@ -916,7 +973,7 @@ app.post("/api/history", authenticateToken, (req, res) => {
 // 11. Send Priority List Email
 app.post("/api/send-priority", async (req, res) => {
   try {
-    const { to, cc, name, exam, rank, category, lines } = req.body;
+    const { to, cc, name, exam, rank, category, lines, pdfBase64 } = req.body;
     if (!to || !Array.isArray(lines) || lines.length === 0) {
       return res.status(400).json({ error: "Recipient email and prioritized options are required" });
     }
@@ -991,11 +1048,22 @@ app.post("/api/send-priority", async (req, res) => {
       </div>
     `;
 
+    const attachments = [];
+    if (pdfBase64 && typeof pdfBase64 === "string") {
+      const cleanB64 = pdfBase64.replace(/^data:application\/pdf;base64,/, "");
+      attachments.push({
+        filename: `The_Bridge_Priority_Options_${name ? name.replace(/\s+/g, "_") : "Student"}.pdf`,
+        content: cleanB64,
+        encoding: "base64"
+      });
+    }
+
     await mailTransporter.sendMail({
       from: process.env.EMAIL_FROM || '"The Bridge Counseling" <no-reply@thebridge.in>',
       to,
       cc: cc || undefined,
       subject: `Your Priority Web Options Sheet (${lines.length} Choices) - The Bridge`,
+      attachments: attachments.length > 0 ? attachments : undefined,
       text: `Hello ${name || "Student"},\n\nAttached is your The Bridge Web Options Priority Sheet with ${lines.length} choices for ${examTitle}.\n\nCandidate: ${name}\nRank: ${rank}\nCategory: ${category}\n\nChoices:\n${lines.join("\n")}\n\nBest wishes for your counseling allotment!`,
       html: emailHtml
     });

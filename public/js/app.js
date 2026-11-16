@@ -2975,6 +2975,11 @@
           smartAutoFillPriority();
         }
         updateStudentBannersAndSheetHeader();
+        const dispatchInput = document.getElementById("dispatch-to-email");
+        if (dispatchInput) {
+          const userEmail = (studentProfile && studentProfile.email) || localStorage.getItem("bridge_user_email") || "";
+          if (userEmail) dispatchInput.value = userEmail;
+        }
         document.getElementById("email-dispatch-success-box").classList.add("hidden");
         document.getElementById("email-pdf-modal").classList.remove("hidden");
       }
@@ -5958,6 +5963,8 @@ Student Profile Context:
         // 1. Save authentication session
         localStorage.setItem("bridge_token", data.token);
         localStorage.setItem("bridge_user_email", data.email);
+        const dispatchInput = document.getElementById("dispatch-to-email");
+        if (dispatchInput) dispatchInput.value = data.email;
         localStorage.setItem("bridge_last_user_email", data.email);
         localStorage.setItem("bridge_user", JSON.stringify(data.user || data.profile || {}));
         if (data.profile) {
