@@ -1,5 +1,22 @@
 // 3. STATE MANAGEMENT & RESERVATION MULTIPLIERS
     // =========================================================================
+    function getCollegeCardLocation(c) {
+      if (typeof window !== "undefined" && typeof window.getCollegeCardLocation === "function") {
+        return window.getCollegeCardLocation(c);
+      }
+      if (!c) return "Andhra Pradesh";
+      if (c.location && typeof c.location === "string" && c.location.trim().length > 0 && c.location.trim() !== "India") {
+        return c.location.trim();
+      }
+      if (c.city && c.state) return `${c.city}, ${c.state}`;
+      if (c.district && c.state) return `${c.district}, ${c.state}`;
+      if (c.district && c.district.trim().length > 0 && c.district !== "All 26 AP Districts") return `${c.district}, AP`;
+      if (c.city && c.city.trim().length > 0) return `${c.city}`;
+      if (c.state && c.state.trim().length > 0 && c.state !== "ALL") return `${c.state}`;
+      if (c.region && c.region !== "National" && c.region !== "ALL") return `${c.region} Region, AP`;
+      return "Andhra Pradesh";
+    }
+
     const categoryMultipliers = {
       OC: 1.0,
       EWS: 1.18,
@@ -577,7 +594,7 @@
         if (qualifyingBranches.length > 0 || borderlineBranches.length > 0) {
           const greenPills = qualifyingBranches.map(b => {
             const inPriority = appState.priorityList.some(p => p.collegeId === college.id && p.branchCode === b.code);
-            return `<button type="button" data-action="quick-add-branch" data-college-id="${college.id}" data-branch-code="${b.code}"
+            return `<button type="button" data-action="quick-add-branch" data-college-id="${college.id}" data-branch-code="${b.code}" onclick="event.stopPropagation();"
               class="px-2 py-1 rounded-lg text-[11px] font-bold border transition flex items-center gap-1 cursor-pointer ${
                 inPriority
                   ? "bg-slate-900 hover:bg-rose-950 text-amber-300 hover:text-rose-200 border-slate-900 hover:border-rose-700"
@@ -590,7 +607,7 @@
 
           const amberPills = borderlineBranches.map(b => {
             const inPriority = appState.priorityList.some(p => p.collegeId === college.id && p.branchCode === b.code);
-            return `<button type="button" data-action="quick-add-branch" data-college-id="${college.id}" data-branch-code="${b.code}"
+            return `<button type="button" data-action="quick-add-branch" data-college-id="${college.id}" data-branch-code="${b.code}" onclick="event.stopPropagation();"
               class="px-2 py-1 rounded-lg text-[11px] font-bold border transition flex items-center gap-1 cursor-pointer ${
                 inPriority
                   ? "bg-slate-900 hover:bg-rose-950 text-amber-300 hover:text-rose-200 border-slate-900 hover:border-rose-700"
@@ -632,29 +649,32 @@
         }
 
         return `
-          <div class="college-card bg-white rounded-2xl border border-slate-200/90 shadow-sm hover:shadow-xl transition-all duration-200 flex flex-col justify-between overflow-hidden cursor-pointer group" data-action="open-modal" data-college-id="${college.id}">
+          <div class="college-card bg-white rounded-2xl border border-slate-200/90 shadow-sm hover:shadow-xl transition-all duration-200 flex flex-col justify-between overflow-hidden cursor-pointer group" onclick="if (typeof openCollegeDetailPage === 'function') openCollegeDetailPage('${college.id}')">
             <!-- Top Image Banner -->
-            <div class="relative h-56 sm:h-64 w-full overflow-hidden bg-slate-900 shrink-0 select-none">
+            <div class="relative h-56 sm:h-64 w-full overflow-hidden bg-slate-900 shrink-0 select-none cursor-pointer" onclick="if (typeof openCollegeDetailPage === 'function') openCollegeDetailPage('${college.id}')">
               <img src="${(typeof getCollegeImageUrl === 'function') ? getCollegeImageUrl(college) : ''}" alt="${college.name}" data-orig-src="${(typeof getCollegeImageUrl === 'function') ? getCollegeImageUrl(college) : ''}" data-fallback-step="0" class="w-full h-full object-cover transition-all duration-300 group-hover:scale-105" loading="lazy" onerror="window.handleCollegeImgError(this, '${college.code || college.id}');">
               <!-- Top Left Badges -->
               <div class="absolute top-2.5 left-2.5 flex items-center gap-1.5 flex-wrap z-10">
                 <span class="px-2 py-0.5 rounded-md text-[10px] font-extrabold uppercase backdrop-blur-md bg-black/70 text-white border border-white/20 shadow-sm">${college.code}</span>
                 <span class="px-2 py-0.5 rounded-md text-[10px] font-black backdrop-blur-md bg-black/60 text-amber-300 border border-amber-400/40 shadow-sm flex items-center gap-1">★ ${college.rating} <span class="text-white/80 font-semibold text-[9px]">(${college.grade})</span></span>
               </div>
-              <!-- Bottom Location & Package Overlay -->
+              <!-- Bottom Location & Package Overlay with Reliable Location -->
               <div class="absolute inset-x-0 bottom-0 p-2.5 bg-gradient-to-t from-black/85 via-black/40 to-transparent flex items-center justify-between text-white z-10 pointer-events-none">
-                <span class="text-[11px] font-semibold text-slate-200 truncate max-w-[65%]">📍 ${college.district || college.region}</span>
-                <span class="text-[11px] font-black text-amber-300 bg-amber-400/20 px-1.5 py-0.5 rounded border border-amber-400/40">${college.placements?.medianPackage || college.placements?.medianSalary || (college.placements?.numMedianPkg ? '₹' + college.placements.numMedianPkg + ' LPA' : '₹4.5 LPA')}</span>
+                <span class="text-[11px] font-bold text-slate-100 flex items-center gap-1 truncate max-w-[65%]">
+                  <span>📍</span>
+                  <span>${getCollegeCardLocation(college)}</span>
+                </span>
+                <span class="text-[11px] font-black text-amber-300 bg-amber-400/20 px-1.5 py-0.5 rounded border border-amber-400/40 shadow-xs">${college.placements?.medianPackage || college.placements?.medianSalary || (college.placements?.numMedianPkg ? '₹' + college.placements.numMedianPkg + ' LPA' : '₹4.5 LPA')}</span>
               </div>
             </div>
             <div class="p-4 sm:p-5 flex-1 flex flex-col justify-between">
               <div class="flex items-center justify-between gap-2 mb-2">
                 <div class="flex items-center gap-1.5 flex-wrap">
                   <span class="text-[10px] font-extrabold uppercase px-2 py-0.5 rounded bg-blue-900 text-white tracking-wider">${college.code}</span>
-                  <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-slate-100 text-slate-700">${college.district || college.region}</span>
+                  <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-slate-100 text-slate-700">${getCollegeCardLocation(college)}</span>
                   <span class="text-[10px] font-bold px-2 py-0.5 rounded border ${ratingBadgeClass}">${college.rating} (${college.grade})</span>
                 </div>
-                <button type="button" data-action="toggle-shortlist" data-college-id="${college.id}"
+                <button type="button" data-action="toggle-shortlist" data-college-id="${college.id}" onclick="event.stopPropagation();"
                   class="text-xs px-2 py-1 rounded-lg border transition font-semibold ${
                     isShortlisted
                       ? "bg-amber-100 border-amber-300 text-amber-900"
@@ -664,13 +684,13 @@
                 </button>
               </div>
 
-              <h4 class="text-sm sm:text-base font-extrabold text-slate-900 leading-snug hover:text-blue-700 cursor-pointer" data-action="open-modal" data-college-id="${college.id}">
+              <h4 class="text-sm sm:text-base font-extrabold text-slate-900 leading-snug hover:text-blue-700 cursor-pointer" onclick="if (typeof openCollegeDetailPage === 'function') openCollegeDetailPage('${college.id}')">
                 ${college.name}
               </h4>
               <p class="text-[11px] text-slate-500 mt-0.5 flex items-center gap-1.5">
-                <span>📍 ${college.location}</span>
+                <span>📍 ${getCollegeCardLocation(college)}</span>
                 <span>•</span>
-                <span>Est. ${college.established}</span>
+                <span>Est. ${college.established || '2008'}</span>
               </p>
 
               <div class="grid grid-cols-3 gap-2 mt-3 p-2.5 rounded-xl bg-slate-50 border border-slate-100 text-center">
@@ -694,18 +714,18 @@
             </div>
 
             <div class="px-4 py-3 bg-slate-50/80 border-t border-slate-100 flex items-center justify-between gap-2">
-              <button type="button" data-action="open-modal" data-college-id="${college.id}"
-                class="text-xs font-bold text-blue-700 hover:text-blue-900 flex items-center gap-1">
+              <button type="button" onclick="if (typeof openCollegeDetailPage === 'function') openCollegeDetailPage('${college.id}')"
+                class="text-xs font-bold text-blue-700 hover:text-blue-900 flex items-center gap-1 cursor-pointer">
                 <span>Campus, Hostels & Food</span>
                 <span>→</span>
               </button>
               <div class="flex items-center gap-1.5">
-                <button type="button" data-action="open-roi-for-college" data-college-id="${college.id}"
-                  class="px-2.5 py-1.5 rounded-lg bg-indigo-50 hover:bg-indigo-100 text-indigo-800 font-bold text-[11px] transition" title="Calculate 4-Year ROI">
-                  🧮 ROI
+                <button type="button" data-action="open-roi-for-college" data-college-id="${college.id}" onclick="event.stopPropagation();"
+                  class="px-2.5 py-1.5 rounded-lg bg-indigo-50 hover:bg-indigo-100 text-indigo-800 font-bold text-[11px] transition cursor-pointer" title="Calculate 4-Year ROI">
+                  ROI
                 </button>
-                <button type="button" data-action="add-default-priority" data-college-id="${college.id}"
-                  class="px-3 py-1.5 rounded-lg bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs shadow-sm transition">
+                <button type="button" data-action="add-default-priority" data-college-id="${college.id}" onclick="event.stopPropagation();"
+                  class="px-3 py-1.5 rounded-lg bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs shadow-sm transition cursor-pointer">
                   + Add Priority
                 </button>
               </div>
@@ -828,9 +848,9 @@
               </div>
               <div class="min-w-0 flex-1">
                 <div class="flex items-center gap-2 flex-wrap">
-                  <span class="font-extrabold text-slate-900 text-sm">${college.name}</span>
+                  <span class="font-extrabold text-slate-900 text-sm hover:text-blue-700 cursor-pointer" onclick="if (typeof openCollegeDetailPage === 'function') openCollegeDetailPage('${college.id}')">${college.name}</span>
                   <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-blue-50 text-blue-800 border border-blue-200">${college.code}</span>
-                  <span class="text-[10px] font-semibold text-slate-500">${college.district || college.region} (${college.region})</span>
+                  <span class="text-[10px] font-semibold text-slate-500">${getCollegeCardLocation(college)}</span>
                 </div>
                 <div class="flex items-center gap-2 flex-wrap mt-1.5 text-xs">
                   <select data-action="change-priority-branch" data-index="${idx}" class="bg-slate-100 border border-slate-200 rounded-lg px-2 py-1 text-xs font-bold text-indigo-900 max-w-full">
@@ -1162,7 +1182,7 @@
       if (matches.length === 0) {
         sugContainer.innerHTML = `
           <div class="p-4 text-center text-xs text-slate-500 font-medium">
-            🔍 No colleges matching "<strong>${escapeHtml(filterQuery)}</strong>"<br>
+            No colleges matching "<strong>${escapeHtml(filterQuery)}</strong>"<br>
             <span class="text-[11px] text-slate-400">Try searching AUCE, BITS, VIT, Gayatri, or district name.</span>
           </div>
         `;
@@ -1390,7 +1410,7 @@
         annualTuitionBeforeWaiver = Math.round(baseTuition * tier.multiplier);
       } else if (quota === "jee") {
         quotaLabel = "JEE Main / Advanced National Merit Quota";
-        quotaBadge = "🏛️ JEE Central / National Merit Quota";
+        quotaBadge = "JEE Central / National Merit Quota";
         quotaHint = "National Central Merit Quota: Central JoSAA/IIT/NIT structure with fee remission slabs.";
         const isCentral = college.category === "Central" || (college.fees.numTuition && college.fees.numTuition > 100000);
         const jeeBase = isCentral ? (college.fees.numTuition || 150000) : Math.max(120000, Math.round(baseTuition * 1.6));

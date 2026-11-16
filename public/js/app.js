@@ -41,13 +41,39 @@
     // =========================================================================
     // 9. DEDICATED COLLEGE DETAIL PAGE (Referenced from demoooo for pagess.html)
     // =========================================================================
+    function getCollegeCardLocation(c) {
+      if (!c) return "Andhra Pradesh";
+      if (c.location && typeof c.location === "string" && c.location.trim().length > 0 && c.location.trim() !== "India") {
+        return c.location.trim();
+      }
+      if (c.city && c.state) return `${c.city}, ${c.state}`;
+      if (c.district && c.state) return `${c.district}, ${c.state}`;
+      if (c.district && c.district.trim().length > 0 && c.district !== "All 26 AP Districts") return `${c.district}, AP`;
+      if (c.city && c.city.trim().length > 0) return `${c.city}`;
+      if (c.state && c.state.trim().length > 0 && c.state !== "ALL") return `${c.state}`;
+      if (c.region && c.region !== "National" && c.region !== "ALL") return `${c.region} Region, AP`;
+      return "Andhra Pradesh";
+    }
+    window.getCollegeCardLocation = getCollegeCardLocation;
+
     let cdHeroActiveSlide = 0;
     let cdHeroImages = [];
 
     function openCollegeDetailPage(collegeId) {
+      if (!collegeId) return;
       const colleges = (typeof collegesData !== "undefined" && Array.isArray(collegesData)) ? collegesData : (window.collegesData || []);
-      const college = colleges.find(c => c.id === collegeId || c.code === collegeId);
-      if (!college) return;
+      const strId = String(collegeId).trim().toLowerCase();
+      let college = colleges.find(c => String(c.id).toLowerCase() === strId || String(c.code || '').toLowerCase() === strId);
+      if (!college && typeof allCollegesDataset !== "undefined" && Array.isArray(allCollegesDataset)) {
+        college = allCollegesDataset.find(c => String(c.id).toLowerCase() === strId || String(c.code || '').toLowerCase() === strId);
+      }
+      if (!college && typeof allCollegesData !== "undefined" && Array.isArray(allCollegesData)) {
+        college = allCollegesData.find(c => String(c.id).toLowerCase() === strId || String(c.code || '').toLowerCase() === strId);
+      }
+      if (!college) {
+        console.warn("College not found for detail page:", collegeId);
+        return;
+      }
 
       appState.activeDetailPageCollegeId = college.id;
       appState.activeModalCollegeId = college.id;
@@ -79,7 +105,7 @@
       }
       const summary = document.getElementById("cd-summary");
       if (summary) {
-        summary.textContent = college.summary || `${college.name} (${college.code}) is located in ${college.location || 'Andhra Pradesh'}. Established in ${college.established || '2008'}, the college holds a rating of ${college.rating || '4.5★'} and NAAC ${college.grade || 'A'} accreditation.`;
+        summary.textContent = college.summary || `${college.name} (${college.code}) is located in ${getCollegeCardLocation(college)}. Established in ${college.established || '2008'}, the college holds a rating of ${college.rating || '4.5★'} and NAAC ${college.grade || 'A'} accreditation.`;
       }
 
       // 3. Hero Campus Photo & Slide Controls
@@ -382,8 +408,6 @@
       const docsView = document.getElementById("docs-view-container");
       const profileView = document.getElementById("profile-view-container");
       const historyView = document.getElementById("history-view-container");
-      const collegeDetailView = document.getElementById("college-detail-view-container");
-      if (collegeDetailView && viewName !== "college-detail") collegeDetailView.classList.add("hidden");
       const detailPage = document.getElementById("college-detail-view-container");
       const detailModal = document.getElementById("detail-modal");
 
@@ -398,6 +422,8 @@
 
       if (detailPage) {
         detailPage.classList.remove("hidden");
+        detailPage.style.removeProperty("display");
+        detailPage.style.display = "block";
       }
 
       // Update URL hash cleanly
@@ -410,7 +436,10 @@
 
     function closeCollegeDetailPage() {
       const detailPage = document.getElementById("college-detail-view-container");
-      if (detailPage) detailPage.classList.add("hidden");
+      if (detailPage) {
+        detailPage.classList.add("hidden");
+        detailPage.style.setProperty("display", "none", "important");
+      }
 
       const returnView = appState.previousView || "add-rank";
       switchMainView(returnView);
@@ -528,8 +557,8 @@
         return `
           <tr>
             <td class="p-3">
-              <strong class="text-slate-900 block">${c.name} (${c.code})</strong>
-              <span class="text-[11px] text-slate-500">${c.location}</span>
+              <strong class="text-slate-900 block hover:text-blue-700 cursor-pointer" onclick="if(typeof closeShortlistModal==='function')closeShortlistModal(); openCollegeDetailPage('${c.id}')">${c.name} (${c.code})</strong>
+              <span class="text-[11px] text-slate-500">📍 ${getCollegeCardLocation(c)}</span>
             </td>
             <td class="p-3 text-center font-bold text-emerald-800">${c.rating} (${c.grade})</td>
             <td class="p-3 font-semibold">${c.fees.annualTuition}</td>
@@ -562,6 +591,11 @@
       const docsView = document.getElementById("docs-view-container");
       const profileView = document.getElementById("profile-view-container");
       const historyView = document.getElementById("history-view-container");
+      const collegeDetailView = document.getElementById("college-detail-view-container");
+      if (collegeDetailView && viewName !== "college-detail") {
+        collegeDetailView.classList.add("hidden");
+        collegeDetailView.style.setProperty("display", "none", "important");
+      }
 
       if (viewName === "add-rank" || viewName === "home") {
         if (homeView) homeView.classList.remove("hidden");
@@ -1132,13 +1166,28 @@
 
       if (examCode === "jee_main" || examCode === "jee_adv") {
         // 1. Hide Local Area / University Region (Pic 2) and AP District (Pic 3)
-        if (apRegionContainer) apRegionContainer.classList.add("hidden");
-        if (apDistrictContainer) apDistrictContainer.classList.add("hidden");
+        if (apRegionContainer) {
+          apRegionContainer.classList.add("hidden");
+          apRegionContainer.style.setProperty("display", "none", "important");
+        }
+        if (apDistrictContainer) {
+          apDistrictContainer.classList.add("hidden");
+          apDistrictContainer.style.setProperty("display", "none", "important");
+        }
 
         // 2. In their place, show All India Rank (AIR / CRL) and General Rank / Category Rank
-        if (jeeAirContainer) jeeAirContainer.classList.remove("hidden");
-        if (jeeGenContainer) jeeGenContainer.classList.remove("hidden");
-        if (jeeRankModeBox) jeeRankModeBox.classList.remove("hidden");
+        if (jeeAirContainer) {
+          jeeAirContainer.classList.remove("hidden");
+          jeeAirContainer.style.setProperty("display", "block", "important");
+        }
+        if (jeeGenContainer) {
+          jeeGenContainer.classList.remove("hidden");
+          jeeGenContainer.style.setProperty("display", "block", "important");
+        }
+        if (jeeRankModeBox) {
+          jeeRankModeBox.classList.remove("hidden");
+          jeeRankModeBox.style.setProperty("display", "block", "important");
+        }
 
         // Reset AP local area and district state so they do not restrict national JEE results
         appState.region = "ALL";
@@ -1152,13 +1201,28 @@
         if (typeof updateQuickRankChips === "function") updateQuickRankChips(examCode);
       } else {
         // Restore Local Area / Region and AP District for AP CET
-        if (apRegionContainer) apRegionContainer.classList.remove("hidden");
-        if (apDistrictContainer) apDistrictContainer.classList.remove("hidden");
+        if (apRegionContainer) {
+          apRegionContainer.classList.remove("hidden");
+          apRegionContainer.style.setProperty("display", "block", "important");
+        }
+        if (apDistrictContainer) {
+          apDistrictContainer.classList.remove("hidden");
+          apDistrictContainer.style.setProperty("display", "block", "important");
+        }
 
         // Hide JEE options
-        if (jeeAirContainer) jeeAirContainer.classList.add("hidden");
-        if (jeeGenContainer) jeeGenContainer.classList.add("hidden");
-        if (jeeRankModeBox) jeeRankModeBox.classList.add("hidden");
+        if (jeeAirContainer) {
+          jeeAirContainer.classList.add("hidden");
+          jeeAirContainer.style.setProperty("display", "none", "important");
+        }
+        if (jeeGenContainer) {
+          jeeGenContainer.classList.add("hidden");
+          jeeGenContainer.style.setProperty("display", "none", "important");
+        }
+        if (jeeRankModeBox) {
+          jeeRankModeBox.classList.add("hidden");
+          jeeRankModeBox.style.setProperty("display", "none", "important");
+        }
 
         if (rankUnit) rankUnit.textContent = "Rank";
         if (typeof updateQuickRankChips === "function") updateQuickRankChips("ap_cet");
@@ -1212,6 +1276,7 @@
 
       renderExplorer();
     }
+    window.setExamTab = setExamTab;
 
     
     function goToNearAddRank() {
@@ -2216,14 +2281,16 @@
         }
 
         suggestionsEl.innerHTML = matches.map(c => `
-          <div class="p-3 hover:bg-blue-50/80 cursor-pointer transition flex items-center justify-between gap-3 text-left group" data-suggest-name="${(c.name || '').replace(/"/g, '&quot;')}" data-suggest-id="${c.id}">
+          <div class="p-3 hover:bg-blue-50/80 cursor-pointer transition flex items-center justify-between gap-3 text-left group" data-suggest-name="${(c.name || '').replace(/"/g, '&quot;')}" data-suggest-id="${c.id}" onclick="openCollegeDetailPage('${c.id}')">
             <div class="flex items-center gap-2.5 min-w-0">
-              <span class="w-8 h-8 rounded-lg bg-blue-100 group-hover:bg-blue-200 text-blue-800 flex items-center justify-center text-sm font-bold shrink-0">🏛️</span>
+              <span class="w-8 h-8 rounded-lg bg-blue-50 group-hover:bg-blue-100 text-blue-700 flex items-center justify-center shrink-0">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 21v-8.25M15.75 21v-8.25M8.25 21v-8.25M3 9l9-6 9 6m-1.5 12V10.5M4.5 21V10.5M3 21h18"/></svg>
+              </span>
               <div class="min-w-0">
                 <div class="text-xs sm:text-sm font-bold text-slate-900 truncate group-hover:text-blue-700">${c.name}</div>
                 <div class="text-[11px] text-slate-500 flex items-center gap-1.5 mt-0.5">
                   <span class="font-semibold text-blue-900 bg-blue-50 px-1.5 py-0.2 rounded border border-blue-200/60">${c.code}</span>
-                  <span>📍 ${c.district || c.location || ''}</span>
+                  <span>📍 ${getCollegeCardLocation(c)}</span>
                 </div>
               </div>
             </div>
@@ -2310,7 +2377,7 @@
         if (matches.length === 0) {
           gridEl.innerHTML = `
             <div class="col-span-full py-12 text-center bg-white rounded-2xl border border-slate-200/90 p-8 shadow-xs">
-              <span class="text-4xl block mb-2">🔍</span>
+              <svg class="w-10 h-10 mx-auto text-slate-400 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
               <h4 class="text-base font-bold text-slate-800">No colleges matched "${rawQuery}"</h4>
               <p class="text-xs text-slate-500 mt-1">Try searching by college code (e.g., AUCE, GVP, VRSEC), city, or branch (CSE, AIDS, ECE).</p>
               <button type="button" onclick="if(document.getElementById('search-directory-input')){document.getElementById('search-directory-input').value='';renderSearchDirectory();}" class="mt-4 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold rounded-xl transition cursor-pointer">
@@ -2354,15 +2421,15 @@
           return `
             <div class="college-card bg-white rounded-2xl border border-slate-200/90 shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col justify-between group">
               <!-- Top Image Banner & Interactive Photo Slide -->
-              <div class="relative h-64 sm:h-72 w-full overflow-hidden bg-slate-900 shrink-0 select-none group/slide" data-college-id="${c.id}">
+              <div class="relative h-64 sm:h-72 w-full overflow-hidden bg-slate-900 shrink-0 select-none group/slide cursor-pointer" onclick="openCollegeDetailPage('${c.id}')" data-college-id="${c.id}">
                 <img id="card-img-${c.id}" src="${currentImgUrl}" alt="${c.name}" data-orig-src="${currentImgUrl}" data-fallback-step="0" class="w-full h-full object-cover transition-all duration-300 group-hover:scale-105" loading="lazy" onerror="window.handleCollegeImgError(this, '${c.code || c.id}');">
 
                 <!-- Previous Photo Slide Button -->
                 ${imagesList.length > 1 ? `
-                  <button type="button" data-action="slide-prev" data-target="${c.id}" class="absolute left-2.5 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/60 hover:bg-black/90 text-white flex items-center justify-center font-black transition z-20 cursor-pointer shadow-lg active:scale-90" title="Previous Campus Photo" aria-label="Previous Campus Photo">
+                  <button type="button" data-action="slide-prev" data-target="${c.id}" onclick="event.stopPropagation(); changeCollegeCardSlide('${c.id}', -1);" class="absolute left-2.5 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/60 hover:bg-black/90 text-white flex items-center justify-center font-black transition z-20 cursor-pointer shadow-lg active:scale-90" title="Previous Campus Photo" aria-label="Previous Campus Photo">
                     <svg class="w-4 h-4 pointer-events-none" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
                   </button>
-                  <button type="button" data-action="slide-next" data-target="${c.id}" class="absolute right-2.5 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/60 hover:bg-black/90 text-white flex items-center justify-center font-black transition z-20 cursor-pointer shadow-lg active:scale-90" title="Next Campus Photo" aria-label="Next Campus Photo">
+                  <button type="button" data-action="slide-next" data-target="${c.id}" onclick="event.stopPropagation(); changeCollegeCardSlide('${c.id}', 1);" class="absolute right-2.5 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/60 hover:bg-black/90 text-white flex items-center justify-center font-black transition z-20 cursor-pointer shadow-lg active:scale-90" title="Next Campus Photo" aria-label="Next Campus Photo">
                     <svg class="w-4 h-4 pointer-events-none" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
                   </button>
                   <div class="absolute bottom-11 right-3 z-20 px-2 py-0.5 rounded-full backdrop-blur-md bg-black/70 text-white text-[9px] font-black border border-white/20 shadow-sm flex items-center justify-center">
@@ -2382,16 +2449,17 @@
                 </div>
 
                 <!-- Top Right Badge: Live Favorite Star Toggle -->
-                <button type="button" data-action="toggle-shortlist" data-college-id="${c.id}" class="absolute top-3 right-3 p-2 rounded-xl backdrop-blur-md ${isShortlisted ? 'bg-amber-400 text-slate-950 font-black ring-2 ring-amber-300' : 'bg-black/60 text-white hover:bg-black/80 hover:text-amber-300'} border border-white/20 transition cursor-pointer shadow-md z-20 active:scale-90" title="${isShortlisted ? 'Favorited' : 'Add to Favorites'}">
+                <button type="button" data-action="toggle-shortlist" data-college-id="${c.id}" onclick="event.stopPropagation();" class="absolute top-3 right-3 p-2 rounded-xl backdrop-blur-md ${isShortlisted ? 'bg-amber-400 text-slate-950 font-black ring-2 ring-amber-300' : 'bg-black/60 text-white hover:bg-black/80 hover:text-amber-300'} border border-white/20 transition cursor-pointer shadow-md z-20 active:scale-90" title="${isShortlisted ? 'Favorited' : 'Add to Favorites'}">
                   <span class="text-sm sm:text-base leading-none">${isShortlisted ? '★' : '☆'}</span>
                 </button>
 
                 <!-- Bottom Image Gradient Overlay with Location & Package -->
                 <div class="absolute inset-x-0 bottom-0 p-3 bg-gradient-to-t from-black/90 via-black/50 to-transparent flex items-center justify-between text-white z-10 pointer-events-none">
-                  <span class="text-[11px] font-semibold text-slate-200 flex items-center gap-1 truncate max-w-[65%]">
-                    📍 ${c.district || c.location || ''}
+                  <span class="text-[11px] font-bold text-slate-100 flex items-center gap-1 truncate max-w-[65%]">
+                    <span>📍</span>
+                    <span>${getCollegeCardLocation(c)}</span>
                   </span>
-                  <span class="text-[11px] font-black text-amber-300 bg-amber-400/20 px-1.5 py-0.5 rounded border border-amber-400/40">
+                  <span class="text-[11px] font-black text-amber-300 bg-amber-400/20 px-1.5 py-0.5 rounded border border-amber-400/40 shadow-xs">
                     ${medianStr}
                   </span>
                 </div>
@@ -2405,7 +2473,7 @@
                     <span class="text-xs text-slate-500">• Est. ${c.established || '2008'}</span>
                     ${c.lowPlacementFlag ? '<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-rose-100 text-rose-800">Low 2025 Activity</span>' : ''}
                   </div>
-                  <h4 class="font-black text-base text-slate-900 leading-snug line-clamp-2 hover:text-blue-700 transition cursor-pointer" onclick="openCollegeModal('${c.id}')">
+                  <h4 class="font-black text-base text-slate-900 leading-snug line-clamp-2 hover:text-blue-700 transition cursor-pointer" onclick="openCollegeDetailPage('${c.id}')">
                     ${c.name}
                   </h4>
                   <p class="text-xs text-slate-500 mt-1">${c.university || 'AP Affiliated'} • ${c.region || 'AU/SVU'} Region</p>
@@ -2448,8 +2516,8 @@
 
                 <!-- Bottom Actions Bar -->
                 <div class="mt-4 pt-3.5 border-t border-slate-100 flex items-center justify-between gap-2">
-                  <button type="button" onclick="openCollegeModal('${c.id}')" class="flex-1 py-2.5 px-3 bg-blue-50 hover:bg-blue-100 text-blue-700 font-bold text-xs rounded-xl transition cursor-pointer text-center flex items-center justify-center gap-1.5 shadow-2xs">
-                    <span>🏛️ View College Profile & Cutoffs</span>
+                  <button type="button" onclick="openCollegeDetailPage('${c.id}')" class="flex-1 py-2.5 px-3 bg-blue-50 hover:bg-blue-100 text-blue-700 font-bold text-xs rounded-xl transition cursor-pointer text-center flex items-center justify-center gap-1.5 shadow-2xs">
+                    <span>View College Profile & Cutoffs</span>
                     <span>→</span>
                   </button>
                   <button type="button" onclick="addPriorityOption('${c.id}')" class="py-2.5 px-3 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs rounded-xl transition cursor-pointer shadow-2xs active:scale-95">
@@ -2537,14 +2605,16 @@
           return '<div class="p-3 text-center text-xs text-slate-500 font-medium">No colleges or universities found matching your search.</div>';
         }
         return matches.slice(0, 10).map(c => `
-          <div class="p-3 hover:bg-blue-50/80 cursor-pointer transition flex items-center justify-between gap-3 text-left group" data-${prefix}-suggest-name="${(c.name || '').replace(/"/g, '&quot;')}" data-${prefix}-suggest-id="${c.id}">
+          <div class="p-3 hover:bg-blue-50/80 cursor-pointer transition flex items-center justify-between gap-3 text-left group" data-${prefix}-suggest-name="${(c.name || '').replace(/"/g, '&quot;')}" data-${prefix}-suggest-id="${c.id}" onclick="openCollegeDetailPage('${c.id}')">
             <div class="flex items-center gap-2.5 min-w-0">
-              <span class="w-8 h-8 rounded-lg bg-blue-100 group-hover:bg-blue-200 text-blue-800 flex items-center justify-center text-sm font-bold shrink-0">🏛️</span>
+              <span class="w-8 h-8 rounded-lg bg-blue-50 group-hover:bg-blue-100 text-blue-700 flex items-center justify-center shrink-0">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 21v-8.25M15.75 21v-8.25M8.25 21v-8.25M3 9l9-6 9 6m-1.5 12V10.5M4.5 21V10.5M3 21h18"/></svg>
+              </span>
               <div class="min-w-0">
                 <div class="text-xs sm:text-sm font-bold text-slate-900 truncate group-hover:text-blue-700">${c.name}</div>
                 <div class="text-[11px] text-slate-500 flex items-center gap-1.5 mt-0.5">
                   <span class="font-semibold text-blue-900 bg-blue-50 px-1.5 py-0.2 rounded border border-blue-200/60">${c.code}</span>
-                  <span>📍 ${c.district || c.location || ''}</span>
+                  <span>📍 ${getCollegeCardLocation(c)}</span>
                 </div>
               </div>
             </div>
@@ -4081,7 +4151,7 @@
                   <button type="button" class="ai-prompt-chip px-2.5 py-1 rounded-lg bg-blue-50 hover:bg-blue-100 text-blue-700 text-[11px] border border-blue-200 transition cursor-pointer" data-q="What colleges can I get for rank 20000?">🎯 Rank Predictions</button>
                   <button type="button" class="ai-prompt-chip px-2.5 py-1 rounded-lg bg-blue-50 hover:bg-blue-100 text-blue-700 text-[11px] border border-blue-200 transition cursor-pointer" data-q="GVP vs VRSEC">⚖️ Compare Colleges</button>
                   <button type="button" class="ai-prompt-chip px-2.5 py-1 rounded-lg bg-blue-50 hover:bg-blue-100 text-blue-700 text-[11px] border border-blue-200 transition cursor-pointer" data-q="Who is eligible for JVD fee reimbursement?">💰 100% Fee Waiver (JVD)</button>
-                  <button type="button" class="ai-prompt-chip px-2.5 py-1 rounded-lg bg-blue-50 hover:bg-blue-100 text-blue-700 text-[11px] border border-blue-200 transition cursor-pointer" data-q="AUCE CSE cutoffs and placements">🏛️ AUCE Cutoffs</button>
+                  <button type="button" class="ai-prompt-chip px-2.5 py-1 rounded-lg bg-blue-50 hover:bg-blue-100 text-blue-700 text-[11px] border border-blue-200 transition cursor-pointer" data-q="AUCE CSE cutoffs and placements">AUCE Cutoffs</button>
                 </div>
               </div>
             </div>
