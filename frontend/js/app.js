@@ -5043,6 +5043,15 @@
 
       if (shouldHideNav) {
         document.body.classList.add("auth-active");
+        document.documentElement.classList.add("auth-active");
+        if (isAuthOpen) {
+          document.body.style.setProperty("overflow", "hidden", "important");
+          document.documentElement.style.setProperty("overflow", "hidden", "important");
+          document.body.style.setProperty("touch-action", "none", "important");
+          document.body.style.setProperty("position", "fixed", "important");
+          document.body.style.setProperty("width", "100%", "important");
+          document.body.style.setProperty("top", "0", "important");
+        }
         if (nav) {
           nav.classList.add("auth-hidden", "hidden");
           nav.style.setProperty("display", "none", "important");
@@ -5052,6 +5061,13 @@
         }
       } else {
         document.body.classList.remove("auth-active");
+        document.documentElement.classList.remove("auth-active");
+        document.body.style.removeProperty("overflow");
+        document.documentElement.style.removeProperty("overflow");
+        document.body.style.removeProperty("touch-action");
+        document.body.style.removeProperty("position");
+        document.body.style.removeProperty("width");
+        document.body.style.removeProperty("top");
         if (nav) {
           nav.classList.remove("splash-hidden", "auth-hidden", "hidden");
           nav.style.removeProperty("display");
@@ -5076,6 +5092,14 @@
       const overlay = document.getElementById("auth-portal-overlay");
       if (!overlay) return;
       overlay.classList.remove("hidden");
+      document.body.classList.add("auth-active");
+      document.documentElement.classList.add("auth-active");
+      document.body.style.setProperty("overflow", "hidden", "important");
+      document.documentElement.style.setProperty("overflow", "hidden", "important");
+      document.body.style.setProperty("touch-action", "none", "important");
+      document.body.style.setProperty("position", "fixed", "important");
+      document.body.style.setProperty("width", "100%", "important");
+      document.body.style.setProperty("top", "0", "important");
 
       // Hide sub-dialogs
       document.getElementById("auth-forgot-panel")?.classList.add("hidden");
@@ -5102,11 +5126,48 @@
       if (typeof window.updateAppNavVisibility === "function") window.updateAppNavVisibility();
       try {
         const authOverlayEl = document.getElementById("auth-portal-overlay");
-        if (authOverlayEl && typeof MutationObserver !== "undefined") {
-          const authObserver = new MutationObserver(() => {
-            if (typeof window.updateAppNavVisibility === "function") window.updateAppNavVisibility();
-          });
-          authObserver.observe(authOverlayEl, { attributes: true, attributeFilter: ["class", "style"] });
+        if (authOverlayEl) {
+          if (typeof MutationObserver !== "undefined") {
+            const authObserver = new MutationObserver(() => {
+              if (typeof window.updateAppNavVisibility === "function") window.updateAppNavVisibility();
+            });
+            authObserver.observe(authOverlayEl, { attributes: true, attributeFilter: ["class", "style"] });
+          }
+
+          // Prevent background slide movement when scrolling/swiping on auth modal
+          authOverlayEl.addEventListener("wheel", (e) => {
+            const isScrollable = authOverlayEl.scrollHeight > authOverlayEl.clientHeight;
+            if (!isScrollable) {
+              e.preventDefault();
+              return;
+            }
+            const delta = e.deltaY;
+            const atTop = authOverlayEl.scrollTop <= 0 && delta < 0;
+            const atBottom = authOverlayEl.scrollTop + authOverlayEl.clientHeight >= authOverlayEl.scrollHeight - 1 && delta > 0;
+            if (atTop || atBottom) {
+              e.preventDefault();
+            }
+          }, { passive: false });
+
+          authOverlayEl.addEventListener("touchmove", (e) => {
+            const slideWelcome = document.getElementById("slide-welcome");
+            const isWelcomeActive = slideWelcome && !slideWelcome.classList.contains("hidden");
+            const isScrollable = authOverlayEl.scrollHeight > authOverlayEl.clientHeight;
+
+            // Slide 1 fits completely without scrolling, or backdrop touch, or when overlay cannot scroll
+            if (isWelcomeActive || !isScrollable || e.target === authOverlayEl) {
+              e.preventDefault();
+              return;
+            }
+
+            const atTop = authOverlayEl.scrollTop <= 0;
+            const atBottom = authOverlayEl.scrollTop + authOverlayEl.clientHeight >= authOverlayEl.scrollHeight - 1;
+            if (atTop || atBottom) {
+              if (e.target === authOverlayEl) {
+                e.preventDefault();
+              }
+            }
+          }, { passive: false });
         }
       } catch (_) {}
 
