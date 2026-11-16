@@ -80,6 +80,25 @@ function persistUserData(email, userRecord) {
       const current = readJsonSafe(USERS_FILE, {});
       fs.writeFileSync(mirrorUsers, JSON.stringify(current, null, 2), "utf8");
     }
+
+    // Persist directly to MongoDB Atlas Cloud Cluster
+    if (mongoConnected && UserModel) {
+      UserModel.findOneAndUpdate(
+        { email: email.toLowerCase().trim() },
+        {
+          $set: {
+            email: email.toLowerCase().trim(),
+            username: userRecord.username || email.split("@")[0],
+            googleConnected: !!userRecord.googleConnected,
+            googleId: userRecord.googleId || undefined,
+            profile: userRecord.profile || {},
+            prefs: userRecord.prefs || {},
+            updatedAt: new Date()
+          }
+        },
+        { upsert: true, new: true }
+      ).catch(mErr => console.warn("[MongoDB] Save error:", mErr.message));
+    }
   } catch (err) {
     console.error("[DatasetStorage] Error persisting user " + email + ":", err.message);
   }
@@ -540,6 +559,7 @@ app.post("/api/google", async (req, res) => {
 
     // Save changes to database
     writeJsonSafe(USERS_FILE, users);
+    persistUserData(email, user);
 
     // Generate application session JWT
     const token = jwt.sign(
