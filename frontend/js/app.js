@@ -3991,7 +3991,26 @@
         msgBox.scrollTop = msgBox.scrollHeight;
 
         const uName = getActiveUserName();
-        const displayGreeting = (uName && uName !== "there") ? `there ${uName}` : "there";
+        const cleanQ = (query || "").trim().toLowerCase();
+
+        // FAST GREETING INTENT (Respond instantly in ~80ms without network latency)
+        if (/^(hey|hi|hello|hey there|hai|namaste|greetings|gm|good morning|good afternoon|good evening)\b/i.test(cleanQ) && cleanQ.split(/\s+/).length <= 4) {
+          const fastGreeting = generateBridgeAiResponse(query);
+          setTimeout(() => {
+            const tEl = document.getElementById(typingId);
+            if (tEl) tEl.remove();
+            chatHistory.push({ role: "model", text: fastGreeting });
+            addAiMessage(fastGreeting, false);
+            try {
+              const session = getOrCreateActiveSession();
+              if (!session.messages) session.messages = [];
+              session.messages.push({ role: "model", text: fastGreeting, ts: new Date().toISOString() });
+              saveAiSessionsToStorage();
+            } catch (_) {}
+          }, 80);
+          return;
+        }
+
         const studentProfilePayload = {
           fullName: (typeof studentProfile !== "undefined" && studentProfile?.fullName) ? studentProfile.fullName : uName,
           username: (typeof studentProfile !== "undefined" && studentProfile?.username) ? studentProfile.username : uName,
@@ -4002,27 +4021,25 @@
           branch: (typeof studentProfile !== "undefined" && studentProfile?.favBranches?.[0]) ? studentProfile.favBranches[0] : (typeof appState !== "undefined" && appState.branch ? appState.branch : "CSE")
         };
 
-        const GEMINI_API_KEY_DIRECT = "";
-        let userKey = localStorage.getItem("gemini_user_api_key") || GEMINI_API_KEY_DIRECT;
-        if (!localStorage.getItem("gemini_user_api_key")) {
-          localStorage.setItem("gemini_user_api_key", GEMINI_API_KEY_DIRECT);
-        }
-
         let aiReply = "";
 
-        // 1. Primary path: Server /api/ai/chat endpoint (Live Gemini + Grounding)
+        // 1. Primary path: Server /api/ai/chat endpoint (Fast Gemini with 3.2s timeout)
         try {
           const apiBase = (window.I2T_CONFIG && window.I2T_CONFIG.API_BASE) || "";
+          const controller = new AbortController();
+          const timeoutId = setTimeout(() => controller.abort(), 3200);
+
           const res = await fetch(apiBase + "/api/ai/chat", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
+            signal: controller.signal,
             body: JSON.stringify({
               message: query,
               studentProfile: studentProfilePayload,
-              history: chatHistory.slice(-6),
-              apiKey: userKey
+              history: chatHistory.slice(-4)
             })
           });
+          clearTimeout(timeoutId);
 
           if (res.ok) {
             const data = await res.json();
@@ -4031,69 +4048,10 @@
             }
           }
         } catch (fetchErr) {
-          console.warn("[Gemini] /api/ai/chat fetch error:", fetchErr);
+          console.warn("[Gemini] Fast fallback to client neural engine:", fetchErr.message);
         }
 
-        // 2. Secondary path: Direct Google Gemini AI Studio client from browser
-        if (!aiReply) {
-          try {
-            const directSystemPrompt = `You are Bridge AI (also known as BridgeBot), the brilliant B.Tech admissions counselor and engineering career strategist for Andhra Pradesh (AP EAPCET) and National Admissions (JEE Main, Advanced, BITSAT), powered directly by Google Gemini AI.
-The user's name is "${uName}".
-
-CRITICAL INSTRUCTION FOR GREETINGS:
-When the user greets you (such as "hey", "hi", "hello", "hey there", "hai", "namaste", "good morning", "good evening"), you MUST start your response warmly with:
-"Hey there ${uName}! I am Bridge AI, how can I help you?"
-Then warmly invite them to explore engineering college predictions, cutoffs, placements, scholarships (JVD), or web options strategy.
-
-CRITICAL INSTRUCTION FOR USER QUERIES:
-Answer whatever question the user asks with deep, accurate engineering counseling intelligence, verified data for 658 colleges, cutoffs, fees, and placement metrics. Always address the user politely and give insightful, reliable guidance.
-
-Student Profile Context:
-- Student Name: ${uName}
-- Rank: ${studentProfilePayload.rank}
-- Category Quota: ${studentProfilePayload.category}
-- Target District / Location: ${studentProfilePayload.district}
-- Preferred Branch: ${studentProfilePayload.branch}`;
-
-            const geminiContents = [];
-            if (Array.isArray(chatHistory) && chatHistory.length > 0) {
-              chatHistory.slice(-6).forEach(h => {
-                geminiContents.push({
-                  role: h.role === "assistant" || h.role === "model" ? "model" : "user",
-                  parts: [{ text: h.text || h.content || "" }]
-                });
-              });
-            }
-            geminiContents.push({ role: "user", parts: [{ text: query }] });
-
-            const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash-lite:generateContent?key=${userKey}`;
-            const gRes = await fetch(geminiUrl, {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({
-                contents: geminiContents,
-                systemInstruction: { parts: [{ text: directSystemPrompt }] },
-                generationConfig: {
-                  temperature: 0.7,
-                  topP: 0.95,
-                  maxOutputTokens: 2048
-                }
-              })
-            });
-
-            if (gRes.ok) {
-              const gData = await gRes.json();
-              const candText = gData?.candidates?.[0]?.content?.parts?.[0]?.text;
-              if (candText) {
-                aiReply = candText;
-              }
-            }
-          } catch (geminiErr) {
-            console.warn("[Gemini] Direct Gemini API call error:", geminiErr);
-          }
-        }
-
-        // 3. Fallback path: Neural Engine
+        // 2. Instant Neural Fallback (Trained on 658 verified institutions - Zero wait time)
         if (!aiReply) {
           aiReply = generateBridgeAiResponse(query);
         }

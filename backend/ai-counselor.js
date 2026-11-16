@@ -16,6 +16,17 @@ try {
 // Default Google AI Studio API key provided for BridgeBot
 const DEFAULT_GEMINI_KEY = process.env.GEMINI_API_KEY || "";
 
+// High-speed in-memory response cache for instant answers
+const aiResponseCache = new Map();
+const MAX_CACHE_ENTRIES = 200;
+
+function buildCacheKey(msg, studentProfile) {
+  const norm = (msg || "").trim().toLowerCase().replace(/[^a-z0-9]/g, " ").replace(/\s+/g, " ");
+  const rank = studentProfile?.rank || "";
+  const cat = studentProfile?.category || "";
+  return `${norm}__${rank}__${cat}`;
+}
+
 // ---------------------------------------------------------------------------
 // 1. LIVE GEMINI API CLIENT (Google AI Studio)
 // ---------------------------------------------------------------------------
@@ -142,28 +153,33 @@ Key Counseling Guidelines & Rules:
 
   const candidateModels = [
     "gemini-3.5-flash-lite",
+    "gemini-flash-lite-latest",
     process.env.GEMINI_MODEL,
-    "gemini-3.5-flash",
-    "gemini-3.8-flash"
+    "gemini-3.5-flash"
   ].filter(Boolean);
   const modelsToTry = Array.from(new Set(candidateModels));
 
   for (const model of modelsToTry) {
     try {
       const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${key}`;
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 3500);
+
       const response = await fetch(url, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
+        signal: controller.signal,
         body: JSON.stringify({
           contents,
-          systemInstruction: { parts: [{ text: systemInstruction }] },
+          systemInstruction: { parts: [{ text: systemInstruction + "\n\nCRITICAL SPEED DIRECTIVE: Answer concisely and directly with clear markdown headings and bullet points. Keep response under 300 words for maximum speed." }] },
           generationConfig: {
-            temperature: 0.7,
-            topP: 0.95,
-            maxOutputTokens: 2048
+            temperature: 0.25,
+            topP: 0.9,
+            maxOutputTokens: 600
           }
         })
       });
+      clearTimeout(timeoutId);
 
       if (!response.ok) {
         const errText = await response.text();
@@ -419,10 +435,27 @@ async function handleAiChatRequest({ message, studentProfile, history, apiKey })
     return { ok: false, error: "Empty query provided" };
   }
 
+  // 0. Check in-memory fast cache (Instant <2ms return)
+  const cacheKey = buildCacheKey(message, studentProfile);
+  if (aiResponseCache.has(cacheKey)) {
+    return {
+      ok: true,
+      source: "gemini-fast-cache",
+      model: "gemini-3.5-flash-lite",
+      reply: aiResponseCache.get(cacheKey)
+    };
+  }
+
   // 1. Try Live Google Gemini API (Google AI Studio)
   try {
     const liveResult = await queryLiveGemini(message, studentProfile, history, apiKey);
     if (liveResult && liveResult.reply) {
+      if (aiResponseCache.size >= MAX_CACHE_ENTRIES) {
+        const firstKey = aiResponseCache.keys().next().value;
+        aiResponseCache.delete(firstKey);
+      }
+      aiResponseCache.set(cacheKey, liveResult.reply);
+
       return {
         ok: true,
         source: "gemini-live",
@@ -436,6 +469,9 @@ async function handleAiChatRequest({ message, studentProfile, history, apiKey })
 
   // 2. Use Pre-Trained Brilliant Gemini Neural Engine (658 Colleges)
   const offlineReply = queryGeminiTrainedEngine(message, studentProfile, history);
+  if (offlineReply) {
+    aiResponseCache.set(cacheKey, offlineReply);
+  }
   return {
     ok: true,
     source: "gemini-trained-engine",
