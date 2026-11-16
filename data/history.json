@@ -1,0 +1,22 @@
+{
+  "student.test@example.com": [
+    {
+      "id": 101,
+      "ts": 1794234086117,
+      "manual": true,
+      "exam": "ap_cet",
+      "rank": 4500,
+      "category": "BC_B",
+      "items": [
+        {
+          "collegeId": "c1",
+          "branchCode": "CSE"
+        },
+        {
+          "collegeId": "c2",
+          "branchCode": "ECE"
+        }
+      ]
+    }
+  ]
+}

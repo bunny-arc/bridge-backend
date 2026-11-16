@@ -1,0 +1,3094 @@
+[
+  {
+    "id": "auce_vizag",
+    "name": "Andhra University College of Engineering (AUCE)",
+    "code": "AUCE",
+    "type": "AP Govt University",
+    "exam": "ap_cet",
+    "region": "AU",
+    "district": "Visakhapatnam",
+    "location": "Visakhapatnam, Andhra Pradesh",
+    "established": 1946,
+    "rating": "4.6★",
+    "grade": "A++",
+    "lowPlacementFlag": false,
+    "fees": {
+      "annualTuition": "₹35,000 / year",
+      "numTuition": 35000,
+      "jvdStatus": "100% Full JVD Eligible (Zero tuition for eligible AP students)",
+      "hostelFee": "₹28,000 / year",
+      "numHostel": 28000
+    },
+    "placements": {
+      "avgPackage": "₹7.5 LPA",
+      "medianPackage": "₹6.5 LPA",
+      "numAvgPkg": 7.5,
+      "numMedianPkg": 6.5,
+      "highestPackage": "₹32.0 LPA",
+      "numHighPkg": 32,
+      "placementRate": "78% (2025 Verified)",
+      "numRate": 78,
+      "topRecruiters": [
+        "TCS Digital",
+        "Infosys",
+        "Amazon",
+        "L&T",
+        "Wipro",
+        "Tech Mahindra",
+        "Dassault"
+      ]
+    },
+    "branches": [
+      {
+        "code": "CSE",
+        "name": "Computer Science & Engineering",
+        "closingRank": 1650
+      },
+      {
+        "code": "AIDS",
+        "name": "AI & Data Science",
+        "closingRank": 2800
+      },
+      {
+        "code": "IT",
+        "name": "Information Technology",
+        "closingRank": 3400
+      },
+      {
+        "code": "ECE",
+        "name": "Electronics & Communication",
+        "closingRank": 4200
+      },
+      {
+        "code": "EEE",
+        "name": "Electrical & Electronics",
+        "closingRank": 7500
+      },
+      {
+        "code": "MECH",
+        "name": "Mechanical Engineering",
+        "closingRank": 11200
+      },
+      {
+        "code": "CIVIL",
+        "name": "Civil Engineering",
+        "closingRank": 14500
+      }
+    ],
+    "summary": "Premier state government university college in AP with historic 1946 heritage, coastal Visakhapatnam campus, low tuition fees, and strong PSU & IT recruitment.",
+    "scholarships": [
+      "Jagananna Vidya Deevena (Full tuition fee waiver for eligible AP residents)",
+      "Jagananna Vasathi Deevena (₹20,000/yr for hostel & food expenses)",
+      "AU Engineering Alumni Endowment Merit Scholarships (₹15,000/yr for top 3 in branch)"
+    ],
+    "hostels": {
+      "campus": "Guaranteed accommodation for 1st year B.Tech students in campus hostels (Maharanipeta & Maddilapalem blocks). Mess bill ~₹2,500/month.",
+      "outsideBoys": [
+        {
+          "name": "Sri Balaji Executive Boys PG",
+          "rating": "4.4★",
+          "dist": "450m from Maddilapalem Gate",
+          "rent": "₹5,500 - ₹6,500/mo (3 meals & Wi-Fi)"
+        },
+        {
+          "name": "Coastal Residency Men's Hostel",
+          "rating": "4.2★",
+          "dist": "800m near MVP Colony",
+          "rent": "₹5,000/mo (Food + Hot water)"
+        }
+      ],
+      "outsideGirls": [
+        {
+          "name": "Gayatri Women's Deluxe PG",
+          "rating": "4.6★",
+          "dist": "350m near AU Outgate",
+          "rent": "₹6,000 - ₹7,200/mo (CCTV, Biometric, AC options)"
+        },
+        {
+          "name": "Sri Sai Durga Girls Hostel",
+          "rating": "4.3★",
+          "dist": "600m near Maddilapalem",
+          "rent": "₹5,500/mo (Home-cooked Andhra meals)"
+        }
+      ]
+    },
+    "travel": {
+      "nearestStation": "Visakhapatnam Junction (VSKP) - 5.5 km",
+      "nearestBusStand": "Dwaraka Bus Station (RTC Complex) - 2.8 km",
+      "distanceFromBengaluru": "~1,010 km",
+      "modes": [
+        {
+          "mode": "Train",
+          "time": "17-19 hrs",
+          "cost": "Sleeper: ₹510 | 3AC: ₹1,380 (Prasanthi Express / VSKP SF)",
+          "route": "Direct daily trains to Visakhapatnam (VSKP)"
+        },
+        {
+          "mode": "Bus",
+          "time": "16-18 hrs",
+          "cost": "APSRTC Garuda / AC Sleeper: ₹1,400 - ₹1,850",
+          "route": "Overnight AC sleeper buses to Maddilapalem / RTC Complex"
+        },
+        {
+          "mode": "Flight",
+          "time": "1 hr 45 min",
+          "cost": "₹3,200 - ₹4,800",
+          "route": "Direct flights to VTZ Airport (12 km from campus)"
+        }
+      ],
+      "localTransit": "Auto/Rapido from VSKP Railway Station to AUCE Maddilapalem Gate: ₹90 - ₹140 (City Bus 10K/38: ₹15)"
+    },
+    "food": [
+      {
+        "spot": "Venkatadri Vantillu (Opp. Maddilapalem)",
+        "type": "Tiffins & Breakfast",
+        "dishes": "Ghee Sponge Dosa (₹55), MLA Potlam Dosa (₹80), Idli Vada (₹40)"
+      },
+      {
+        "spot": "Dwaraka Mess (Near Outgate)",
+        "type": "Andhra Meals",
+        "dishes": "Unlimited Andhra Veg Meals with Ghee & Podi (₹90), Gongura Chicken (₹140)"
+      },
+      {
+        "spot": "Sai Ram Parlour (Near RTC Complex)",
+        "type": "Pure Veg Breakfast",
+        "dishes": "Button Ghee Idli (₹45), Filter Coffee (₹20), Poori Curry (₹50)"
+      }
+    ]
+  },
+  {
+    "id": "jntuk_kakinada",
+    "name": "JNTUK University College of Engineering Kakinada",
+    "code": "JNTUK",
+    "type": "AP Govt University",
+    "exam": "ap_cet",
+    "region": "AU",
+    "district": "Kakinada",
+    "location": "Kakinada, Andhra Pradesh",
+    "established": 1946,
+    "rating": "4.6★",
+    "grade": "A++",
+    "lowPlacementFlag": false,
+    "fees": {
+      "annualTuition": "₹35,000 / year",
+      "numTuition": 35000,
+      "jvdStatus": "100% Full JVD Eligible (Zero tuition for eligible AP students)",
+      "hostelFee": "₹26,000 / year",
+      "numHostel": 26000
+    },
+    "placements": {
+      "avgPackage": "₹6.8 LPA",
+      "medianPackage": "₹6.0 LPA",
+      "numAvgPkg": 6.8,
+      "numMedianPkg": 6,
+      "highestPackage": "₹28.0 LPA",
+      "numHighPkg": 28,
+      "placementRate": "72% (2025 Verified)",
+      "numRate": 72,
+      "topRecruiters": [
+        "TCS",
+        "Accenture",
+        "Cognizant",
+        "Hyundai",
+        "Oracle",
+        "Coromandel",
+        "Reliance"
+      ]
+    },
+    "branches": [
+      {
+        "code": "CSE",
+        "name": "Computer Science & Engineering",
+        "closingRank": 2100
+      },
+      {
+        "code": "AIDS",
+        "name": "AI & Machine Learning",
+        "closingRank": 3400
+      },
+      {
+        "code": "ECE",
+        "name": "Electronics & Communication",
+        "closingRank": 5100
+      },
+      {
+        "code": "EEE",
+        "name": "Electrical & Electronics",
+        "closingRank": 8900
+      },
+      {
+        "code": "MECH",
+        "name": "Mechanical Engineering",
+        "closingRank": 12800
+      },
+      {
+        "code": "CIVIL",
+        "name": "Civil Engineering",
+        "closingRank": 16200
+      }
+    ],
+    "summary": "Headquarters college of JNTU Kakinada known for rigorous curriculum, strong GATE qualifiers, and high ROI government engineering education.",
+    "scholarships": [
+      "AP Government JVD 100% Tuition Reimbursement (Convener quota)",
+      "Pragati Scholarship for Girls (AICTE ₹50,000/yr)",
+      "JNTUK Merit Scholarship for top 5% semester GPA holders"
+    ],
+    "hostels": {
+      "campus": "On-campus Nagavali and Krishna Hostels available for freshers. Annual fee ₹26,000 + monthly mess ~₹2,400.",
+      "outsideBoys": [
+        {
+          "name": "Venkateswara Boys PG",
+          "rating": "4.3★",
+          "dist": "300m from JNTU Main Gate",
+          "rent": "₹4,800 - ₹5,800/mo (3 meals & Wi-Fi)"
+        },
+        {
+          "name": "Sri Krishna Men's Stay",
+          "rating": "4.1★",
+          "dist": "600m near Nagamallithota",
+          "rent": "₹4,500/mo"
+        }
+      ],
+      "outsideGirls": [
+        {
+          "name": "Ananya Women's Paradise PG",
+          "rating": "4.6★",
+          "dist": "250m opposite Collector Office Road",
+          "rent": "₹5,500 - ₹6,500/mo (High security, AC/Non-AC)"
+        },
+        {
+          "name": "Sri Sai Krupa Ladies Hostel",
+          "rating": "4.2★",
+          "dist": "500m from College Gate",
+          "rent": "₹5,000/mo"
+        }
+      ]
+    },
+    "travel": {
+      "nearestStation": "Kakinada Town (CCT) - 2.5 km | Samalkot Junction (SLO) - 12 km",
+      "nearestBusStand": "Kakinada RTC Bus Stand - 3.0 km",
+      "distanceFromBengaluru": "~890 km",
+      "modes": [
+        {
+          "mode": "Train",
+          "time": "15-17 hrs",
+          "cost": "Sleeper: ₹465 | 3AC: ₹1,250 (Seshadri Express)",
+          "route": "Direct train to Kakinada Town (CCT) or Samalkot"
+        },
+        {
+          "mode": "Bus",
+          "time": "14-16 hrs",
+          "cost": "APSRTC Amaravathi / Private: ₹1,300 - ₹1,700",
+          "route": "Overnight buses to Kakinada RTC Complex"
+        }
+      ],
+      "localTransit": "Shared Auto from Kakinada Town Railway Station to JNTUK Pithapuram Road Gate: ₹20 (Full Auto: ₹70)"
+    },
+    "food": [
+      {
+        "spot": "Subbayya Gari Hotel (Main Road)",
+        "type": "Iconic Andhra Meals",
+        "dishes": "Butta Bhojanam Unlimited Andhra Thali (₹150), Pulla Kura, Sweet Pan (₹20)"
+      },
+      {
+        "spot": "Kotaiah Sweets & Tiffins",
+        "type": "Kakinada Gottam Kaja & Tiffins",
+        "dishes": "Authentic Kakinada Kaja (₹35), Ghee Karam Dosa (₹45), Filter Tea (₹15)"
+      },
+      {
+        "spot": "Seven Spices Restaurant (Near Station)",
+        "type": "Biryani & Chinese",
+        "dishes": "Kakinada Prawns Biryani (₹240), Chicken Dum Biryani (₹180)"
+      }
+    ]
+  },
+  {
+    "id": "svuce_tirupati",
+    "name": "Sri Venkateswara University College of Engineering (SVUCE)",
+    "code": "SVUCE",
+    "type": "AP Govt University",
+    "exam": "ap_cet",
+    "region": "SVU",
+    "district": "Tirupati",
+    "location": "Tirupati, Andhra Pradesh",
+    "established": 1959,
+    "rating": "4.5★",
+    "grade": "A+",
+    "lowPlacementFlag": false,
+    "fees": {
+      "annualTuition": "₹32,000 / year",
+      "numTuition": 32000,
+      "jvdStatus": "100% Full JVD Eligible (Zero tuition for eligible AP students)",
+      "hostelFee": "₹25,000 / year",
+      "numHostel": 25000
+    },
+    "placements": {
+      "avgPackage": "₹6.5 LPA",
+      "medianPackage": "₹5.8 LPA",
+      "numAvgPkg": 6.5,
+      "numMedianPkg": 5.8,
+      "highestPackage": "₹25.0 LPA",
+      "numHighPkg": 25,
+      "placementRate": "74% (2025 Verified)",
+      "numRate": 74,
+      "topRecruiters": [
+        "Wipro",
+        "TCS",
+        "Infosys",
+        "Bosch",
+        "Amara Raja",
+        "Cognizant"
+      ]
+    },
+    "branches": [
+      {
+        "code": "CSE",
+        "name": "Computer Science & Engineering",
+        "closingRank": 2900
+      },
+      {
+        "code": "ECE",
+        "name": "Electronics & Communication",
+        "closingRank": 5800
+      },
+      {
+        "code": "EEE",
+        "name": "Electrical & Electronics",
+        "closingRank": 9400
+      },
+      {
+        "code": "MECH",
+        "name": "Mechanical Engineering",
+        "closingRank": 14000
+      },
+      {
+        "code": "CIVIL",
+        "name": "Civil Engineering",
+        "closingRank": 18500
+      }
+    ],
+    "summary": "Premier state government university in Rayalaseema (SVU region) situated at the foothills of Tirumala, closest top AP govt university to Bengaluru (~250 km).",
+    "scholarships": [
+      "AP Government JVD 100% Fee Reimbursement",
+      "TTD Sri Venkateswara Vidya Dana Trust Scholarship",
+      "SVU Silver Jubilee Alumni Merit Awards"
+    ],
+    "hostels": {
+      "campus": "Visveswaraiah & Srinivasa blocks on campus for 1st years. Mess fee ~₹2,900/mo.",
+      "outsideBoys": [
+        {
+          "name": "Alipiri Comfort PG for Men",
+          "rating": "4.3★",
+          "dist": "700m near SVU Gate",
+          "rent": "₹5,000 - ₹6,000/mo (Food included)"
+        },
+        {
+          "name": "Saptagiri Boys Hostel",
+          "rating": "4.2★",
+          "dist": "900m near Bhavani Nagar",
+          "rent": "₹4,800/mo"
+        }
+      ],
+      "outsideGirls": [
+        {
+          "name": "Sri Padmavathi Luxury Girls Hostel",
+          "rating": "4.6★",
+          "dist": "400m near University Road",
+          "rent": "₹5,800 - ₹7,000/mo (24/7 Security, Food)"
+        },
+        {
+          "name": "Mahalakshmi Women's Residence",
+          "rating": "4.4★",
+          "dist": "650m near SVU Campus",
+          "rent": "₹5,200/mo"
+        }
+      ]
+    },
+    "travel": {
+      "nearestStation": "Tirupati Main (TPTY) - 3.8 km",
+      "nearestBusStand": "Tirupati Central Bus Station (CBS) - 4.1 km",
+      "distanceFromBengaluru": "~250 km (Very close!)",
+      "modes": [
+        {
+          "mode": "Train",
+          "time": "5-6 hrs",
+          "cost": "Sleeper: ₹180 | 3AC: ₹510 | CC: ₹385 (Seshadri / Tirupati Intercity)",
+          "route": "Frequent trains to Tirupati Main (TPTY)"
+        },
+        {
+          "mode": "Bus",
+          "time": "4.5-5.5 hrs",
+          "cost": "KSRTC / APSRTC Super Luxury: ₹340 - ₹550",
+          "route": "Buses every 15 mins from Bengaluru / Chennai / Vijayawada"
+        }
+      ],
+      "localTransit": "Auto/Share auto from Tirupati Station to SVU Campus: ₹50 - ₹90"
+    },
+    "food": [
+      {
+        "spot": "Hotel Maurya / Andhra Spice",
+        "type": "Rayalaseema Thali",
+        "dishes": "Ragi Sankati with Natu Kodi Pulusu (₹160), Unlimited Andhra Veg Meals (₹85)"
+      },
+      {
+        "spot": "Woodlands Veg Restaurant (Near Bus Stand)",
+        "type": "Pure Vegetarian Tiffins",
+        "dishes": "Crispy Ghee Masala Dosa (₹50), Filter Coffee (₹25), Bisibelebath (₹60)"
+      },
+      {
+        "spot": "Chittoor Mess (Near SVU Outgate)",
+        "type": "Student Budget Canteen",
+        "dishes": "Chapati Meals (₹50), Egg Dosa (₹45), Parotta Kurma (₹50)"
+      }
+    ]
+  },
+  {
+    "id": "jntua_anantapur",
+    "name": "JNTUA College of Engineering Anantapur",
+    "code": "JNTUA",
+    "type": "AP Govt University",
+    "exam": "ap_cet",
+    "region": "SVU",
+    "district": "Anantapur",
+    "location": "Anantapur, Andhra Pradesh",
+    "established": 1946,
+    "rating": "4.4★",
+    "grade": "A+",
+    "lowPlacementFlag": false,
+    "fees": {
+      "annualTuition": "₹35,000 / year",
+      "numTuition": 35000,
+      "jvdStatus": "100% Full JVD Eligible (Zero tuition for eligible AP students)",
+      "hostelFee": "₹25,000 / year",
+      "numHostel": 25000
+    },
+    "placements": {
+      "avgPackage": "₹6.2 LPA",
+      "medianPackage": "₹5.4 LPA",
+      "numAvgPkg": 6.2,
+      "numMedianPkg": 5.4,
+      "highestPackage": "₹22.0 LPA",
+      "numHighPkg": 22,
+      "placementRate": "71% (2025 Verified)",
+      "numRate": 71,
+      "topRecruiters": [
+        "Cognizant",
+        "TCS",
+        "Hexaware",
+        "Tata Elxsi",
+        "Kia Motors Vendor Park"
+      ]
+    },
+    "branches": [
+      {
+        "code": "CSE",
+        "name": "Computer Science & Engineering",
+        "closingRank": 3800
+      },
+      {
+        "code": "ECE",
+        "name": "Electronics & Communication",
+        "closingRank": 7200
+      },
+      {
+        "code": "EEE",
+        "name": "Electrical & Electronics",
+        "closingRank": 11500
+      },
+      {
+        "code": "MECH",
+        "name": "Mechanical Engineering",
+        "closingRank": 16800
+      },
+      {
+        "code": "CIVIL",
+        "name": "Civil Engineering",
+        "closingRank": 21000
+      }
+    ],
+    "summary": "Historic autonomous constituent college of JNTU Anantapur located just 3.5 hours north of Bengaluru on NH-44.",
+    "scholarships": [
+      "AP Government JVD 100% Fee Reimbursement for Convener Quota",
+      "AICTE Pragati Scholarship for Girls (₹50,000/year)",
+      "Institute Merit Scholarship for top 3 rankers in each department"
+    ],
+    "hostels": {
+      "campus": "Campus hostels (Lepakshi, Penna, Chitravathi blocks) available for boys and girls. Approximate hostel fee ₹25,000 / year.",
+      "outsideBoys": [
+        {
+          "name": "Sri Sai Luxury Boys PG near JNTUA",
+          "rating": "4.3★",
+          "dist": "500m from Main Gate",
+          "rent": "₹5,200 - ₹6,200/mo (Food + Wi-Fi)"
+        },
+        {
+          "name": "Sri Venkateswara Executive Men's Stay",
+          "rating": "4.1★",
+          "dist": "850m near Bus stop",
+          "rent": "₹4,800/mo"
+        }
+      ],
+      "outsideGirls": [
+        {
+          "name": "Sri Durga Deluxe Women's PG",
+          "rating": "4.6★",
+          "dist": "400m from College Road",
+          "rent": "₹5,800 - ₹6,800/mo (CCTV & Security, 3 Meals)"
+        },
+        {
+          "name": "Lakshmi Nivas Ladies Hostel",
+          "rating": "4.3★",
+          "dist": "700m near Campus",
+          "rent": "₹5,200/mo"
+        }
+      ]
+    },
+    "travel": {
+      "nearestStation": "Anantapur Railway Station (ATP) - 3.5 km",
+      "nearestBusStand": "Anantapur RTC Bus Complex - 3.0 km",
+      "distanceFromBengaluru": "~215 km (3.5 hrs via NH-44)",
+      "modes": [
+        {
+          "mode": "Train",
+          "time": "3.5-4.5 hrs",
+          "cost": "Sleeper: ₹175 | 3AC: ₹505 (Udyan / Prashanthi / Kacheguda Exp)",
+          "route": "Direct fast trains on Bengaluru–Hyderabad line"
+        },
+        {
+          "mode": "Bus",
+          "time": "3.5-4 hrs",
+          "cost": "APSRTC / KSRTC: ₹280 - ₹450",
+          "route": "Non-stop NH-44 highway buses every 20 mins"
+        }
+      ],
+      "localTransit": "Auto from Anantapur Railway Station to JNTUA Sir M.V. Road Gate: ₹50 - ₹80"
+    },
+    "food": [
+      {
+        "spot": "Famous Rayalaseema Mess near JNTUA Gate",
+        "type": "Andhra & Rayalaseema Meals",
+        "dishes": "Unlimited Veg Meals (₹80), Uggani Bajji (₹45), Natu Kodi Curry (₹150)"
+      },
+      {
+        "spot": "Sri Balaji Tiffin Center",
+        "type": "Breakfast & Snacks",
+        "dishes": "Ghee Karam Dosa (₹45), Mysore Bajji (₹35), Filter Tea (₹15)"
+      },
+      {
+        "spot": "College Road Biryani Point",
+        "type": "Biryani & Fast Food",
+        "dishes": "Dum Biryani (₹150), Fried Rice (₹80), Egg Dosa (₹45)"
+      }
+    ]
+  },
+  {
+    "id": "gvp_vizag",
+    "name": "Gayatri Vidya Parishad College of Engineering (GVPCE)",
+    "code": "GVPCE",
+    "type": "AP Autonomous / Private",
+    "exam": "ap_cet",
+    "region": "AU",
+    "district": "Visakhapatnam",
+    "location": "Madhurawada, Visakhapatnam",
+    "established": 1996,
+    "rating": "4.5★",
+    "grade": "A++",
+    "lowPlacementFlag": false,
+    "fees": {
+      "annualTuition": "₹1,03,700 / year",
+      "numTuition": 103700,
+      "jvdStatus": "100% JVD Eligible under Convener Quota (Zero tuition for eligible AP students)",
+      "hostelFee": "₹75,000 / year",
+      "numHostel": 75000
+    },
+    "placements": {
+      "avgPackage": "₹6.4 LPA",
+      "medianPackage": "₹5.6 LPA",
+      "numAvgPkg": 6.4,
+      "numMedianPkg": 5.6,
+      "highestPackage": "₹44.0 LPA",
+      "numHighPkg": 44,
+      "placementRate": "80% (2025 Verified)",
+      "numRate": 80,
+      "topRecruiters": [
+        "Amazon",
+        "TCS Digital",
+        "Accenture",
+        "Infosys",
+        "Capgemini",
+        "Cisco",
+        "IBM"
+      ]
+    },
+    "branches": [
+      {
+        "code": "CSE",
+        "name": "Computer Science & Engineering",
+        "closingRank": 2800
+      },
+      {
+        "code": "AIDS",
+        "name": "AI & Machine Learning",
+        "closingRank": 4300
+      },
+      {
+        "code": "IT",
+        "name": "Information Technology",
+        "closingRank": 6100
+      },
+      {
+        "code": "ECE",
+        "name": "Electronics & Communication",
+        "closingRank": 8200
+      },
+      {
+        "code": "EEE",
+        "name": "Electrical & Electronics",
+        "closingRank": 15000
+      },
+      {
+        "code": "MECH",
+        "name": "Mechanical Engineering",
+        "closingRank": 26000
+      },
+      {
+        "code": "CIVIL",
+        "name": "Civil Engineering",
+        "closingRank": 34000
+      }
+    ],
+    "summary": "Widely regarded as the #1 private autonomous engineering college in Coastal Andhra with NAAC A++ accreditation and consistent product & IT placements.",
+    "scholarships": [
+      "AP Government JVD 100% Fee Reimbursement for Convener Quota",
+      "AICTE Pragati & Saksham Scholarships (₹50,000/year)",
+      "GVP Merit Endowment Awards for top semester rankers"
+    ],
+    "hostels": {
+      "campus": "Separate on-campus hostels for boys and girls in Madhurawada IT Hill area. Annual fee ~₹75,000.",
+      "outsideBoys": [
+        {
+          "name": "Sri Sai Luxury Boys PG near Kommadi",
+          "rating": "4.3★",
+          "dist": "400m from GVP Gate",
+          "rent": "₹5,500 - ₹6,500/mo (Food + Wi-Fi)"
+        },
+        {
+          "name": "Madhurawada Student Stay",
+          "rating": "4.1★",
+          "dist": "750m near Kommadi Junction",
+          "rent": "₹5,000/mo"
+        }
+      ],
+      "outsideGirls": [
+        {
+          "name": "Sri Durga Deluxe Women's PG Kommadi",
+          "rating": "4.6★",
+          "dist": "350m from College Road",
+          "rent": "₹6,000 - ₹7,000/mo (CCTV & 3 Meals)"
+        },
+        {
+          "name": "Gayatri Ladies Residency",
+          "rating": "4.3★",
+          "dist": "600m near Campus",
+          "rent": "₹5,400/mo"
+        }
+      ]
+    },
+    "travel": {
+      "nearestStation": "Visakhapatnam Junction (VSKP) - 16 km",
+      "nearestBusStand": "Maddilapalem / Kommadi Bus Stop - 1.5 km",
+      "distanceFromBengaluru": "~1,020 km",
+      "modes": [
+        {
+          "mode": "Train",
+          "time": "17-19 hrs",
+          "cost": "Sleeper: ₹510 | 3AC: ₹1,380",
+          "route": "Direct trains to Visakhapatnam (VSKP)"
+        },
+        {
+          "mode": "Bus",
+          "time": "16-18 hrs",
+          "cost": "₹1,400 - ₹1,850",
+          "route": "Direct NH-16 buses drop right at Kommadi Junction"
+        }
+      ],
+      "localTransit": "City Bus 25M / 111 from RTC Complex to Kommadi Junction: ₹25 (Auto: ₹180)"
+    },
+    "food": [
+      {
+        "spot": "Kommadi Andhra Mess (Opp. GVP Gate)",
+        "type": "Andhra Meals",
+        "dishes": "Unlimited Veg Thali (₹85), Chicken Fry Piece Biryani (₹150)"
+      },
+      {
+        "spot": "Madhurawada Tiffin Parlour",
+        "type": "Breakfast & Snacks",
+        "dishes": "Ghee Karam Dosa (₹45), Punugulu (₹30), Filter Coffee (₹20)"
+      }
+    ]
+  },
+  {
+    "id": "vrsec_vijayawada",
+    "name": "Velagapudi Ramakrishna Siddhartha Engineering College (VRSEC / SAHE)",
+    "code": "VRSE",
+    "type": "AP Autonomous / Private",
+    "exam": "ap_cet",
+    "region": "AU",
+    "district": "NTR / Vijayawada",
+    "location": "Kanuru, Vijayawada",
+    "established": 1977,
+    "rating": "4.5★",
+    "grade": "A+",
+    "lowPlacementFlag": false,
+    "fees": {
+      "annualTuition": "₹98,000 / year",
+      "numTuition": 98000,
+      "jvdStatus": "100% JVD Eligible under Convener Quota",
+      "hostelFee": "₹70,000 / year",
+      "numHostel": 70000
+    },
+    "placements": {
+      "avgPackage": "₹5.8 LPA",
+      "medianPackage": "₹5.2 LPA",
+      "numAvgPkg": 5.8,
+      "numMedianPkg": 5.2,
+      "highestPackage": "₹40.0 LPA",
+      "numHighPkg": 40,
+      "placementRate": "79% (2025 Verified)",
+      "numRate": 79,
+      "topRecruiters": [
+        "Microsoft",
+        "Cisco",
+        "TCS",
+        "Cognizant",
+        "Virtusa",
+        "AT&T",
+        "Deloitte"
+      ]
+    },
+    "branches": [
+      {
+        "code": "CSE",
+        "name": "Computer Science & Engineering",
+        "closingRank": 3900
+      },
+      {
+        "code": "AIDS",
+        "name": "Artificial Intelligence & DS",
+        "closingRank": 5800
+      },
+      {
+        "code": "IT",
+        "name": "Information Technology",
+        "closingRank": 7400
+      },
+      {
+        "code": "ECE",
+        "name": "Electronics & Communication",
+        "closingRank": 9200
+      },
+      {
+        "code": "EEE",
+        "name": "Electrical & Electronics",
+        "closingRank": 18500
+      },
+      {
+        "code": "MECH",
+        "name": "Mechanical Engineering",
+        "closingRank": 31000
+      },
+      {
+        "code": "CIVIL",
+        "name": "Civil Engineering",
+        "closingRank": 38000
+      }
+    ],
+    "summary": "First private engineering institution in Andhra Pradesh (est. 1977), located in prime Kanuru inside Vijayawada city limits with strong alumni and placements.",
+    "scholarships": [
+      "AP Government JVD 100% Fee Reimbursement for Convener Quota",
+      "Siddhartha Academy Merit Scholarships for top rankers",
+      "NSF & AICTE Pragati Scholarships"
+    ],
+    "hostels": {
+      "campus": "Campus hostels available for boys and girls in Kanuru. Annual fee ~₹70,000.",
+      "outsideBoys": [
+        {
+          "name": "Siddhartha Executive Boys Hostel Kanuru",
+          "rating": "4.4★",
+          "dist": "300m from VRSEC Gate",
+          "rent": "₹5,500 - ₹6,500/mo (Food + Wi-Fi)"
+        },
+        {
+          "name": "Kanuru Student Men's PG",
+          "rating": "4.1★",
+          "dist": "600m near Bandar Road",
+          "rent": "₹5,000/mo"
+        }
+      ],
+      "outsideGirls": [
+        {
+          "name": "Sri Sai Women's Deluxe Hostel Kanuru",
+          "rating": "4.6★",
+          "dist": "250m from College Gate",
+          "rent": "₹6,000 - ₹7,200/mo (24/7 Warden & CCTV)"
+        }
+      ]
+    },
+    "travel": {
+      "nearestStation": "Vijayawada Junction (BZA) - 8.5 km",
+      "nearestBusStand": "PNBS Vijayawada Bus Station - 7.5 km",
+      "distanceFromBengaluru": "~660 km",
+      "modes": [
+        {
+          "mode": "Train",
+          "time": "11-12 hrs",
+          "cost": "Sleeper: ₹380 | 3AC: ₹1,020",
+          "route": "Direct trains to Vijayawada Junction (BZA)"
+        },
+        {
+          "mode": "Bus",
+          "time": "10-11 hrs",
+          "cost": "₹950 - ₹1,450",
+          "route": "Frequent overnight buses via Tirupati–Nellore–Vijayawada"
+        }
+      ],
+      "localTransit": "City Bus / Auto on Bandar Road straight from PNBS/BZA to VRSEC Kanuru Gate: ₹20 (Auto: ₹120)"
+    },
+    "food": [
+      {
+        "spot": "Babai Hotel / Kanuru Tiffins",
+        "type": "Vijayawada Iconic Breakfast",
+        "dishes": "Ghee Idli with 3 Chutneys (₹50), Pesarattu Upma (₹60)"
+      },
+      {
+        "spot": "Sweet Magic / Kanuru Mess",
+        "type": "Andhra Meals & Biryani",
+        "dishes": "Special Andhra Veg Meals (₹110), Bezawada Chicken Biryani (₹180)"
+      }
+    ]
+  },
+  {
+    "id": "rvr_jc_guntur",
+    "name": "R.V.R. & J.C. College of Engineering",
+    "code": "RVRJ",
+    "type": "AP Autonomous / Private",
+    "exam": "ap_cet",
+    "region": "AU",
+    "district": "Guntur",
+    "location": "Chowdavaram, Guntur",
+    "established": 1985,
+    "rating": "4.4★",
+    "grade": "A+",
+    "lowPlacementFlag": false,
+    "fees": {
+      "annualTuition": "₹86,000 / year",
+      "numTuition": 86000,
+      "jvdStatus": "100% JVD Eligible under Convener Quota",
+      "hostelFee": "₹65,000 / year",
+      "numHostel": 65000
+    },
+    "placements": {
+      "avgPackage": "₹5.5 LPA",
+      "medianPackage": "₹4.8 LPA",
+      "numAvgPkg": 5.5,
+      "numMedianPkg": 4.8,
+      "highestPackage": "₹34.0 LPA",
+      "numHighPkg": 34,
+      "placementRate": "76% (2025 Verified)",
+      "numRate": 76,
+      "topRecruiters": [
+        "TCS",
+        "Infosys",
+        "HCL",
+        "LTIMindtree",
+        "Tech Mahindra",
+        "Cognizant"
+      ]
+    },
+    "branches": [
+      {
+        "code": "CSE",
+        "name": "Computer Science & Engineering",
+        "closingRank": 5400
+      },
+      {
+        "code": "AIDS",
+        "name": "AI & Machine Learning",
+        "closingRank": 7900
+      },
+      {
+        "code": "IT",
+        "name": "Information Technology",
+        "closingRank": 9200
+      },
+      {
+        "code": "ECE",
+        "name": "Electronics & Communication",
+        "closingRank": 12100
+      },
+      {
+        "code": "EEE",
+        "name": "Electrical & Electronics",
+        "closingRank": 22000
+      },
+      {
+        "code": "MECH",
+        "name": "Mechanical Engineering",
+        "closingRank": 38000
+      },
+      {
+        "code": "CIVIL",
+        "name": "Civil Engineering",
+        "closingRank": 45000
+      }
+    ],
+    "summary": "Premier autonomous engineering institution in Guntur region with vast campus, fleet of 70+ college buses, and strong mass & digital IT recruitment.",
+    "scholarships": [
+      "AP Government JVD 100% Fee Reimbursement",
+      "RVR&JC Trust Merit Scholarships (₹20,000/yr for meritorious students)"
+    ],
+    "hostels": {
+      "campus": "Large on-campus boys & girls residential blocks with gym, clinic, and hygienic mess (~₹65,000/yr).",
+      "outsideBoys": [
+        {
+          "name": "Brodipet Student Boys PG",
+          "rating": "4.2★",
+          "dist": "Guntur City (College Bus Point)",
+          "rent": "₹5,000/mo"
+        }
+      ],
+      "outsideGirls": [
+        {
+          "name": "Arundelpet Ladies PG Hostel",
+          "rating": "4.5★",
+          "dist": "Guntur City (College Bus Point)",
+          "rent": "₹5,800/mo"
+        }
+      ]
+    },
+    "travel": {
+      "nearestStation": "Guntur Junction (GNT) - 12 km",
+      "nearestBusStand": "Guntur NTR Bus Station - 11 km",
+      "distanceFromBengaluru": "~630 km",
+      "modes": [
+        {
+          "mode": "Train",
+          "time": "11-12 hrs",
+          "cost": "Sleeper: ₹370 | 3AC: ₹990",
+          "route": "Direct trains to Guntur Junction (GNT)"
+        },
+        {
+          "mode": "Bus",
+          "time": "10 hrs",
+          "cost": "₹900 - ₹1,350",
+          "route": "Overnight buses to Guntur RTC Bus Stand"
+        }
+      ],
+      "localTransit": "College buses & shared autos every 10 mins from Guntur Market / Bus Stand to Chowdavaram Campus (₹25)"
+    },
+    "food": [
+      {
+        "spot": "Subhani Hotel / Guntur Meals",
+        "type": "Authentic Guntur Cuisine",
+        "dishes": "Guntur Ghee Biryani (₹170), Spicy Andhra Veg Meals (₹90)"
+      },
+      {
+        "spot": "Phoenix Padmavathi Tiffins",
+        "type": "Breakfast",
+        "dishes": "Ghee Karam Dosa (₹45), Idli Sambar (₹35)"
+      }
+    ]
+  },
+  {
+    "id": "svecw_bhimavaram",
+    "name": "Shri Vishnu Engineering College for Women (SVECW)",
+    "code": "VISW",
+    "type": "AP Autonomous / Private",
+    "exam": "ap_cet",
+    "region": "AU",
+    "district": "West Godavari",
+    "location": "Bhimavaram, West Godavari",
+    "established": 2001,
+    "rating": "4.6★",
+    "grade": "A++",
+    "lowPlacementFlag": false,
+    "fees": {
+      "annualTuition": "₹95,000 / year",
+      "numTuition": 95000,
+      "jvdStatus": "100% JVD Eligible under Convener Quota",
+      "hostelFee": "₹68,000 / year",
+      "numHostel": 68000
+    },
+    "placements": {
+      "avgPackage": "₹6.4 LPA",
+      "medianPackage": "₹5.6 LPA",
+      "numAvgPkg": 6.4,
+      "numMedianPkg": 5.6,
+      "highestPackage": "₹42.0 LPA",
+      "numHighPkg": 42,
+      "placementRate": "82% (2025 Verified)",
+      "numRate": 82,
+      "topRecruiters": [
+        "Adobe",
+        "Target",
+        "Amazon",
+        "Walmart",
+        "Bank of America",
+        "TCS",
+        "Visa"
+      ]
+    },
+    "branches": [
+      {
+        "code": "CSE",
+        "name": "Computer Science & Engineering",
+        "closingRank": 4800
+      },
+      {
+        "code": "AIDS",
+        "name": "AI & Data Science",
+        "closingRank": 6900
+      },
+      {
+        "code": "IT",
+        "name": "Information Technology",
+        "closingRank": 8500
+      },
+      {
+        "code": "ECE",
+        "name": "Electronics & Communication",
+        "closingRank": 11000
+      },
+      {
+        "code": "EEE",
+        "name": "Electrical & Electronics",
+        "closingRank": 21000
+      },
+      {
+        "code": "CIVIL",
+        "name": "Civil Engineering",
+        "closingRank": 35000
+      }
+    ],
+    "summary": "Ranked among India's finest women's engineering colleges with exceptional MNC diversity hiring (Adobe, Visa, Walmart, Target, Amazon) in lush Vishnu Green Campus.",
+    "scholarships": [
+      "AP Government JVD 100% Fee Reimbursement",
+      "AICTE Pragati Scholarship for Girls (₹50,000/yr)",
+      "B.V. Raju Foundation Merit Scholarships"
+    ],
+    "hostels": {
+      "campus": "Premier 100-acre green campus with AC/Non-AC girls hostels, swimming pool, robotics labs, and organic dining (~₹68,000/yr).",
+      "outsideBoys": [
+        {
+          "name": "Vishnu VITB Boys PG (For co-ed Vishnu Institute next door)",
+          "rating": "4.3★",
+          "dist": "300m outside Kovvada Gate",
+          "rent": "₹5,200/mo"
+        }
+      ],
+      "outsideGirls": [
+        {
+          "name": "Sri Lakshmi Executive Women's Stay",
+          "rating": "4.6★",
+          "dist": "200m from Vishnu Main Gate",
+          "rent": "₹5,800/mo (24/7 Security & CCTV)"
+        }
+      ]
+    },
+    "travel": {
+      "nearestStation": "Bhimavaram Town (BVRT) - 3.5 km",
+      "nearestBusStand": "Bhimavaram RTC Bus Stand - 4.0 km",
+      "distanceFromBengaluru": "~780 km",
+      "modes": [
+        {
+          "mode": "Train",
+          "time": "14 hrs",
+          "cost": "Sleeper: ₹440 | 3AC: ₹1,180 (Seshadri / Narasapur Exp)",
+          "route": "Direct train to Bhimavaram Town (BVRT)"
+        },
+        {
+          "mode": "Bus",
+          "time": "13 hrs",
+          "cost": "₹1,200 - ₹1,650",
+          "route": "Overnight AC buses to Bhimavaram"
+        }
+      ],
+      "localTransit": "Shared Auto from Bhimavaram Town Station to Vishnu Campus Kovvada: ₹20 (Full Auto: ₹70)"
+    },
+    "food": [
+      {
+        "spot": "Vishnu Campus Food Court & Bakery",
+        "type": "In-Campus Dining",
+        "dishes": "Veg Puff & Cold Coffee (₹45), South Indian Thali (₹75)"
+      },
+      {
+        "spot": "Godavari Ruchulu Bhimavaram",
+        "type": "Godavari Meals",
+        "dishes": "Konaseema Veg & Non-Veg Thali (₹130), Punugulu (₹30)"
+      }
+    ]
+  },
+  {
+    "id": "nit_andhra",
+    "name": "National Institute of Technology (NIT) Andhra Pradesh",
+    "code": "NIT-AP",
+    "type": "NIT",
+    "exam": "jee_main",
+    "region": "National",
+    "district": "West Godavari",
+    "location": "Tadepalligudem, Andhra Pradesh",
+    "established": 2015,
+    "rating": "4.4★",
+    "grade": "NIT",
+    "lowPlacementFlag": false,
+    "fees": {
+      "annualTuition": "₹1,25,000 / year",
+      "numTuition": 125000,
+      "jvdStatus": "Central Govt Income Waiver: 100% Tuition Waiver for SC/ST & Family Income < ₹1 LPA; 2/3rd Waiver for Income ₹1L–₹5L",
+      "hostelFee": "₹42,000 / year",
+      "numHostel": 42000
+    },
+    "placements": {
+      "avgPackage": "₹8.9 LPA",
+      "medianPackage": "₹7.5 LPA",
+      "numAvgPkg": 8.9,
+      "numMedianPkg": 7.5,
+      "highestPackage": "₹44.0 LPA",
+      "numHighPkg": 44,
+      "placementRate": "81% (2025 Verified)",
+      "numRate": 81,
+      "topRecruiters": [
+        "Amazon",
+        "Deloitte",
+        "L&T",
+        "TCS Digital",
+        "Reliance",
+        "ZS Associates",
+        "Verizon"
+      ]
+    },
+    "branches": [
+      {
+        "code": "CSE",
+        "name": "Computer Science & Engineering",
+        "closingRank": 16500
+      },
+      {
+        "code": "ECE",
+        "name": "Electronics & Communication",
+        "closingRank": 24200
+      },
+      {
+        "code": "EEE",
+        "name": "Electrical & Electronics",
+        "closingRank": 31500
+      },
+      {
+        "code": "MECH",
+        "name": "Mechanical Engineering",
+        "closingRank": 38900
+      },
+      {
+        "code": "CIVIL",
+        "name": "Civil Engineering",
+        "closingRank": 46500
+      }
+    ],
+    "summary": "Andhra Pradesh's Home State NIT (50% Home State Quota for AP students via JoSAA/CSAB) with a modern permanent campus on NH-16 in Tadepalligudem.",
+    "scholarships": [
+      "Central Sector 100% Tuition Remission (Family income < ₹1 Lakh/yr)",
+      "2/3rd Tuition Fee Remission (Family income ₹1 Lakh to ₹5 Lakh/yr)",
+      "National Scholarship Portal (NSP) Top Class Scholarships"
+    ],
+    "hostels": {
+      "campus": "100% residential permanent campus with modern hostel blocks for all years (~₹42,000/yr including mess).",
+      "outsideBoys": [
+        {
+          "name": "Tadepalligudem Highway Residency",
+          "rating": "4.1★",
+          "dist": "600m from NIT Gate",
+          "rent": "₹5,000/mo"
+        }
+      ],
+      "outsideGirls": [
+        {
+          "name": "Sri Sai Women's Stay Tadepalligudem",
+          "rating": "4.3★",
+          "dist": "500m from NIT Gate",
+          "rent": "₹5,500/mo"
+        }
+      ]
+    },
+    "travel": {
+      "nearestStation": "Tadepalligudem Railway Station (TDD) - 3.5 km",
+      "nearestBusStand": "Tadepalligudem RTC Bus Stand - 3.0 km",
+      "distanceFromBengaluru": "~760 km",
+      "modes": [
+        {
+          "mode": "Train",
+          "time": "13-14 hrs",
+          "cost": "Sleeper: ₹430 | 3AC: ₹1,150",
+          "route": "Direct trains to Tadepalligudem (TDD)"
+        },
+        {
+          "mode": "Bus",
+          "time": "12.5 hrs",
+          "cost": "₹1,150 - ₹1,600",
+          "route": "Direct NH-16 buses drop outside NIT AP Gate"
+        }
+      ],
+      "localTransit": "Auto from Tadepalligudem Station to NIT Campus: ₹50"
+    },
+    "food": [
+      {
+        "spot": "NIT Campus Night Canteen & Nescafe",
+        "type": "Campus Hangout",
+        "dishes": "Cheese Maggi (₹40), Shawarma (₹70), Cold Coffee (₹45)"
+      },
+      {
+        "spot": "Godavari Mess Tadepalligudem",
+        "type": "Andhra Thali",
+        "dishes": "Full Meals (₹90), Chicken Fry (₹130)"
+      }
+    ]
+  },
+  {
+    "id": "nit_warangal",
+    "name": "National Institute of Technology (NIT) Warangal",
+    "code": "NIT-W",
+    "type": "NIT",
+    "exam": "jee_main",
+    "region": "National",
+    "district": "All 26 AP & National Districts",
+    "location": "Warangal, Telangana",
+    "established": 1959,
+    "rating": "4.8★",
+    "grade": "A++",
+    "lowPlacementFlag": false,
+    "fees": {
+      "annualTuition": "₹1,25,000 / year",
+      "numTuition": 125000,
+      "jvdStatus": "Central JoSAA Fee Remission (100% waiver for SC/ST & income < ₹1 LPA; 2/3rd waiver < ₹5 LPA)",
+      "hostelFee": "₹45,000 / year",
+      "numHostel": 45000
+    },
+    "placements": {
+      "avgPackage": "₹17.2 LPA",
+      "medianPackage": "₹14.5 LPA",
+      "numAvgPkg": 17.2,
+      "numMedianPkg": 14.5,
+      "highestPackage": "₹88.0 LPA",
+      "numHighPkg": 88,
+      "placementRate": "91% (2025 Verified)",
+      "numRate": 91,
+      "topRecruiters": [
+        "Microsoft",
+        "Goldman Sachs",
+        "Uber",
+        "Amazon",
+        "Texas Instruments",
+        "Qualcomm",
+        "DE Shaw"
+      ]
+    },
+    "branches": [
+      {
+        "code": "CSE",
+        "name": "Computer Science & Engineering",
+        "closingRank": 2150
+      },
+      {
+        "code": "AIDS",
+        "name": "Mathematics & Computing / AI",
+        "closingRank": 3200
+      },
+      {
+        "code": "ECE",
+        "name": "Electronics & Communication",
+        "closingRank": 5400
+      },
+      {
+        "code": "EEE",
+        "name": "Electrical & Electronics",
+        "closingRank": 9800
+      },
+      {
+        "code": "MECH",
+        "name": "Mechanical Engineering",
+        "closingRank": 15200
+      },
+      {
+        "code": "CIVIL",
+        "name": "Civil Engineering",
+        "closingRank": 23500
+      }
+    ],
+    "summary": "Top-3 NIT in India with extraordinary software, VLSI, and core engineering placements and historic 1959 RECW legacy.",
+    "scholarships": [
+      "Central Govt JoSAA Income Slabs (100% or 66% Tuition Waiver)",
+      "NITW Alumni Endowment Scholarships"
+    ],
+    "hostels": {
+      "campus": "Iconic 1.8K Ultra Mega Hostel and dedicated blocks on campus (~₹45,000/yr).",
+      "outsideBoys": [
+        {
+          "name": "Kazipet Executive Student Stay",
+          "rating": "4.3★",
+          "dist": "500m from NITW Gate",
+          "rent": "₹5,800/mo"
+        }
+      ],
+      "outsideGirls": [
+        {
+          "name": "Hanamkonda Deluxe Women's PG",
+          "rating": "4.5★",
+          "dist": "600m from NITW Gate",
+          "rent": "₹6,200/mo"
+        }
+      ]
+    },
+    "travel": {
+      "nearestStation": "Kazipet Junction (KZJ) - 3.0 km",
+      "nearestBusStand": "Hanamkonda Bus Stand - 4.0 km",
+      "distanceFromBengaluru": "~710 km",
+      "modes": [
+        {
+          "mode": "Train",
+          "time": "11-12 hrs",
+          "cost": "Sleeper: ₹410 | 3AC: ₹1,090 (Rajdhani / Sanghamitra / Kongu Exp)",
+          "route": "Direct trains to Kazipet Junction (KZJ)"
+        },
+        {
+          "mode": "Bus",
+          "time": "10.5 hrs",
+          "cost": "₹1,100 - ₹1,550",
+          "route": "Via Hyderabad to Hanamkonda / NITW Gate"
+        }
+      ],
+      "localTransit": "Auto from Kazipet Station to NIT Warangal Main Gate: ₹50"
+    },
+    "food": [
+      {
+        "spot": "NITW IFC Messes & Food Street",
+        "type": "Campus Dining",
+        "dishes": "Hyderabadi Chicken Biryani (₹160), Butter Dosa (₹50)"
+      }
+    ]
+  },
+  {
+    "id": "iiit_sricity",
+    "name": "Indian Institute of Information Technology (IIIT) Sri City",
+    "code": "IIIT-S",
+    "type": "IIIT",
+    "exam": "jee_main",
+    "region": "SVU",
+    "district": "Tirupati",
+    "location": "Sri City (Near Tirupati/Tada), AP",
+    "established": 2013,
+    "rating": "4.5★",
+    "grade": "A+",
+    "lowPlacementFlag": false,
+    "fees": {
+      "annualTuition": "₹3,10,000 / year",
+      "numTuition": 310000,
+      "jvdStatus": "Central NSP Scholarships & SBI Scholar Collateral-Free Education Loan available",
+      "hostelFee": "₹75,000 / year",
+      "numHostel": 75000
+    },
+    "placements": {
+      "avgPackage": "₹14.5 LPA",
+      "medianPackage": "₹12.0 LPA",
+      "numAvgPkg": 14.5,
+      "numMedianPkg": 12,
+      "highestPackage": "₹85.0 LPA",
+      "numHighPkg": 85,
+      "placementRate": "86% (2025 Verified)",
+      "numRate": 86,
+      "topRecruiters": [
+        "Amazon",
+        "Google",
+        "Nvidia",
+        "Cognizant",
+        "Deloitte",
+        "HP",
+        "Swiggy"
+      ]
+    },
+    "branches": [
+      {
+        "code": "CSE",
+        "name": "Computer Science & Engineering",
+        "closingRank": 24500
+      },
+      {
+        "code": "AIDS",
+        "name": "AI & Data Science",
+        "closingRank": 28500
+      },
+      {
+        "code": "ECE",
+        "name": "Electronics & Communication",
+        "closingRank": 34800
+      }
+    ],
+    "summary": "Premier PPP-model IIIT located inside the bustling Sri City Special Economic Zone in Tirupati district with modern IT-focused curriculum from Semester 1.",
+    "scholarships": [
+      "National Scholarship Portal (NSP) Central Sector Schemes",
+      "AP / State Govt Merit-cum-Means Financial Assistance"
+    ],
+    "hostels": {
+      "campus": "Mandatory modern residential hostels inside Sri City campus with AC/Non-AC options (~₹75,000/yr).",
+      "outsideBoys": [
+        {
+          "name": "Tada / Sri City Executive PG",
+          "rating": "4.2★",
+          "dist": "1.5 km from SEZ Gate",
+          "rent": "₹6,000/mo"
+        }
+      ],
+      "outsideGirls": [
+        {
+          "name": "Sri City Women's Residency",
+          "rating": "4.4★",
+          "dist": "1.2 km from Campus",
+          "rent": "₹6,500/mo"
+        }
+      ]
+    },
+    "travel": {
+      "nearestStation": "Tada Railway Station - 4 km | Sullurpeta (SPE) - 14 km",
+      "nearestBusStand": "Tada Checkpost (NH-16) - 3 km",
+      "distanceFromBengaluru": "~340 km",
+      "modes": [
+        {
+          "mode": "Train",
+          "time": "5.5-6 hrs",
+          "cost": "₹240 - ₹680",
+          "route": "Train to Chennai Central + suburban train to Tada, or train via Renigunta"
+        },
+        {
+          "mode": "Bus",
+          "time": "6 hrs",
+          "cost": "₹550 - ₹850",
+          "route": "Direct buses via Tirupati/Chennai highway"
+        }
+      ],
+      "localTransit": "Auto from Tada Station to IIIT Sri City Campus: ₹80"
+    },
+    "food": [
+      {
+        "spot": "Campus Cafeteria & Sri City Food Plaza",
+        "type": "Multi-Cuisine",
+        "dishes": "South & North Indian Thali (₹90), Shawarma (₹80)"
+      }
+    ]
+  },
+  {
+    "id": "iiit_hyderabad",
+    "name": "International Institute of Information Technology (IIIT) Hyderabad",
+    "code": "IIIT-H",
+    "type": "IIIT",
+    "exam": "jee_main",
+    "region": "National",
+    "district": "All 26 AP & National Districts",
+    "location": "Gachibowli, Hyderabad",
+    "established": 1998,
+    "rating": "4.9★",
+    "grade": "A++",
+    "lowPlacementFlag": false,
+    "fees": {
+      "annualTuition": "₹4,00,000 / year",
+      "numTuition": 400000,
+      "jvdStatus": "IIIT-H Pratibha Scholarships & 100% Pay-Forward Alumni Financial Aid",
+      "hostelFee": "₹66,000 / year",
+      "numHostel": 66000
+    },
+    "placements": {
+      "avgPackage": "₹26.5 LPA",
+      "medianPackage": "₹23.0 LPA",
+      "numAvgPkg": 26.5,
+      "numMedianPkg": 23,
+      "highestPackage": "₹1.05 Cr",
+      "numHighPkg": 105,
+      "placementRate": "97% (2025 Verified)",
+      "numRate": 97,
+      "topRecruiters": [
+        "Google",
+        "Apple",
+        "Meta",
+        "Tower Research",
+        "Nvidia",
+        "Rubrik",
+        "Microsoft"
+      ]
+    },
+    "branches": [
+      {
+        "code": "CSE",
+        "name": "Computer Science & Engineering",
+        "closingRank": 1150
+      },
+      {
+        "code": "ECE",
+        "name": "Electronics & Communication",
+        "closingRank": 3400
+      }
+    ],
+    "summary": "India's premier CS & AI research institute in Gachibowli IT hub, admitting directly via JEE Main Percentile (99.88%+) and UGEE.",
+    "scholarships": [
+      "IIIT-H Alumni Pay-It-Forward Financial Support",
+      "SBI Scholar Category-AA Loan (Up to ₹40 Lakh without collateral)"
+    ],
+    "hostels": {
+      "campus": "Bakul, Palash, Parijat & Kadamb hostels on campus with 4 popular messes (~₹66,000/yr).",
+      "outsideBoys": [
+        {
+          "name": "Gachibowli DLF Tech PG",
+          "rating": "4.5★",
+          "dist": "400m opposite Gate 2",
+          "rent": "₹8,000/mo"
+        }
+      ],
+      "outsideGirls": [
+        {
+          "name": "Indira Nagar Executive Women's PG",
+          "rating": "4.6★",
+          "dist": "500m from IIIT-H",
+          "rent": "₹8,500/mo"
+        }
+      ]
+    },
+    "travel": {
+      "nearestStation": "Lingampally (LPI) - 6.5 km | Secunderabad (SC) - 20 km",
+      "nearestBusStand": "Gachibowli ORR Junction - 1.5 km",
+      "distanceFromBengaluru": "~570 km",
+      "modes": [
+        {
+          "mode": "Train",
+          "time": "8-10 hrs",
+          "cost": "Vande Bharat: ₹1,540 | Sleeper: ₹365 (Kacheguda Exp)",
+          "route": "Direct trains from Bengaluru/AP to Hyderabad"
+        },
+        {
+          "mode": "Bus",
+          "time": "8-9 hrs",
+          "cost": "₹850 - ₹1,350",
+          "route": "Direct drop at Gachibowli Circle"
+        }
+      ],
+      "localTransit": "Hyderabad Metro to Raidurg + 10 min Auto to IIIT-H Gate: ₹60"
+    },
+    "food": [
+      {
+        "spot": "DLF Street Food Lane (Opp. IIIT-H)",
+        "type": "Late Night Street Food",
+        "dishes": "Maggi, Momos, Shawarma, Dosa (₹50 - ₹120)"
+      }
+    ]
+  },
+  {
+    "id": "du_fot_delhi",
+    "name": "University of Delhi - Faculty of Technology & Cluster Innovation Centre",
+    "code": "DU-FOT",
+    "type": "Delhi University",
+    "exam": "jee_main",
+    "region": "National",
+    "district": "All 26 AP & National Districts",
+    "location": "North Campus, New Delhi",
+    "established": 1922,
+    "rating": "4.5★",
+    "grade": "A++",
+    "lowPlacementFlag": false,
+    "fees": {
+      "annualTuition": "₹2,16,000 / year (CIC: ₹10,000/yr)",
+      "numTuition": 216000,
+      "jvdStatus": "DU Financial Support Scheme: 100% fee waiver for family income < ₹4 LPA; 50% waiver for ₹4L–₹8L",
+      "hostelFee": "₹65,000 / year",
+      "numHostel": 65000
+    },
+    "placements": {
+      "avgPackage": "₹12.5 LPA",
+      "medianPackage": "₹10.5 LPA",
+      "numAvgPkg": 12.5,
+      "numMedianPkg": 10.5,
+      "highestPackage": "₹42.0 LPA",
+      "numHighPkg": 42,
+      "placementRate": "84% (2025 Verified)",
+      "numRate": 84,
+      "topRecruiters": [
+        "Deloitte",
+        "Amazon",
+        "Adobe",
+        "ZS Associates",
+        "American Express"
+      ]
+    },
+    "branches": [
+      {
+        "code": "CSE",
+        "name": "Computer Science & Engineering",
+        "closingRank": 11800
+      },
+      {
+        "code": "ECE",
+        "name": "Electronics & Communication",
+        "closingRank": 17500
+      },
+      {
+        "code": "EEE",
+        "name": "Electrical Engineering",
+        "closingRank": 23400
+      }
+    ],
+    "summary": "Central University B.Tech program in historic DU North Campus admitting on All-India JEE Main CRL Rank without state domicile barriers.",
+    "scholarships": [
+      "Delhi University Financial Support Scheme (Up to 100% Tuition Waiver)",
+      "PM-USP Central Sector Scholarship"
+    ],
+    "hostels": {
+      "campus": "DU North Campus hostels and metro connectivity at Vishwavidyalaya station.",
+      "outsideBoys": [
+        {
+          "name": "Kamla Nagar Student Boys PG",
+          "rating": "4.3★",
+          "dist": "600m from North Campus",
+          "rent": "₹8,500/mo"
+        }
+      ],
+      "outsideGirls": [
+        {
+          "name": "Hudson Lane Safe Girls PG",
+          "rating": "4.6★",
+          "dist": "500m from Metro",
+          "rent": "₹9,000/mo"
+        }
+      ]
+    },
+    "travel": {
+      "nearestStation": "New Delhi Railway Station (NDLS) - 7 km",
+      "nearestBusStand": "Kashmere Gate ISBT - 3.5 km",
+      "distanceFromBengaluru": "~2,150 km",
+      "modes": [
+        {
+          "mode": "Flight",
+          "time": "2 hr 45 min",
+          "cost": "₹4,500 - ₹6,500",
+          "route": "Direct flights to Delhi IGI + Yellow Line Metro"
+        },
+        {
+          "mode": "Train",
+          "time": "32-34 hrs",
+          "cost": "Sleeper: ₹810 | 3AC: ₹2,100 (Karnataka / AP Express)",
+          "route": "Direct daily Express to New Delhi"
+        }
+      ],
+      "localTransit": "Delhi Metro Yellow Line straight to Vishwavidyalaya Station: ₹30"
+    },
+    "food": [
+      {
+        "spot": "Hudson Lane & Kamla Nagar Cafes",
+        "type": "Student Hub",
+        "dishes": "Chole Bhature (₹70), Momos (₹60), North Indian Thali (₹90)"
+      }
+    ]
+  },
+  {
+    "id": "iit_tirupati",
+    "name": "Indian Institute of Technology (IIT) Tirupati",
+    "code": "IIT-TPT",
+    "type": "IIT",
+    "exam": "jee_adv",
+    "region": "National",
+    "district": "Tirupati",
+    "location": "Yerpedu, Tirupati, Andhra Pradesh",
+    "established": 2015,
+    "rating": "4.7★",
+    "grade": "IIT",
+    "lowPlacementFlag": false,
+    "fees": {
+      "annualTuition": "₹2,15,000 / year",
+      "numTuition": 215000,
+      "jvdStatus": "Central Govt Fee Waiver (100% tuition waiver for SC/ST/PwD & family income < ₹1 LPA; 2/3rd waiver < ₹5 LPA)",
+      "hostelFee": "₹42,000 / year",
+      "numHostel": 42000
+    },
+    "placements": {
+      "avgPackage": "₹17.6 LPA",
+      "medianPackage": "₹15.2 LPA",
+      "numAvgPkg": 17.6,
+      "numMedianPkg": 15.2,
+      "highestPackage": "₹52.0 LPA",
+      "numHighPkg": 52,
+      "placementRate": "86% (2025 Verified)",
+      "numRate": 86,
+      "topRecruiters": [
+        "Microsoft",
+        "Amazon",
+        "Texas Instruments",
+        "Qualcomm",
+        "TCS R&D",
+        "ICICI",
+        "MathWorks"
+      ]
+    },
+    "branches": [
+      {
+        "code": "CSE",
+        "name": "Computer Science & Engineering",
+        "closingRank": 3800
+      },
+      {
+        "code": "ECE",
+        "name": "Electrical Engineering (VLSI/Comm)",
+        "closingRank": 7600
+      },
+      {
+        "code": "MECH",
+        "name": "Mechanical Engineering",
+        "closingRank": 11800
+      },
+      {
+        "code": "CIVIL",
+        "name": "Civil & Environmental",
+        "closingRank": 14900
+      }
+    ],
+    "summary": "Institute of National Importance in Andhra Pradesh with a cutting-edge 548-acre permanent campus at Yerpedu and mentorship legacy from IIT Madras.",
+    "scholarships": [
+      "IIT Merit-cum-Means (MCM) Scholarship: Full tuition waiver + ₹1,000/mo pocket allowance",
+      "Free Messing and pocket allowance for SC/ST students",
+      "IIT Tirupati Special Donor Scholarships"
+    ],
+    "hostels": {
+      "campus": "Brand-new Yerpedu permanent campus with single/double sharing rooms, air-conditioned study halls, and sports complex (~₹42,000/yr).",
+      "outsideBoys": [
+        {
+          "name": "Yerpedu Comfort Stay",
+          "rating": "4.1★",
+          "dist": "2.0 km from IIT Gate",
+          "rent": "₹5,500/mo"
+        }
+      ],
+      "outsideGirls": [
+        {
+          "name": "Tirupati Royal Girls PG",
+          "rating": "4.5★",
+          "dist": "Near Renigunta (9 km)",
+          "rent": "₹6,500/mo"
+        }
+      ]
+    },
+    "travel": {
+      "nearestStation": "Renigunta Junction (RU) - 14 km | Tirupati Main (TPTY) - 24 km",
+      "nearestBusStand": "Tirupati Central Bus Station - 22 km",
+      "distanceFromBengaluru": "~260 km",
+      "modes": [
+        {
+          "mode": "Train",
+          "time": "5 hrs",
+          "cost": "Sleeper: ₹190 | 3AC: ₹530",
+          "route": "Direct trains to Renigunta (RU) or Tirupati"
+        },
+        {
+          "mode": "Bus",
+          "time": "5 hrs",
+          "cost": "₹360 - ₹580",
+          "route": "Direct buses via Tirupati / Srikalahasti highway"
+        }
+      ],
+      "localTransit": "APSRTC City Bus / IIT Shuttle from Renigunta Station to Yerpedu Campus: ₹30 (Auto: ₹180)"
+    },
+    "food": [
+      {
+        "spot": "Campus Food Court & Nescafe Corner",
+        "type": "Campus Cafeteria",
+        "dishes": "Paneer Roll (₹65), Masala Maggi (₹35), Veg Thali (₹75)"
+      },
+      {
+        "spot": "Sri Lakshmi Vilas (Renigunta Road)",
+        "type": "Traditional South Indian",
+        "dishes": "Ghee Roast Dosa (₹60), Filter Coffee (₹20)"
+      }
+    ]
+  },
+  {
+    "id": "iit_madras",
+    "name": "Indian Institute of Technology (IIT) Madras",
+    "code": "IIT-M",
+    "type": "IIT",
+    "exam": "jee_adv",
+    "region": "National",
+    "district": "All 26 AP & National Districts",
+    "location": "Adyar, Chennai, Tamil Nadu",
+    "established": 1959,
+    "rating": "4.9★",
+    "grade": "NIRF #1",
+    "lowPlacementFlag": false,
+    "fees": {
+      "annualTuition": "₹2,20,000 / year",
+      "numTuition": 220000,
+      "jvdStatus": "Central JoSAA Full/Partial Fee Remission based on family income slabs",
+      "hostelFee": "₹45,000 / year",
+      "numHostel": 45000
+    },
+    "placements": {
+      "avgPackage": "₹21.5 LPA",
+      "medianPackage": "₹19.0 LPA",
+      "numAvgPkg": 21.5,
+      "numMedianPkg": 19,
+      "highestPackage": "₹1.31 Cr",
+      "numHighPkg": 131,
+      "placementRate": "92% (2025 Verified)",
+      "numRate": 92,
+      "topRecruiters": [
+        "Google",
+        "Microsoft",
+        "Jane Street",
+        "Apple",
+        "Goldman Sachs",
+        "Qualcomm",
+        "Texas Instruments"
+      ]
+    },
+    "branches": [
+      {
+        "code": "CSE",
+        "name": "Computer Science & Engineering",
+        "closingRank": 148
+      },
+      {
+        "code": "AIDS",
+        "name": "Data Science & AI",
+        "closingRank": 390
+      },
+      {
+        "code": "ECE",
+        "name": "Electrical Engineering",
+        "closingRank": 960
+      },
+      {
+        "code": "MECH",
+        "name": "Mechanical Engineering",
+        "closingRank": 2500
+      },
+      {
+        "code": "CIVIL",
+        "name": "Civil Engineering",
+        "closingRank": 5800
+      }
+    ],
+    "summary": "Ranked #1 Engineering Institute in India by NIRF consecutively with a 617-acre wooded campus in Chennai and world-leading research park.",
+    "scholarships": [
+      "Central Merit-cum-Means & National Scholarship Portal (NSP)",
+      "IIT Madras Alumni 100% Tuition Support for Needy Students"
+    ],
+    "hostels": {
+      "campus": "20+ iconic hostels inside the Guindy forest campus with bicycles and shuttle buses (~₹45,000/yr).",
+      "outsideBoys": [
+        {
+          "name": "Velachery Executive Stay",
+          "rating": "4.3★",
+          "dist": "1.2 km from Velachery Gate",
+          "rent": "₹7,500/mo"
+        }
+      ],
+      "outsideGirls": [
+        {
+          "name": "Adyar Safe Women's Residency",
+          "rating": "4.6★",
+          "dist": "1.0 km from Main Gate",
+          "rent": "₹8,000/mo"
+        }
+      ]
+    },
+    "travel": {
+      "nearestStation": "Chennai Central (MAS) - 13 km | Guindy Station - 3 km",
+      "nearestBusStand": "Guindy / Madhya Kailash - 1.5 km",
+      "distanceFromBengaluru": "~345 km",
+      "modes": [
+        {
+          "mode": "Train",
+          "time": "4.5-5.5 hrs",
+          "cost": "Shatabdi / Vande Bharat: ₹950 | Brindavan / Lalbagh CC: ₹510",
+          "route": "High-speed trains to Chennai Central"
+        },
+        {
+          "mode": "Bus",
+          "time": "6 hrs",
+          "cost": "₹550 - ₹900",
+          "route": "Frequent buses from Bengaluru & Tirupati/Nellore"
+        }
+      ],
+      "localTransit": "Chennai Metro to Guindy + IIT Free Electric Bus from Main Gate: ₹0"
+    },
+    "food": [
+      {
+        "spot": "Zaitoon & Himalaya Mess Complex (IIT-M)",
+        "type": "Campus Dining",
+        "dishes": "Arabian Grill (₹160), South Indian Filter Coffee (₹20)"
+      }
+    ]
+  },
+  {
+    "id": "iit_hyderabad",
+    "name": "Indian Institute of Technology (IIT) Hyderabad",
+    "code": "IIT-H",
+    "type": "IIT",
+    "exam": "jee_adv",
+    "region": "National",
+    "district": "All 26 AP & National Districts",
+    "location": "Kandi, Sangareddy (Hyderabad)",
+    "established": 2008,
+    "rating": "4.9★",
+    "grade": "A++",
+    "lowPlacementFlag": false,
+    "fees": {
+      "annualTuition": "₹2,18,000 / year",
+      "numTuition": 218000,
+      "jvdStatus": "Central JoSAA Slabs: 100% fee waiver for SC/ST and parents earning < ₹1L/yr",
+      "hostelFee": "₹44,000 / year",
+      "numHostel": 44000
+    },
+    "placements": {
+      "avgPackage": "₹20.8 LPA",
+      "medianPackage": "₹18.5 LPA",
+      "numAvgPkg": 20.8,
+      "numMedianPkg": 18.5,
+      "highestPackage": "₹65.0 LPA",
+      "numHighPkg": 65,
+      "placementRate": "90% (2025 Verified)",
+      "numRate": 90,
+      "topRecruiters": [
+        "Google",
+        "Qualcomm",
+        "Oracle",
+        "AMD",
+        "Rakuten Japan",
+        "Mercari",
+        "Microsoft"
+      ]
+    },
+    "branches": [
+      {
+        "code": "CSE",
+        "name": "Computer Science & Engineering",
+        "closingRank": 670
+      },
+      {
+        "code": "AIDS",
+        "name": "Artificial Intelligence",
+        "closingRank": 920
+      },
+      {
+        "code": "ECE",
+        "name": "Electrical Engineering",
+        "closingRank": 2300
+      },
+      {
+        "code": "MECH",
+        "name": "Mechanical & Aerospace",
+        "closingRank": 5200
+      },
+      {
+        "code": "CIVIL",
+        "name": "Civil Engineering",
+        "closingRank": 8900
+      }
+    ],
+    "summary": "Fastest-rising IIT globally renowned for its Fractal Academics curriculum, dedicated B.Tech in AI, and Japanese architectural campus & placements.",
+    "scholarships": [
+      "Central Merit-cum-Means & National Scholarship Portal (NSP)",
+      "JICA Japan Research & Exchange Fellowships"
+    ],
+    "hostels": {
+      "campus": "Single-occupancy radiant-cooled Japanese-designed hostel pods for students (~₹44,000/yr).",
+      "outsideBoys": [
+        {
+          "name": "Kandi Highway Residency",
+          "rating": "4.2★",
+          "dist": "800m from IIT-H Gate",
+          "rent": "₹6,000/mo"
+        }
+      ],
+      "outsideGirls": [
+        {
+          "name": "Sangareddy Safe Women's Stay",
+          "rating": "4.4★",
+          "dist": "2.5 km from Campus",
+          "rent": "₹6,500/mo"
+        }
+      ]
+    },
+    "travel": {
+      "nearestStation": "Lingampally (LPI) - 32 km | Secunderabad - 50 km",
+      "nearestBusStand": "Patancheru / Sangareddy Bus Stand - 5 km",
+      "distanceFromBengaluru": "~600 km",
+      "modes": [
+        {
+          "mode": "Train",
+          "time": "9-10 hrs",
+          "cost": "Sleeper: ₹380 | 3AC: ₹1,020",
+          "route": "Direct trains to Hyderabad / Lingampally"
+        },
+        {
+          "mode": "Bus",
+          "time": "9 hrs",
+          "cost": "₹900 - ₹1,400",
+          "route": "Overnight Volvo/Sleeper buses to Hyderabad"
+        }
+      ],
+      "localTransit": "TSRTC City Bus from Miyapur Metro / Lingampally directly to IIT-H Kandi Gate: ₹50"
+    },
+    "food": [
+      {
+        "spot": "IIT-H Mess & Shiru Cafe",
+        "type": "Campus Dining",
+        "dishes": "Free Japanese Coffee at Shiru, Hyderabadi Biryani (₹150)"
+      }
+    ]
+  },
+  {
+    "id": "iit_bombay",
+    "name": "Indian Institute of Technology (IIT) Bombay",
+    "code": "IIT-B",
+    "type": "IIT",
+    "exam": "jee_adv",
+    "region": "National",
+    "district": "All 26 AP & National Districts",
+    "location": "Powai, Mumbai, Maharashtra",
+    "established": 1958,
+    "rating": "4.9★",
+    "grade": "Top Choice",
+    "lowPlacementFlag": false,
+    "fees": {
+      "annualTuition": "₹2,24,000 / year",
+      "numTuition": 224000,
+      "jvdStatus": "Central JoSAA Slabs: 100% waiver for SC/ST/PwD & income < ₹1L",
+      "hostelFee": "₹48,000 / year",
+      "numHostel": 48000
+    },
+    "placements": {
+      "avgPackage": "₹23.5 LPA",
+      "medianPackage": "₹20.0 LPA",
+      "numAvgPkg": 23.5,
+      "numMedianPkg": 20,
+      "highestPackage": "₹1.68 Cr",
+      "numHighPkg": 168,
+      "placementRate": "94% (2025 Verified)",
+      "numRate": 94,
+      "topRecruiters": [
+        "Uber",
+        "Jane Street",
+        "Optiver",
+        "Google",
+        "Rubrik",
+        "Apple",
+        "McKinsey"
+      ]
+    },
+    "branches": [
+      {
+        "code": "CSE",
+        "name": "Computer Science & Engineering",
+        "closingRank": 68
+      },
+      {
+        "code": "ECE",
+        "name": "Electrical Engineering",
+        "closingRank": 460
+      },
+      {
+        "code": "MECH",
+        "name": "Mechanical Engineering",
+        "closingRank": 1700
+      },
+      {
+        "code": "CIVIL",
+        "name": "Civil Engineering",
+        "closingRank": 4200
+      }
+    ],
+    "summary": "The premier dream destination for JEE Advanced rankers with India's strongest tech, quant, and entrepreneurship ecosystem overlooking Powai Lake.",
+    "scholarships": [
+      "Central Merit-cum-Means (MCM) & IITB Heritage Fund Scholarships",
+      "AICTE Pragati Scholarship for Girls"
+    ],
+    "hostels": {
+      "campus": "18 vibrant campus hostels beside Powai & Vihar lakes (~₹48,000/yr).",
+      "outsideBoys": [
+        {
+          "name": "Powai Hiranandani Student PG",
+          "rating": "4.4★",
+          "dist": "600m from Main Gate",
+          "rent": "₹11,000/mo"
+        }
+      ],
+      "outsideGirls": [
+        {
+          "name": "Powai Lakeview Women's Stay",
+          "rating": "4.6★",
+          "dist": "500m from Y-Point Gate",
+          "rent": "₹12,000/mo"
+        }
+      ]
+    },
+    "travel": {
+      "nearestStation": "Kanjurmarg (3 km) | Lokmanya Tilak Terminus (LTT) - 10 km",
+      "nearestBusStand": "IIT Powai Main Gate BEST Stop - 100m",
+      "distanceFromBengaluru": "~980 km",
+      "modes": [
+        {
+          "mode": "Flight",
+          "time": "1 hr 45 min",
+          "cost": "₹3,400 - ₹5,200",
+          "route": "Direct flight to Mumbai T2 (9 km from Powai)"
+        },
+        {
+          "mode": "Train",
+          "time": "21-23 hrs",
+          "cost": "Sleeper: ₹510 | 3AC: ₹1,350 (Udyan / Konark Exp)",
+          "route": "Direct trains to Mumbai Dadar / LTT / CSMT"
+        }
+      ],
+      "localTransit": "Auto from Kanjurmarg Local Station to IITB Main Gate: ₹40"
+    },
+    "food": [
+      {
+        "spot": "Gullu's & H1-H18 Night Canteens",
+        "type": "Campus Iconic",
+        "dishes": "Cheese Omelette, Masala Fries, Maggi & Cold Coffee (₹40 - ₹90)"
+      }
+    ]
+  },
+  {
+    "id": "vit_ap_amaravati",
+    "name": "VIT-AP University (Amaravati)",
+    "code": "VIT-AP",
+    "type": "Payment / Deemed University",
+    "exam": "payment",
+    "region": "AU",
+    "district": "Guntur",
+    "location": "Inavolu, Amaravati (Near Vijayawada)",
+    "established": 2017,
+    "rating": "4.5★",
+    "grade": "A+",
+    "lowPlacementFlag": false,
+    "paymentInfo": {
+      "examName": "VITEEE 2026 & AP EAPCET Category-1 Quota",
+      "deadline": "Phase 1: March 31 | Phase 2: May 15",
+      "examDates": "April 19 – April 30 (CBT across AP & India)",
+      "feeMode": "Application Fee: ₹1,350 • Online CBT",
+      "directNote": "Admits via VITEEE Merit Categories (Cat 1 to Cat 5) as well as AP EAPCET Convener Quota seats and Intermediate Board Topper Scholarships.",
+      "discounts": [
+        "🏆 100% Full Tuition Waiver (GVSDP): Central/State Board District Toppers & VITEEE Ranks 1–50",
+        "🌟 75% Tuition Fee Waiver: VITEEE Ranks 51–100 or >97% in Intermediate MPC",
+        "✨ 50% Tuition Fee Waiver: VITEEE Ranks 101–500 or Category-1 AP CET Merit",
+        "💵 Direct Category 1–5 Fee Slabs: ₹1.98L/yr (Cat-1) up to ₹4.9L/yr (Cat-5 Management)"
+      ]
+    },
+    "fees": {
+      "annualTuition": "₹1,98,000 / year (Cat-1)",
+      "numTuition": 198000,
+      "jvdStatus": "JVD Applicable for AP EAPCET Convener Quota seats; VIT GVSDP Merit Scholarships for VITEEE rankers",
+      "hostelFee": "₹95,000 / year",
+      "numHostel": 95000
+    },
+    "placements": {
+      "avgPackage": "₹9.2 LPA",
+      "medianPackage": "₹7.2 LPA",
+      "numAvgPkg": 9.2,
+      "numMedianPkg": 7.2,
+      "highestPackage": "₹63.0 LPA",
+      "numHighPkg": 63,
+      "placementRate": "84% (2025 Verified)",
+      "numRate": 84,
+      "topRecruiters": [
+        "Microsoft",
+        "Amazon",
+        "Intel",
+        "PayPal",
+        "Cisco",
+        "Deloitte",
+        "Bank of America"
+      ]
+    },
+    "branches": [
+      {
+        "code": "CSE",
+        "name": "Computer Science & Engineering (Core)",
+        "closingRank": 25000
+      },
+      {
+        "code": "AIDS",
+        "name": "CSE (AI & Machine Learning)",
+        "closingRank": 38000
+      },
+      {
+        "code": "IT",
+        "name": "CSE (Data Analytics & Cyber Sec)",
+        "closingRank": 48000
+      },
+      {
+        "code": "ECE",
+        "name": "Electronics & Communication (VLSI)",
+        "closingRank": 65000
+      },
+      {
+        "code": "MECH",
+        "name": "Mechanical Engineering",
+        "closingRank": 95000
+      }
+    ],
+    "summary": "Premier private university in AP Capital Region (Amaravati) featuring Fully Flexible Credit System (FFCS) and centralized placements with VIT Vellore.",
+    "scholarships": [
+      "G.V. School Development Programme (100% to 25% Tuition Waivers)",
+      "STARS Scheme (100% Free Tuition + Hostel for Rural Govt School Toppers)"
+    ],
+    "hostels": {
+      "campus": "Modern AC/Non-AC multi-storey hostel blocks on Amaravati campus with Veg/Non-Veg/Special messes (~₹95,000/yr).",
+      "outsideBoys": [
+        {
+          "name": "Mandadam / Thullur Executive Boys PG",
+          "rating": "4.3★",
+          "dist": "2.5 km from VIT-AP",
+          "rent": "₹6,500/mo"
+        }
+      ],
+      "outsideGirls": [
+        {
+          "name": "Amaravati Safe Women's Residency",
+          "rating": "4.5★",
+          "dist": "2.0 km from Campus",
+          "rent": "₹7,000/mo"
+        }
+      ]
+    },
+    "travel": {
+      "nearestStation": "Vijayawada Junction (BZA) - 21 km | Guntur (GNT) - 28 km",
+      "nearestBusStand": "PNBS Vijayawada - 20 km | Mandadam - 3 km",
+      "distanceFromBengaluru": "~655 km",
+      "modes": [
+        {
+          "mode": "Train",
+          "time": "11 hrs",
+          "cost": "Sleeper: ₹380 | 3AC: ₹1,020",
+          "route": "Direct trains to Vijayawada Junction (BZA)"
+        },
+        {
+          "mode": "Bus",
+          "time": "10 hrs",
+          "cost": "₹950 - ₹1,450",
+          "route": "Overnight buses to Vijayawada / Mangalagiri"
+        }
+      ],
+      "localTransit": "APSRTC City Bus / VIT-AP Shuttle from Vijayawada & Guntur: ₹40"
+    },
+    "food": [
+      {
+        "spot": "VIT-AP Food Street & Rock Plaza",
+        "type": "Campus Multi-Cuisine",
+        "dishes": "Domino's, Subways, Andhra Thali & Biryani (₹80 - ₹180)"
+      }
+    ]
+  },
+  {
+    "id": "srm_ap_amaravati",
+    "name": "SRM University AP (Amaravati)",
+    "code": "SRM-AP",
+    "type": "Payment / Deemed University",
+    "exam": "payment",
+    "region": "AU",
+    "district": "Guntur",
+    "location": "Neerukonda, Amaravati (Mangalagiri)",
+    "established": 2017,
+    "rating": "4.6★",
+    "grade": "A++",
+    "lowPlacementFlag": false,
+    "paymentInfo": {
+      "examName": "SRMJEEE 2026 (Phase 1, 2 & 3) + Direct Board Merit",
+      "deadline": "Phase 1: April 16 | Phase 2: June 15",
+      "examDates": "April 22–27 & June 21–23 (Remote Proctored Online)",
+      "feeMode": "Application Fee: ₹1,200 • Remote Home Proctored",
+      "directNote": "Offers up to 100% Founder's Scholarship based on SRMJEEE Rank, JEE Main percentile, or 95%+ in Intermediate Board exams.",
+      "discounts": [
+        "🏆 100% Tuition Fee Waiver: SRMJEEE Top 100 Rankers or >98% in Inter MPC",
+        "🌟 75% Evaluation Scholarship: >95% in Intermediate or JEE Main >95 Percentile",
+        "✨ 50% Equitable AP Scholarship: 90%–95% in Intermediate MPC",
+        "💵 25% Concession Slab: 80%–90% in Intermediate Marks"
+      ]
+    },
+    "fees": {
+      "annualTuition": "₹2,50,000 / year (Before Scholarship)",
+      "numTuition": 250000,
+      "jvdStatus": "25% to 100% SRM Merit Scholarship Slabs reduce effective tuition to ₹0–₹1.25L/yr",
+      "hostelFee": "₹1,05,000 / year",
+      "numHostel": 105000
+    },
+    "placements": {
+      "avgPackage": "₹9.9 LPA",
+      "medianPackage": "₹7.8 LPA",
+      "numAvgPkg": 9.9,
+      "numMedianPkg": 7.8,
+      "highestPackage": "₹50.0 LPA",
+      "numHighPkg": 50,
+      "placementRate": "86% (2025 Verified)",
+      "numRate": 86,
+      "topRecruiters": [
+        "Google",
+        "Barclays",
+        "JP Morgan",
+        "PayPal",
+        "Amazon",
+        "Marvell",
+        "L&T"
+      ]
+    },
+    "branches": [
+      {
+        "code": "CSE",
+        "name": "Computer Science & Engineering",
+        "closingRank": 30000
+      },
+      {
+        "code": "AIDS",
+        "name": "CSE (AI & Machine Learning)",
+        "closingRank": 45000
+      },
+      {
+        "code": "ECE",
+        "name": "Electronics & Communication (VLSI)",
+        "closingRank": 75000
+      },
+      {
+        "code": "EEE",
+        "name": "Electrical & Electronics",
+        "closingRank": 110000
+      },
+      {
+        "code": "MECH",
+        "name": "Mechanical Engineering",
+        "closingRank": 140000
+      }
+    ],
+    "summary": "World-class Perkins+Will designed campus in Mangalagiri/Amaravati with 100% PhD faculty with international exposure and strong Marquee placements.",
+    "scholarships": [
+      "SRM Founder's 100% Tuition & Hostel Waiver",
+      "SRM Socio-Economic & Merit Scholarships (25% to 75%)"
+    ],
+    "hostels": {
+      "campus": "Hotel-grade campus towers with 2/3/4 sharing AC & Non-AC rooms and continental/South Indian dining (~₹1.05L/yr).",
+      "outsideBoys": [
+        {
+          "name": "Mangalagiri Highway Boys PG",
+          "rating": "4.2★",
+          "dist": "3.5 km from Campus",
+          "rent": "₹6,000/mo"
+        }
+      ],
+      "outsideGirls": [
+        {
+          "name": "Neerukonda Safe Women's PG",
+          "rating": "4.5★",
+          "dist": "3.0 km from Campus",
+          "rent": "₹6,500/mo"
+        }
+      ]
+    },
+    "travel": {
+      "nearestStation": "Mangalagiri (MAG) - 6 km | Vijayawada (BZA) - 18 km",
+      "nearestBusStand": "Mangalagiri NH-16 Bypass - 5 km",
+      "distanceFromBengaluru": "~650 km",
+      "modes": [
+        {
+          "mode": "Train",
+          "time": "11 hrs",
+          "cost": "Sleeper: ₹380 | 3AC: ₹1,020",
+          "route": "Direct trains to Vijayawada or Guntur"
+        },
+        {
+          "mode": "Bus",
+          "time": "10 hrs",
+          "cost": "₹950 - ₹1,400",
+          "route": "Direct drop at Mangalagiri Bypass on NH-16"
+        }
+      ],
+      "localTransit": "Auto from Mangalagiri Bypass to SRM-AP Campus: ₹80"
+    },
+    "food": [
+      {
+        "spot": "SRM Vendhar Square Food Court",
+        "type": "Campus Dining",
+        "dishes": "Biryani, Dosas, Sandwiches & Fresh Juices (₹50 - ₹150)"
+      }
+    ]
+  },
+  {
+    "id": "kl_university_vaddeswaram",
+    "name": "KL University (KLEF Deemed to be University)",
+    "code": "KLU",
+    "type": "Payment / Deemed University",
+    "exam": "payment",
+    "region": "AU",
+    "district": "Guntur",
+    "location": "Vaddeswaram (Near Vijayawada), AP",
+    "established": 1980,
+    "rating": "4.5★",
+    "grade": "NAAC A++",
+    "lowPlacementFlag": false,
+    "paymentInfo": {
+      "examName": "KLEEE 2026 / AP EAPCET / Inter Marks Direct",
+      "deadline": "Open Counseling & Phase 1/2/3 up to July",
+      "examDates": "Monthly CBT & Online Slots (Feb – June)",
+      "feeMode": "Application Fee: ₹1,000 • Online / Offline Test",
+      "directNote": "Accepts KLEEE ranks, AP EAPCET ranks (even up to 3,00,000+ for core/allied branches), and Intermediate board marks with generous fee concessions.",
+      "discounts": [
+        "🏆 100% Tuition Waiver: KLEEE Top 50, AP EAPCET <2,000, or >98% in Inter MPC",
+        "🌟 50%–75% Fee Waiver: Inter MPC 92%–97% or AP EAPCET Rank <15,000",
+        "✨ 25%–35% Fee Concession: Inter MPC 80%–92% or AP EAPCET Rank <60,000",
+        "💵 Direct / Spot Admission: Open up to Rank 3,50,000+ for ECE, EEE, Mech, Civil & Biotech"
+      ]
+    },
+    "fees": {
+      "annualTuition": "₹2,40,000 / year (Before Concession)",
+      "numTuition": 240000,
+      "jvdStatus": "Direct Merit Concessions of ₹35,000 to ₹1,50,000/yr based on Inter % or EAPCET rank",
+      "hostelFee": "₹92,000 / year",
+      "numHostel": 92000
+    },
+    "placements": {
+      "avgPackage": "₹7.8 LPA",
+      "medianPackage": "₹5.5 LPA",
+      "numAvgPkg": 7.8,
+      "numMedianPkg": 5.5,
+      "highestPackage": "₹58.0 LPA",
+      "numHighPkg": 58,
+      "placementRate": "88% (2025 Verified)",
+      "numRate": 88,
+      "topRecruiters": [
+        "Cisco",
+        "ServiceNow",
+        "Adobe",
+        "TCS",
+        "Accenture",
+        "Cognizant",
+        "Capgemini"
+      ]
+    },
+    "branches": [
+      {
+        "code": "CSE",
+        "name": "Computer Science & Engineering",
+        "closingRank": 85000
+      },
+      {
+        "code": "AIDS",
+        "name": "AI & Data Science",
+        "closingRank": 120000
+      },
+      {
+        "code": "IT",
+        "name": "CS & Information Technology",
+        "closingRank": 160000
+      },
+      {
+        "code": "ECE",
+        "name": "Electronics & Communication",
+        "closingRank": 240000
+      },
+      {
+        "code": "EEE",
+        "name": "Electrical & Electronics",
+        "closingRank": 320000
+      },
+      {
+        "code": "MECH",
+        "name": "Mechanical Engineering",
+        "closingRank": 350000
+      },
+      {
+        "code": "CIVIL",
+        "name": "Civil Engineering",
+        "closingRank": 350000
+      }
+    ],
+    "summary": "100-acre NAAC A++ Deemed University on Buckingham Canal near Vijayawada with massive CRT placement training and flexible direct admission slabs.",
+    "scholarships": [
+      "KLU Merit Fee Concessions (₹25,000 to 100% Waiver)",
+      "Sports & Girl Child Special Concessions"
+    ],
+    "hostels": {
+      "campus": "Extensive boys & girls hostels inside Vaddeswaram campus (~₹92,000/yr).",
+      "outsideBoys": [
+        {
+          "name": "Vaddeswaram Green Fields Boys PG",
+          "rating": "4.3★",
+          "dist": "300m from KLU Gate",
+          "rent": "₹5,800/mo"
+        }
+      ],
+      "outsideGirls": [
+        {
+          "name": "Tadepalli Deluxe Ladies PG",
+          "rating": "4.5★",
+          "dist": "1.5 km from Campus",
+          "rent": "₹6,500/mo"
+        }
+      ]
+    },
+    "travel": {
+      "nearestStation": "Vijayawada Junction (BZA) - 11 km | Krishna Canal (KCC) - 4 km",
+      "nearestBusStand": "PNBS Vijayawada - 10 km",
+      "distanceFromBengaluru": "~655 km",
+      "modes": [
+        {
+          "mode": "Train",
+          "time": "11 hrs",
+          "cost": "Sleeper: ₹380 | 3AC: ₹1,020",
+          "route": "Direct trains to Vijayawada Junction"
+        },
+        {
+          "mode": "Bus",
+          "time": "10 hrs",
+          "cost": "₹950 - ₹1,400",
+          "route": "Drop at Tadepalli / Kanakadurga Varadhi"
+        }
+      ],
+      "localTransit": "Auto from Tadepalli / PNBS to KLU Vaddeswaram: ₹80"
+    },
+    "food": [
+      {
+        "spot": "KLU Satyanarayana Canteen & Adda",
+        "type": "Student Hangout",
+        "dishes": "Chicken Pulao (₹140), Samosa Chat (₹40), Cold Coffee (₹45)"
+      }
+    ]
+  },
+  {
+    "id": "gitam_vizag",
+    "name": "GITAM (Deemed to be University) Visakhapatnam",
+    "code": "GITAM",
+    "type": "Payment / Deemed University",
+    "exam": "payment",
+    "region": "AU",
+    "district": "Visakhapatnam",
+    "location": "Rushikonda Beach Road, Visakhapatnam",
+    "established": 1980,
+    "rating": "4.4★",
+    "grade": "NAAC A++",
+    "lowPlacementFlag": false,
+    "paymentInfo": {
+      "examName": "GITAM Admission Test (GAT 2026) & AP EAPCET",
+      "deadline": "Open in 5 Phases (March to July)",
+      "examDates": "Weekend CBT & Online Proctored Tests",
+      "feeMode": "Application Fee: ₹1,200 • Online / Test Center",
+      "directNote": "Offers automatic scholarship slabs for GAT scores, AP EAPCET ranks, and JEE Main percentiles at the scenic Rushikonda beachfront campus.",
+      "discounts": [
+        "🏆 100% Tuition Fee Scholarship: GAT Top 2% or AP EAPCET Rank <1,000",
+        "🌟 75% Merit Scholarship: AP EAPCET Rank 1,001–5,000 or JEE >94%ile",
+        "✨ 40%–60% Scholarship: AP EAPCET Rank 5,001–25,000 or Inter >92%",
+        "💵 15%–25% Loyalty / Merit Slab: Open admission up to Rank 3,50,000+"
+      ]
+    },
+    "fees": {
+      "annualTuition": "₹2,75,000 / year (Before Scholarship)",
+      "numTuition": 275000,
+      "jvdStatus": "GITAM Merit Scholarships (15% to 100%) + Loyal Family/Alumni Waivers",
+      "hostelFee": "₹1,02,000 / year",
+      "numHostel": 102000
+    },
+    "placements": {
+      "avgPackage": "₹6.8 LPA",
+      "medianPackage": "₹5.2 LPA",
+      "numAvgPkg": 6.8,
+      "numMedianPkg": 5.2,
+      "highestPackage": "₹46.0 LPA",
+      "numHighPkg": 46,
+      "placementRate": "79% (2025 Verified)",
+      "numRate": 79,
+      "topRecruiters": [
+        "Oracle",
+        "Deloitte",
+        "FactSet",
+        "TCS",
+        "Amazon",
+        "Wipro",
+        "Pfizer"
+      ]
+    },
+    "branches": [
+      {
+        "code": "CSE",
+        "name": "Computer Science & Engineering",
+        "closingRank": 90000
+      },
+      {
+        "code": "AIDS",
+        "name": "CSE (AI & Machine Learning)",
+        "closingRank": 130000
+      },
+      {
+        "code": "ECE",
+        "name": "Electronics & Communication",
+        "closingRank": 240000
+      },
+      {
+        "code": "EEE",
+        "name": "Electrical & Electronics",
+        "closingRank": 320000
+      },
+      {
+        "code": "MECH",
+        "name": "Mechanical Engineering",
+        "closingRank": 350000
+      },
+      {
+        "code": "CIVIL",
+        "name": "Civil & Biotechnology",
+        "closingRank": 350000
+      }
+    ],
+    "summary": "Scenic 100-acre campus overlooking Rushikonda Beach in Visakhapatnam with global exchange programs, hospital on campus, and open merit admissions.",
+    "scholarships": [
+      "GAT Merit Scholarships (15% to 100% Tuition Fee Waiver)",
+      "Sports & Defense Personnel Ward Scholarships"
+    ],
+    "hostels": {
+      "campus": "Sea-breeze campus hostels with AC/Non-AC rooms and multiple food courts (~₹1.02L/yr).",
+      "outsideBoys": [
+        {
+          "name": "Rushikonda BeachView Boys PG",
+          "rating": "4.4★",
+          "dist": "400m from GITAM Gate",
+          "rent": "₹6,500/mo"
+        }
+      ],
+      "outsideGirls": [
+        {
+          "name": "Yendada Safe Women's Residency",
+          "rating": "4.5★",
+          "dist": "1.2 km from GITAM",
+          "rent": "₹7,000/mo"
+        }
+      ]
+    },
+    "travel": {
+      "nearestStation": "Visakhapatnam Junction (VSKP) - 15 km",
+      "nearestBusStand": "Dwaraka Bus Station (RTC Complex) - 13 km",
+      "distanceFromBengaluru": "~1,020 km",
+      "modes": [
+        {
+          "mode": "Train",
+          "time": "17-19 hrs",
+          "cost": "Sleeper: ₹510 | 3AC: ₹1,380",
+          "route": "Direct trains to Visakhapatnam (VSKP)"
+        },
+        {
+          "mode": "Bus",
+          "time": "16-18 hrs",
+          "cost": "₹1,400 - ₹1,850",
+          "route": "Overnight buses to Visakhapatnam"
+        }
+      ],
+      "localTransit": "City Bus 900K along Beach Road from RTC Complex straight to GITAM Gate: ₹25"
+    },
+    "food": [
+      {
+        "spot": "Rushikonda Maggi Point & Beach Cafes",
+        "type": "Student Hangout",
+        "dishes": "Egg Maggi (₹45), Shawarma (₹80), South Indian Meals (₹90)"
+      }
+    ]
+  },
+  {
+    "id": "amrita_amaravati",
+    "name": "Amrita Vishwa Vidyapeetham (Amaravati Campus)",
+    "code": "AMRITA",
+    "type": "Payment / Deemed University",
+    "exam": "payment",
+    "region": "AU",
+    "district": "Guntur",
+    "location": "Kuragallu, Amaravati, AP",
+    "established": 2022,
+    "rating": "4.5★",
+    "grade": "NAAC A++",
+    "lowPlacementFlag": false,
+    "paymentInfo": {
+      "examName": "AEEE 2026 & JEE Main Percentile Quota",
+      "deadline": "Phase 1: Jan 30 | Phase 2: April 25",
+      "examDates": "February & May CBT Windows",
+      "feeMode": "Application Fee: ₹1,200 • CBT Mode",
+      "directNote": "70% seats allotted via AEEE with Slab-1 to Slab-4 scholarship pricing; 30% seats allotted directly via JEE Main percentile.",
+      "discounts": [
+        "🏆 Slab 1 Scholarship (Highest Merit): Tuition reduced to ₹1,50,000/yr",
+        "🌟 Slab 2 Scholarship: Tuition reduced to ₹2,25,000/yr",
+        "✨ Slab 3 Standard Merit: ₹3,00,000/yr",
+        "💵 Slab 4 Direct / Non-Scholarship: ₹4,00,000/yr"
+      ]
+    },
+    "fees": {
+      "annualTuition": "₹1,50,000 – ₹3,00,000 / year",
+      "numTuition": 225000,
+      "jvdStatus": "Amrita Chancellor's Scholarship Slabs (Slab 1 & Slab 2 save up to ₹2.5L/yr)",
+      "hostelFee": "₹78,000 / year",
+      "numHostel": 78000
+    },
+    "placements": {
+      "avgPackage": "₹8.8 LPA",
+      "medianPackage": "₹7.0 LPA",
+      "numAvgPkg": 8.8,
+      "numMedianPkg": 7,
+      "highestPackage": "₹52.0 LPA",
+      "numHighPkg": 52,
+      "placementRate": "85% (2025 Verified)",
+      "numRate": 85,
+      "topRecruiters": [
+        "Cisco",
+        "Microsoft",
+        "Bosch",
+        "TCS Digital",
+        "Caterpillar",
+        "SAP",
+        "Zoho"
+      ]
+    },
+    "branches": [
+      {
+        "code": "CSE",
+        "name": "Computer Science & Engineering",
+        "closingRank": 45000
+      },
+      {
+        "code": "AIDS",
+        "name": "CSE (Artificial Intelligence)",
+        "closingRank": 65000
+      },
+      {
+        "code": "ECE",
+        "name": "Electronics & Communication",
+        "closingRank": 95000
+      }
+    ],
+    "summary": "Amaravati campus of NIRF Top-7 University Amrita Vishwa Vidyapeetham with centralized CIR placement cell and values-based residential education.",
+    "scholarships": [
+      "Amrita Vidyanidhi Slab 1 & Slab 2 Merit Scholarships (Renewed annually on CGPA > 8.0)"
+    ],
+    "hostels": {
+      "campus": "Disciplined on-campus hostels with nutritious pure vegetarian mess (~₹78,000/yr).",
+      "outsideBoys": [
+        {
+          "name": "Mangalagiri Student Boys Stay",
+          "rating": "4.2★",
+          "dist": "4 km from Campus",
+          "rent": "₹5,800/mo"
+        }
+      ],
+      "outsideGirls": [
+        {
+          "name": "Kuragallu Women's Hostel",
+          "rating": "4.4★",
+          "dist": "3.5 km from Campus",
+          "rent": "₹6,200/mo"
+        }
+      ]
+    },
+    "travel": {
+      "nearestStation": "Mangalagiri (MAG) - 8 km | Vijayawada (BZA) - 20 km",
+      "nearestBusStand": "Mangalagiri Bus Stand - 7 km",
+      "distanceFromBengaluru": "~650 km",
+      "modes": [
+        {
+          "mode": "Train",
+          "time": "11 hrs",
+          "cost": "Sleeper: ₹380 | 3AC: ₹1,020",
+          "route": "Trains to Vijayawada or Guntur"
+        },
+        {
+          "mode": "Bus",
+          "time": "10 hrs",
+          "cost": "₹950 - ₹1,400",
+          "route": "Drop at Mangalagiri Bypass"
+        }
+      ],
+      "localTransit": "Auto/Cab from Mangalagiri to Amrita Amaravati Campus: ₹100"
+    },
+    "food": [
+      {
+        "spot": "Amrita Campus Annapoorna Canteen",
+        "type": "Pure Veg Dining",
+        "dishes": "Masala Dosa (₹40), Veg Meals (₹65), Fresh Fruit Juice (₹35)"
+      }
+    ]
+  },
+  {
+    "id": "vfstr_vignan_guntur",
+    "name": "Vignan's Foundation for Science, Technology & Research (VFSTR Deemed University)",
+    "code": "VFSTR",
+    "type": "Payment / Deemed University",
+    "exam": "payment",
+    "region": "AU",
+    "district": "Guntur",
+    "location": "Vadlamudi, Guntur (Tenali Highway)",
+    "established": 1997,
+    "rating": "4.4★",
+    "grade": "NAAC A+",
+    "lowPlacementFlag": false,
+    "paymentInfo": {
+      "examName": "V-SAT 2026 / AP EAPCET / Inter Marks Direct",
+      "deadline": "Open Counseling up to July 31",
+      "examDates": "April – June Online & Offline Slots",
+      "feeMode": "Application Fee: ₹1,200 • Online / Campus Walk-in",
+      "directNote": "Famous across AP for awarding 25% to 75% tuition scholarships directly to students with good Intermediate MPC marks or AP EAPCET ranks.",
+      "discounts": [
+        "🏆 75% Tuition Fee Scholarship: Inter MPC >970/1000 or AP EAPCET Rank <8,000",
+        "🌟 50% Tuition Fee Scholarship: Inter MPC 940–969 or AP EAPCET Rank 8,000–22,000",
+        "✨ 25% Tuition Fee Scholarship: Inter MPC 880–939 or AP EAPCET Rank 22,000–50,000",
+        "💵 Direct Category-A Seat: Accessible up to Rank 3,50,000+ in core & allied branches"
+      ]
+    },
+    "fees": {
+      "annualTuition": "₹2,20,000 / year (Before Scholarship)",
+      "numTuition": 220000,
+      "jvdStatus": "25% of all seats carry VFSTR Merit Scholarships (saving ₹55,000 to ₹1,65,000/yr)",
+      "hostelFee": "₹88,000 / year",
+      "numHostel": 88000
+    },
+    "placements": {
+      "avgPackage": "₹6.2 LPA",
+      "medianPackage": "₹4.8 LPA",
+      "numAvgPkg": 6.2,
+      "numMedianPkg": 4.8,
+      "highestPackage": "₹28.0 LPA",
+      "numHighPkg": 28,
+      "placementRate": "81% (2025 Verified)",
+      "numRate": 81,
+      "topRecruiters": [
+        "TCS",
+        "Cognizant",
+        "Infosys",
+        "Capgemini",
+        "HCL",
+        "Accenture",
+        "IBM"
+      ]
+    },
+    "branches": [
+      {
+        "code": "CSE",
+        "name": "Computer Science & Engineering",
+        "closingRank": 95000
+      },
+      {
+        "code": "AIDS",
+        "name": "AI & Machine Learning",
+        "closingRank": 140000
+      },
+      {
+        "code": "IT",
+        "name": "Information Technology",
+        "closingRank": 180000
+      },
+      {
+        "code": "ECE",
+        "name": "Electronics & Communication",
+        "closingRank": 260000
+      },
+      {
+        "code": "EEE",
+        "name": "Electrical & Electronics",
+        "closingRank": 330000
+      },
+      {
+        "code": "MECH",
+        "name": "Mechanical Engineering",
+        "closingRank": 350000
+      },
+      {
+        "code": "CIVIL",
+        "name": "Civil & Food/Biotech",
+        "closingRank": 350000
+      }
+    ],
+    "summary": "Renowned Deemed University in Vadlamudi (between Guntur and Tenali) famous for disciplined academics, sports culture, and direct Inter-marks scholarships.",
+    "scholarships": [
+      "Vignan Merit Scholarships (75%, 50%, and 25% Tuition Waivers)",
+      "Sibling & Alumni Fee Concessions"
+    ],
+    "hostels": {
+      "campus": "Famous for some of the best Andhra hostel food in the state (~₹88,000/yr).",
+      "outsideBoys": [
+        {
+          "name": "Vadlamudi Student Boys PG",
+          "rating": "4.3★",
+          "dist": "200m opposite Vignan Gate",
+          "rent": "₹5,200/mo"
+        }
+      ],
+      "outsideGirls": [
+        {
+          "name": "Sri Sai Women's Deluxe Hostel Vadlamudi",
+          "rating": "4.5★",
+          "dist": "250m from Gate",
+          "rent": "₹5,800/mo"
+        }
+      ]
+    },
+    "travel": {
+      "nearestStation": "Tenali Junction (TEL) - 12 km | Guntur Junction (GNT) - 14 km",
+      "nearestBusStand": "Vadlamudi Highway Stop (Right at College Gate)",
+      "distanceFromBengaluru": "~635 km",
+      "modes": [
+        {
+          "mode": "Train",
+          "time": "11 hrs",
+          "cost": "Sleeper: ₹370 | 3AC: ₹990",
+          "route": "Direct trains to Guntur or Tenali Junction"
+        },
+        {
+          "mode": "Bus",
+          "time": "10 hrs",
+          "cost": "₹900 - ₹1,350",
+          "route": "Buses to Guntur + non-stop Tenali bus to Vadlamudi"
+        }
+      ],
+      "localTransit": "APSRTC Guntur–Tenali bus stops directly in front of Vignan Main Gate every 5 mins: ₹20"
+    },
+    "food": [
+      {
+        "spot": "Vignan M-Block Canteen & Vadlamudi Dhaba",
+        "type": "Famous Student Food",
+        "dishes": "Guntur Chicken Pulao (₹140), Samosa & Badam Milk (₹40)"
+      }
+    ]
+  },
+  {
+    "id": "mbu_tirupati",
+    "name": "Mohan Babu University (MBU / Sree Vidyanikethan) Tirupati",
+    "code": "MBU",
+    "type": "Payment / Deemed University",
+    "exam": "payment",
+    "region": "SVU",
+    "district": "Tirupati",
+    "location": "Sainath Nagar, Rangampeta, Tirupati",
+    "established": 1992,
+    "rating": "4.4★",
+    "grade": "NAAC A+",
+    "lowPlacementFlag": false,
+    "paymentInfo": {
+      "examName": "MBU CET 2026 & AP EAPCET (SVEC Quota)",
+      "deadline": "Phase 1: April 30 | Phase 2: June 20",
+      "examDates": "May & June Online Test Slots",
+      "feeMode": "Application Fee: ₹1,100 • Online Proctored",
+      "directNote": "Admits both via AP EAPCET Convener Quota (JVD Eligible) and MBU CET Direct Merit Quota with SAP/IBM industry-integrated specializations.",
+      "discounts": [
+        "🏆 100% Full Fee Reimbursement (JVD): For AP EAPCET Convener Quota seats",
+        "🌟 50% Merit Scholarship: Top MBU CET Rankers & >95% in Inter MPC",
+        "✨ 25% Merit Scholarship: 88%–95% in Intermediate MPC",
+        "💵 Direct Admission Seat: Open for CSE, AI, Data Science & ECE without AP CET cutoff barriers"
+      ]
+    },
+    "fees": {
+      "annualTuition": "₹2,00,000 / year (MBU Direct) | ₹75,000 (EAPCET Quota)",
+      "numTuition": 165000,
+      "jvdStatus": "JVD Applicable on AP EAPCET Quota; MBU Merit Scholarships on Direct Quota",
+      "hostelFee": "₹85,000 / year",
+      "numHostel": 85000
+    },
+    "placements": {
+      "avgPackage": "₹6.5 LPA",
+      "medianPackage": "₹5.0 LPA",
+      "numAvgPkg": 6.5,
+      "numMedianPkg": 5,
+      "highestPackage": "₹44.0 LPA",
+      "numHighPkg": 44,
+      "placementRate": "80% (2025 Verified)",
+      "numRate": 80,
+      "topRecruiters": [
+        "Amazon",
+        "Cognizant",
+        "Wipro",
+        "Infosys",
+        "TCS",
+        "Mphasis",
+        "Accenture"
+      ]
+    },
+    "branches": [
+      {
+        "code": "CSE",
+        "name": "Computer Science & Engineering",
+        "closingRank": 65000
+      },
+      {
+        "code": "AIDS",
+        "name": "CSE (AI & Machine Learning)",
+        "closingRank": 95000
+      },
+      {
+        "code": "IT",
+        "name": "CSE (Data Science & Cyber Sec)",
+        "closingRank": 130000
+      },
+      {
+        "code": "ECE",
+        "name": "Electronics & Communication",
+        "closingRank": 210000
+      },
+      {
+        "code": "EEE",
+        "name": "Electrical & Electronics",
+        "closingRank": 290000
+      }
+    ],
+    "summary": "Premier Rayalaseema university (formerly Sree Vidyanikethan Engineering College) near Tirupati with lush campus and strong IT placement record.",
+    "scholarships": [
+      "AP Govt JVD Reimbursement (Convener Quota)",
+      "Sree Vidyanikethan Educational Trust Merit Scholarships"
+    ],
+    "hostels": {
+      "campus": "Large residential blocks inside Sainath Nagar campus (~₹85,000/yr).",
+      "outsideBoys": [
+        {
+          "name": "Rangampeta Royal Boys PG",
+          "rating": "4.3★",
+          "dist": "200m outside MBU Gate",
+          "rent": "₹5,200/mo"
+        }
+      ],
+      "outsideGirls": [
+        {
+          "name": "Sainath Nagar Safe Girls Hostel",
+          "rating": "4.5★",
+          "dist": "150m from Gate",
+          "rent": "₹5,800/mo"
+        }
+      ]
+    },
+    "travel": {
+      "nearestStation": "Tirupati Main (TPTY) - 16 km | Pakala - 24 km",
+      "nearestBusStand": "Tirupati Central Bus Stand - 16 km",
+      "distanceFromBengaluru": "~235 km (Closest private university to Bengaluru!)",
+      "modes": [
+        {
+          "mode": "Bus",
+          "time": "4-4.5 hrs",
+          "cost": "₹320 - ₹500",
+          "route": "Bengaluru–Chittoor–Tirupati buses drop right at Rangampeta Cross"
+        },
+        {
+          "mode": "Train",
+          "time": "5 hrs",
+          "cost": "₹180 - ₹510",
+          "route": "Direct trains to Tirupati Main"
+        }
+      ],
+      "localTransit": "APSRTC bus every 10 mins from Tirupati CBS to Rangampeta / MBU Gate: ₹25"
+    },
+    "food": [
+      {
+        "spot": "Rangampeta Student Food Street",
+        "type": "Rayalaseema & Tiffins",
+        "dishes": "Chicken Fried Rice (₹90), Ghee Karam Dosa (₹45), Thali (₹80)"
+      }
+    ]
+  }
+]

@@ -1,0 +1,288 @@
+{
+  "student.test@example.com": {
+    "email": "student.test@example.com",
+    "phone": "9876543210",
+    "username": "studenttest",
+    "pwHash": "$2a$10$2KnHUXJ4EqpInV3HhZN2rueiIfKXI8btwIlXlMKgrsd2L3ZmAuCwG",
+    "updatedAt": "2026-11-13T14:27:01.356Z",
+    "createdAt": "2026-11-09T12:38:36.872Z",
+    "profile": {
+      "fullName": "Suresh Kumar",
+      "gender": "male",
+      "interPct": 95.5,
+      "email": "student.test@example.com",
+      "phone": "9876543210",
+      "username": "studenttest"
+    },
+    "prefs": {
+      "exam": "ap_cet",
+      "rank": 4500,
+      "category": "BC_B",
+      "branch": "CSE"
+    },
+    "googleConnected": true,
+    "googleId": "g_1794237598964",
+    "fullName": "Suresh Kumar"
+  },
+  "suresh.google@gmail.com": {
+    "email": "suresh.google@gmail.com",
+    "username": "suresh.google",
+    "googleConnected": true,
+    "googleId": "g_1794237598944",
+    "profile": {
+      "fullName": "Suresh Google",
+      "email": "suresh.google@gmail.com",
+      "phone": "",
+      "username": "suresh.google"
+    },
+    "prefs": {},
+    "createdAt": "2026-11-09T15:19:58.946Z",
+    "updatedAt": "2026-11-09T15:19:58.946Z"
+  },
+  "chakravarty.test@gmail.com": {
+    "email": "chakravarty.test@gmail.com",
+    "username": "chakravarty.test",
+    "googleConnected": true,
+    "googleId": "g_1794297032522",
+    "profile": {
+      "fullName": "Chakravarty",
+      "email": "chakravarty.test@gmail.com",
+      "phone": "",
+      "username": "chakravarty.test"
+    },
+    "prefs": {},
+    "createdAt": "2026-11-10T07:50:32.543Z",
+    "updatedAt": "2026-11-10T07:50:32.543Z"
+  },
+  "testuser@example.com": {
+    "email": "testuser@example.com",
+    "phone": "",
+    "username": "testuser",
+    "fullName": "testuser",
+    "pwHash": "$2a$10$uhnXAQ/vnR5DcUk4Xes8T.1yzOdXfhtkTDqebiAZewgySErwNpqui",
+    "profile": {
+      "email": "testuser@example.com",
+      "phone": "",
+      "username": "testuser",
+      "fullName": "testuser"
+    },
+    "prefs": {},
+    "updatedAt": "2026-11-12T22:49:28.239Z",
+    "createdAt": "2026-11-12T22:49:28.239Z"
+  },
+  "student1794552262947@example.com": {
+    "email": "student1794552262947@example.com",
+    "phone": "9988776655",
+    "username": "user1794552262947",
+    "fullName": "user1794552262947",
+    "pwHash": "$2a$10$SuytDWJGFrAmS5QZPiPmHOo5NC/o4c/nqswTIj7Y6l7Dvak8mRT5G",
+    "profile": {
+      "email": "student1794552262947@example.com",
+      "phone": "9988776655",
+      "username": "user1794552262947",
+      "fullName": "Rahul Sharma",
+      "gender": "Male",
+      "school10Name": "Kendriya Vidyalaya Tirupati",
+      "school10Pct": "94.2",
+      "interCollegeName": "Sri Chaitanya Junior College",
+      "interPct": "96.5",
+      "ugCollege": "AU College of Engineering",
+      "ugBranch": "Computer Science and Engineering",
+      "currentState": "Andhra Pradesh",
+      "currentCity": "Visakhapatnam"
+    },
+    "prefs": {
+      "exam": "ap_cet",
+      "rank": 1450
+    },
+    "updatedAt": "2026-11-13T06:44:23.214Z",
+    "createdAt": "2026-11-13T06:44:23.183Z"
+  },
+  "oauth_test_1794580062297@gmail.com": {
+    "email": "oauth_test_1794580062297@gmail.com",
+    "username": "oauth_test_1794580062297",
+    "googleConnected": true,
+    "googleId": "g_test_12345",
+    "profile": {
+      "fullName": "Google Test Student",
+      "email": "oauth_test_1794580062297@gmail.com",
+      "phone": "",
+      "username": "oauth_test_1794580062297"
+    },
+    "prefs": {},
+    "createdAt": "2026-11-13T14:27:42.379Z",
+    "updatedAt": "2026-11-13T14:27:42.396Z"
+  },
+  "oauth_test_1794654044702@gmail.com": {
+    "email": "oauth_test_1794654044702@gmail.com",
+    "username": "oauth_test_1794654044702",
+    "googleConnected": true,
+    "googleId": "g_test_12345",
+    "profile": {
+      "fullName": "Google Test Student",
+      "email": "oauth_test_1794654044702@gmail.com",
+      "phone": "",
+      "username": "oauth_test_1794654044702",
+      "avatarUrl": ""
+    },
+    "prefs": {
+      "exam": "ap_cet",
+      "category": "OC",
+      "region": "ALL",
+      "branch": "ALL"
+    },
+    "createdAt": "2026-11-14T11:00:44.805Z",
+    "updatedAt": "2026-11-15T18:14:48.877Z"
+  },
+  "oauth_test_1794761149099@gmail.com": {
+    "email": "oauth_test_1794761149099@gmail.com",
+    "username": "oauth_test_1794761149099",
+    "googleConnected": true,
+    "googleId": "g_test_12345",
+    "profile": {
+      "fullName": "Google Test Student",
+      "email": "oauth_test_1794761149099@gmail.com",
+      "phone": "",
+      "username": "oauth_test_1794761149099",
+      "avatarUrl": ""
+    },
+    "prefs": {
+      "exam": "ap_cet",
+      "category": "OC",
+      "region": "ALL",
+      "branch": "ALL"
+    },
+    "createdAt": "2026-11-15T16:45:49.168Z",
+    "updatedAt": "2026-11-15T18:14:48.888Z"
+  },
+  "oauth_test_1794761307182@gmail.com": {
+    "email": "oauth_test_1794761307182@gmail.com",
+    "username": "oauth_test_1794761307182",
+    "googleConnected": true,
+    "googleId": "g_test_12345",
+    "profile": {
+      "fullName": "Google Test Student",
+      "email": "oauth_test_1794761307182@gmail.com",
+      "phone": "",
+      "username": "oauth_test_1794761307182",
+      "avatarUrl": ""
+    },
+    "prefs": {
+      "exam": "ap_cet",
+      "category": "OC",
+      "region": "ALL",
+      "branch": "ALL"
+    },
+    "createdAt": "2026-11-15T16:48:27.264Z",
+    "updatedAt": "2026-11-15T18:14:48.888Z"
+  },
+  "oauth_test_1794762628516@gmail.com": {
+    "email": "oauth_test_1794762628516@gmail.com",
+    "username": "oauth_test_1794762628516",
+    "googleConnected": true,
+    "googleId": "g_test_12345",
+    "profile": {
+      "fullName": "Google Test Student",
+      "email": "oauth_test_1794762628516@gmail.com",
+      "phone": "",
+      "username": "oauth_test_1794762628516",
+      "avatarUrl": ""
+    },
+    "prefs": {
+      "exam": "ap_cet",
+      "category": "OC",
+      "region": "ALL",
+      "branch": "ALL"
+    },
+    "createdAt": "2026-11-15T17:10:28.614Z",
+    "updatedAt": "2026-11-15T18:14:48.888Z"
+  },
+  "oauth_test_1794762729032@gmail.com": {
+    "email": "oauth_test_1794762729032@gmail.com",
+    "username": "oauth_test_1794762729032",
+    "googleConnected": true,
+    "googleId": "g_test_12345",
+    "profile": {
+      "fullName": "Google Test Student",
+      "email": "oauth_test_1794762729032@gmail.com",
+      "phone": "",
+      "username": "oauth_test_1794762729032",
+      "avatarUrl": "",
+      "emailVerified": true
+    },
+    "prefs": {
+      "exam": "ap_cet",
+      "category": "OC",
+      "region": "ALL",
+      "branch": "ALL"
+    },
+    "createdAt": "2026-11-15T17:12:09.095Z",
+    "updatedAt": "2026-11-15T18:14:48.888Z"
+  },
+  "test.student@gmail.com": {
+    "email": "test.student@gmail.com",
+    "username": "test.student",
+    "profile": {
+      "fullName": "test.student",
+      "email": "test.student@gmail.com",
+      "avatarUrl": ""
+    },
+    "createdAt": "2026-11-15T17:57:30.446Z",
+    "updatedAt": "2026-11-15T18:22:30.684Z"
+  },
+  "athotasridharchakravarthy@gmail.com": {
+    "email": "athotasridharchakravarthy@gmail.com",
+    "username": "athotasridharchakravarthy",
+    "profile": {
+      "fullName": "athotasridharchakravarthy",
+      "email": "athotasridharchakravarthy@gmail.com",
+      "avatarUrl": ""
+    },
+    "createdAt": "2026-11-15T18:08:26.840Z",
+    "updatedAt": "2026-11-15T18:14:48.888Z"
+  },
+  "audit.student@gmail.com": {
+    "email": "audit.student@gmail.com",
+    "username": "audit.student",
+    "googleConnected": true,
+    "googleId": "google_audit_12345",
+    "profile": {
+      "fullName": "Audit Student",
+      "email": "audit.student@gmail.com",
+      "phone": "",
+      "username": "audit.student",
+      "avatarUrl": "",
+      "emailVerified": true
+    },
+    "prefs": {
+      "exam": "ap_cet",
+      "category": "OC",
+      "region": "ALL",
+      "branch": "ALL"
+    },
+    "createdAt": "2026-11-15T18:27:30.702Z",
+    "updatedAt": "2026-11-15T19:49:01.381Z"
+  },
+  "link.test@gmail.com": {
+    "email": "link.test@gmail.com",
+    "username": "link.test",
+    "googleConnected": true,
+    "googleId": "g123",
+    "profile": {
+      "fullName": "Link Test",
+      "email": "link.test@gmail.com",
+      "phone": "",
+      "username": "link.test",
+      "avatarUrl": "",
+      "emailVerified": true
+    },
+    "prefs": {
+      "exam": "ap_cet",
+      "category": "OC",
+      "region": "ALL",
+      "branch": "ALL"
+    },
+    "createdAt": "2026-11-15T18:29:24.502Z",
+    "updatedAt": "2026-11-15T18:29:24.520Z"
+  }
+}

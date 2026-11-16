@@ -1,0 +1,22 @@
+{
+  "email": "audit.student@gmail.com",
+  "username": "audit.student",
+  "googleConnected": true,
+  "googleId": "google_audit_12345",
+  "profile": {
+    "fullName": "Audit Student",
+    "email": "audit.student@gmail.com",
+    "phone": "",
+    "username": "audit.student",
+    "avatarUrl": "",
+    "emailVerified": true
+  },
+  "prefs": {
+    "exam": "ap_cet",
+    "category": "OC",
+    "region": "ALL",
+    "branch": "ALL"
+  },
+  "createdAt": "2026-11-15T18:27:30.702Z",
+  "updatedAt": "2026-11-15T19:49:01.381Z"
+}

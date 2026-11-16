@@ -1,0 +1,68 @@
+{
+  "categoryMultipliers": {
+    "OC": 1,
+    "EWS": 1.18,
+    "BC_A": 1.48,
+    "BC_B": 1.38,
+    "BC_C": 1.65,
+    "BC_D": 1.36,
+    "BC_E": 1.55,
+    "SC": 2.35,
+    "ST": 2.75
+  },
+  "categoryLabels": {
+    "OC": "OC (General)",
+    "EWS": "EWS Quota",
+    "BC_A": "BC-A Quota",
+    "BC_B": "BC-B Quota",
+    "BC_C": "BC-C Quota",
+    "BC_D": "BC-D Quota",
+    "BC_E": "BC-E Quota",
+    "SC": "SC Quota",
+    "ST": "ST Quota"
+  },
+  "originHubOffsets": {
+    "Bengaluru": {
+      "label": "Bengaluru",
+      "svuDist": "~185 – 260 km",
+      "auDist": "~630 – 1,010 km",
+      "svuTime": "3.5 – 5.5 hrs",
+      "auTime": "10 – 17 hrs"
+    },
+    "Vijayawada": {
+      "label": "Vijayawada",
+      "svuDist": "~340 – 450 km",
+      "auDist": "~15 – 350 km",
+      "svuTime": "6 – 8 hrs",
+      "auTime": "0.5 – 6 hrs"
+    },
+    "Visakhapatnam": {
+      "label": "Visakhapatnam",
+      "svuDist": "~680 – 790 km",
+      "auDist": "~10 – 350 km",
+      "svuTime": "11 – 14 hrs",
+      "auTime": "0.5 – 6 hrs"
+    },
+    "Tirupati": {
+      "label": "Tirupati",
+      "svuDist": "~10 – 220 km",
+      "auDist": "~380 – 750 km",
+      "svuTime": "0.5 – 4.5 hrs",
+      "auTime": "6.5 – 13 hrs"
+    },
+    "Hyderabad": {
+      "label": "Hyderabad",
+      "svuDist": "~310 – 520 km",
+      "auDist": "~275 – 620 km",
+      "svuTime": "5 – 9 hrs",
+      "auTime": "4.5 – 11 hrs"
+    },
+    "Chennai": {
+      "label": "Chennai",
+      "svuDist": "~135 – 390 km",
+      "auDist": "~430 – 790 km",
+      "svuTime": "2.5 – 7 hrs",
+      "auTime": "7 – 13.5 hrs"
+    }
+  }
+}

@@ -1,0 +1,447 @@
+[
+  {
+    "district": "Visakhapatnam",
+    "region": "AU",
+    "codePrefix": "VSP",
+    "hubCity": "Visakhapatnam",
+    "station": "Visakhapatnam Junction (VSKP)",
+    "distBlr": "~1,010 km",
+    "hubs": [
+      "Madhurawada",
+      "Bheemunipatnam",
+      "Sontyam",
+      "Pendurthi",
+      "Gajuwaka",
+      "PM Palem",
+      "Anandapuram",
+      "Gambheeram"
+    ]
+  },
+  {
+    "district": "Guntur",
+    "region": "AU",
+    "codePrefix": "GNT",
+    "hubCity": "Guntur",
+    "station": "Guntur Junction (GNT)",
+    "distBlr": "~630 km",
+    "hubs": [
+      "Nambur",
+      "Vadlamudi",
+      "Chowdavaram",
+      "Lam",
+      "Chebrolu",
+      "Phirangipuram",
+      "Prathipadu",
+      "Tadikonda",
+      "Mangalagiri",
+      "Tenali"
+    ]
+  },
+  {
+    "district": "NTR / Vijayawada",
+    "region": "AU",
+    "codePrefix": "VJA",
+    "hubCity": "Vijayawada",
+    "station": "Vijayawada Junction (BZA)",
+    "distBlr": "~660 km",
+    "hubs": [
+      "Ibrahimpatnam",
+      "Kanchikacherla",
+      "Mylavaram",
+      "Paritala",
+      "Nunna",
+      "Gannavaram",
+      "Enikepadu",
+      "Kondapalli",
+      "Nandigama",
+      "Jaggayyapeta"
+    ]
+  },
+  {
+    "district": "Krishna",
+    "region": "AU",
+    "codePrefix": "KRI",
+    "hubCity": "Machilipatnam",
+    "station": "Gudivada / Machilipatnam",
+    "distBlr": "~690 km",
+    "hubs": [
+      "Gudivada",
+      "Machilipatnam",
+      "Telaprolu",
+      "Vuyyuru",
+      "Challapalli",
+      "Hanuman Junction",
+      "Pamarru",
+      "Avanigadda"
+    ]
+  },
+  {
+    "district": "Kakinada",
+    "region": "AU",
+    "codePrefix": "KKD",
+    "hubCity": "Kakinada",
+    "station": "Kakinada Town (CCT) / Samalkot",
+    "distBlr": "~890 km",
+    "hubs": [
+      "Surampalem",
+      "Korangi",
+      "Peddapuram",
+      "Samalkot",
+      "Pithapuram",
+      "Tuni",
+      "Prathipadu",
+      "Divili"
+    ]
+  },
+  {
+    "district": "East Godavari",
+    "region": "AU",
+    "codePrefix": "EGK",
+    "hubCity": "Rajahmundry",
+    "station": "Rajahmundry (RJY)",
+    "distBlr": "~830 km",
+    "hubs": [
+      "Rajahmundry",
+      "Rajanagaram",
+      "Kovvur",
+      "Nidadavole",
+      "Diwancheruvu",
+      "Gokavaram",
+      "Anaparthi",
+      "Korukonda"
+    ]
+  },
+  {
+    "district": "West Godavari",
+    "region": "AU",
+    "codePrefix": "WGK",
+    "hubCity": "Bhimavaram",
+    "station": "Bhimavaram Town (BVRT) / Tadepalligudem",
+    "distBlr": "~770 km",
+    "hubs": [
+      "Bhimavaram",
+      "Tadepalligudem",
+      "Narsapur",
+      "Palakollu",
+      "Tanuku",
+      "Akiveedu",
+      "Pippara",
+      "Pentapadu"
+    ]
+  },
+  {
+    "district": "Eluru",
+    "region": "AU",
+    "codePrefix": "ELR",
+    "hubCity": "Eluru",
+    "station": "Eluru Railway Station (EE)",
+    "distBlr": "~715 km",
+    "hubs": [
+      "Vatluru",
+      "Jangareddygudem",
+      "Nuzvid",
+      "Agiripalli",
+      "Denduluru",
+      "Bhimadole",
+      "Chintalapudi"
+    ]
+  },
+  {
+    "district": "Tirupati",
+    "region": "SVU",
+    "codePrefix": "TPT",
+    "hubCity": "Tirupati",
+    "station": "Tirupati Main (TPTY) / Renigunta",
+    "distBlr": "~250 km",
+    "hubs": [
+      "Renigunta",
+      "Puttur",
+      "Srikalahasti",
+      "Gudur Highway",
+      "Chandragiri",
+      "Vadamalapeta",
+      "Naidupeta",
+      "Sullurpeta",
+      "Venkatagiri",
+      "Tiruchanur"
+    ]
+  },
+  {
+    "district": "Chittoor",
+    "region": "SVU",
+    "codePrefix": "CTR",
+    "hubCity": "Chittoor",
+    "station": "Chittoor (CTO) / Katpadi",
+    "distBlr": "~185 km",
+    "hubs": [
+      "Chittoor",
+      "Kuppam",
+      "Palamaner",
+      "Nagari",
+      "Pakala",
+      "Bangarupalem",
+      "Puthalapattu",
+      "Gangadhara Nellore"
+    ]
+  },
+  {
+    "district": "Anantapur",
+    "region": "SVU",
+    "codePrefix": "ATP",
+    "hubCity": "Anantapur",
+    "station": "Anantapur (ATP) / Guntakal",
+    "distBlr": "~215 km",
+    "hubs": [
+      "Anantapur",
+      "Gooty",
+      "Tadipatri",
+      "Guntakal",
+      "Singanamala",
+      "Kalyandurg",
+      "Rayadurg",
+      "Pamidi"
+    ]
+  },
+  {
+    "district": "Sri Sathya Sai",
+    "region": "SVU",
+    "codePrefix": "SSS",
+    "hubCity": "Puttaparthi",
+    "station": "Sri Sathya Sai Prasanthi Nilayam (SSPN)",
+    "distBlr": "~155 km",
+    "hubs": [
+      "Puttaparthi",
+      "Hindupur",
+      "Dharmavaram",
+      "Penukonda",
+      "Kadiri",
+      "Madakasira"
+    ]
+  },
+  {
+    "district": "Kurnool",
+    "region": "SVU",
+    "codePrefix": "KNL",
+    "hubCity": "Kurnool",
+    "station": "Kurnool City (KRNT)",
+    "distBlr": "~360 km",
+    "hubs": [
+      "Kurnool",
+      "Adoni",
+      "Yemmiganur",
+      "Orvakal",
+      "Kodumur",
+      "Panchalingala",
+      "Dupadu",
+      "Dhone"
+    ]
+  },
+  {
+    "district": "Nandyal",
+    "region": "SVU",
+    "codePrefix": "NDL",
+    "hubCity": "Nandyal",
+    "station": "Nandyal Junction (NDL)",
+    "distBlr": "~385 km",
+    "hubs": [
+      "Nandyal",
+      "Allagadda",
+      "Banaganapalle",
+      "Nandikotkur",
+      "Atmakur",
+      "Bethamcherla"
+    ]
+  },
+  {
+    "district": "Kadapa (YSR)",
+    "region": "SVU",
+    "codePrefix": "KDP",
+    "hubCity": "Kadapa",
+    "station": "Kadapa (HX)",
+    "distBlr": "~275 km",
+    "hubs": [
+      "Kadapa",
+      "Proddatur",
+      "Pulivendula",
+      "Badvel",
+      "Mydukur",
+      "Jammalamadugu",
+      "Kamalapuram",
+      "Vempalli"
+    ]
+  },
+  {
+    "district": "Annamayya",
+    "region": "SVU",
+    "codePrefix": "ANM",
+    "hubCity": "Rajampet",
+    "station": "Rajampeta (RJP) / Madanapalle Road",
+    "distBlr": "~165 km",
+    "hubs": [
+      "Rajampet",
+      "Madanapalle",
+      "Rayachoti",
+      "Kalikiri",
+      "Pileru",
+      "Kodur"
+    ]
+  },
+  {
+    "district": "Nellore (SPSR)",
+    "region": "SVU",
+    "codePrefix": "NLR",
+    "hubCity": "Nellore",
+    "station": "Nellore (NLR) / Kavali",
+    "distBlr": "~385 km",
+    "hubs": [
+      "Nellore",
+      "Kavali",
+      "Kovur",
+      "Atmakur",
+      "Muthukur",
+      "Buchireddypalem",
+      "North Rajupalem",
+      "Venkatachalam"
+    ]
+  },
+  {
+    "district": "Prakasam",
+    "region": "AU",
+    "codePrefix": "PKM",
+    "hubCity": "Ongole",
+    "station": "Ongole (OGL) / Markapur Road",
+    "distBlr": "~505 km",
+    "hubs": [
+      "Ongole",
+      "Markapur",
+      "Kanigiri",
+      "Podili",
+      "Darsi",
+      "Singarayakonda",
+      "Chimakurthy",
+      "Giddalur"
+    ]
+  },
+  {
+    "district": "Bapatla",
+    "region": "AU",
+    "codePrefix": "BPT",
+    "hubCity": "Bapatla",
+    "station": "Bapatla (BPP) / Chirala (CLX)",
+    "distBlr": "~575 km",
+    "hubs": [
+      "Bapatla",
+      "Chirala",
+      "Addanki",
+      "Repalle",
+      "Parchur",
+      "Martur"
+    ]
+  },
+  {
+    "district": "Palnadu",
+    "region": "AU",
+    "codePrefix": "PLD",
+    "hubCity": "Narasaraopet",
+    "station": "Narasaraopet (NRT) / Piduguralla",
+    "distBlr": "~610 km",
+    "hubs": [
+      "Narasaraopet",
+      "Sattenapalli",
+      "Chilakaluripet",
+      "Vinukonda",
+      "Piduguralla",
+      "Macherla"
+    ]
+  },
+  {
+    "district": "Vizianagaram",
+    "region": "AU",
+    "codePrefix": "VZM",
+    "hubCity": "Vizianagaram",
+    "station": "Vizianagaram Junction (VZM)",
+    "distBlr": "~1,055 km",
+    "hubs": [
+      "Vizianagaram",
+      "Rajam",
+      "Bobbili",
+      "Bhogapuram",
+      "Nellimarla",
+      "Cheepurupalli",
+      "Gajapathinagaram"
+    ]
+  },
+  {
+    "district": "Srikakulam",
+    "region": "AU",
+    "codePrefix": "SKL",
+    "hubCity": "Srikakulam",
+    "station": "Srikakulam Road (CHE) / Palasa",
+    "distBlr": "~1,120 km",
+    "hubs": [
+      "Srikakulam",
+      "Tekkali",
+      "Etcherla",
+      "Rajam Road",
+      "Palasa",
+      "Amadalavalasa"
+    ]
+  },
+  {
+    "district": "Anakapalli",
+    "region": "AU",
+    "codePrefix": "AKP",
+    "hubCity": "Anakapalli",
+    "station": "Anakapalle (AKP)",
+    "distBlr": "~980 km",
+    "hubs": [
+      "Anakapalli",
+      "Narsipatnam",
+      "Sabbavaram",
+      "Yelamanchili",
+      "Parawada",
+      "Chodavaram"
+    ]
+  },
+  {
+    "district": "Konaseema",
+    "region": "AU",
+    "codePrefix": "KSM",
+    "hubCity": "Amalapuram",
+    "station": "Rajahmundry / Kakinada (45 km)",
+    "distBlr": "~860 km",
+    "hubs": [
+      "Amalapuram",
+      "Ramachandrapuram",
+      "Ravulapalem",
+      "Mummidivaram",
+      "Razole"
+    ]
+  },
+  {
+    "district": "Parvathipuram Manyam",
+    "region": "AU",
+    "codePrefix": "PVM",
+    "hubCity": "Parvathipuram",
+    "station": "Parvatipuram (PVP)",
+    "distBlr": "~1,110 km",
+    "hubs": [
+      "Parvathipuram",
+      "Salur",
+      "Palakonda"
+    ]
+  },
+  {
+    "district": "Alluri Sitharama Raju",
+    "region": "AU",
+    "codePrefix": "ASR",
+    "hubCity": "Paderu",
+    "station": "Araku / Visakhapatnam",
+    "distBlr": "~1,040 km",
+    "hubs": [
+      "Paderu",
+      "Rampachodavaram",
+      "Chinturu"
+    ]
+  }
+]

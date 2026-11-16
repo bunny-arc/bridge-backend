@@ -1,0 +1,47 @@
+[
+  {
+    "id": "doc_rank",
+    "title": "AP EAPCET / JEE Rank Card & Hall Ticket (2025/2026)",
+    "desc": "Download 4 copies from official APSCHE cets.apsche.ap.gov.in or NTA portal."
+  },
+  {
+    "id": "doc_ssc",
+    "title": "SSC / 10th Class Marks Memo (Date of Birth Proof)",
+    "desc": "Original certificate + 3 xerox sets for age and name verification."
+  },
+  {
+    "id": "doc_inter",
+    "title": "Intermediate (10+2 MPC) Marks Memo-cum-Pass Certificate",
+    "desc": "Issued by BIEAP / CBSE / ICSE showing PCM aggregate marks."
+  },
+  {
+    "id": "doc_study",
+    "title": "Study Certificates from Class 6th to Intermediate (7 Years)",
+    "desc": "Mandatory to establish your 85% Local Area (AU or SVU region) eligibility."
+  },
+  {
+    "id": "doc_tc",
+    "title": "Transfer Certificate (TC) from Junior College",
+    "desc": "Original TC must be submitted at the allotted engineering college."
+  },
+  {
+    "id": "doc_income",
+    "title": "Latest Income Certificate (< ₹2.5L) or White Ration / Rice Card",
+    "desc": "Issued on/after Jan 1st from Grama/Ward Sachivalayam for 100% JVD Fee Reimbursement."
+  },
+  {
+    "id": "doc_caste",
+    "title": "Integrated Caste Certificate (SC / ST / BC-A/B/C/D/E) or EWS Certificate",
+    "desc": "Issued by Tahsildar / MeeSeva with verifiable barcode for reservation scaling."
+  },
+  {
+    "id": "doc_residence",
+    "title": "Residence / Local Status Certificate (If Private Study)",
+    "desc": "Required only for candidates who studied privately or migrated from Telangana."
+  },
+  {
+    "id": "doc_aadhaar",
+    "title": "Student & Mother Aadhaar Card + NPCI Bank Account Link",
+    "desc": "Active bank account linked with Aadhaar for JVD & Vasathi Deevena direct credit."
+  }
+]
