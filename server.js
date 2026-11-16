@@ -470,51 +470,42 @@ app.post("/api/login/complete", (req, res) => {
   }
 });
 
+app.get("/api/config", (req, res) => {
+  res.json({ googleClientId: GOOGLE_CLIENT_ID });
+});
+
 // 6. Google Sign-In & Account Connection (Google OAuth verification & Auto-Account Creation)
 app.post("/api/google", async (req, res) => {
+  const credential = typeof req.body?.credential === "string" ? req.body.credential.trim() : "";
+  if (!credential) {
+    return res.status(400).json({ ok: false, error: "Google credential is required" });
+  }
+  if (!GOOGLE_CLIENT_ID) {
+    return res.status(503).json({ ok: false, error: "Google Sign-In is not configured on the server" });
+  }
+
+  let payload;
   try {
-    const { credential, email: directEmail, name: directName, googleId: directId, avatar: directAvatar } = req.body;
+    const ticket = await googleClient.verifyIdToken({
+      idToken: credential,
+      audience: GOOGLE_CLIENT_ID,
+    });
+    payload = ticket.getPayload();
+  } catch (err) {
+    console.warn("[Google Auth] Credential verification failed:", err.message);
+    return res.status(401).json({ ok: false, error: "Google credential is invalid or expired" });
+  }
 
-    if (!credential && !directEmail) {
-      return res.status(400).json({ ok: false, error: "Google credential token or email is required" });
-    }
+  if (!payload?.sub || !payload.email || payload.email_verified !== true) {
+    return res.status(401).json({ ok: false, error: "Google did not provide a verified account" });
+  }
 
-    let payload = null;
+  const email = payload.email.toLowerCase().trim();
+  const name = payload.name || payload.given_name || email.split("@")[0];
+  const avatar = payload.picture || "";
+  const googleId = payload.sub;
 
-    if (credential) {
-      // Cryptographic verification using Google's official library if Client ID is configured
-      if (GOOGLE_CLIENT_ID) {
-        try {
-          const ticket = await googleClient.verifyIdToken({
-            idToken: credential,
-            audience: GOOGLE_CLIENT_ID,
-          });
-          payload = ticket.getPayload();
-        } catch (vErr) {
-          console.warn("[Google Auth] verifyIdToken check:", vErr.message);
-        }
-      }
-
-      // Fallback decode for development/testing if Client ID is not yet configured or in offline dev
-      if (!payload) {
-        const parts = credential.split(".");
-        if (parts.length === 3) {
-          try {
-            payload = JSON.parse(Buffer.from(parts[1], "base64").toString("utf8"));
-          } catch (_) {}
-        }
-      }
-    }
-
-    const email = (payload?.email || directEmail || "").toLowerCase().trim();
-    const name = payload?.name || payload?.given_name || directName || email.split("@")[0];
-    const avatar = payload?.picture || directAvatar || "";
-    const googleId = payload?.sub || directId || ("g_" + Date.now());
-
-    if (!email) {
-      return res.status(400).json({ ok: false, error: "No email found in Google token" });
-    }
-
+  try {
     const users = readJsonSafe(USERS_FILE, {});
     let user = users[email];
     const isExisting = Boolean(user);
@@ -581,10 +572,7 @@ app.post("/api/google", async (req, res) => {
     });
   } catch (err) {
     console.error("[Google Auth Error]:", err);
-    return res.status(401).json({
-      ok: false,
-      error: "Google token verification failed: " + (err.message || "Invalid token")
-    });
+    return res.status(500).json({ ok: false, error: "Could not create the application session" });
   }
 });
 
