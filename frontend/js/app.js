@@ -5190,9 +5190,34 @@
       menu.setAttribute("role", "listbox");
       wrapper.appendChild(menu);
 
+      const isMulti = select.id === "state-select" || select.id === "counseling-state-select";
+      if (isMulti && (!Array.isArray(appState.selectedStates) || appState.selectedStates.length === 0)) {
+        appState.selectedStates = [select.value || "Andhra Pradesh"];
+      }
+
       function updateTriggerLabel() {
-        const selOpt = select.options[select.selectedIndex];
-        labelSpan.textContent = selOpt ? selOpt.textContent : "Select an option";
+        if (isMulti) {
+          if (!Array.isArray(appState.selectedStates) || appState.selectedStates.length === 0 || appState.selectedStates.includes("ALL")) {
+            labelSpan.textContent = "All States (Pan-India)";
+            const badge = document.getElementById("state-active-badge");
+            if (badge) badge.textContent = "ALL STATES";
+          } else if (appState.selectedStates.length === 1) {
+            labelSpan.textContent = appState.selectedStates[0];
+            const badge = document.getElementById("state-active-badge");
+            if (badge) badge.textContent = appState.selectedStates[0].toUpperCase();
+          } else if (appState.selectedStates.length === 2) {
+            labelSpan.textContent = `${appState.selectedStates[0]}, ${appState.selectedStates[1]}`;
+            const badge = document.getElementById("state-active-badge");
+            if (badge) badge.textContent = `${appState.selectedStates.length} STATES`;
+          } else {
+            labelSpan.textContent = `${appState.selectedStates[0]}, ${appState.selectedStates[1]} (+${appState.selectedStates.length - 2} more)`;
+            const badge = document.getElementById("state-active-badge");
+            if (badge) badge.textContent = `${appState.selectedStates.length} STATES`;
+          }
+        } else {
+          const selOpt = select.options[select.selectedIndex];
+          labelSpan.textContent = selOpt ? selOpt.textContent : "Select an option";
+        }
       }
 
       function buildMenuOptions(filterQuery = "") {
@@ -5224,9 +5249,15 @@
           menu.appendChild(searchBox);
         }
 
-        const currentVal = select.value;
         options.forEach(opt => {
-          const isSelected = opt.value === currentVal || opt.selected;
+          let isSelected = false;
+          if (isMulti) {
+            isSelected = (appState.selectedStates.includes("ALL") && opt.value === "ALL") ||
+                         (!appState.selectedStates.includes("ALL") && appState.selectedStates.includes(opt.value));
+          } else {
+            isSelected = opt.value === select.value || opt.selected;
+          }
+
           const optDiv = document.createElement("div");
           optDiv.className = `custom-radio-option ${isSelected ? 'is-selected' : ''}`;
           optDiv.dataset.value = opt.value;
@@ -5239,9 +5270,9 @@
           tSpan.className = "truncate pr-2";
           tSpan.textContent = opt.textContent;
 
-          // Radio ring on right (Pic 1)
+          // Radio/Check circle on right (Pic 1)
           const circleDiv = document.createElement("div");
-          circleDiv.className = "custom-radio-circle";
+          circleDiv.className = `custom-radio-circle ${isSelected ? 'is-selected' : ''}`;
           if (isSelected) {
             circleDiv.innerHTML = '<div class="custom-radio-dot"></div>';
           }
@@ -5251,12 +5282,66 @@
 
           optDiv.addEventListener("click", (e) => {
             e.stopPropagation();
-            if (select.value !== opt.value) {
-              select.value = opt.value;
+            if (isMulti) {
+              if (opt.value === "ALL") {
+                appState.selectedStates = ["ALL"];
+                appState.state = "ALL";
+                select.value = "ALL";
+              } else {
+                if (appState.selectedStates.includes("ALL")) {
+                  appState.selectedStates = [opt.value];
+                } else if (appState.selectedStates.includes(opt.value)) {
+                  appState.selectedStates = appState.selectedStates.filter(s => s !== opt.value);
+                  if (appState.selectedStates.length === 0) {
+                    appState.selectedStates = ["ALL"];
+                    appState.state = "ALL";
+                    select.value = "ALL";
+                  }
+                } else {
+                  appState.selectedStates.push(opt.value);
+                }
+                appState.state = appState.selectedStates.length === 1 ? appState.selectedStates[0] : (appState.selectedStates.includes("ALL") ? "ALL" : appState.selectedStates.join(", "));
+                select.value = appState.selectedStates[0] || "ALL";
+              }
+
+              // Update all item elements in the menu without closing
+              menu.querySelectorAll(".custom-radio-option").forEach(itemEl => {
+                const val = itemEl.dataset.value;
+                const sel = (appState.selectedStates.includes("ALL") && val === "ALL") ||
+                            (!appState.selectedStates.includes("ALL") && appState.selectedStates.includes(val));
+                itemEl.classList.toggle("is-selected", sel);
+                itemEl.setAttribute("aria-selected", sel ? "true" : "false");
+                const circ = itemEl.querySelector(".custom-radio-circle");
+                if (circ) {
+                  circ.classList.toggle("is-selected", sel);
+                  circ.innerHTML = sel ? '<div class="custom-radio-dot"></div>' : '';
+                }
+              });
+
+              updateTriggerLabel();
+
+              // Trigger state change
               select.dispatchEvent(new Event("change", { bubbles: true }));
+              if (typeof updateDistrictDropdown === "function") {
+                if (appState.selectedStates.length === 1 && appState.selectedStates[0] === "Andhra Pradesh") {
+                  updateDistrictDropdown("Andhra Pradesh");
+                } else if (appState.selectedStates.includes("ALL")) {
+                  updateDistrictDropdown("Andhra Pradesh");
+                } else {
+                  updateDistrictDropdown("ALL");
+                }
+              }
+              if (typeof renderExplorer === "function") {
+                renderExplorer();
+              }
+            } else {
+              if (select.value !== opt.value) {
+                select.value = opt.value;
+                select.dispatchEvent(new Event("change", { bubbles: true }));
+              }
+              updateTriggerLabel();
+              closeMenu();
             }
-            updateTriggerLabel();
-            closeMenu();
           });
 
           menu.appendChild(optDiv);
@@ -5272,6 +5357,8 @@
             m.classList.add("hidden");
             const otherTrig = m.closest(".custom-radio-select-wrapper")?.querySelector(".custom-radio-trigger");
             if (otherTrig) otherTrig.classList.remove("is-open");
+            const otherWrap = m.closest(".custom-radio-select-wrapper");
+            if (otherWrap) otherWrap.style.zIndex = "";
           }
         });
 
@@ -5279,6 +5366,7 @@
         menu.classList.remove("hidden");
         trigger.classList.add("is-open");
         trigger.setAttribute("aria-expanded", "true");
+        wrapper.style.zIndex = "60";
 
         // Focus search input if available
         const sInput = menu.querySelector("input");
@@ -5291,6 +5379,7 @@
         menu.classList.add("hidden");
         trigger.classList.remove("is-open");
         trigger.setAttribute("aria-expanded", "false");
+        wrapper.style.zIndex = "";
       }
 
       trigger.addEventListener("click", (e) => {
@@ -5317,13 +5406,20 @@
       });
       observer.observe(select, { childList: true, subtree: true });
 
+      select._updateCustomRadio = () => {
+        updateTriggerLabel();
+        if (!menu.classList.contains("hidden")) {
+          buildMenuOptions();
+        }
+      };
+
       // Initial build & label
       buildMenuOptions();
       updateTriggerLabel();
     }
 
     function setupCustomRadioDropdowns() {
-      // 1. Target all dropdowns in the Option Search Bar
+      // 1. Target all dropdowns in Option Search Bar & ROI Calculator (Pics 1, 2, 3, 4, 5)
       const targetSelectIds = [
         "gender-select",
         "category-select",
@@ -5339,7 +5435,12 @@
         "counseling-state-select",
         "wiz-gender-select",
         "wiz-category-select",
-        "wiz-state-select"
+        "wiz-state-select",
+        "roi-quota-select",
+        "roi-scholarship-select",
+        "roi-stay-select",
+        "roi-jvd-vasathi",
+        "matrix-round-select"
       ];
 
       targetSelectIds.forEach(id => {

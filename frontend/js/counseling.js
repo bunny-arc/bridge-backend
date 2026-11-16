@@ -71,6 +71,8 @@
       region: "ALL",
       district: "ALL",
       branch: "ALL",
+      state: "Andhra Pradesh",
+      selectedStates: ["Andhra Pradesh"],
       type: "ALL",
       minPkg: 0,
       search: "",
@@ -384,8 +386,12 @@
           }
         }
 
-        // 2. Filter by State: if a particular state is chosen, show ONLY that state
-        if (appState.state && appState.state !== "ALL") {
+        // 2. Filter by State (supports multi-selection of states or ALL)
+        if (Array.isArray(appState.selectedStates) && appState.selectedStates.length > 0 && !appState.selectedStates.includes("ALL")) {
+          const cState = (college.state || (college.location && college.location.includes("AP") ? "Andhra Pradesh" : "")).trim().toLowerCase();
+          const matched = appState.selectedStates.some(st => st.trim().toLowerCase() === cState);
+          if (!matched) return false;
+        } else if (appState.state && appState.state !== "ALL") {
           const s = appState.state.trim().toLowerCase();
           const cState = (college.state || (college.location && college.location.includes("AP") ? "Andhra Pradesh" : "")).trim().toLowerCase();
           if (cState !== s) {
@@ -992,7 +998,9 @@
       // 1. Direct handling for Payment & Deemed Universities (Sorted by Priority)
       if (appState.exam === "payment") {
         let paymentColleges = collegesData.filter(c => c.exam === "payment");
-        if (appState.state && appState.state !== "ALL") {
+        if (Array.isArray(appState.selectedStates) && appState.selectedStates.length > 0 && !appState.selectedStates.includes("ALL")) {
+          paymentColleges = paymentColleges.filter(c => appState.selectedStates.some(st => (c.state || "").toLowerCase().includes(st.toLowerCase())));
+        } else if (appState.state && appState.state !== "ALL") {
           const s = appState.state.toLowerCase();
           paymentColleges = paymentColleges.filter(c => (c.state || "").toLowerCase().includes(s));
         }
@@ -1024,7 +1032,9 @@
 
       if (false && appState.exam === "payment") {
         let paymentColleges = collegesData.filter(c => c.exam === "payment");
-        if (appState.state && appState.state !== "ALL") {
+        if (Array.isArray(appState.selectedStates) && appState.selectedStates.length > 0 && !appState.selectedStates.includes("ALL")) {
+          paymentColleges = paymentColleges.filter(c => appState.selectedStates.some(st => (c.state || "").toLowerCase().includes(st.toLowerCase())));
+        } else if (appState.state && appState.state !== "ALL") {
           const s = appState.state.toLowerCase();
           paymentColleges = paymentColleges.filter(c => (c.state || "").toLowerCase().includes(s));
         }
@@ -1055,7 +1065,10 @@
         return c.exam === appState.exam || c.exam === "ap_cet";
       });
 
-      if (appState.state && appState.state !== "ALL") {
+      if (Array.isArray(appState.selectedStates) && appState.selectedStates.length > 0 && !appState.selectedStates.includes("ALL")) {
+        const stPool = pool.filter(c => appState.selectedStates.some(st => (c.state || "").toLowerCase().includes(st.toLowerCase())));
+        if (stPool.length > 0) pool = stPool;
+      } else if (appState.state && appState.state !== "ALL") {
         const s = appState.state.toLowerCase();
         const stPool = pool.filter(c => (c.state || "").toLowerCase().includes(s));
         if (stPool.length > 0) pool = stPool;
