@@ -47,11 +47,11 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
   <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head>
-<body class="bg-[#f2e9e4] text-[#22223b] min-h-screen flex flex-col antialiased splash-active">
+<body class="bg-slate-50 text-slate-900 min-h-screen flex flex-col antialiased splash-active">
     <!-- APP SPLASH SCREEN (Pic 1: Initial Open with Zooming Logo | Pic 2: Page Refresh with Rotating Loader) -->
   <div id="app-splash" class="fixed inset-0 z-[999999] bg-black flex flex-col items-center justify-center select-none text-center px-4 transition-opacity duration-500 cursor-pointer" title="The Bridge - Bridge to the B.Tech">
     
@@ -127,7 +127,7 @@
   </div>
 
   <!-- Top Header Navigation -->
-  <header class="bg-[#f2e9e4]/95 text-[#22223b] border-b border-[#c9ada7] shadow-xs sticky top-0 z-40 backdrop-blur-md">
+  <header class="bg-white/95 text-slate-900 border-b border-slate-200/90 shadow-xs sticky top-0 z-40 backdrop-blur-md">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex flex-wrap items-center justify-between gap-3">
       <div id="brand-header-link" class="flex items-center space-x-3 cursor-pointer group hover:opacity-95 transition" title="The Bridge - Bridge to the B.Tech">
         <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-white flex items-center justify-center p-0.5 overflow-hidden shadow-sm border border-slate-200 flex-shrink-0 group-hover:scale-105 transition">
@@ -198,7 +198,7 @@
           ✓ Step 3: Live Branch Badges (+Add)
         </button>
         <button type="button" data-step-jump="step4" class="step-pill-btn text-[11px] bg-blue-950/80 hover:bg-blue-800 text-amber-300 border border-amber-500/40 px-2.5 py-1 rounded-lg transition">
-          ✓ Step 4: <span class="emoji-bw">💳</span> Payment Colleges
+          ✓ Step 4: 💳 Payment Colleges
         </button>
         <button type="button" data-step-jump="step5" class="step-pill-btn text-[11px] bg-blue-950/80 hover:bg-blue-800 text-emerald-300 border border-emerald-500/40 px-2.5 py-1 rounded-lg transition">
           ✓ Step 5: Mock Allotment & PDF
@@ -246,13 +246,13 @@
       </div>
       <div class="flex items-center gap-2 flex-wrap">
         <button id="banner-view-priority-btn" type="button" class="px-3 py-1.5 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-950 font-extrabold text-xs shadow transition">
-          <span class="emoji-bw">📋</span> View Colleges by Priority
+          📋 View Colleges by Priority
         </button>
         <button id="banner-email-pdf-btn" type="button" class="px-3 py-1.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs shadow transition">
-          <span class="emoji-bw">📧</span> Send Priority PDF to Mail
+          📧 Send Priority PDF to Mail
         </button>
         <button id="banner-edit-student-btn" type="button" class="px-2.5 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-600 font-semibold text-xs transition">
-          <span class="emoji-bw">⚙</span>️ Edit Student / Exam
+          ⚙️ Edit Student / Exam
         </button>
       </div>
     </div>
@@ -278,7 +278,7 @@
           <!-- Alert Banner when not selected -->
           <div id="exam-required-alert" class="hidden mb-3 p-3 bg-rose-50 border-2 border-rose-500 rounded-xl text-rose-900 font-bold text-xs sm:text-sm flex items-center justify-between shadow-sm">
             <div class="flex items-center gap-2">
-              <span class="text-base sm:text-lg"><span class="emoji-bw">⚠</span>️</span>
+              <span class="text-base sm:text-lg">⚠️</span>
               <span>Please select an Entrance Exam first before proceeding to view colleges or enter your rank!</span>
             </div>
             <button type="button" onclick="document.getElementById('exam-required-alert').classList.add('hidden')" class="text-rose-500 hover:text-rose-800 text-sm font-black px-1.5 py-0.5 cursor-pointer">✕</button>
@@ -305,7 +305,7 @@
             </button>
             <button type="button" data-exam="payment" class="exam-tab-btn px-3 py-2.5 rounded-xl font-bold text-xs sm:text-sm bg-amber-50/70 hover:bg-amber-100 text-amber-950 border border-amber-300 text-left transition flex flex-col justify-between cursor-pointer">
               <div class="flex items-center justify-between w-full">
-                <span><span class="emoji-bw">💳</span> Payment Colleges</span>
+                <span>💳 Payment Colleges</span>
                 <span class="text-[10px] bg-amber-200 text-amber-900 px-1.5 py-0.2 rounded font-bold">Direct</span>
               </div>
               <span class="block text-[10px] text-amber-800 mt-1 font-normal">Direct Seat • Separate Exams • Discounts</span>
@@ -328,7 +328,7 @@
             </div>
             <div id="payment-direct-badge-box" class="hidden p-2.5 rounded-xl bg-amber-50 border border-amber-300 text-amber-950 text-xs mb-2">
               <div class="font-extrabold flex items-center gap-1.5 text-amber-900">
-                <span><span class="emoji-bw">💳</span> Direct Admission / Management Quota</span>
+                <span>💳 Direct Admission / Management Quota</span>
               </div>
               <p class="text-[11px] text-amber-800 mt-0.5">
                 Rank not required. Colleges ordered by institutional priority, 2025 placement records & NAAC accreditation.
@@ -573,7 +573,7 @@
         <!-- View Eligible Colleges Action in Home (Goes to Slide 2 in Home) -->
         <div class="pt-5 mt-2 border-t border-slate-100 flex flex-col items-center justify-center gap-2 w-full text-center">
           <button id="btn-show-eligible-colleges" type="button" onclick="showHomeSlide(2); return false;" class="w-full sm:w-auto sm:px-12 py-3.5 bg-blue-600 hover:bg-blue-700 text-white font-extrabold text-sm rounded-xl shadow-lg shadow-blue-500/25 flex items-center justify-center gap-2 transition cursor-pointer active:scale-98">
-            <span><span class="emoji-bw">🔍</span> View Eligible Colleges & Branches</span>
+            <span>🔍 View Eligible Colleges & Branches</span>
             <span>→</span>
           </button>
         </div>
@@ -629,7 +629,7 @@
           <span id="pagination-status-text" class="text-xs font-semibold text-slate-600">Showing 18 of 312 colleges</span>
           <div class="flex items-center gap-2">
             <button id="load-more-btn" type="button" class="px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs rounded-xl shadow transition">
-              <span class="emoji-bw">➕</span> Load More Colleges (+30)
+              ➕ Load More Colleges (+30)
             </button>
             <button id="load-all-btn" type="button" class="px-4 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-xs rounded-xl transition">
               Show All Matching
@@ -640,7 +640,7 @@
 
       <!-- Empty State -->
       <div id="no-results-state" class="hidden bg-white rounded-2xl border border-slate-200 p-12 text-center max-w-md mx-auto my-8">
-        <div class="text-4xl mb-3"><span class="emoji-bw">🔍</span></div>
+        <div class="text-4xl mb-3">🔍</div>
         <h4 class="text-lg font-bold text-slate-800">No matching colleges found</h4>
         <p class="text-xs text-slate-500 mt-1 mb-4">Try entering a higher rank (up to 3,00,000+), selecting "All Branches", or clearing your search filters.</p>
         <button id="reset-empty-btn" type="button" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-xs font-semibold shadow">
@@ -679,8 +679,8 @@
         <div class="flex items-center gap-2 mt-3.5 flex-wrap">
           <span class="text-xs font-bold text-slate-500 uppercase mr-1">Quick Filters:</span>
           <button type="button" class="search-filter-chip active px-3 py-1 rounded-full text-xs font-bold bg-blue-600 text-white cursor-pointer" data-cat="all">All India (400+)</button>
-          <button type="button" class="search-filter-chip px-3 py-1 rounded-full text-xs font-bold bg-slate-100 hover:bg-slate-200 text-slate-700 cursor-pointer" data-cat="iit_nit"><span class="emoji-bw">🏛</span>️ IITs & NITs</button>
-          <button type="button" class="search-filter-chip px-3 py-1 rounded-full text-xs font-bold bg-slate-100 hover:bg-slate-200 text-slate-700 cursor-pointer" data-cat="iiit_bits"><span class="emoji-bw">💻</span> IIITs & BITS</button>
+          <button type="button" class="search-filter-chip px-3 py-1 rounded-full text-xs font-bold bg-slate-100 hover:bg-slate-200 text-slate-700 cursor-pointer" data-cat="iit_nit">🏛️ IITs & NITs</button>
+          <button type="button" class="search-filter-chip px-3 py-1 rounded-full text-xs font-bold bg-slate-100 hover:bg-slate-200 text-slate-700 cursor-pointer" data-cat="iiit_bits">💻 IIITs & BITS</button>
           <button type="button" class="search-filter-chip px-3 py-1 rounded-full text-xs font-bold bg-slate-100 hover:bg-slate-200 text-slate-700 cursor-pointer" data-cat="top">Top Rated (4.2+ ★)</button>
           <button type="button" class="search-filter-chip px-3 py-1 rounded-full text-xs font-bold bg-slate-100 hover:bg-slate-200 text-slate-700 cursor-pointer" data-cat="University">Govt & Universities</button>
           <button type="button" class="search-filter-chip px-3 py-1 rounded-full text-xs font-bold bg-slate-100 hover:bg-slate-200 text-slate-700 cursor-pointer" data-cat="Autonomous">Autonomous</button>
@@ -710,7 +710,7 @@
             <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
           </button>
           <span class="text-base sm:text-lg font-black text-slate-900 flex items-center gap-1.5">
-            <span><span class="emoji-bw">📋</span></span> Priority Web Options Sheet
+            <span>📋</span> Priority Web Options Sheet
           </span>
         </div>
       </div>
@@ -724,7 +724,7 @@
               <span id="priority-rank-tag" class="text-xs bg-amber-100 text-amber-900 font-bold px-2.5 py-0.5 rounded">Rank: Not Set</span>
             </div>
             <h3 class="text-xl font-extrabold text-slate-900 mt-1.5 flex items-center gap-2">
-              <span><span class="emoji-bw">📋</span> My Web Options Priority Sheet</span>
+              <span>📋 My Web Options Priority Sheet</span>
               <span id="priority-total-badge" class="bg-amber-100 text-amber-900 text-xs px-2.5 py-0.5 rounded-full font-bold">0 Choices</span>
             </h3>
             <p class="text-xs text-slate-500 mt-0.5">Colleges & branches are evaluated strictly in priority order (Option #1 is checked first during seat allotment).</p>
@@ -733,25 +733,25 @@
           <!-- Action Buttons Bar -->
           <div class="flex items-center gap-2 flex-wrap no-print">
             <button id="smart-fill-priority-btn" type="button" class="px-3 py-2 bg-amber-50 hover:bg-amber-100 text-amber-900 border border-amber-300 rounded-xl text-xs font-bold transition">
-              <span><span class="emoji-bw">🪄</span> Smart Auto-Fill 8 Options</span>
+              <span>🪄 Smart Auto-Fill 8 Options</span>
             </button>
             <button id="auto-sort-priority-btn" type="button" class="px-3 py-2 bg-indigo-50 hover:bg-indigo-100 text-indigo-900 border border-indigo-200 rounded-xl text-xs font-bold transition">
-              <span><span class="emoji-bw">⚡</span> Auto-Order by Cutoff</span>
+              <span>⚡ Auto-Order by Cutoff</span>
             </button>
             <button id="send-email-pdf-btn" type="button" class="px-3.5 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-bold shadow transition">
-              <span><span class="emoji-bw">📧</span> Send PDF to Email</span>
+              <span>📧 Send PDF to Email</span>
             </button>
             <button id="download-pdf-btn" type="button" class="px-3.5 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-xs font-bold shadow transition">
-              <span><span class="emoji-bw">📥</span> Download PDF</span>
+              <span>📥 Download PDF</span>
             </button>
             <button id="share-whatsapp-btn" type="button" class="px-3.5 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold shadow transition">
-              <span><span class="emoji-bw">💬</span> WhatsApp</span>
+              <span>💬 WhatsApp</span>
             </button>
             <button id="print-priority-btn" type="button" class="px-3 py-2 bg-slate-800 hover:bg-slate-900 text-white rounded-xl text-xs font-semibold transition">
-              <span><span class="emoji-bw">🖨</span>️ Print</span>
+              <span>🖨️ Print</span>
             </button>
             <button id="copy-priority-btn" type="button" class="px-3 py-2 bg-slate-100 hover:bg-slate-200 text-slate-800 rounded-xl text-xs font-semibold transition">
-              <span><span class="emoji-bw">📋</span> Copy</span>
+              <span>📋 Copy</span>
             </button>
             <button id="clear-priority-btn" type="button" class="px-2.5 py-2 text-rose-600 hover:text-rose-800 text-xs font-bold">
               Clear All
@@ -782,13 +782,13 @@
 
         <!-- Priority Empty State -->
         <div id="priority-empty-state" class="py-12 text-center no-print">
-          <div class="text-4xl mb-4"><span class="emoji-bw">📑</span></div>
+          <div class="text-4xl mb-4">📑</div>
           <div class="flex items-center justify-center gap-3 flex-wrap">
             <button id="go-to-explorer-btn" type="button" class="px-4 py-2 bg-white hover:bg-slate-50 text-slate-800 border border-slate-300 rounded-xl text-xs font-bold shadow-sm transition cursor-pointer">
               Browse Colleges & Add Priorities
             </button>
             <button id="empty-smart-fill-btn" type="button" class="px-4 py-2 bg-white hover:bg-slate-50 text-slate-800 border border-slate-300 rounded-xl text-xs font-bold shadow-sm transition cursor-pointer">
-              <span class="emoji-bw">🪄</span> Auto-Fill Recommended Options Now
+              🪄 Auto-Fill Recommended Options Now
             </button>
           </div>
         </div>
@@ -818,7 +818,7 @@
             <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
           </button>
           <span class="text-base sm:text-lg font-black text-slate-900 flex items-center gap-1.5">
-            <span><span class="emoji-bw">🧮</span></span> 4-Year B.Tech ROI & Cutoff Matrix
+            <span>🧮</span> 4-Year B.Tech ROI & Cutoff Matrix
           </span>
         </div>
       </div>
@@ -832,7 +832,7 @@
             <div class="relative" id="roi-college-combobox">
               <label for="roi-college-search" class="block text-xs font-bold text-slate-700 uppercase mb-1">1. Select Target College</label>
               <div class="relative">
-                <span class="absolute left-3 top-2.5 text-slate-400 text-sm pointer-events-none"><span class="emoji-bw">🔍</span></span>
+                <span class="absolute left-3 top-2.5 text-slate-400 text-sm pointer-events-none">🔍</span>
                 <input type="text" id="roi-college-search" autocomplete="off"
                   placeholder="Type college name or code (e.g. AUCE, BITS, VIT, Gayatri, SRKR)..."
                   class="w-full pl-9 pr-8 py-2.5 bg-white border border-slate-300 rounded-xl text-xs sm:text-sm font-medium text-slate-800 shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:outline-none transition">
@@ -854,7 +854,7 @@
                 <span id="roi-branch-count-badge" class="text-[10px] bg-blue-100 text-blue-800 font-bold px-2 py-0.5 rounded-full">Branches Available</span>
               </div>
               <div class="relative">
-                <span class="absolute left-3 top-2.5 text-amber-500 text-sm pointer-events-none"><span class="emoji-bw">⚡</span></span>
+                <span class="absolute left-3 top-2.5 text-amber-500 text-sm pointer-events-none">⚡</span>
                 <input type="text" id="roi-branch-search" autocomplete="off"
                   placeholder="Type branch code or name (e.g. CSE, AIML, AIDS, ECE, MECH, BIOTECH)..."
                   class="w-full pl-9 pr-8 py-2.5 bg-white border border-slate-300 rounded-xl text-xs sm:text-sm font-medium text-slate-800 shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:outline-none transition">
@@ -873,9 +873,9 @@
             <div>
               <label for="roi-quota-select" class="block text-xs font-bold text-slate-700 uppercase mb-1">3. Admission Seat / Quota Type</label>
               <select id="roi-quota-select" class="w-full px-3 py-2 bg-white border border-slate-300 rounded-xl text-xs sm:text-sm font-semibold text-slate-800">
-                <option value="ap_cet"><span class="emoji-bw">🎓</span> AP EAPCET / CET Quota (State Convener Regulated Fee)</option>
-                <option value="jee"><span class="emoji-bw">🏛</span>️ JEE Main / JEE Advanced (National Merit / Central Fee)</option>
-                <option value="payment"><span class="emoji-bw">💼</span> Direct Management / Payment Seat (Category-B Quota)</option>
+                <option value="ap_cet">🎓 AP EAPCET / CET Quota (State Convener Regulated Fee)</option>
+                <option value="jee">🏛️ JEE Main / JEE Advanced (National Merit / Central Fee)</option>
+                <option value="payment">💼 Direct Management / Payment Seat (Category-B Quota)</option>
               </select>
               <div id="roi-quota-hint" class="hidden text-[11px] text-blue-600 mt-1 font-medium"></div>
             </div>
@@ -924,7 +924,7 @@
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-100">
           <div>
             <h3 class="text-base sm:text-lg font-extrabold text-slate-900 flex items-center gap-2">
-              <span><span class="emoji-bw">📊</span></span> Live Category-Wise & Phase-Wise Closing Rank Matrix
+              <span>📊</span> Live Category-Wise & Phase-Wise Closing Rank Matrix
             </h3>
           </div>
           <div class="flex flex-wrap items-center gap-2 w-full sm:w-auto">
@@ -977,7 +977,7 @@
             <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
           </button>
           <span class="text-base sm:text-lg font-black text-slate-900 flex items-center gap-1.5">
-            <span><span class="emoji-bw">📑</span></span> Counseling Document Checklist
+            <span>📑</span> Counseling Document Checklist
           </span>
         </div>
         <div class="flex items-center gap-2">
@@ -991,7 +991,7 @@
         <div class="flex flex-wrap items-center justify-between gap-4 pb-5 border-b border-slate-100">
           <div>
             <h3 class="text-xl font-extrabold text-slate-900 flex items-center gap-2">
-              <span><span class="emoji-bw">📑</span> AP EAPCET & JoSAA Document Verification Checklist</span>
+              <span>📑 AP EAPCET & JoSAA Document Verification Checklist</span>
             </h3>
             <p class="text-xs text-slate-500 mt-1">Check off the original certificates you have ready. These are strictly required at Help Line Centers (HLC) & online upload.</p>
           </div>
@@ -1022,7 +1022,7 @@
         <!-- Sachivalayam / MeeSeva Help Note -->
         <div class="mt-6 p-4 bg-amber-50 rounded-2xl border border-amber-200 text-xs text-amber-950 space-y-1.5">
           <strong class="font-bold flex items-center gap-1.5 text-amber-900">
-            <span><span class="emoji-bw">ℹ</span>️</span> Important AP EAPCET Verification Guidelines:
+            <span>ℹ️</span> Important AP EAPCET Verification Guidelines:
           </strong>
           <p>• <strong>Income Certificate / Rice Card</strong>: Must be issued on or after January 1st of the current academic year from AP Grama/Ward Sachivalayam for Jagananna Vidya Deevena (JVD) full fee reimbursement.</p>
           <p>• <strong>Study Certificates (Class 6 to Inter)</strong>: Mandatory to establish your 85% Local University Area quota (AU or SVU region).</p>
@@ -1048,7 +1048,7 @@
             <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
           </button>
           <h2 class="font-black text-base sm:text-lg text-slate-900 flex items-center gap-1.5">
-            <span><span class="emoji-bw">🕘</span></span> Priority List History
+            <span>🕘</span> Priority List History
           </h2>
         </div>
         <button id="hist-save-btn" type="button" class="px-3.5 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 text-xs font-extrabold shadow transition cursor-pointer active:scale-98">＋ Save current version</button>
@@ -1148,7 +1148,7 @@
             <!-- Guest Auth Call-To-Action Banner -->
             <div id="kodnest-guest-auth-prompt" class="mt-3 p-3 rounded-xl bg-blue-950/60 border border-blue-500/40 text-left w-full max-w-md">
               <div class="text-xs font-bold text-blue-200 flex items-center gap-1.5">
-                <span><span class="emoji-bw">🎓</span></span>
+                <span>🎓</span>
                 <span>New Student? Sign up to save your complete profile</span>
               </div>
               <p class="text-[11px] text-slate-300 mt-1">Your 10th, 12th marks, and counseling preferences will be stored permanently in the dataset.</p>
@@ -1161,15 +1161,15 @@
             <!-- Contact & Personal Details Stack -->
             <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-2 text-xs sm:text-sm text-slate-300 w-full max-w-md text-left pt-3 border-t border-slate-800/80">
               <div class="flex items-center gap-2">
-                <span class="text-slate-400 text-base"><span class="emoji-bw">✉</span>️</span>
+                <span class="text-slate-400 text-base">✉️</span>
                 <span id="kodnest-display-email" class="truncate font-medium text-slate-200">Not Signed In</span>
               </div>
               <div class="flex items-center gap-2">
-                <span class="text-slate-400 text-base"><span class="emoji-bw">♂</span>️</span>
+                <span class="text-slate-400 text-base">♂️</span>
                 <span id="kodnest-display-gender" class="font-medium text-slate-200">—</span>
               </div>
               <div class="flex items-center gap-2">
-                <span class="text-slate-400 text-base"><span class="emoji-bw">🎂</span></span>
+                <span class="text-slate-400 text-base">🎂</span>
                 <span id="kodnest-display-dob" class="font-medium text-slate-200">—</span>
               </div>
               <div class="flex items-center gap-2">
@@ -1183,10 +1183,10 @@
             <!-- Bottom Account Controls: Logout / Signin Toggle -->
             <div class="flex items-center justify-end w-full pt-4 border-t border-slate-800/80 mt-4">
               <button id="kodnest-btn-logout" type="button" class="hidden inline-flex items-center gap-1.5 px-4 py-1.5 rounded-xl bg-rose-600 hover:bg-rose-500 text-white text-xs font-black transition shadow cursor-pointer">
-                <span><span class="emoji-bw">🚪</span></span> Log Out
+                <span>🚪</span> Log Out
               </button>
               <button id="kodnest-btn-signin" type="button" class="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-black transition shadow cursor-pointer">
-                <span><span class="emoji-bw">🔑</span></span> Sign In / Sign Up
+                <span>🔑</span> Sign In / Sign Up
               </button>
             </div>
           </div>
@@ -1288,10 +1288,10 @@
         <div class="p-4 bg-gradient-to-r from-blue-950/80 to-indigo-950/80 border border-blue-800/80 rounded-2xl space-y-2">
           <div class="flex items-center justify-between gap-2 flex-wrap">
             <span class="text-xs font-extrabold text-blue-200 flex items-center gap-1.5">
-              <span><span class="emoji-bw">📍</span></span> Auto-Detect Home District & Counseling Region
+              <span>📍</span> Auto-Detect Home District & Counseling Region
             </span>
             <button id="kodnest-btn-detect-location" type="button" class="px-3 py-1.5 bg-blue-600 hover:bg-blue-500 active:scale-95 text-white rounded-xl text-xs font-bold shadow transition flex items-center gap-1.5 cursor-pointer">
-              <span><span class="emoji-bw">🛰</span>️ Detect My Location</span>
+              <span>🛰️ Detect My Location</span>
             </button>
           </div>
           <p id="kodnest-location-detect-status" class="text-[11px] text-blue-300 leading-tight font-medium">
@@ -1306,7 +1306,7 @@
             <p class="text-xs text-slate-400">Download all your verified academic credentials, cutoffs, and preferences as JSON.</p>
           </div>
           <button id="kodnest-btn-export-dataset" type="button" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-white rounded-xl text-xs font-bold border border-slate-700 transition flex items-center gap-1.5 cursor-pointer">
-            <span><span class="emoji-bw">📥</span> Export Verified JSON</span>
+            <span>📥 Export Verified JSON</span>
           </button>
         </div>
       </div>
@@ -1347,7 +1347,7 @@
           <div class="bg-[#0b1120] rounded-2xl border border-slate-800 p-5 shadow-lg space-y-3">
             <div class="flex items-center justify-between border-b border-slate-800 pb-3">
               <div class="flex items-center gap-2.5">
-                <span class="w-8 h-8 rounded-xl bg-blue-500/20 text-blue-400 font-bold flex items-center justify-center text-base"><span class="emoji-bw">🏛</span>️</span>
+                <span class="w-8 h-8 rounded-xl bg-blue-500/20 text-blue-400 font-bold flex items-center justify-center text-base">🏛️</span>
                 <div>
                   <h4 class="text-sm font-bold text-white">Jagananna Vidya Deevena (RTF)</h4>
                   <span class="text-[10px] text-slate-400">Reimbursement of Tuition Fee</span>
@@ -1375,7 +1375,7 @@
           <div class="bg-[#0b1120] rounded-2xl border border-slate-800 p-5 shadow-lg space-y-3">
             <div class="flex items-center justify-between border-b border-slate-800 pb-3">
               <div class="flex items-center gap-2.5">
-                <span class="w-8 h-8 rounded-xl bg-amber-500/20 text-amber-400 font-bold flex items-center justify-center text-base"><span class="emoji-bw">🍲</span></span>
+                <span class="w-8 h-8 rounded-xl bg-amber-500/20 text-amber-400 font-bold flex items-center justify-center text-base">🍲</span>
                 <div>
                   <h4 class="text-sm font-bold text-white">Jagananna Vasathi Deevena (MTF)</h4>
                   <span class="text-[10px] text-slate-400">Maintenance & Hostel Food Assistance</span>
@@ -1413,7 +1413,7 @@
           <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5 text-xs">
             <div class="p-3.5 rounded-xl bg-slate-900/90 border border-slate-800/80 space-y-1">
               <div class="flex items-center gap-2 text-amber-400 font-bold">
-                <span><span class="emoji-bw">💰</span></span> Family Income Ceiling
+                <span>💰</span> Family Income Ceiling
               </div>
               <div class="text-slate-100 font-black text-sm">≤ ₹2.50 Lakhs / Year</div>
               <p class="text-[11px] text-slate-400">Total annual household income from all sources must not exceed 2.5 Lakhs (MeeSeva certified).</p>
@@ -1421,7 +1421,7 @@
 
             <div class="p-3.5 rounded-xl bg-slate-900/90 border border-slate-800/80 space-y-1">
               <div class="flex items-center gap-2 text-emerald-400 font-bold">
-                <span><span class="emoji-bw">🌾</span></span> Agricultural Land Limit
+                <span>🌾</span> Agricultural Land Limit
               </div>
               <div class="text-slate-100 font-black text-sm">&lt; 10 Ac Wetland / 25 Ac Dry</div>
               <p class="text-[11px] text-slate-400">Family total land holding must be less than 10 Acres Wetland, or 25 Acres Dryland, or 25 Acres combined.</p>
@@ -1429,7 +1429,7 @@
 
             <div class="p-3.5 rounded-xl bg-slate-900/90 border border-slate-800/80 space-y-1">
               <div class="flex items-center gap-2 text-sky-400 font-bold">
-                <span><span class="emoji-bw">🏙</span>️</span> Urban Property Ceiling
+                <span>🏙️</span> Urban Property Ceiling
               </div>
               <div class="text-slate-100 font-black text-sm">&lt; 1,500 sq.ft Built-up Area</div>
               <p class="text-[11px] text-slate-400">No residential or commercial property exceeding 1,500 sq.ft in Municipal / Municipal Corporation limits.</p>
@@ -1437,7 +1437,7 @@
 
             <div class="p-3.5 rounded-xl bg-slate-900/90 border border-slate-800/80 space-y-1">
               <div class="flex items-center gap-2 text-rose-400 font-bold">
-                <span><span class="emoji-bw">🏛</span>️</span> Govt Employee / Pensioner
+                <span>🏛️</span> Govt Employee / Pensioner
               </div>
               <div class="text-slate-100 font-black text-sm">No Regular Govt Employees</div>
               <p class="text-[11px] text-slate-400">No family member should be in regular government service or receiving govt pension (Sanitary workers exempted).</p>
@@ -1445,7 +1445,7 @@
 
             <div class="p-3.5 rounded-xl bg-slate-900/90 border border-slate-800/80 space-y-1">
               <div class="flex items-center gap-2 text-purple-400 font-bold">
-                <span><span class="emoji-bw">🚗</span></span> Four-Wheeler Ownership
+                <span>🚗</span> Four-Wheeler Ownership
               </div>
               <div class="text-slate-100 font-black text-sm">No Private 4-Wheelers</div>
               <p class="text-[11px] text-slate-400">Family must not own a 4-wheeler (Taxis, Tractors, and Auto Rickshaws registered for livelihood are allowed).</p>
@@ -1453,7 +1453,7 @@
 
             <div class="p-3.5 rounded-xl bg-slate-900/90 border border-slate-800/80 space-y-1">
               <div class="flex items-center gap-2 text-indigo-400 font-bold">
-                <span><span class="emoji-bw">📊</span></span> Income Tax & Attendance
+                <span>📊</span> Income Tax & Attendance
               </div>
               <div class="text-slate-100 font-black text-sm">No IT Payee + 75% Biometric</div>
               <p class="text-[11px] text-slate-400">No family member should pay Income Tax. Student must maintain minimum 75% biometric attendance each semester.</p>
@@ -1466,7 +1466,7 @@
           <!-- Convener Quota Requirement -->
           <div class="bg-[#0b1120] rounded-2xl border border-slate-800 p-5 shadow-lg space-y-2.5">
             <h4 class="text-xs font-bold text-amber-400 uppercase tracking-wider flex items-center gap-1.5">
-              <span><span class="emoji-bw">⚠</span>️</span> Mandatory Admission Quota Rule
+              <span>⚠️</span> Mandatory Admission Quota Rule
             </h4>
             <div class="p-3 rounded-xl bg-amber-500/10 border border-amber-500/20 text-xs text-slate-200 leading-relaxed">
               <strong class="text-amber-300">Convener Quota (Category-A) Only:</strong> JVD is strictly applicable only to candidates admitted through AP EAPCET government web counseling. 
@@ -1477,7 +1477,7 @@
           <!-- Required Documents for JVD Release -->
           <div class="bg-[#0b1120] rounded-2xl border border-slate-800 p-5 shadow-lg space-y-2.5">
             <h4 class="text-xs font-bold text-emerald-400 uppercase tracking-wider flex items-center gap-1.5">
-              <span><span class="emoji-bw">📋</span></span> Documents Required for JVD Sanction
+              <span>📋</span> Documents Required for JVD Sanction
             </h4>
             <ul class="text-xs text-slate-300 space-y-1.5">
               <li class="flex items-center gap-2"><span class="text-emerald-400">✓</span> Rice Card / White Ration Card</li>
@@ -1514,7 +1514,7 @@
         </button>
 
         <div class="w-12 h-12 rounded-full bg-blue-500/10 border border-blue-500/30 text-blue-400 mx-auto flex items-center justify-center text-xl mb-3">
-          <span class="emoji-bw">📸</span>
+          📸
         </div>
         <h3 class="text-lg font-black text-white">Profile Picture</h3>
         <p class="text-xs text-slate-400 mt-1">Upload a new photo or remove your current profile picture</p>
@@ -1630,7 +1630,7 @@
               Cancel
             </button>
             <button id="kodnest-modal-save-btn" type="button" class="px-6 py-2 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-950 font-black transition shadow-lg cursor-pointer">
-              <span class="emoji-bw">💾</span> Save Profile Details
+              💾 Save Profile Details
             </button>
           </div>
         </form>
@@ -1641,9 +1641,9 @@
 
   <!-- KodNest-Style Floating Mascot / Counselor: BridgeAI -->
   <div id="bridge-ai-floater" class="fixed right-0 top-1/2 -translate-y-1/2 z-40 bg-[#0a192f] hover:bg-[#112240] active:scale-95 text-white font-black text-xs py-3 px-1.5 rounded-l-2xl shadow-2xl cursor-pointer flex flex-col items-center gap-1.5 border-y-2 border-l-2 border-[#1e3a8a] transition select-none group splash-hidden auth-hidden hidden" style="display:none !important;">
-    <span class="text-base group-hover:scale-125 transition"><span class="emoji-bw">⚡</span></span>
+    <span class="text-base group-hover:scale-125 transition">⚡</span>
     <span style="writing-mode: vertical-rl; transform: rotate(180deg);" class="tracking-widest uppercase text-[10px] font-black text-white">BridgeBot</span>
-    <span class="w-5 h-5 rounded-full bg-white/20 text-white text-[10px] flex items-center justify-center font-bold"><span class="emoji-bw">🤖</span></span>
+    <span class="w-5 h-5 rounded-full bg-white/20 text-white text-[10px] flex items-center justify-center font-bold">🤖</span>
   </div>
 
   
@@ -1658,7 +1658,7 @@
     <!-- Drawer Header -->
     <div class="p-3 sm:p-3.5 bg-white border-b border-slate-200 flex items-center justify-between shrink-0 shadow-xs">
       <div class="flex items-center gap-2">
-        <div class="w-8 h-8 rounded-xl bg-gradient-to-tr from-blue-600 via-indigo-600 to-purple-600 text-white flex items-center justify-center text-base shadow-md shadow-blue-500/20 select-none"><span class="emoji-bw">🤖</span></div>
+        <div class="w-8 h-8 rounded-xl bg-gradient-to-tr from-blue-600 via-indigo-600 to-purple-600 text-white flex items-center justify-center text-base shadow-md shadow-blue-500/20 select-none">🤖</div>
         <div>
           <h3 class="font-extrabold text-sm text-slate-900 flex items-center gap-1.5"><span>Bridge AI</span></h3>
         </div>
@@ -1692,7 +1692,7 @@
       <!-- History Panel Sub-header -->
       <div class="p-3 bg-white border-b border-slate-200 flex items-center justify-between shrink-0">
         <div class="flex items-center gap-2">
-          <div class="w-6 h-6 rounded-lg bg-blue-100 text-blue-600 flex items-center justify-center text-xs"><span class="emoji-bw">🕒</span></div>
+          <div class="w-6 h-6 rounded-lg bg-blue-100 text-blue-600 flex items-center justify-center text-xs">🕒</div>
           <div>
             <h4 class="text-xs font-bold text-slate-900">Your Recent Chats</h4>
             <p class="text-[10px] text-slate-500">Click any conversation to resume</p>
@@ -1754,7 +1754,7 @@
   <div id="exam-alert-modal" onclick="if(event.target === this) closeExamAlertModal()" class="fixed inset-0 z-[99999] bg-black/60 backdrop-blur-xs flex items-center justify-center p-4 hidden">
     <div class="bg-white rounded-2xl max-w-md w-full p-6 text-center shadow-2xl border border-slate-200 animate-scale-up">
       <div class="w-14 h-14 mx-auto mb-3.5 rounded-full bg-rose-100 text-rose-600 flex items-center justify-center text-2xl font-bold">
-        <span class="emoji-bw">⚠</span>️
+        ⚠️
       </div>
       <h3 class="text-lg font-black text-slate-900 mb-1.5">Entrance Exam Selection Required</h3>
       <p id="exam-alert-modal-msg" class="text-xs sm:text-sm text-slate-600 mb-5 leading-relaxed">
@@ -1817,22 +1817,22 @@
       <!-- Modal Tabs Bar -->
       <div class="bg-slate-100 px-3 sm:px-6 py-1.5 sm:py-2 border-b border-slate-200 flex items-center gap-1.5 sm:gap-2 overflow-x-auto text-xs font-semibold shrink-0">
         <button id="modal-tab-btn-overview" type="button" class="modal-tab-btn active px-3 py-1.5 rounded-lg bg-white text-blue-700 shadow-sm shrink-0">
-          <span class="emoji-bw">🏛</span>️ Overview & Cutoffs
+          🏛️ Overview & Cutoffs
         </button>
         <button id="modal-tab-btn-payment" type="button" class="modal-tab-btn px-3 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 shrink-0">
-          <span class="emoji-bw">💳</span> Direct Admission & Exam Schedule
+          💳 Direct Admission & Exam Schedule
         </button>
         <button id="modal-tab-btn-scholarships" type="button" class="modal-tab-btn px-3 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 shrink-0">
-          <span class="emoji-bw">🎓</span> Scholarships & JVD
+          🎓 Scholarships & JVD
         </button>
         <button id="modal-tab-btn-hostels" type="button" class="modal-tab-btn px-3 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 shrink-0">
-          <span class="emoji-bw">🏠</span> Hostels (Campus & Outside PGs)
+          🏠 Hostels (Campus & Outside PGs)
         </button>
         <button id="modal-tab-btn-travel" type="button" class="modal-tab-btn px-3 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 shrink-0">
-          <span class="emoji-bw">🚆</span> Route & Travel Fares
+          🚆 Route & Travel Fares
         </button>
         <button id="modal-tab-btn-food" type="button" class="modal-tab-btn px-3 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 shrink-0">
-          <span class="emoji-bw">🍛</span> Famous Food & Prices
+          🍛 Famous Food & Prices
         </button>
       </div>
 
@@ -1862,7 +1862,7 @@
           </div>
           <div class="bg-amber-50 border border-amber-300 p-4 rounded-xl space-y-2">
             <span class="text-xs font-bold uppercase tracking-wider text-amber-900 flex items-center gap-1.5">
-              <span><span class="emoji-bw">💳</span></span> Direct Admission & Merit Scholarship Policy
+              <span>💳</span> Direct Admission & Merit Scholarship Policy
             </span>
             <p id="modal-direct-admission-note" class="text-xs text-amber-950 leading-relaxed font-medium"></p>
           </div>
@@ -1879,7 +1879,7 @@
           <!-- Separate Exam Schedule -->
           <div class="bg-slate-50 border border-slate-200 p-4 rounded-xl space-y-3">
             <h4 class="font-bold text-slate-900 text-xs uppercase tracking-wider flex items-center gap-1.5">
-              <span><span class="emoji-bw">🗓</span>️</span> Separate Entrance Exam & Spot Counseling Schedule
+              <span>🗓️</span> Separate Entrance Exam & Spot Counseling Schedule
             </h4>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
               <div class="bg-white p-3 rounded-lg border border-slate-200">
@@ -1933,7 +1933,7 @@
           </div>
 
           <div id="modal-low-placement-alert" class="hidden p-3.5 bg-rose-50 border border-rose-200 rounded-xl text-xs text-rose-900 font-medium">
-            <span class="emoji-bw">⚠</span>️ <strong>2025/2026 Recruitment Alert:</strong> This regional college recorded sparse on-campus IT drives in 2025 (<span id="modal-low-rate-text"></span>). Students here primarily prepare for off-campus drives, GATE, or skill certifications.
+            ⚠️ <strong>2025/2026 Recruitment Alert:</strong> This regional college recorded sparse on-campus IT drives in 2025 (<span id="modal-low-rate-text"></span>). Students here primarily prepare for off-campus drives, GATE, or skill certifications.
           </div>
 
           <div>
@@ -1978,12 +1978,12 @@
         <div id="modal-section-scholarships" class="hidden space-y-4">
           <div class="bg-emerald-50/70 border border-emerald-200 p-4 rounded-xl space-y-2">
             <div class="flex items-center justify-between flex-wrap gap-2">
-              <span class="text-xs font-bold uppercase tracking-wider text-emerald-900"><span class="emoji-bw">💰</span> Annual Tuition Fee & JVD Status</span>
+              <span class="text-xs font-bold uppercase tracking-wider text-emerald-900">💰 Annual Tuition Fee & JVD Status</span>
               <span id="modal-tuition" class="text-xs font-bold text-emerald-800 bg-emerald-100 px-2.5 py-0.5 rounded"></span>
             </div>
             <p id="modal-jvd" class="text-xs text-emerald-950 font-medium leading-relaxed"></p>
             <div class="text-[11px] text-emerald-800 flex items-center gap-1.5 pt-1">
-              <span><span class="emoji-bw">🏠</span> Approx Hostel / Mess:</span>
+              <span>🏠 Approx Hostel / Mess:</span>
               <strong id="modal-hostel"></strong>
             </div>
           </div>
@@ -1998,7 +1998,7 @@
         <div id="modal-section-hostels" class="hidden space-y-5">
           <div class="bg-blue-50 border border-blue-200 p-4 rounded-xl">
             <div class="flex items-center justify-between mb-1 flex-wrap gap-2">
-              <span class="text-xs font-bold uppercase tracking-wider text-blue-900"><span class="emoji-bw">🏛</span>️ Campus Hostels (On-Campus)</span>
+              <span class="text-xs font-bold uppercase tracking-wider text-blue-900">🏛️ Campus Hostels (On-Campus)</span>
               <span id="modal-hostel-fee-badge" class="text-xs font-bold text-blue-800 bg-blue-100 px-2 py-0.5 rounded"></span>
             </div>
             <p id="modal-campus-hostel-info" class="text-xs text-blue-950 leading-relaxed"></p>
@@ -2007,7 +2007,7 @@
           <div>
             <div class="flex items-center justify-between mb-2">
               <h4 class="font-bold text-slate-900 text-xs uppercase tracking-wider flex items-center gap-1.5">
-                <span><span class="emoji-bw">👦</span> High-Rated Outside Hostels & PGs for Boys</span>
+                <span>👦 High-Rated Outside Hostels & PGs for Boys</span>
                 <span class="text-[10px] text-slate-400 font-normal">(Verified with South Indian Food & Wi-Fi)</span>
               </h4>
             </div>
@@ -2017,7 +2017,7 @@
           <div>
             <div class="flex items-center justify-between mb-2">
               <h4 class="font-bold text-slate-900 text-xs uppercase tracking-wider flex items-center gap-1.5">
-                <span><span class="emoji-bw">👧</span> High-Rated Outside Hostels & PGs for Girls</span>
+                <span>👧 High-Rated Outside Hostels & PGs for Girls</span>
                 <span class="text-[10px] text-slate-400 font-normal">(24/7 Security, Biometric & CCTV)</span>
               </h4>
             </div>
@@ -2029,7 +2029,7 @@
         <div id="modal-section-travel" class="hidden space-y-5">
           <div class="bg-indigo-50 border border-indigo-200 p-4 rounded-xl space-y-2">
             <div class="flex items-center justify-between flex-wrap gap-2">
-              <span id="modal-travel-origin-title" class="text-xs font-bold uppercase tracking-wider text-indigo-900"><span class="emoji-bw">📍</span> Travel From Your Transit Hub</span>
+              <span id="modal-travel-origin-title" class="text-xs font-bold uppercase tracking-wider text-indigo-900">📍 Travel From Your Transit Hub</span>
               <span id="modal-travel-distance" class="text-xs font-bold text-indigo-800 bg-indigo-100 px-2.5 py-0.5 rounded"></span>
             </div>
             <p class="text-xs text-indigo-950">Direct train, bus, and flight breakdown from your selected transit hub to the college campus.</p>
@@ -2037,8 +2037,8 @@
 
           <div id="live-route-card" class="bg-emerald-50 border border-emerald-200 p-4 rounded-xl space-y-2">
             <div class="flex items-center justify-between gap-2 flex-wrap">
-              <span class="text-xs font-bold uppercase tracking-wider text-emerald-900"><span class="emoji-bw">🧭</span> Route from your current location</span>
-              <button id="live-route-btn" type="button" class="px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold"><span class="emoji-bw">📍</span> Detect my location</button>
+              <span class="text-xs font-bold uppercase tracking-wider text-emerald-900">🧭 Route from your current location</span>
+              <button id="live-route-btn" type="button" class="px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold">📍 Detect my location</button>
             </div>
             <p class="text-[11px] text-emerald-900">Keep your phone’s <strong>Location (GPS)</strong> switched on and tap <strong>Allow</strong> when asked, so the app can auto-detect where you are and draw the route to this college.</p>
             <div id="live-route-result" class="hidden text-xs space-y-2"></div>
@@ -2046,11 +2046,11 @@
 
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
             <div class="bg-slate-50 p-3 rounded-xl border border-slate-200">
-              <span class="font-bold text-slate-800 block"><span class="emoji-bw">🚉</span> Nearest Railway Station:</span>
+              <span class="font-bold text-slate-800 block">🚉 Nearest Railway Station:</span>
               <span id="modal-nearest-station" class="text-slate-600 mt-0.5 block"></span>
             </div>
             <div class="bg-slate-50 p-3 rounded-xl border border-slate-200">
-              <span class="font-bold text-slate-800 block"><span class="emoji-bw">🚌</span> Nearest Central Bus Stand:</span>
+              <span class="font-bold text-slate-800 block">🚌 Nearest Central Bus Stand:</span>
               <span id="modal-nearest-busstand" class="text-slate-600 mt-0.5 block"></span>
             </div>
           </div>
@@ -2081,7 +2081,7 @@
         <!-- SECTION 5: FAMOUS FOOD & PRICES -->
         <div id="modal-section-food" class="hidden space-y-4">
           <div class="bg-amber-50 border border-amber-200 p-4 rounded-xl">
-            <span class="text-xs font-bold uppercase tracking-wider text-amber-900 block mb-1"><span class="emoji-bw">🍛</span> Famous Food & Student Hangouts</span>
+            <span class="text-xs font-bold uppercase tracking-wider text-amber-900 block mb-1">🍛 Famous Food & Student Hangouts</span>
             <p class="text-xs text-amber-950">Authentic local messes, tiffin centers, and popular student eateries near the college gate with approximate dish prices.</p>
           </div>
 
@@ -2099,13 +2099,13 @@
         </div>
         <div class="flex items-center gap-1.5 sm:gap-2 flex-wrap">
           <button id="modal-shortlist-toggle" type="button" class="flex items-center gap-1 px-2.5 sm:px-3 py-1.5 rounded-lg border border-slate-300 bg-white hover:bg-slate-100 text-[11px] sm:text-xs font-semibold text-slate-700">
-            <span><span class="emoji-bw">⭐</span> Add to Favorites</span>
+            <span>⭐ Add to Favorites</span>
           </button>
           <button id="modal-add-priority-btn" type="button" class="flex items-center gap-1 px-3 sm:px-3.5 py-1.5 rounded-lg bg-amber-500 hover:bg-amber-400 text-slate-950 text-[11px] sm:text-xs font-bold shadow-xs">
             <span>+ Add Best Branch to Priority Sheet</span>
           </button>
           <button id="modal-calc-roi-btn" type="button" class="flex items-center gap-1 px-2.5 sm:px-3 py-1.5 rounded-lg bg-indigo-50 hover:bg-indigo-100 text-indigo-800 border border-indigo-200 text-[11px] sm:text-xs font-bold">
-            <span><span class="emoji-bw">🧮</span> Calculate 4-Yr ROI</span>
+            <span>🧮 Calculate 4-Yr ROI</span>
           </button>
         </div>
         <button id="close-modal-bottom-btn" type="button" class="px-3.5 sm:px-4 py-1.5 bg-slate-800 hover:bg-slate-900 text-white rounded-lg text-xs font-semibold ml-auto">
@@ -2121,7 +2121,7 @@
     <div class="bg-white w-full max-w-5xl rounded-2xl shadow-2xl border border-slate-200 overflow-hidden max-h-[85vh] flex flex-col">
       <div class="px-6 py-4 bg-slate-900 text-white flex items-center justify-between">
         <div class="flex items-center gap-2">
-          <span class="text-xl"><span class="emoji-bw">⭐</span></span>
+          <span class="text-xl">⭐</span>
           <div>
             <h3 class="text-base font-bold text-white">Favorite & Eligible Colleges Comparison</h3>
           </div>
@@ -2133,7 +2133,7 @@
 
       <div class="p-6 overflow-y-auto flex-1">
         <div id="shortlist-empty" class="text-center py-8 text-slate-500 text-xs">
-          <p class="text-3xl mb-2"><span class="emoji-bw">🏢</span></p>
+          <p class="text-3xl mb-2">🏢</p>
           <p class="font-bold text-slate-700 text-sm">No colleges in your favorites yet</p>
         </div>
         <div id="shortlist-content" class="hidden space-y-4">
@@ -2177,7 +2177,7 @@
           </button>
           <span class="w-2.5 h-2.5 rounded-full bg-[#c2410c] animate-pulse"></span>
           <span class="text-xs font-black uppercase tracking-wider text-slate-900 flex items-center gap-1.5">
-            <span class="text-[#c2410c]"><span class="emoji-bw">✴</span></span>
+            <span class="text-[#c2410c]">✴</span>
             <span>THE BRIDGE</span>
             <span class="text-[#c2410c]">STORY</span>
           </span>
@@ -2193,7 +2193,7 @@
           <div class="space-y-2">
             <span class="text-[11px] font-black uppercase tracking-wider text-[#c2410c] flex items-center gap-2">
               <span class="w-2 h-2 rounded-full bg-[#c2410c] shrink-0 inline-block"></span>
-              <span><span class="emoji-bw">✴</span> THE BRIDGE STORY</span>
+              <span>✴ THE BRIDGE STORY</span>
             </span>
             <h3 class="text-xl sm:text-2xl font-black text-slate-900 leading-tight">
               Choosing an engineering college should never feel like navigating a maze of scattered tabs, broker advice, and unverified promises.
@@ -2209,7 +2209,7 @@
               We were those exact students. Sitting in front of the APSCHE portal late into the night, agonizing over web option ranks, we experienced firsthand the confusion, stress, and anxiety of making life-defining decisions in the dark. We saw peers misled into paying heavy donations for colleges based on sponsored advertisements rather than actual placement track records.
             </p>
             <p class="font-bold text-slate-900 bg-amber-50/80 p-3 rounded-xl border border-amber-200/60">
-              We built <span class="text-[#c2410c]">The Bridge <span class="emoji-bw">✴</span></span> to cut through the noise and deliver the honest, transparent, 100% student-first counseling guide we wished we had when making our own choices.
+              We built <span class="text-[#c2410c]">The Bridge ✴</span> to cut through the noise and deliver the honest, transparent, 100% student-first counseling guide we wished we had when making our own choices.
             </p>
           </div>
 
@@ -2220,7 +2220,7 @@
             </div>
             <div>
               <h4 class="font-extrabold text-sm text-slate-900">Chakravarty & The Bridge Team</h4>
-              <p class="text-xs text-slate-500 font-medium">Building <span class="font-bold text-[#c2410c]"><span class="emoji-bw">✴</span> The Bridge</span> with engineering students & alumni across Andhra Pradesh</p>
+              <p class="text-xs text-slate-500 font-medium">Building <span class="font-bold text-[#c2410c]">✴ The Bridge</span> with engineering students & alumni across Andhra Pradesh</p>
             </div>
           </div>
 
@@ -2285,7 +2285,7 @@
       <div class="flex items-center justify-between pb-2 border-b border-slate-100 mb-3">
         <div>
           <h3 class="text-base font-black text-slate-900 flex items-center gap-1.5">
-            <span><span class="emoji-bw">🎓</span></span> Student Profile Setup
+            <span>🎓</span> Student Profile Setup
           </h3>
           <p class="text-[11px] text-slate-500">Configure your exam rank & counseling preferences.</p>
         </div>
@@ -2341,7 +2341,7 @@
             JEE Adv
           </button>
           <button type="button" class="counseling-exam-tab p-1.5 rounded-xl border border-slate-200 bg-slate-50 text-slate-700 font-semibold text-[11px] text-center transition cursor-pointer" data-exam="payment">
-            <span class="emoji-bw">💳</span> Payment
+            💳 Payment
           </button>
         </div>
 
@@ -2370,7 +2370,7 @@
               <option value="met">MET (Manipal Academy of Higher Education)</option>
             </optgroup>
             <optgroup label="💳 Direct Admission / Payment / Management">
-              <option value="payment"><span class="emoji-bw">💳</span> Direct / Management Quota (Payment Colleges)</option>
+              <option value="payment">💳 Direct / Management Quota (Payment Colleges)</option>
             </optgroup>
           </select>
         </div>
@@ -2383,7 +2383,7 @@
           <input id="counseling-rank-input" type="number" min="1" max="350000" class="w-full px-2.5 py-2 border border-slate-300 rounded-xl text-xs bg-white focus:ring-2 focus:ring-blue-500 focus:outline-none font-bold text-slate-900" placeholder="100000" value="100000">
         </div>
         <div id="counseling-direct-note" class="hidden p-2 rounded-xl bg-amber-50 border border-amber-200 text-amber-900 text-[10px] font-bold flex items-center justify-center text-center">
-          <span class="emoji-bw">💳</span> Direct / Payment Quota (No Rank Required)
+          💳 Direct / Payment Quota (No Rank Required)
         </div>
         <div>
           <label class="block font-bold text-slate-700 mb-1">Home State</label>
@@ -2480,22 +2480,32 @@
         <!-- Header Branding -->
         <div class="pt-3">
           <h1 class="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight mt-1">Welcome!</h1>
-          <p class="text-xs text-[#4a4e69] font-bold uppercase tracking-wider mt-1.5">A Bridge to the B.Tech</p>
+          <p class="text-xs text-blue-600 font-bold uppercase tracking-wider mt-1.5">A Bridge to the B.Tech</p>
         </div>
 
         <!-- Architectural Portrait Frame with Warm Earthy Palette -->
         <div class="relative py-4 my-auto flex items-center justify-center">
-          <div class="auth-avatar-frame flex items-center justify-center relative">
-            <img src="engineer.png" alt="Young Engineer" class="w-44 sm:w-48 h-auto object-contain relative z-10 drop-shadow-md transform hover:scale-105 transition duration-300 pointer-events-none" />
+            <!-- Fluid Organic Blue Blob (Zero Yellow) -->
+            <div class="w-52 h-60 sm:w-56 sm:h-64 rounded-[45%_55%_63%_37%/41%_44%_56%_59%] bg-gradient-to-tr from-blue-600 via-indigo-600 to-sky-400 opacity-95 shadow-xl shadow-blue-500/35 flex items-center justify-center relative">
+              <!-- Floating playful geometric shapes -->
+              <div class="absolute -top-1 -left-2 w-4 h-4 border-2 border-sky-200 rotate-12 pointer-events-none"></div>
+              <div class="absolute top-12 -left-4 w-4 h-4 border-2 border-indigo-200 rounded-full pointer-events-none"></div>
+              <div class="absolute bottom-6 -left-3 w-4 h-4 border-2 border-sky-300 rotate-45 pointer-events-none"></div>
+              <div class="absolute top-4 -right-3 w-4 h-4 border-2 border-sky-200 rotate-45 pointer-events-none"></div>
+              <div class="absolute top-16 -right-4 w-4 h-4 rounded-full border-2 border-indigo-200 pointer-events-none"></div>
+              <div class="absolute bottom-10 -right-2 w-4 h-4 border-2 border-sky-300 rotate-12 pointer-events-none"></div>
+
+              <!-- Transparent Engineer Cartoon (Background 100% Removed) -->
+              <img src="engineer.png" alt="Young Engineer" class="w-48 sm:w-52 h-auto object-contain relative z-10 drop-shadow-xl transform hover:scale-105 transition duration-300 pointer-events-none" />
+            </div>
           </div>
-        </div>
 
         <!-- Action Buttons: Sign In & Sign Up -->
         <div class="space-y-3 max-w-[220px] mx-auto w-full pb-3">
-          <button id="welcome-to-signin-btn" type="button" class="w-full py-3 bg-[#e6deda] hover:bg-[#c9ada7] text-[#22223b] font-bold text-sm rounded-xl border border-[#c9ada7] shadow-xs transition cursor-pointer">
+          <button id="welcome-to-signin-btn" type="button" class="w-full py-3 bg-white hover:bg-blue-50 text-slate-900 font-black text-sm rounded-2xl border-2 border-slate-200 hover:border-blue-600 hover:text-blue-600 shadow-sm transition cursor-pointer">
             Sign in
           </button>
-          <button id="welcome-to-signup-btn" type="button" class="w-full py-3 bg-[#4a4e69] hover:bg-[#383b52] active:scale-95 text-white font-bold text-sm rounded-xl shadow-md shadow-[#4a4e69]/30 transition cursor-pointer">
+          <button id="welcome-to-signup-btn" type="button" class="w-full py-3 bg-blue-600 hover:bg-blue-700 active:scale-95 text-white font-black text-sm rounded-2xl shadow-lg shadow-blue-500/25 transition cursor-pointer">
             Sign up
           </button>
         </div>
@@ -2518,7 +2528,7 @@
             <span class="text-sm font-black leading-none">←</span>
             <span>Back</span>
           </button>
-          <span class="text-[11px] font-black uppercase tracking-wider text-[#4a4e69]">The Bridge</span>
+          <span class="text-[11px] font-black uppercase tracking-wider text-blue-600">The Bridge</span>
         </div>
 
           <div class="pt-3">
@@ -2529,20 +2539,20 @@
             <!-- Inputs: Email & Password -->
             <div class="space-y-4 pt-6">
               <div class="border-b-2 border-slate-200 focus-within:border-blue-600 pb-1.5 flex items-center transition">
-                <span class="text-blue-600 text-sm mr-2.5"><span class="emoji-bw">✉</span></span>
+                <span class="text-blue-600 text-sm mr-2.5">✉</span>
                 <input id="login-email-input" type="text" placeholder="Username or Gmail / Email Address" autocomplete="username" class="w-full bg-transparent text-xs sm:text-sm font-medium text-slate-900 focus:outline-none placeholder-slate-400">
               </div>
               <div class="border-b-2 border-slate-200 focus-within:border-blue-600 pb-1.5 flex items-center transition">
-                <span class="text-blue-600 text-sm mr-2.5"><span class="emoji-bw">🔒</span></span>
+                <span class="text-blue-600 text-sm mr-2.5">🔒</span>
                 <input id="login-password-input" type="password" placeholder="Password" autocomplete="current-password" class="w-full bg-transparent text-xs sm:text-sm font-medium text-slate-900 focus:outline-none placeholder-slate-400">
-                <button id="toggle-password-visibility" type="button" class="text-slate-400 hover:text-slate-600 text-xs ml-1" title="Show/Hide Password"><span class="emoji-bw">👁</span></button>
+                <button id="toggle-password-visibility" type="button" class="text-slate-400 hover:text-slate-600 text-xs ml-1" title="Show/Hide Password">👁</button>
               </div>
             </div>
 
             <!-- Action Row: Sign In + Blue Round Forward Arrow -->
             <div class="flex items-center justify-between pt-6">
               <span class="text-2xl font-black text-slate-900">Sign in</span>
-              <button id="login-submit-btn" type="button" class="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-[#4a4e69] hover:bg-[#383b52] active:scale-95 text-white shadow-xl shadow-[#4a4e69]/30 flex items-center justify-center text-xl font-black transition cursor-pointer" title="Sign in">
+              <button id="login-submit-btn" type="button" class="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-blue-600 hover:bg-blue-700 active:scale-95 text-white shadow-xl shadow-blue-500/30 flex items-center justify-center text-xl font-black transition transform hover:scale-105 cursor-pointer" title="Sign in">
                 <span class="transform translate-x-0.5">→</span>
               </button>
             </div>
@@ -2599,19 +2609,19 @@
             <!-- Inputs: Email, Username, Phone, Password -->
             <div class="space-y-3 pt-4">
               <div class="border-b-2 border-slate-200 focus-within:border-blue-600 pb-1 flex items-center transition">
-                <span class="text-blue-600 text-sm mr-2.5"><span class="emoji-bw">✉</span></span>
+                <span class="text-blue-600 text-sm mr-2.5">✉</span>
                 <input id="signup-email-input" type="email" placeholder="Email address" autocomplete="email" class="w-full bg-transparent text-xs sm:text-sm font-medium text-slate-900 focus:outline-none placeholder-slate-400">
               </div>
               <div class="border-b-2 border-slate-200 focus-within:border-blue-600 pb-1 flex items-center transition">
-                <span class="text-blue-600 text-sm mr-2.5"><span class="emoji-bw">👤</span></span>
+                <span class="text-blue-600 text-sm mr-2.5">👤</span>
                 <input id="signup-username-input" type="text" placeholder="User Name" autocomplete="username" class="w-full bg-transparent text-xs sm:text-sm font-medium text-slate-900 focus:outline-none placeholder-slate-400">
               </div>
               <div class="border-b-2 border-slate-200 focus-within:border-blue-600 pb-1 flex items-center transition">
-                <span class="text-blue-600 text-sm mr-2.5"><span class="emoji-bw">📱</span></span>
+                <span class="text-blue-600 text-sm mr-2.5">📱</span>
                 <input id="signup-phone-input" type="tel" maxlength="10" placeholder="10-digit mobile" class="w-full bg-transparent text-xs sm:text-sm font-medium text-slate-900 focus:outline-none placeholder-slate-400">
               </div>
               <div class="border-b-2 border-slate-200 focus-within:border-blue-600 pb-1 flex items-center transition">
-                <span class="text-blue-600 text-sm mr-2.5"><span class="emoji-bw">🔒</span></span>
+                <span class="text-blue-600 text-sm mr-2.5">🔒</span>
                 <input id="signup-password-input" type="password" placeholder="Password (min 6)" class="w-full bg-transparent text-xs sm:text-sm font-medium text-slate-900 focus:outline-none placeholder-slate-400">
               </div>
             </div>
@@ -2619,7 +2629,7 @@
             <!-- Action Row: Sign Up + Blue Round Forward Arrow -->
             <div class="flex items-center justify-between pt-4">
               <span class="text-2xl font-black text-slate-900">Sign up</span>
-              <button id="signup-submit-btn" type="button" class="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-[#4a4e69] hover:bg-[#383b52] active:scale-95 text-white shadow-xl shadow-[#4a4e69]/30 flex items-center justify-center text-xl font-black transition cursor-pointer" title="Create Account">
+              <button id="signup-submit-btn" type="button" class="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-blue-600 hover:bg-blue-700 active:scale-95 text-white shadow-xl shadow-blue-500/30 flex items-center justify-center text-xl font-black transition transform hover:scale-105 cursor-pointer" title="Create Account">
                 <span class="transform translate-x-0.5">→</span>
               </button>
             </div>
@@ -2679,13 +2689,13 @@
             <button id="back-to-login-btn" type="button" class="text-xs text-blue-600 hover:underline font-bold cursor-pointer">← Edit</button>
           </div>
           <p class="text-xs text-slate-500">Verify your email address and mobile number to proceed.</p>
-          <div id="otp-sent-note" class="p-3 rounded-2xl bg-blue-50 border border-blue-200 text-xs text-blue-950 font-medium"><span class="emoji-bw">📲</span> 6-digit codes were sent to your email and phone.<span id="otp-preview-note" class="hidden block mt-1 text-blue-800 font-bold"></span></div>
+          <div id="otp-sent-note" class="p-3 rounded-2xl bg-blue-50 border border-blue-200 text-xs text-blue-950 font-medium">📲 6-digit codes were sent to your email and phone.<span id="otp-preview-note" class="hidden block mt-1 text-blue-800 font-bold"></span></div>
           <div class="hidden"><b id="live-email-otp-display"></b><b id="live-phone-otp-display"></b><button id="autofill-verify-otps-btn" type="button"></button></div>
 
           <div class="space-y-3">
             <div class="p-3 rounded-xl bg-slate-50 border border-slate-200 space-y-1.5">
               <div class="flex items-center justify-between text-xs">
-                <span class="font-bold text-slate-800"><span class="emoji-bw">📧</span> Email Code</span>
+                <span class="font-bold text-slate-800">📧 Email Code</span>
                 <span id="email-verified-status-badge" class="text-[10px] font-bold px-1.5 py-0.5 rounded bg-blue-100 text-blue-900">Pending</span>
               </div>
               <div class="text-[11px] text-slate-500 truncate" id="otp-target-email-text">student@example.com</div>
@@ -2698,7 +2708,7 @@
 
             <div class="p-3 rounded-xl bg-slate-50 border border-slate-200 space-y-1.5">
               <div class="flex items-center justify-between text-xs">
-                <span class="font-bold text-slate-800"><span class="emoji-bw">📱</span> Mobile Code</span>
+                <span class="font-bold text-slate-800">📱 Mobile Code</span>
                 <span id="phone-verified-status-badge" class="text-[10px] font-bold px-1.5 py-0.5 rounded bg-blue-100 text-blue-900">Pending</span>
               </div>
               <div class="text-[11px] text-slate-500" id="otp-target-phone-text">+91 9876543210</div>
@@ -2724,7 +2734,7 @@
           <div class="flex items-center justify-between pb-1 border-b border-slate-100">
             <div>
               <h3 class="text-base font-black text-slate-900 flex items-center gap-1.5">
-                <span><span class="emoji-bw">🎓</span></span> Student Profile Setup
+                <span>🎓</span> Student Profile Setup
               </h3>
               <p class="text-[11px] text-slate-500">Configure your exam rank & counseling preferences.</p>
             </div>
@@ -2780,7 +2790,7 @@
                 JEE Adv
               </button>
               <button type="button" class="wiz-exam-btn p-1.5 rounded-xl border border-slate-200 bg-slate-50 text-slate-700 font-semibold text-[11px] text-center transition cursor-pointer" data-wiz-exam="payment">
-                <span class="emoji-bw">💳</span> Payment
+                💳 Payment
               </button>
             </div>
 
@@ -2809,7 +2819,7 @@
                   <option value="met">MET (Manipal Academy of Higher Education)</option>
                 </optgroup>
                 <optgroup label="💳 Direct Admission / Payment / Management">
-                  <option value="payment"><span class="emoji-bw">💳</span> Direct / Management Quota (Payment Colleges)</option>
+                  <option value="payment">💳 Direct / Management Quota (Payment Colleges)</option>
                 </optgroup>
               </select>
             </div>
@@ -2822,7 +2832,7 @@
               <input id="wiz-rank-input" type="number" min="1" max="350000" class="w-full px-2.5 py-1.5 border border-slate-300 rounded-xl text-xs bg-white focus:ring-1 focus:ring-blue-500 focus:outline-none font-bold text-slate-900" placeholder="e.g. 100000" value="100000">
             </div>
             <div id="wiz-direct-admission-note" class="hidden p-2 rounded-xl bg-amber-50 border border-amber-200 text-amber-900 text-[11px] font-bold flex items-center justify-center text-center">
-              <span class="emoji-bw">💳</span> Direct / Management Quota (No Rank Required)
+              💳 Direct / Management Quota (No Rank Required)
             </div>
             <div>
               <label class="block font-bold text-slate-700 mb-0.5">Home State</label>
@@ -2890,7 +2900,7 @@
     <div class="bg-white w-full max-w-lg rounded-2xl shadow-2xl border border-slate-200 overflow-hidden">
       <div class="px-6 py-4 bg-gradient-to-r from-indigo-950 to-blue-900 text-white flex items-center justify-between">
         <div class="flex items-center gap-2">
-          <span class="text-xl"><span class="emoji-bw">📧</span></span>
+          <span class="text-xl">📧</span>
           <div>
             <h3 class="text-base font-bold">Send Priority Web Options PDF to Email</h3>
             <p class="text-[11px] text-blue-200">Deliver official prioritized counseling sheet to your verified email</p>
@@ -2914,7 +2924,7 @@
 
         <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200 space-y-1.5">
           <div class="flex items-center justify-between font-bold text-slate-900">
-            <span><span class="emoji-bw">📎</span> Attached PDF Document:</span>
+            <span>📎 Attached PDF Document:</span>
             <span id="email-attachment-filename" class="text-blue-700 font-mono text-[11px]">My_BTech_Web_Options_OC.pdf</span>
           </div>
           <p id="email-attachment-summary" class="text-[11px] text-slate-500 leading-relaxed">
@@ -2925,7 +2935,7 @@
         <!-- Dispatch Status Box (Revealed on send) -->
         <div id="email-dispatch-success-box" class="hidden p-4 rounded-xl bg-emerald-50 border border-emerald-300 text-emerald-950 space-y-1.5">
           <div class="font-extrabold text-sm text-emerald-800 flex items-center gap-1.5">
-            <span><span class="emoji-bw">✅</span> Priority Sheet PDF Dispatched & Downloaded!</span>
+            <span>✅ Priority Sheet PDF Dispatched & Downloaded!</span>
           </div>
           <p id="email-dispatch-receipt-text" class="text-[11px] leading-relaxed"></p>
         </div>
@@ -2933,12 +2943,12 @@
 
       <div class="px-6 py-3.5 bg-slate-50 border-t border-slate-200 flex items-center justify-between gap-2 flex-wrap">
         <button id="open-mailto-client-btn" type="button" class="px-3 py-2 bg-white hover:bg-slate-100 text-slate-700 border border-slate-300 rounded-xl text-xs font-semibold">
-          <span class="emoji-bw">↗</span> Open in Mail App
+          ↗ Open in Mail App
         </button>
         <div class="flex items-center gap-2">
           <button id="cancel-email-pdf-btn" type="button" class="px-3 py-2 text-slate-500 hover:text-slate-800 text-xs font-semibold">Close</button>
           <button id="confirm-send-email-pdf-btn" type="button" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-extrabold shadow transition">
-            <span class="emoji-bw">📨</span> Send PDF to Email & Download
+            📨 Send PDF to Email & Download
           </button>
         </div>
       </div>
@@ -2984,10 +2994,10 @@
         </div>
         <div class="flex items-center gap-2">
           <button id="compiler-reset-btn" type="button" class="px-3 py-1 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-lg font-medium transition flex items-center gap-1.5">
-            <span class="emoji-bw">🔄</span> Reset
+            🔄 Reset
           </button>
           <button id="compiler-run-btn" type="button" class="px-4 py-1 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-lg shadow-md transition flex items-center gap-1.5">
-            <span class="emoji-bw">▶</span>️ Run Code
+            ▶️ Run Code
           </button>
         </div>
       </div>
@@ -3048,11 +3058,11 @@
           
           <!-- Quick Feedback Tags -->
           <div class="flex flex-wrap gap-1.5 mb-3" id="feedback-quick-tags">
-            <button type="button" class="feedback-tag-pill px-2.5 py-1 rounded-full text-[11px] font-semibold bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700/70 transition cursor-pointer" data-tag="🎯 Accurate Cutoff Prediction"><span class="emoji-bw">🎯</span> Accurate Cutoffs</button>
-            <button type="button" class="feedback-tag-pill px-2.5 py-1 rounded-full text-[11px] font-semibold bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700/70 transition cursor-pointer" data-tag="⚡ Fast & Smart Web Options"><span class="emoji-bw">⚡</span> Fast Web Options</button>
-            <button type="button" class="feedback-tag-pill px-2.5 py-1 rounded-full text-[11px] font-semibold bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700/70 transition cursor-pointer" data-tag="💰 Clear Fee & Placement ROI"><span class="emoji-bw">💰</span> Helpful Fee & ROI</button>
-            <button type="button" class="feedback-tag-pill px-2.5 py-1 rounded-full text-[11px] font-semibold bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700/70 transition cursor-pointer" data-tag="📱 Clean and Smooth UI"><span class="emoji-bw">📱</span> Clean Mobile UI</button>
-            <button type="button" class="feedback-tag-pill px-2.5 py-1 rounded-full text-[11px] font-semibold bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700/70 transition cursor-pointer" data-tag="✨ Super Easy for Students"><span class="emoji-bw">✨</span> Super Easy to Use</button>
+            <button type="button" class="feedback-tag-pill px-2.5 py-1 rounded-full text-[11px] font-semibold bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700/70 transition cursor-pointer" data-tag="🎯 Accurate Cutoff Prediction">🎯 Accurate Cutoffs</button>
+            <button type="button" class="feedback-tag-pill px-2.5 py-1 rounded-full text-[11px] font-semibold bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700/70 transition cursor-pointer" data-tag="⚡ Fast & Smart Web Options">⚡ Fast Web Options</button>
+            <button type="button" class="feedback-tag-pill px-2.5 py-1 rounded-full text-[11px] font-semibold bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700/70 transition cursor-pointer" data-tag="💰 Clear Fee & Placement ROI">💰 Helpful Fee & ROI</button>
+            <button type="button" class="feedback-tag-pill px-2.5 py-1 rounded-full text-[11px] font-semibold bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700/70 transition cursor-pointer" data-tag="📱 Clean and Smooth UI">📱 Clean Mobile UI</button>
+            <button type="button" class="feedback-tag-pill px-2.5 py-1 rounded-full text-[11px] font-semibold bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700/70 transition cursor-pointer" data-tag="✨ Super Easy for Students">✨ Super Easy to Use</button>
           </div>
 
           <textarea id="feedback-text-input" rows="4" placeholder="Tell us what you liked about The Bridge App or any features we should add/improve for your college options..." class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-amber-500 leading-relaxed"></textarea>
@@ -3060,7 +3070,7 @@
 
         <div class="pt-2 flex items-center justify-end">
           <button id="feedback-goto-rating-btn" type="button" class="px-5 py-2.5 bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-400 hover:to-orange-500 text-white text-xs font-bold rounded-xl shadow-lg transition flex items-center gap-1.5 cursor-pointer">
-            <span>Next: Rate The App <span class="emoji-bw">⭐</span></span>
+            <span>Next: Rate The App ⭐</span>
             <span>→</span>
           </button>
         </div>
@@ -3083,7 +3093,7 @@
             <span data-star="4" class="text-amber-400 transition hover:scale-125">★</span>
             <span data-star="5" class="text-amber-400 transition hover:scale-125">★</span>
           </div>
-          <div id="feedback-star-label" class="text-xs font-bold text-amber-400 mt-1.5">5 / 5 - <span class="emoji-bw">🤩</span> Outstanding Experience!</div>
+          <div id="feedback-star-label" class="text-xs font-bold text-amber-400 mt-1.5">5 / 5 - 🤩 Outstanding Experience!</div>
         </div>
 
         <!-- Recommendation question -->
@@ -3092,11 +3102,11 @@
           <div class="flex gap-2">
             <label class="flex-1 flex items-center justify-center gap-2 p-2 rounded-xl bg-slate-900 border border-emerald-500/50 text-emerald-300 text-xs font-bold cursor-pointer hover:bg-emerald-950/30 transition">
               <input type="radio" name="recommend-app" value="yes" checked class="text-emerald-500" />
-              <span><span class="emoji-bw">👍</span> Definitely Yes!</span>
+              <span>👍 Definitely Yes!</span>
             </label>
             <label class="flex-1 flex items-center justify-center gap-2 p-2 rounded-xl bg-slate-900 border border-slate-700 text-slate-300 text-xs font-semibold cursor-pointer hover:bg-slate-800 transition">
               <input type="radio" name="recommend-app" value="maybe" class="text-slate-400" />
-              <span><span class="emoji-bw">👌</span> Probably</span>
+              <span>👌 Probably</span>
             </label>
           </div>
         </div>
@@ -3104,7 +3114,7 @@
         <div class="pt-2 flex items-center justify-between">
           <button id="feedback-back-to-step1-btn" type="button" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold rounded-xl transition cursor-pointer">← Edit Feedback</button>
           <button id="submit-feedback-btn" type="button" class="px-5 py-2.5 bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-white text-xs font-bold rounded-xl shadow-lg transition flex items-center gap-1.5 cursor-pointer">
-            <span>Submit Rating & Feedback <span class="emoji-bw">🎉</span></span>
+            <span>Submit Rating & Feedback 🎉</span>
           </button>
         </div>
       </div>
@@ -3121,7 +3131,7 @@
 
         <div class="pt-2 flex flex-wrap items-center justify-center gap-2.5">
           <a id="feedback-direct-mailto-btn" href="mailto:athotasridharchakravarthy@gmail.com" target="_blank" class="px-4 py-2 bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-400 hover:to-orange-500 text-white text-xs font-bold rounded-xl shadow-lg transition flex items-center gap-1.5 cursor-pointer">
-            <span><span class="emoji-bw">✉</span>️ Open in Gmail / Mail App</span>
+            <span>✉️ Open in Gmail / Mail App</span>
           </a>
           <button id="feedback-finish-btn" type="button" onclick="document.getElementById('kodnest-user-feedback-modal').classList.add('hidden')" class="px-5 py-2 bg-slate-800 hover:bg-slate-700 text-white text-xs font-bold rounded-xl transition cursor-pointer">
             ← Back to Home
@@ -3144,7 +3154,7 @@
           </button>
           <div>
             <h3 class="text-slate-900 font-extrabold text-sm sm:text-base flex items-center gap-1.5">
-              <span><span class="emoji-bw">📝</span></span> Request College Update / Missing Data
+              <span>📝</span> Request College Update / Missing Data
             </h3>
             <p class="text-[11px] text-slate-500">Suggest verified data corrections or missing college information</p>
           </div>
@@ -3170,12 +3180,12 @@
           <div>
             <label class="block text-xs font-bold text-slate-700 mb-1">Category of Request:</label>
             <select id="req-update-category" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-xs text-slate-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#c2410c]/30 focus:border-[#c2410c]">
-              <option value="Cutoff Revision"><span class="emoji-bw">📊</span> College Cutoff Revision (AP EAPCET)</option>
-              <option value="Missing College / Branch"><span class="emoji-bw">🏫</span> Missing College or Branch</option>
-              <option value="Fee Structure Update"><span class="emoji-bw">💰</span> Tuition Fee / Scholarship Update</option>
-              <option value="Placement Verification"><span class="emoji-bw">📈</span> Placement & Median CTC Correction</option>
-              <option value="Feature Request"><span class="emoji-bw">💡</span> New Feature Suggestion</option>
-              <option value="General Query"><span class="emoji-bw">❓</span> General Question / Counseling Request</option>
+              <option value="Cutoff Revision">📊 College Cutoff Revision (AP EAPCET)</option>
+              <option value="Missing College / Branch">🏫 Missing College or Branch</option>
+              <option value="Fee Structure Update">💰 Tuition Fee / Scholarship Update</option>
+              <option value="Placement Verification">📈 Placement & Median CTC Correction</option>
+              <option value="Feature Request">💡 New Feature Suggestion</option>
+              <option value="General Query">❓ General Question / Counseling Request</option>
             </select>
           </div>
           <div>
@@ -3210,7 +3220,7 @@
         </p>
         <div class="pt-2 flex flex-wrap items-center justify-center gap-2.5">
           <a id="req-update-direct-mailto" href="mailto:athotasridharchakravarthy@gmail.com" target="_blank" class="px-4 py-2 bg-amber-500 hover:bg-amber-600 text-white text-xs font-bold rounded-xl shadow transition flex items-center gap-1.5 cursor-pointer">
-            <span><span class="emoji-bw">✉</span>️ Open in Gmail / Mail App</span>
+            <span>✉️ Open in Gmail / Mail App</span>
           </a>
           <button type="button" onclick="document.getElementById('request-update-modal').classList.add('hidden')" class="px-5 py-2 bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold rounded-xl transition cursor-pointer">
             ← Done
@@ -3226,7 +3236,7 @@
     <div class="bg-[#0b0f19] border border-slate-700/80 rounded-2xl w-full max-w-2xl max-h-[92vh] flex flex-col shadow-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-150">
       <div class="px-5 py-3.5 bg-slate-900 border-b border-slate-800 flex items-center justify-between gap-3">
         <div class="flex items-center gap-2.5">
-          <span class="text-xl"><span class="emoji-bw">📄</span></span>
+          <span class="text-xl">📄</span>
           <div>
             <h3 class="text-white font-bold text-sm sm:text-base flex items-center gap-2">
               KodNest ATS Resume Builder
@@ -3273,8 +3283,8 @@
       <div class="px-5 py-3 bg-slate-900 border-t border-slate-800 flex items-center justify-between gap-2">
         <span class="text-xs text-slate-400">Status: Verified for 2026 Batch</span>
         <div class="flex items-center gap-2">
-          <button id="copy-resume-text-btn" type="button" class="px-3.5 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold rounded-xl transition"><span class="emoji-bw">📋</span> Copy Text</button>
-          <button id="print-resume-btn" type="button" class="px-4 py-1.5 bg-sky-600 hover:bg-sky-500 text-white text-xs font-bold rounded-xl shadow-md transition"><span class="emoji-bw">🖨</span>️ Download / Print</button>
+          <button id="copy-resume-text-btn" type="button" class="px-3.5 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold rounded-xl transition">📋 Copy Text</button>
+          <button id="print-resume-btn" type="button" class="px-4 py-1.5 bg-sky-600 hover:bg-sky-500 text-white text-xs font-bold rounded-xl shadow-md transition">🖨️ Download / Print</button>
         </div>
       </div>
     </div>
@@ -3285,7 +3295,7 @@
     <div class="bg-[#0b0f19] border border-slate-700/80 rounded-2xl w-full max-w-xl shadow-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-150">
       <div class="px-5 py-4 bg-slate-900 border-b border-slate-800 flex items-center justify-between">
         <div class="flex items-center gap-2.5">
-          <span class="text-xl"><span class="emoji-bw">📹</span></span>
+          <span class="text-xl">📹</span>
           <div>
             <h3 class="text-white font-bold text-base flex items-center gap-2">
               KodNest Mock Interview Portal
@@ -3325,7 +3335,7 @@
         </div>
 
         <div class="flex items-center justify-between pt-1">
-          <button id="toggle-mock-answer-btn" type="button" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold rounded-xl transition"><span class="emoji-bw">💡</span> Reveal Ideal Answer</button>
+          <button id="toggle-mock-answer-btn" type="button" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold rounded-xl transition">💡 Reveal Ideal Answer</button>
           <button id="next-mock-question-btn" type="button" class="px-4 py-2 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white text-xs font-bold rounded-xl shadow-md transition">Next Question ➔</button>
         </div>
       </div>
@@ -3337,7 +3347,7 @@
     <div class="bg-[#0b0f19] border border-slate-700/80 rounded-2xl w-full max-w-lg shadow-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-150">
       <div class="px-5 py-4 bg-slate-900 border-b border-slate-800 flex items-center justify-between">
         <div class="flex items-center gap-2.5">
-          <span class="text-xl"><span class="emoji-bw">📅</span></span>
+          <span class="text-xl">📅</span>
           <div>
             <h3 class="text-white font-bold text-base">Student Leave Application</h3>
             <p class="text-xs text-amber-400 font-medium">April Batch 2026 • KodNest Academy</p>
@@ -3377,7 +3387,7 @@
           <textarea id="leave-remarks-input" rows="3" placeholder="Briefly specify the reason for taking leave..." class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-sky-500"></textarea>
         </div>
         <div id="leave-status-feedback" class="hidden p-3 rounded-xl bg-emerald-950/60 border border-emerald-600 text-emerald-300 text-xs font-semibold">
-          <span class="emoji-bw">✅</span> Leave application submitted! Status: Approved by Academic Mentor.
+          ✅ Leave application submitted! Status: Approved by Academic Mentor.
         </div>
         <div class="pt-2 flex justify-end gap-2">
           <button id="cancel-leave-btn" type="button" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold rounded-xl transition">Cancel</button>
@@ -3509,7 +3519,7 @@
     <!-- 6. Why We Built This (Replacing Apply for Leave - Pic 1) -->
     <button id="nav-menu-why-btn" type="button" class="profile-menu-row" title="✴ THE BRIDGE STORY">
       <span class="font-semibold flex items-center gap-1.5">
-        <span class="text-amber-400 font-black text-xs"><span class="emoji-bw">✴</span></span>
+        <span class="text-amber-400 font-black text-xs">✴</span>
         <span>THE BRIDGE</span>
       </span>
       <span class="ml-auto text-amber-400 text-[10px] font-black uppercase tracking-wider leading-none">STORY</span>
@@ -3526,7 +3536,7 @@
     </button>
   </div>
   <div id="toast" class="fixed bottom-6 right-6 z-50 bg-slate-900 text-white px-4 py-2.5 rounded-xl shadow-xl text-xs font-semibold hidden items-center gap-2 border border-slate-700">
-    <span id="toast-icon"><span class="emoji-bw">✅</span></span>
+    <span id="toast-icon">✅</span>
     <span id="toast-message">Action successful</span>
   </div>
 

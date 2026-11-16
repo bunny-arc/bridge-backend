@@ -6698,35 +6698,3 @@
         if (s && s.profile) xq("auth-portal-overlay").classList.add("hidden"); else xSetMode("login");
       });
     });
-
-    // Auto-Monochrome Black & White Emoji Pass (Developer Grade)
-    function applyMonochromeEmojis(root = document.body) {
-      if (!root) return;
-      try {
-        const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null, false);
-        const emojiRegex = /(\p{Extended_Pictographic})/gu;
-        const nodes = [];
-        while (walker.nextNode()) {
-          const n = walker.currentNode;
-          if (n.parentElement && !n.parentElement.classList.contains("emoji-bw") && n.parentElement.tagName !== "SCRIPT" && n.parentElement.tagName !== "STYLE") {
-            if (emojiRegex.test(n.nodeValue)) nodes.push(n);
-          }
-        }
-        for (const n of nodes) {
-          const span = document.createElement("span");
-          span.innerHTML = n.nodeValue.replace(/(\p{Extended_Pictographic})/gu, '<span class="emoji-bw">$1</span>');
-          if (n.parentNode) n.parentNode.replaceChild(span, n);
-        }
-      } catch (_) {}
-    }
-    if (typeof window !== "undefined") {
-      window.applyMonochromeEmojis = applyMonochromeEmojis;
-      document.addEventListener("DOMContentLoaded", () => {
-        applyMonochromeEmojis();
-        // Lightly observe dynamic chat messages & toasts
-        const chatBox = document.getElementById("bridge-ai-messages");
-        if (chatBox && typeof MutationObserver !== "undefined") {
-          new MutationObserver(() => applyMonochromeEmojis(chatBox)).observe(chatBox, { childList: true, subtree: true });
-        }
-      });
-    }
