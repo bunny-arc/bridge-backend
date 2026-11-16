@@ -341,7 +341,7 @@
       const schList = document.getElementById("cd-scholarships-list");
       if (schList) {
         schList.innerHTML = scholarships.map(s =>
-          `<div class="p-3 rounded-xl bg-slate-50 border border-slate-200 text-xs font-medium text-slate-800">🎓 ${s}</div>`
+          `<div class="p-3 rounded-xl bg-slate-50 border border-slate-200 text-xs font-medium text-slate-800">${s}</div>`
         ).join("");
       }
 
@@ -3345,7 +3345,7 @@
           updateOtpStatusUI();
         }
         setAuthStage(3);
-        showToast("Security verification complete! Enter Student & Exam Details.", "🎓");
+        showToast("Security verification complete! Enter Student & Exam Details.", "✓");
       });
 
       // Stage 3: Entrance Exam Selector & State Handler
@@ -4199,23 +4199,23 @@
             const c2 = matchedColleges[1];
             return `
               <div class="space-y-2">
-                <div class="font-bold text-slate-900 text-sm">⚖️ Head-to-Head Comparison: ${c1.code} vs ${c2.code}</div>
+                <div class="font-bold text-slate-900 text-sm">Head-to-Head Comparison: ${c1.code} vs ${c2.code}</div>
                 <div class="grid grid-cols-2 gap-2 text-[11px] bg-slate-50 p-2.5 rounded-xl border border-slate-200">
                   <div class="border-r border-slate-200 pr-2 space-y-1">
                     <strong class="text-slate-900 text-xs block">${c1.name} (${c1.code})</strong>
-                    <div class="text-slate-500">📍 ${c1.location}, ${c1.district}</div>
-                    <div class="text-slate-700">⭐ Rating: ${c1.rating}★ (${c1.naac || 'NAAC A+'})</div>
-                    <div class="text-emerald-700 font-bold">💼 2025 Placements: ${c1.placements?.rate || '78%'}</div>
-                    <div class="text-slate-700">💰 Median CTC: ${c1.placements?.medianSalary || '₹5.0 LPA'}</div>
-                    <div class="text-slate-700">🎓 Tuition: ${c1.fees?.tuition || '₹70,000/yr'}</div>
+                    <div class="text-slate-500">${c1.location}, ${c1.district}</div>
+                    <div class="text-slate-700">Rating: ${c1.rating}★ (${c1.naac || 'NAAC A+'})</div>
+                    <div class="text-emerald-700 font-bold">2025 Placements: ${c1.placements?.rate || '78%'}</div>
+                    <div class="text-slate-700">Median CTC: ${c1.placements?.medianSalary || '₹5.0 LPA'}</div>
+                    <div class="text-slate-700">Tuition: ${c1.fees?.tuition || '₹70,000/yr'}</div>
                   </div>
                   <div class="pl-2 space-y-1">
                     <strong class="text-slate-900 text-xs block">${c2.name} (${c2.code})</strong>
-                    <div class="text-slate-500">📍 ${c2.location}, ${c2.district}</div>
-                    <div class="text-slate-700">⭐ Rating: ${c2.rating}★ (${c2.naac || 'NAAC A+'})</div>
-                    <div class="text-emerald-700 font-bold">💼 2025 Placements: ${c2.placements?.rate || '78%'}</div>
-                    <div class="text-slate-700">💰 Median CTC: ${c2.placements?.medianSalary || '₹5.0 LPA'}</div>
-                    <div class="text-slate-700">🎓 Tuition: ${c2.fees?.tuition || '₹70,000/yr'}</div>
+                    <div class="text-slate-500">${c2.location}, ${c2.district}</div>
+                    <div class="text-slate-700">Rating: ${c2.rating}★ (${c2.naac || 'NAAC A+'})</div>
+                    <div class="text-emerald-700 font-bold">2025 Placements: ${c2.placements?.rate || '78%'}</div>
+                    <div class="text-slate-700">Median CTC: ${c2.placements?.medianSalary || '₹5.0 LPA'}</div>
+                    <div class="text-slate-700">Tuition: ${c2.fees?.tuition || '₹70,000/yr'}</div>
                   </div>
                 </div>
                 <p class="text-[11px] text-slate-700">
@@ -4275,7 +4275,7 @@
         if (q.includes("jvd") || q.includes("vidya deevena") || q.includes("reimbursement") || q.includes("free seat") || q.includes("scholarship")) {
           return `
             <div class="space-y-2">
-              <div class="font-extrabold text-blue-700 text-sm">🎓 100% JVD Full Fee Reimbursement Rules</div>
+              <div class="font-extrabold text-blue-700 text-sm">100% JVD Full Fee Reimbursement Rules</div>
               <p class="text-slate-800">
                 Under the AP State <strong>Jagananna Vidya Deevena (JVD)</strong> scheme, eligible students get <strong>100% full tuition fee reimbursement</strong> in all 312+ Convener AP EAPCET engineering colleges!
               </p>
@@ -6148,7 +6148,7 @@
           else { const u = (xLS.get("i2t_users_v9") || {})[studentProfile.email.toLowerCase()]; if (u) { profile = u.profile; prefs = u.prefs; } xLS.set("i2t_session_v9", {}); }
         } catch (e) { return showToast(e.message, "⚠️"); }
         if (profile) { xSaveSession(); xRestore(Object.assign({}, profile, { email: studentProfile.email, phone: studentProfile.phone, username: studentProfile.username }), prefs); showToast("Welcome back, " + profile.fullName + "!", "👋"); }
-        else { setAuthStage(3); showToast("Verified! Add your student details.", "🎓"); }
+        else { setAuthStage(3); showToast("Verified! Add your student details.", "✓"); }
       });
 
       // priority list goes to the student's own email (server) – never "faked" in the page
@@ -6328,7 +6328,7 @@
           if (typeof populateEditModal === "function") populateEditModal();
           const editModal = document.getElementById("kodnest-profile-edit-modal");
           if (editModal) editModal.classList.remove("hidden");
-          showToast("Welcome! Please fill in your student profile details.", "🎓");
+          showToast("Welcome! Please fill in your student profile details.", "✓");
         }, 250);
       }
     }
@@ -6401,7 +6401,7 @@
         if (typeof populateEditModal === "function") populateEditModal();
         const editModal = document.getElementById("kodnest-profile-edit-modal");
         if (editModal) editModal.classList.remove("hidden");
-        showToast("Account created! Please fill in your student profile details below.", "🎓");
+        showToast("Account created! Please fill in your student profile details below.", "✓");
       }, 250);
     }
     // =========================================================================
@@ -6636,7 +6636,7 @@
           if (X_CFG.API_BASE) { const r = await xApi("/api/login/complete", { email: studentProfile.email, phone: studentProfile.phone, username: studentProfile.username, password: xPendingRaw }); xLS.set("i2t_session_v9", { token: r.token }); }
           else xLS.set("i2t_session_v9", {});
         } catch (e) { return xErr(e); }
-        setAuthStage(3); showToast("Verified! Add your student details.", "🎓");
+        setAuthStage(3); showToast("Verified! Add your student details.", "✓");
       });
 
       fresh("fp-send").addEventListener("click", async () => {

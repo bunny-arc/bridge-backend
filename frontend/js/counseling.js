@@ -1418,7 +1418,7 @@
 
       if (quota === "ap_cet") {
         quotaLabel = "AP EAPCET Convener Quota";
-        quotaBadge = "🎓 State Convener Quota (AP CET)";
+        quotaBadge = "State Convener Quota (AP CET)";
         quotaHint = "";
         annualTuitionBeforeWaiver = Math.round(baseTuition * tier.multiplier);
       } else if (quota === "jee") {
@@ -1430,7 +1430,7 @@
         annualTuitionBeforeWaiver = Math.round(jeeBase * tier.multiplier);
       } else {
         quotaLabel = "Category-B Management / Payment Seat";
-        quotaBadge = "💼 Direct Payment Seat (B-Category)";
+        quotaBadge = "Direct Payment Seat (B-Category)";
         quotaHint = "Category-B Direct Admission: Institutional quota fee with merit discounts for Inter MPC scores.";
         const payBase = Math.max(220000, Math.round(baseTuition * 3.4));
         annualTuitionBeforeWaiver = Math.round(payBase * tier.paymentMultiplier);
@@ -1534,8 +1534,7 @@
           </div>
         </div>
 
-        <div class="pt-3 border-t border-white/15 flex items-center justify-between flex-wrap gap-3 text-xs">
-          <span>💡 <strong>Fee Summary:</strong> ${selectedBranch.code} semester fee under ${quotaLabel}: <strong>₹${semTuition.toLocaleString("en-IN")}/sem</strong>. Payback in <strong>~${paybackMonths} months</strong>.</span>
+        <div class="pt-3 border-t border-white/15 flex items-center justify-end flex-wrap gap-3 text-xs">
           <button type="button" data-action="quick-add-branch" data-college-id="${college.id}" data-branch-code="${selectedBranch.code}" class="px-3.5 py-1.5 rounded-lg bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold text-xs shadow-md transition">
             + Add ${college.code} (${selectedBranch.code}) to Priority Sheet
           </button>
