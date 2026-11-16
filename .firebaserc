@@ -1,5 +1,18 @@
 {
   "projects": {
     "default": "birdge-to-btech"
-  }
+  },
+  "targets": {
+    "birdge-to-btech": {
+      "hosting": {
+        "main-site": [
+          "bridge-to-btech"
+        ],
+        "old-site": [
+          "birdge-to-btech"
+        ]
+      }
+    }
+  },
+  "etags": {}
 }
