@@ -13,28 +13,39 @@ It features:
 
 ---
 
-## 📁 Project Structure
+## 📁 Project Architecture (Clean Frontend & Backend Separation)
 
 ```
-inter2tech/
-├── package.json              # Express, JWT, bcryptjs, Nodemailer, CORS
-├── server.js                 # Production Express REST API & static server
-├── .env                      # Local environment configuration
-├── .env.example              # Environment variables template
-├── README.md                 # Complete documentation and API guide
-├── data/
-│   ├── colleges.json         # Complete 330 colleges catalog (branches, cutoffs, placements)
-│   ├── core-colleges.json    # Elite 24 universities (AUCE, JNTUK, IITs, NITs, BITS, VIT)
-│   ├── seed-catalog.json     # Regional & autonomous AP college seed directory
-│   ├── districts.json        # All 26 Andhra Pradesh districts with transit hubs
-│   ├── checklist.json        # 9 mandatory counseling verification documents
-│   ├── multipliers.json      # Category cutoff multipliers (OC to ST)
-│   ├── users.json            # Persisted user accounts, profiles, preferences
-│   └── history.json          # Persisted priority list snapshots
-├── public/
-│   └── index.html            # Complete responsive single-page web application
-├── test-server.js            # Automated 24-test integration test suite
-└── run-tests-local.js        # Test runner that boots server, tests APIs, and tears down
+bridge-project/
+├── backend/                       # 🖥️ BACKEND MODULE (Node.js Express + MongoDB)
+│   ├── server.js                  # Production Express REST API, Auth & OTP, MongoDB Atlas
+│   ├── ai-counselor.js            # Gemini AI Counseling engine
+│   ├── models/
+│   │   └── User.js                # Mongoose User model for cloud persistence
+│   └── data/                      # High-capacity JSON storage & dataset storage
+│       ├── colleges.json          # Complete 658 colleges catalog
+│       ├── core-colleges.json     # Elite universities catalog
+│       ├── districts.json         # All 26 AP districts with transit hubs
+│       ├── checklist.json         # 9 mandatory counseling verification documents
+│       ├── multipliers.json       # Cutoff multipliers (OC, EWS, BC, SC, ST)
+│       ├── users.json             # Local backup user profiles
+│       └── dataset_storage/       # Dedicated user records
+├── frontend/                      # 🌐 FRONTEND CLIENT (Modular Architecture)
+│   ├── index.html                 # 📄 ONLY HTML FILE THAT RUNS THE ENTIRE PROJECT
+│   ├── style.css                  # 🎨 Custom styles, animations, dark mode
+│   ├── all_colleges_dataset.js    # 🏛️ Full 361+ AP EAPCET college dataset
+│   ├── js/
+│   │   ├── config.js              # ⚙️ API endpoint configuration (Localhost vs Render)
+│   │   ├── colleges-data.js       # 📊 College algorithms & district generator
+│   │   ├── counseling.js          # 🎯 Priority list generator, seat simulator, ROI calculator
+│   │   └── app.js                 # 🚀 UI events, splash screen, modals, auth, PDF export
+│   ├── manifest.json              # 📱 Mobile PWA install manifest
+│   ├── sw.js                      # ⚡ Service Worker for fast caching
+│   ├── assets/                    # 🖼️ Brand badges and logos
+│   └── college_images/            # 📸 Verified college campus photos
+├── server.js                      # 🚀 Root loader (delegates to backend/server.js for Render & npm start)
+├── firebase.json                  # 🔥 Firebase Hosting configuration (points to frontend/)
+└── package.json                   # 📦 Scripts and dependencies
 ```
 
 ---
