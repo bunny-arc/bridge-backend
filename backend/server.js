@@ -164,7 +164,10 @@ function setupMailer() {
       auth: {
         user: process.env.SMTP_USER,
         pass: process.env.SMTP_PASS
-      }
+      },
+      connectionTimeout: 8000,
+      greetingTimeout: 8000,
+      socketTimeout: 10000
     });
     console.log(`[Mailer] Configured SMTP Transport with host: ${process.env.SMTP_HOST}`);
   } else {
