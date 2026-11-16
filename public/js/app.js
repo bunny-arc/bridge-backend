@@ -5849,35 +5849,7 @@ Student Profile Context:
               context: "signin"
             });
 
-            // 2. Render Google Sign-In button in Slide 2 (Login)
-            const signinContainer = document.getElementById("google-signin-btn-container");
-            if (signinContainer) {
-              signinContainer.innerHTML = "";
-              window.google.accounts.id.renderButton(signinContainer, {
-                type: "standard",
-                shape: "pill",
-                theme: "outline",
-                text: "signin_with",
-                size: "large",
-                logo_alignment: "left",
-                width: 280
-              });
-            }
-
-            // 3. Render Google Sign-Up button in Slide 3 (Sign Up)
-            const signupContainer = document.getElementById("google-signup-btn-container");
-            if (signupContainer) {
-              signupContainer.innerHTML = "";
-              window.google.accounts.id.renderButton(signupContainer, {
-                type: "standard",
-                shape: "pill",
-                theme: "outline",
-                text: "signup_with",
-                size: "large",
-                logo_alignment: "left",
-                width: 280
-              });
-            }
+            // Google OAuth 2.0 direct popup via round action button
 
             // 4. Initialize OAuth2 Token Client for Custom Button / Icon Clicks
             if (window.google.accounts.oauth2) {
