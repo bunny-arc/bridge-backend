@@ -1125,7 +1125,7 @@
           const val = e.target.value.toLowerCase();
           studentProfile.gender = val;
           const badge = document.getElementById("gender-display-badge");
-          if (badge) badge.textContent = val === "female" ? "Co-Ed + Women's" : "Co-Ed Only";
+          if (badge) { badge.textContent = ""; badge.classList.add("hidden"); }
           const cGen = document.getElementById("counseling-gender-select");
           if (cGen) cGen.value = val;
           const wGen = document.getElementById("wiz-gender-select");
@@ -4971,7 +4971,7 @@
         const curGender = (studentProfile.gender || "male").toLowerCase();
         gSelectEl.value = curGender;
         const gBadge = document.getElementById("gender-display-badge");
-        if (gBadge) gBadge.textContent = curGender === "female" ? "Co-Ed + Women's" : "Co-Ed Only";
+        if (gBadge) { gBadge.textContent = ""; gBadge.classList.add("hidden"); }
       }
       if (typeof updateDistrictDropdown === "function") {
         updateDistrictDropdown(appState.state || "Andhra Pradesh");

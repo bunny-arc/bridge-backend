@@ -482,10 +482,9 @@
         countBadge.textContent = `${filtered.length} Colleges`;
       }
 
-      if (appState.rank) {
-        subtext.innerHTML = `Showing live branch matches for <strong>Rank ${appState.rank.toLocaleString("en-IN")} (${categoryLabels[appState.category]})</strong>. Click any <span class="text-emerald-700 font-bold">+ [Branch]</span> badge to add it to your Priority Sheet.`;
-      } else {
-        subtext.textContent = `Showing ${filtered.length} colleges. Enter a rank above (or click a quick rank chip like 7,500 or 3,00,000) to see live qualifying branch badges.`;
+      if (subtext) {
+        subtext.innerHTML = "";
+        subtext.classList.add("hidden");
       }
 
       if (filtered.length === 0) {

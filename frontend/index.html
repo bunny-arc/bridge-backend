@@ -367,14 +367,14 @@
               <label for="gender-select" class="block text-xs font-bold text-slate-700 uppercase tracking-wider">
                 Gender
               </label>
-              <span id="gender-display-badge" class="text-[10px] text-blue-600 font-extrabold uppercase">CO-ED ONLY</span>
+              <span id="gender-display-badge" class="hidden text-[10px] text-blue-600 font-extrabold uppercase"></span>
             </div>
             <select
               id="gender-select"
               class="w-full px-3.5 py-3 bg-slate-50 border border-slate-300 rounded-xl text-sm font-semibold text-slate-800 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
             >
-              <option value="male" selected>Male (Co-Ed Colleges)</option>
-              <option value="female">Female (Co-Ed + Women's Colleges)</option>
+              <option value="male" selected>Male</option>
+              <option value="female">Female</option>
             </select>
           </div>
 
@@ -554,10 +554,10 @@
           </div>
 
           <div class="flex items-center gap-4 flex-wrap">
-            <label class="inline-flex items-center cursor-pointer select-none">
+            <label class="hidden inline-flex items-center cursor-pointer select-none">
               <input type="checkbox" id="only-eligible-toggle" class="sr-only peer" checked>
               <div class="w-8 h-4 bg-slate-300 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-3 after:w-3 after:transition-all relative peer-checked:bg-emerald-600"></div>
-              <span class="ml-2 text-xs font-semibold text-slate-700">Only Show Colleges Within My Rank</span>
+              
             </label>
 
             <label class="inline-flex items-center cursor-pointer select-none">
@@ -592,7 +592,7 @@
           <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
           </div>
-          <input type="text" id="slide2-college-search" class="w-full pl-10 pr-24 py-3 bg-white border border-slate-300 rounded-xl text-sm font-semibold text-slate-900 placeholder:text-slate-400 focus:bg-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 shadow-sm transition" placeholder="Search any college across India (e.g. IIT Delhi, BITS, NIT, Osmania, AUCE, JNTU)..." autocomplete="off">
+          <input type="text" id="slide2-college-search" class="w-full pl-10 pr-24 py-3 bg-white border border-slate-300 rounded-xl text-sm font-semibold text-slate-900 placeholder:text-slate-400 focus:bg-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 shadow-sm transition" placeholder="Search any college across India..." autocomplete="off">
           <button type="button" id="slide2-search-clear-btn" class="hidden absolute right-2.5 top-1/2 -translate-y-1/2 px-2.5 py-1 text-xs font-bold text-slate-400 hover:text-slate-600 bg-slate-100 hover:bg-slate-200 rounded-lg transition cursor-pointer">
             Clear
           </button>
@@ -611,15 +611,11 @@
               <span id="explorer-heading-title">Eligible Colleges & Branches</span>
             </h3>
           </div>
-          <p id="results-subtext" class="text-xs text-slate-500 mt-1">Click any green "+ [Branch]" badge on a card to add that exact College & Branch to your Priority Sheet.</p>
+          <p id="results-subtext" class="hidden text-xs text-slate-500 mt-1"></p>
         </div>
 
         <!-- Chance Legend -->
-        <div id="chance-legend" class="flex items-center gap-2.5 text-[11px] bg-white px-3 py-1.5 rounded-xl border border-slate-200 shadow-sm flex-wrap">
-          <span class="font-bold text-slate-500 uppercase">Indicators:</span>
-          <span class="inline-flex items-center gap-1 font-semibold text-emerald-700"><span class="w-2 h-2 rounded-full bg-emerald-500"></span>Safe / Eligible (+Branch)</span>
-          <span class="inline-flex items-center gap-1 font-semibold text-rose-700"><span class="w-2 h-2 rounded-full bg-rose-500"></span><span class="emoji-bw">⚠</span>️ Low 2025 Placement Flag</span>
-        </div>
+        <div id="chance-legend" class="hidden"></div>
       </div>
 
       <!-- College Cards Grid -->
@@ -646,7 +642,7 @@
       <div id="no-results-state" class="hidden bg-white rounded-2xl border border-slate-200 p-12 text-center max-w-md mx-auto my-8">
         <div class="text-4xl mb-3"><span class="emoji-bw">🔍</span></div>
         <h4 class="text-lg font-bold text-slate-800">No matching colleges found</h4>
-        <p class="text-xs text-slate-500 mt-1 mb-4">Try entering a higher rank (up to 3,00,000+), selecting "All Branches", or unchecking "Only Show Colleges Within My Rank".</p>
+        <p class="text-xs text-slate-500 mt-1 mb-4">Try entering a higher rank (up to 3,00,000+), selecting "All Branches", or clearing your search filters.</p>
         <button id="reset-empty-btn" type="button" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-xs font-semibold shadow">
           Reset All Filters
         </button>
@@ -2307,8 +2303,8 @@
         <div>
           <label class="block font-bold text-slate-700 mb-1">Gender</label>
           <select id="counseling-gender-select" class="w-full px-2.5 py-2 border border-slate-300 rounded-xl text-xs bg-white text-slate-800 font-semibold focus:ring-2 focus:ring-blue-500 focus:outline-none">
-            <option value="male" selected>Male (Co-ed)</option>
-            <option value="female">Female (Co-ed + Women Only)</option>
+            <option value="male" selected>Male</option>
+            <option value="female">Female</option>
           </select>
         </div>
         <div>
@@ -2746,8 +2742,8 @@
             <div>
               <label class="block font-bold text-slate-700 mb-0.5">Gender</label>
               <select id="wiz-gender-select" class="w-full px-2 py-1.5 border border-slate-300 rounded-xl text-xs bg-white focus:ring-1 focus:ring-blue-500 focus:outline-none">
-                <option value="male" selected>Male (Co-ed)</option>
-                <option value="female">Female (All Colleges)</option>
+                <option value="male" selected>Male</option>
+                <option value="female">Female</option>
               </select>
             </div>
             <div>
