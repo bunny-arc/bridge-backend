@@ -28,18 +28,12 @@
     },
     {
       "site": "birdge-to-btech",
-      "public": "frontend",
+      "public": "redirect-public",
       "redirects": [
         {
           "source": "/:path*",
           "destination": "https://bridge-to-btech.web.app/:path*",
           "type": 301
-        }
-      ],
-      "rewrites": [
-        {
-          "source": "**",
-          "destination": "/index.html"
         }
       ]
     }
