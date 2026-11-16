@@ -622,7 +622,7 @@ app.post("/api/google", async (req, res) => {
                 <p style="margin: 0 0 16px; font-size: 13px; color: #64748b;">
                   Plan your counseling choices across 658 colleges, evaluate cutoffs, and share your PDF priority sheet directly to your email.
                 </p>
-                <a href="https://birdge-to-btech.web.app/?tab=priority" style="display: inline-block; background-color: #2563eb; color: #ffffff; text-decoration: none; font-weight: 700; font-size: 13px; padding: 12px 24px; border-radius: 8px;">
+                <a href="https://bridge-to-btech.web.app/?tab=priority" style="display: inline-block; background-color: #2563eb; color: #ffffff; text-decoration: none; font-weight: 700; font-size: 13px; padding: 12px 24px; border-radius: 8px;">
                   Open Priority Web Options →
                 </a>
                 <div style="margin-top: 8px; font-size: 11px; color: #94a3b8;">
