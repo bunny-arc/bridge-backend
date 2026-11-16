@@ -718,6 +718,369 @@
     </div><!-- end home-eligible-colleges-section -->
     </div><!-- end home-view-container -->
 
+        <!-- ========================================================== -->
+    <!-- VIEW: DEDICATED COLLEGE DETAIL PAGE (Referenced from demoooo for pagess.html) -->
+    <!-- ========================================================== -->
+    <div id="college-detail-view-container" class="hidden space-y-6 w-full max-w-7xl mx-auto pb-16 no-print">
+      
+      <!-- Top Sticky-ready Navigation & Breadcrumb Bar -->
+      <div class="bg-white rounded-2xl shadow-sm border border-slate-200/90 p-4 sm:p-5 flex flex-wrap items-center justify-between gap-3">
+        <div class="flex items-center gap-2 sm:gap-3 flex-wrap">
+          <button type="button" onclick="closeCollegeDetailPage(); return false;" class="p-2 sm:p-2.5 bg-slate-100 hover:bg-slate-200 text-slate-800 rounded-xl transition cursor-pointer flex items-center justify-center active:scale-95 shrink-0" title="Back to Colleges" aria-label="Back to Colleges">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+          </button>
+          <div class="flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm font-semibold text-slate-500 flex-wrap">
+            <a href="javascript:void(0)" onclick="closeCollegeDetailPage(); return false;" class="text-blue-600 hover:text-blue-800 font-bold transition">Colleges</a>
+            <span class="text-slate-300">/</span>
+            <span id="cd-breadcrumb-exam" class="text-slate-600 font-medium">AP CET</span>
+            <span class="text-slate-300">/</span>
+            <span id="cd-breadcrumb-name" class="text-slate-900 font-bold line-clamp-1 max-w-[200px] sm:max-w-md">College Name</span>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-2.5">
+          <button id="cd-top-favorite-btn" type="button" onclick="toggleCollegeDetailPageFavorite(); return false;" class="px-3.5 py-2 rounded-xl border border-slate-300 bg-white hover:bg-slate-50 text-slate-700 font-bold text-xs transition flex items-center gap-1.5 shadow-2xs cursor-pointer active:scale-95">
+            <span id="cd-top-favorite-star">★</span>
+            <span id="cd-top-favorite-label">Add to Favorites</span>
+          </button>
+          <button type="button" onclick="closeCollegeDetailPage(); return false;" class="px-4 py-2 bg-slate-900 hover:bg-slate-800 text-white rounded-xl font-bold text-xs transition cursor-pointer active:scale-95 shadow-2xs">
+            Done
+          </button>
+        </div>
+      </div>
+
+      <!-- Main Detail Content Card -->
+      <div class="bg-white rounded-2xl shadow-sm border border-slate-200/90 p-5 sm:p-8">
+        <div class="cd-detail-grid">
+
+          <!-- Left Main Column (Overview, Concept, Branches, Placements, Hostels, Travel, Food) -->
+          <div class="min-w-0">
+            <!-- Eyebrow -->
+            <p id="cd-eyebrow" class="cd-eyebrow">AP CET · AU REGION · ESTD 1946 · CODE: AUCE</p>
+
+            <!-- H1 College Name Title -->
+            <h1 id="cd-title" class="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 tracking-tight leading-tight">
+              Andhra University College of Engineering (AUCE)
+            </h1>
+
+            <!-- Lede Description / Tagline -->
+            <p id="cd-lede" class="cd-lede mt-3">
+              Premier state government university engineering college with NAAC A++ accreditation and top-tier placement record.
+            </p>
+
+            <!-- Hero Campus Photo with Navigation Controls (Taking reference from demoooo for pagess.html hero-shot) -->
+            <div class="relative w-full rounded-2xl overflow-hidden border border-slate-200 bg-slate-950 shadow-md my-6 group">
+              <img id="cd-hero-img" class="w-full h-64 sm:h-80 md:h-96 object-cover transition-opacity duration-300" src="" alt="College Campus">
+              <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20 pointer-events-none"></div>
+
+              <!-- Slide Controls for Multiple Photos -->
+              <button id="cd-hero-prev" type="button" class="absolute left-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-black/60 hover:bg-black/85 backdrop-blur-md text-white flex items-center justify-center font-bold border border-white/20 transition z-20 cursor-pointer shadow-md active:scale-95" title="Previous Photo">
+                <svg class="w-5 h-5 pointer-events-none" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+              </button>
+              <button id="cd-hero-next" type="button" class="absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-black/60 hover:bg-black/85 backdrop-blur-md text-white flex items-center justify-center font-bold border border-white/20 transition z-20 cursor-pointer shadow-md active:scale-95" title="Next Photo">
+                <svg class="w-5 h-5 pointer-events-none" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+              </button>
+              <div class="absolute bottom-3 right-3 px-3 py-1 rounded-full backdrop-blur-md bg-black/70 text-white text-xs font-bold border border-white/20 select-none">
+                <span id="cd-hero-counter">1 / 1</span>
+              </div>
+            </div>
+
+            <!-- Low Placement Warning Alert (if flagged) -->
+            <div id="cd-low-placement-alert" class="hidden mb-6 p-4 rounded-xl bg-amber-50 border border-amber-300 text-amber-950 space-y-1">
+              <div class="font-extrabold flex items-center gap-1.5 text-amber-900 text-sm">
+                <span>Placement Notice:</span>
+                <span id="cd-low-placement-rate" class="font-bold underline"></span>
+              </div>
+              <p class="text-xs text-amber-900 leading-relaxed font-medium">
+                This college has lower reported campus drive participation in the 2024-2025 academic cycle. Review branch placements and alumni records carefully before locking in web options.
+              </p>
+            </div>
+
+            <!-- Prose Content Blocks (Reference from demoooo for pagess.html) -->
+            <div class="cd-prose space-y-8">
+
+              <!-- Section 1: Overview & Concept -->
+              <div>
+                <h3 class="text-lg font-bold text-slate-900 border-b border-slate-200 pb-2">College Concept & Academic Standing</h3>
+                <p id="cd-summary" class="text-slate-600 leading-relaxed text-sm sm:text-base mt-3"></p>
+              </div>
+
+              <!-- Section 2: Qualifying Engineering Branches & Cutoffs -->
+              <div>
+                <div class="flex items-center justify-between flex-wrap gap-2 border-b border-slate-200 pb-2">
+                  <h3 class="text-lg font-bold text-slate-900 m-0 border-0 p-0">Qualifying Branches & Scaled Cutoffs</h3>
+                  <span id="cd-category-badge" class="text-xs font-bold text-blue-700 bg-blue-50 border border-blue-200 px-2.5 py-1 rounded-lg">OC / General Quota</span>
+                </div>
+                <div class="mt-3 overflow-x-auto border border-slate-200 rounded-xl">
+                  <table class="w-full text-left text-xs sm:text-sm">
+                    <thead class="bg-slate-50 border-b border-slate-200 text-slate-600 font-bold uppercase text-[11px] tracking-wider">
+                      <tr>
+                        <th class="p-3">Engineering Branch</th>
+                        <th class="p-3 text-center">Code</th>
+                        <th class="p-3 text-right">Closing Cutoff</th>
+                        <th class="p-3 text-center">Web Options Action</th>
+                      </tr>
+                    </thead>
+                    <tbody id="cd-branches-table" class="divide-y divide-slate-100 font-medium">
+                      <!-- Rendered dynamically -->
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <!-- Section 3: NIRF 2025 Parameters & Placement Performance -->
+              <div>
+                <h3 class="text-lg font-bold text-slate-900 border-b border-slate-200 pb-2">NIRF 2025 & Official Placement Breakdown</h3>
+                
+                <!-- NIRF Badge & Parameters Box -->
+                <div id="cd-nirf-box" class="mt-4 p-4 rounded-xl bg-gradient-to-br from-blue-50 to-indigo-50 border border-blue-200 space-y-3">
+                  <div class="flex items-center justify-between flex-wrap gap-2">
+                    <span class="text-xs font-bold text-blue-900 uppercase tracking-wider">Official NIRF 2025 Engineering Ranking</span>
+                    <span id="cd-nirf-badge" class="px-3 py-1 rounded-lg bg-blue-600 text-white font-black text-xs shadow-xs">#78</span>
+                  </div>
+                  <div id="cd-nirf-params" class="grid grid-cols-2 sm:grid-cols-5 gap-2 pt-2 border-t border-blue-200/60 text-center">
+                    <div class="p-2 rounded-lg bg-white/80 border border-blue-100">
+                      <span class="block text-[10px] text-slate-500 font-bold uppercase">TLR (Teaching)</span>
+                      <strong id="cd-nirf-p-tlr" class="text-xs sm:text-sm text-slate-800 font-extrabold">-</strong>
+                    </div>
+                    <div class="p-2 rounded-lg bg-white/80 border border-blue-100">
+                      <span class="block text-[10px] text-slate-500 font-bold uppercase">RPC (Research)</span>
+                      <strong id="cd-nirf-p-rpc" class="text-xs sm:text-sm text-slate-800 font-extrabold">-</strong>
+                    </div>
+                    <div class="p-2 rounded-lg bg-white/80 border border-blue-100">
+                      <span class="block text-[10px] text-slate-500 font-bold uppercase">GO (Grad Outcomes)</span>
+                      <strong id="cd-nirf-p-go" class="text-xs sm:text-sm text-slate-800 font-extrabold">-</strong>
+                    </div>
+                    <div class="p-2 rounded-lg bg-white/80 border border-blue-100">
+                      <span class="block text-[10px] text-slate-500 font-bold uppercase">OI (Inclusivity)</span>
+                      <strong id="cd-nirf-p-oi" class="text-xs sm:text-sm text-slate-800 font-extrabold">-</strong>
+                    </div>
+                    <div class="p-2 rounded-lg bg-white/80 border border-blue-100 col-span-2 sm:col-span-1">
+                      <span class="block text-[10px] text-slate-500 font-bold uppercase">PR (Perception)</span>
+                      <strong id="cd-nirf-p-pr" class="text-xs sm:text-sm text-slate-800 font-extrabold">-</strong>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- 4 Placement Metric Cards -->
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-4">
+                  <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200 text-center">
+                    <span class="text-[11px] font-bold text-slate-500 uppercase block">Median CTC</span>
+                    <strong id="cd-median-ctc" class="text-base sm:text-lg font-black text-blue-700">₹7.5 LPA</strong>
+                  </div>
+                  <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200 text-center">
+                    <span class="text-[11px] font-bold text-slate-500 uppercase block">Average CTC</span>
+                    <strong id="cd-avg-ctc" class="text-base sm:text-lg font-black text-slate-800">₹8.5 LPA</strong>
+                  </div>
+                  <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200 text-center">
+                    <span class="text-[11px] font-bold text-slate-500 uppercase block">Highest CTC</span>
+                    <strong id="cd-high-ctc" class="text-base sm:text-lg font-black text-purple-700">₹45.0 LPA</strong>
+                  </div>
+                  <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200 text-center">
+                    <span class="text-[11px] font-bold text-slate-500 uppercase block">Placement Rate</span>
+                    <strong id="cd-placement-rate" class="text-base sm:text-lg font-black text-emerald-700">90%</strong>
+                  </div>
+                </div>
+
+                <!-- Top Recruiters -->
+                <div class="mt-4">
+                  <span class="text-xs font-bold text-slate-600 uppercase tracking-wider block mb-2">Key Campus Recruiters:</span>
+                  <div id="cd-recruiters-list" class="flex flex-wrap gap-1.5">
+                    <!-- Rendered dynamically -->
+                  </div>
+                </div>
+              </div>
+
+              <!-- Section 4: Admission Route & JVD Fee Reimbursement / Direct Policy -->
+              <div>
+                <h3 class="text-lg font-bold text-slate-900 border-b border-slate-200 pb-2">Admission Route & JVD Fee Reimbursement</h3>
+                <div class="mt-3 p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
+                  <p id="cd-admission-route" class="text-xs sm:text-sm text-slate-800 leading-relaxed font-medium"></p>
+                </div>
+                <!-- Payment direct notes (if applicable) -->
+                <div id="cd-payment-box" class="hidden mt-3 p-4 rounded-xl bg-amber-50 border border-amber-300 space-y-2">
+                  <span class="text-xs font-bold uppercase tracking-wider text-amber-900 block">Direct Admission & Merit Scholarship Policy</span>
+                  <p id="cd-direct-admission-note" class="text-xs sm:text-sm text-amber-950 leading-relaxed font-medium"></p>
+                </div>
+              </div>
+
+              <!-- Section 5: Hostels & Living Accommodation -->
+              <div>
+                <h3 class="text-lg font-bold text-slate-900 border-b border-slate-200 pb-2">Hostels & Living Accommodations</h3>
+                <div class="mt-3 p-4 rounded-xl bg-blue-50/50 border border-blue-100 flex items-center justify-between flex-wrap gap-2">
+                  <div>
+                    <span class="text-xs font-bold text-blue-900 uppercase block">On-Campus Hostels</span>
+                    <p id="cd-campus-hostel-info" class="text-xs text-slate-700 mt-0.5">Campus residential accommodation available.</p>
+                  </div>
+                  <span id="cd-hostel-fee-badge" class="px-3 py-1 rounded-lg bg-blue-100 text-blue-800 text-xs font-extrabold font-mono">₹28,000 / yr</span>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                  <div>
+                    <span class="text-xs font-bold text-slate-700 uppercase tracking-wider block mb-2">Nearest Boys Hostels / PGs:</span>
+                    <div id="cd-outside-boys-hostels" class="space-y-2"></div>
+                  </div>
+                  <div>
+                    <span class="text-xs font-bold text-slate-700 uppercase tracking-wider block mb-2">Nearest Girls Hostels / PGs:</span>
+                    <div id="cd-outside-girls-hostels" class="space-y-2"></div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Section 6: Transit, Connectivity & Travel -->
+              <div>
+                <h3 class="text-lg font-bold text-slate-900 border-b border-slate-200 pb-2">Campus Connectivity & Travel</h3>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-3">
+                  <div class="p-3 rounded-xl bg-slate-50 border border-slate-200 text-xs">
+                    <span class="text-slate-500 font-semibold block">Nearest Railway Station</span>
+                    <strong id="cd-nearest-station" class="text-slate-900 text-sm font-bold block mt-0.5">-</strong>
+                  </div>
+                  <div class="p-3 rounded-xl bg-slate-50 border border-slate-200 text-xs">
+                    <span class="text-slate-500 font-semibold block">Nearest Bus Stand</span>
+                    <strong id="cd-nearest-busstand" class="text-slate-900 text-sm font-bold block mt-0.5">-</strong>
+                  </div>
+                  <div class="p-3 rounded-xl bg-slate-50 border border-slate-200 text-xs">
+                    <span class="text-slate-500 font-semibold block">Last-Mile Transit</span>
+                    <strong id="cd-last-mile-transit" class="text-slate-900 text-sm font-bold block mt-0.5">-</strong>
+                  </div>
+                </div>
+
+                <!-- Travel Modes Table -->
+                <div class="mt-4 overflow-x-auto border border-slate-200 rounded-xl">
+                  <table class="w-full text-left text-xs">
+                    <thead class="bg-slate-50 border-b border-slate-200 text-slate-600 font-bold uppercase text-[10px] tracking-wider">
+                      <tr>
+                        <th class="p-2.5">Mode</th>
+                        <th class="p-2.5">Duration</th>
+                        <th class="p-2.5">Estimated Cost</th>
+                        <th class="p-2.5">Route</th>
+                      </tr>
+                    </thead>
+                    <tbody id="cd-travel-modes-table" class="divide-y divide-slate-100"></tbody>
+                  </table>
+                </div>
+              </div>
+
+              <!-- Section 7: Food, Canteens & Surroundings -->
+              <div>
+                <h3 class="text-lg font-bold text-slate-900 border-b border-slate-200 pb-2">Food, Canteens & Surroundings</h3>
+                <div id="cd-food-spots-list" class="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-3"></div>
+              </div>
+
+              <!-- Section 8: Scholarships & JVD Details -->
+              <div>
+                <h3 class="text-lg font-bold text-slate-900 border-b border-slate-200 pb-2">Scholarships & Financial Aid</h3>
+                <div id="cd-scholarships-list" class="space-y-2 mt-3"></div>
+              </div>
+
+            </div><!-- end cd-prose -->
+          </div><!-- end left column -->
+
+          <!-- Right Column: Sticky Facts Aside (Referenced directly from demoooo for pagess.html) -->
+          <aside class="w-full">
+            <div class="cd-facts sticky top-20">
+              <div class="cd-facts-head">
+                Quick College Facts
+              </div>
+              <dl>
+                <div>
+                  <dt>College Code</dt>
+                  <dd id="cd-fact-code" class="font-mono text-blue-700 font-bold">-</dd>
+                </div>
+                <div>
+                  <dt>Institution Type</dt>
+                  <dd id="cd-fact-type">-</dd>
+                </div>
+                <div>
+                  <dt>Entrance Exam</dt>
+                  <dd id="cd-fact-exam">-</dd>
+                </div>
+                <div>
+                  <dt>University Region</dt>
+                  <dd id="cd-fact-region">-</dd>
+                </div>
+                <div>
+                  <dt>Location</dt>
+                  <dd id="cd-fact-location">-</dd>
+                </div>
+                <div>
+                  <dt>Established Year</dt>
+                  <dd id="cd-fact-established">-</dd>
+                </div>
+                <div>
+                  <dt>NAAC & Grade</dt>
+                  <dd id="cd-fact-grade">-</dd>
+                </div>
+                <div>
+                  <dt>NIRF 2025 Rank</dt>
+                  <dd id="cd-fact-nirf" class="text-blue-700 font-bold">-</dd>
+                </div>
+                <div>
+                  <dt>Median Package</dt>
+                  <dd id="cd-fact-median" class="text-blue-700 font-bold">-</dd>
+                </div>
+                <div>
+                  <dt>Highest Package</dt>
+                  <dd id="cd-fact-highest" class="text-purple-700 font-bold">-</dd>
+                </div>
+                <div>
+                  <dt>Placement Rate</dt>
+                  <dd id="cd-fact-rate" class="text-emerald-700 font-bold">-</dd>
+                </div>
+                <div>
+                  <dt>Annual Tuition</dt>
+                  <dd id="cd-fact-tuition">-</dd>
+                </div>
+                <div>
+                  <dt>JVD Reimbursement</dt>
+                  <dd id="cd-fact-jvd" class="text-emerald-700 font-bold">-</dd>
+                </div>
+                <div>
+                  <dt>Campus Hostel Fee</dt>
+                  <dd id="cd-fact-hostel">-</dd>
+                </div>
+              </dl>
+              <div class="p-4 bg-slate-50 border-t border-slate-200 flex flex-col gap-2">
+                <button id="cd-fact-btn-add" type="button" onclick="addPriorityOption(appState.activeDetailPageCollegeId); return false;" class="w-full py-2.5 px-3 bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs rounded-xl shadow-sm transition flex items-center justify-center gap-1.5 cursor-pointer active:scale-98">
+                  + Add to Web Options
+                </button>
+                <button id="cd-fact-btn-fav" type="button" onclick="toggleCollegeDetailPageFavorite(); return false;" class="w-full py-2 px-3 bg-white hover:bg-slate-100 text-slate-800 font-bold text-xs rounded-xl border border-slate-200 shadow-2xs transition flex items-center justify-center gap-1.5 cursor-pointer active:scale-98">
+                  <span id="cd-fact-fav-star">★</span> <span id="cd-fact-fav-label">Add to Favorites</span>
+                </button>
+              </div>
+            </div>
+          </aside>
+
+        </div><!-- end cd-detail-grid -->
+
+        <!-- Campus & Infrastructure Gallery (Referenced from demoooo for pagess.html gallery-lg) -->
+        <div class="mt-12 pt-8 border-t border-slate-200">
+          <div class="flex items-center justify-between mb-4 flex-wrap gap-2">
+            <h3 class="text-lg font-bold text-slate-900 m-0">Campus & Infrastructure Gallery</h3>
+            <span class="text-xs text-slate-500 font-medium">Campus photos & aerial facilities</span>
+          </div>
+          <div id="cd-gallery-container" class="cd-gallery-lg">
+            <!-- Rendered dynamically -->
+          </div>
+        </div>
+
+        <!-- Pager (Referenced from demoooo for pagess.html pager) -->
+        <div class="cd-pager">
+          <button id="cd-pager-prev" type="button" onclick="navigateAdjacentCollege(-1); return false;">
+            <span>←</span> <span id="cd-prev-name">Previous College</span>
+          </button>
+          <a href="javascript:void(0)" onclick="closeCollegeDetailPage(); return false;" class="text-xs uppercase font-extrabold tracking-widest text-slate-400 hover:text-slate-700 transition">
+            All Colleges
+          </a>
+          <button id="cd-pager-next" type="button" onclick="navigateAdjacentCollege(1); return false;">
+            <span id="cd-next-name">Next College</span> <span>→</span>
+          </button>
+        </div>
+
+      </div><!-- end main detail content card -->
+
+    </div><!-- end college-detail-view-container -->
+
     <!-- ========================================================== -->
     <!-- VIEW 2: DEDICATED SEARCH SECTION (COLLEGE DIRECTORY ONLY)  -->
     <!-- ========================================================== -->

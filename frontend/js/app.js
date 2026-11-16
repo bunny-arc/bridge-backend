@@ -39,84 +39,161 @@
     }
 
     // =========================================================================
-    // 9. COLLEGE DETAIL MODAL & SHORTLIST DRAWER
+    // 9. DEDICATED COLLEGE DETAIL PAGE (Referenced from demoooo for pagess.html)
     // =========================================================================
-    function openCollegeModal(collegeId) {
+    let cdHeroActiveSlide = 0;
+    let cdHeroImages = [];
+
+    function openCollegeDetailPage(collegeId) {
       const colleges = (typeof collegesData !== "undefined" && Array.isArray(collegesData)) ? collegesData : (window.collegesData || []);
-      const college = colleges.find(c => c.id === collegeId);
+      const college = colleges.find(c => c.id === collegeId || c.code === collegeId);
       if (!college) return;
-      appState.activeModalCollegeId = collegeId;
 
-      const modalCampusImg = document.getElementById("modal-campus-img");
-      let modalImages = (typeof window.getCollegeImages === "function") ? window.getCollegeImages(college) : [getCollegeImageUrl(college)];
-      if (!Array.isArray(modalImages) || modalImages.length === 0) modalImages = [getCollegeImageUrl(college)];
-      let modalActiveSlide = 0;
+      appState.activeDetailPageCollegeId = college.id;
+      appState.activeModalCollegeId = college.id;
+      if (appState.activeView !== "college-detail") {
+        appState.previousView = appState.activeView || "add-rank";
+      }
+      appState.activeView = "college-detail";
 
-      function updateModalSlide() {
-        if (modalCampusImg && modalImages[modalActiveSlide]) {
-          modalCampusImg.src = modalImages[modalActiveSlide];
-          modalCampusImg.dataset.origSrc = modalImages[modalActiveSlide];
-          modalCampusImg.dataset.fallbackStep = "0";
-          modalCampusImg.onerror = function() {
+      // 1. Breadcrumbs
+      const examLabel = college.exam === "ap_cet" ? "AP CET" : (college.exam === "jee_main" ? "JEE Main" : (college.exam === "jee_adv" ? "JEE Advanced" : "Payment Colleges"));
+      const bExam = document.getElementById("cd-breadcrumb-exam");
+      if (bExam) bExam.textContent = examLabel;
+      const bName = document.getElementById("cd-breadcrumb-name");
+      if (bName) bName.textContent = college.name;
+
+      // 2. Eyebrow, Title & Lede
+      const eyebrow = document.getElementById("cd-eyebrow");
+      if (eyebrow) {
+        eyebrow.textContent = `${(college.type || 'Engineering College').toUpperCase()} · ${(college.region || 'AP').toUpperCase()} REGION · ESTD ${college.established || '2008'} · CODE: ${college.code}`;
+      }
+      const title = document.getElementById("cd-title");
+      if (title) {
+        const codeSuffix = `(${college.code})`;
+        title.textContent = (college.name && college.name.includes(codeSuffix)) ? college.name : `${college.name} ${codeSuffix}`;
+      }
+      const lede = document.getElementById("cd-lede");
+      if (lede) {
+        lede.textContent = college.summary || "Comprehensive autonomous engineering college offering cutting-edge B.Tech curriculum, industry-sponsored laboratories, and high placement outcomes.";
+      }
+      const summary = document.getElementById("cd-summary");
+      if (summary) {
+        summary.textContent = college.summary || `${college.name} (${college.code}) is located in ${college.location || 'Andhra Pradesh'}. Established in ${college.established || '2008'}, the college holds a rating of ${college.rating || '4.5★'} and NAAC ${college.grade || 'A'} accreditation.`;
+      }
+
+      // 3. Hero Campus Photo & Slide Controls
+      cdHeroImages = (typeof window.getCollegeImages === "function") ? window.getCollegeImages(college) : [getCollegeImageUrl(college)];
+      if (!Array.isArray(cdHeroImages) || cdHeroImages.length === 0) cdHeroImages = [getCollegeImageUrl(college)];
+      cdHeroActiveSlide = 0;
+
+      function updateCdHeroSlide() {
+        const heroImg = document.getElementById("cd-hero-img");
+        if (heroImg && cdHeroImages[cdHeroActiveSlide]) {
+          heroImg.src = cdHeroImages[cdHeroActiveSlide];
+          heroImg.dataset.origSrc = cdHeroImages[cdHeroActiveSlide];
+          heroImg.dataset.fallbackStep = "0";
+          heroImg.onerror = function() {
             window.handleCollegeImgError(this, college.code || college.id);
           };
         }
-        const counter = document.getElementById("modal-slide-counter");
-        const prevBtn = document.getElementById("modal-slide-prev");
-        const nextBtn = document.getElementById("modal-slide-next");
-        const counterWrap = counter ? counter.closest("div") : null;
-        if (counter) counter.textContent = (modalActiveSlide + 1) + " / " + modalImages.length;
-        if (modalImages.length > 1) {
+        const counter = document.getElementById("cd-hero-counter");
+        const prevBtn = document.getElementById("cd-hero-prev");
+        const nextBtn = document.getElementById("cd-hero-next");
+        if (counter) counter.textContent = (cdHeroActiveSlide + 1) + " / " + cdHeroImages.length;
+        if (cdHeroImages.length > 1) {
           if (prevBtn) prevBtn.style.display = "flex";
           if (nextBtn) nextBtn.style.display = "flex";
-          if (counterWrap) counterWrap.style.display = "block";
         } else {
           if (prevBtn) prevBtn.style.display = "none";
           if (nextBtn) nextBtn.style.display = "none";
-          if (counterWrap) counterWrap.style.display = "none";
         }
       }
-      updateModalSlide();
+      updateCdHeroSlide();
 
-      const modalPrev = document.getElementById("modal-slide-prev");
-      const modalNext = document.getElementById("modal-slide-next");
-      if (modalPrev) {
-        modalPrev.onclick = (e) => {
+      const heroPrev = document.getElementById("cd-hero-prev");
+      const heroNext = document.getElementById("cd-hero-next");
+      if (heroPrev) {
+        heroPrev.onclick = (e) => {
           e.stopPropagation();
-          modalActiveSlide = (modalActiveSlide - 1 + modalImages.length) % modalImages.length;
-          updateModalSlide();
+          cdHeroActiveSlide = (cdHeroActiveSlide - 1 + cdHeroImages.length) % cdHeroImages.length;
+          updateCdHeroSlide();
         };
       }
-      if (modalNext) {
-        modalNext.onclick = (e) => {
+      if (heroNext) {
+        heroNext.onclick = (e) => {
           e.stopPropagation();
-          modalActiveSlide = (modalActiveSlide + 1) % modalImages.length;
-          updateModalSlide();
+          cdHeroActiveSlide = (cdHeroActiveSlide + 1) % cdHeroImages.length;
+          updateCdHeroSlide();
         };
       }
 
-      // Populate NIRF 2025 Official Details
-      const nirfBox = document.getElementById("modal-nirf-box");
-      const nirfBadge = document.getElementById("modal-nirf-rank-badge");
-      const nirfParams = document.getElementById("modal-nirf-params");
+      // 4. Low placement flag alert
+      const lowAlert = document.getElementById("cd-low-placement-alert");
+      if (lowAlert) {
+        if (college.lowPlacementFlag) {
+          lowAlert.classList.remove("hidden");
+          const rateEl = document.getElementById("cd-low-placement-rate");
+          if (rateEl) rateEl.textContent = college.placements?.placementRate || "Low Activity Reported";
+        } else {
+          lowAlert.classList.add("hidden");
+        }
+      }
+
+      // 5. Category Note & Qualifying Branches Table
+      const catBadge = document.getElementById("cd-category-badge");
+      if (catBadge) {
+        catBadge.textContent = `Showing cutoffs scaled for ${categoryLabels[appState.category] || "General Quota"}`;
+      }
+      const branchesTbody = document.getElementById("cd-branches-table");
+      if (branchesTbody) {
+        branchesTbody.innerHTML = (college.branches || []).map(b => {
+          const cutoff = getScaledCutoff(b.closingRank, appState.category, college.exam);
+          const qualifies = !appState.rank || college.exam === "payment" || appState.rank <= cutoff;
+          const inPriority = appState.priorityList.some(p => p.collegeId === college.id && p.branchCode === b.code);
+          return `
+            <tr class="hover:bg-slate-50/70 transition">
+              <td class="p-3 font-semibold text-slate-900">${b.name}</td>
+              <td class="p-3 text-center font-bold text-blue-800 font-mono">${b.code}</td>
+              <td class="p-3 text-right font-mono font-bold text-slate-800">~${cutoff.toLocaleString("en-IN")}</td>
+              <td class="p-3 text-center">
+                <button type="button" data-action="quick-add-branch" data-college-id="${college.id}" data-branch-code="${b.code}"
+                  class="px-3 py-1.5 rounded-xl ${
+                    inPriority
+                      ? "bg-slate-900 hover:bg-rose-950 text-amber-300 hover:text-rose-200"
+                      : (qualifies ? "bg-emerald-600 hover:bg-emerald-700 text-white" : "bg-amber-100 hover:bg-amber-200 text-amber-900")
+                  } font-bold text-xs transition cursor-pointer active:scale-95 shadow-2xs"
+                  title="${inPriority ? "Click to remove " + college.code + " (" + b.code + ") from Priority Sheet" : "Click to add " + college.code + " (" + b.code + ")"}">
+                  ${inPriority ? "✓ Added Option" : `+ Add ${b.code}`}
+                </button>
+              </td>
+            </tr>
+          `;
+        }).join("");
+      }
+
+      // 6. NIRF 2025 Parameters
+      const nirfBox = document.getElementById("cd-nirf-box");
+      const nirfBadge = document.getElementById("cd-nirf-badge");
+      const nirfParams = document.getElementById("cd-nirf-params");
       if (nirfBox && nirfBadge) {
         if (college.nirf2025 || college.nirfRank || college.nirfBand) {
           nirfBox.classList.remove("hidden");
           const n = college.nirf2025 || {};
           if (college.nirfRank || n.rank) {
-            nirfBadge.textContent = "NIRF #" + (college.nirfRank || n.rank) + " (Score: " + (college.nirfScore || n.score) + ")";
-            nirfBadge.className = "px-2.5 py-1 rounded-lg bg-blue-600 text-white font-black text-xs shadow-xs";
+            nirfBadge.textContent = "NIRF #" + (college.nirfRank || n.rank) + (college.nirfScore || n.score ? " (Score: " + (college.nirfScore || n.score) + ")" : "");
+            nirfBadge.className = "px-3 py-1 rounded-lg bg-blue-600 text-white font-black text-xs shadow-xs";
           } else if (college.nirfBand || n.rankBand) {
             nirfBadge.textContent = "NIRF " + (college.nirfBand || n.rankBand);
-            nirfBadge.className = "px-2.5 py-1 rounded-lg bg-indigo-600 text-white font-black text-xs shadow-xs";
+            nirfBadge.className = "px-3 py-1 rounded-lg bg-indigo-600 text-white font-black text-xs shadow-xs";
           }
           if (n.tlr && nirfParams) {
             nirfParams.classList.remove("hidden");
-            document.getElementById("nirf-p-tlr").textContent = n.tlr;
-            document.getElementById("nirf-p-rpc").textContent = n.rpc;
-            document.getElementById("nirf-p-go").textContent = n.go + " (High)";
-            document.getElementById("nirf-p-oi").textContent = n.oi;
-            document.getElementById("nirf-p-pr").textContent = n.pr;
+            document.getElementById("cd-nirf-p-tlr").textContent = n.tlr;
+            document.getElementById("cd-nirf-p-rpc").textContent = n.rpc;
+            document.getElementById("cd-nirf-p-go").textContent = n.go + " (High)";
+            document.getElementById("cd-nirf-p-oi").textContent = n.oi;
+            document.getElementById("cd-nirf-p-pr").textContent = n.pr;
           } else if (nirfParams) {
             nirfParams.classList.add("hidden");
           }
@@ -125,6 +202,7 @@
         }
       }
 
+      // 7. Placements (Median, Avg, Highest, Rate, Top Recruiters)
       const placements = college.placements || {};
       const fees = college.fees || {};
       const hostels = college.hostels || { campus: "Campus residential accommodation available.", outsideBoys: [], outsideGirls: [] };
@@ -132,172 +210,270 @@
       const food = college.food || [];
       const scholarships = college.scholarships || [];
 
-      document.getElementById("modal-type-badge").textContent = college.type || "College";
-      document.getElementById("modal-region-badge").textContent = `${college.region || ""} Region • ${college.district || college.state || ""}`;
-      document.getElementById("modal-rating-badge").textContent = `${college.rating || "4.5★"} (${college.grade || "A"})`;
-      const codeSuffix = `(${college.code})`;
-      document.getElementById("modal-college-name").textContent = (college.name && college.name.includes(codeSuffix))
-        ? college.name
-        : `${college.name} ${codeSuffix}`;
-      document.getElementById("modal-location").textContent = `📍 ${college.location} • Established ${college.established}`;
+      const medEl = document.getElementById("cd-median-ctc");
+      if (medEl) medEl.textContent = placements.medianPackage || "₹7.5 LPA";
+      const avgEl = document.getElementById("cd-avg-ctc");
+      if (avgEl) avgEl.textContent = placements.avgPackage || "₹8.5 LPA";
+      const highEl = document.getElementById("cd-high-ctc");
+      if (highEl) highEl.textContent = placements.highestPackage || "₹45.0 LPA";
+      const rateEl = document.getElementById("cd-placement-rate");
+      if (rateEl) rateEl.textContent = placements.placementRate || "90%";
 
-      document.getElementById("modal-median-ctc").textContent = placements.medianPackage || "₹7.5 LPA";
-      document.getElementById("modal-avg-ctc").textContent = placements.avgPackage || "₹8.5 LPA";
-      document.getElementById("modal-high-ctc").textContent = placements.highestPackage || "₹45.0 LPA";
-      document.getElementById("modal-rate").textContent = placements.placementRate || "90%";
-      document.getElementById("modal-summary").textContent = college.summary || "";
-
-      const lowAlert = document.getElementById("modal-low-placement-alert");
-      if (college.lowPlacementFlag) {
-        lowAlert.classList.remove("hidden");
-        document.getElementById("modal-low-rate-text").textContent = placements.placementRate || "";
-      } else {
-        lowAlert.classList.add("hidden");
-      }
-
-      document.getElementById("modal-recruiters-list").innerHTML = (placements.topRecruiters || []).map(r =>
-        `<span class="px-2.5 py-1 rounded-lg bg-slate-100 border border-slate-200 text-xs font-semibold text-slate-800">${r}</span>`
-      ).join("");
-
-      document.getElementById("modal-category-note").textContent = `Showing cutoffs scaled for ${categoryLabels[appState.category]}`;
-
-      document.getElementById("modal-branches-table").innerHTML = (college.branches || []).map(b => {
-        const cutoff = getScaledCutoff(b.closingRank, appState.category, college.exam);
-        const qualifies = !appState.rank || college.exam === "payment" || appState.rank <= cutoff;
-        const inPriority = appState.priorityList.some(p => p.collegeId === college.id && p.branchCode === b.code);
-        return `
-          <tr>
-            <td class="p-2.5 font-semibold text-slate-900">${b.name}</td>
-            <td class="p-2.5 text-center font-bold text-blue-800">${b.code}</td>
-            <td class="p-2.5 text-right font-mono font-bold">~${cutoff.toLocaleString("en-IN")}</td>
-            <td class="p-2.5 text-center">
-              <button type="button" data-action="quick-add-branch" data-college-id="${college.id}" data-branch-code="${b.code}"
-                class="px-2.5 py-1 rounded-lg ${
-                  inPriority
-                    ? "bg-slate-900 hover:bg-rose-950 text-amber-300 hover:text-rose-200"
-                    : (qualifies ? "bg-emerald-600 hover:bg-emerald-700 text-white" : "bg-amber-100 hover:bg-amber-200 text-amber-900")
-                } font-bold text-[11px] transition cursor-pointer" title="${inPriority ? "Click to remove " + college.code + " (" + b.code + ") from Priority Sheet" : "Click to add " + college.code + " (" + b.code + ")"}">
-                ${inPriority ? "✓ Added" : `+ Add ${b.code}`}
-              </button>
-            </td>
-          </tr>
-        `;
-      }).join("");
-
-      document.getElementById("modal-admission-route").textContent = college.exam === "ap_cet"
-        ? `Admits via AP EAPCET (APSCHE) Web Counseling using College Code "${college.code}". 100% JVD tuition fee reimbursement available for eligible AP students.`
-        : (college.exam === "payment"
-          ? (college.paymentInfo ? college.paymentInfo.directNote : "Direct admission and merit scholarships available.")
-          : `Admits via Central JoSAA / CSAB counseling based on ${college.exam === "jee_adv" ? "JEE Advanced" : "JEE Main"} All-India Rank.`);
-
-      const paymentBtn = document.getElementById("modal-tab-btn-payment");
-      if (college.paymentInfo) {
-        paymentBtn.classList.remove("hidden");
-        const payTuition = document.getElementById("modal-payment-tuition");
-        if (payTuition) payTuition.textContent = fees.annualTuition || "₹3,50,000 / year";
-        const payMed = document.getElementById("modal-payment-median");
-        if (payMed) payMed.textContent = placements.medianPackage || "₹8.5 LPA";
-        const payRate = document.getElementById("modal-payment-rate");
-        if (payRate) payRate.textContent = placements.placementRate || "92%";
-        const payHigh = document.getElementById("modal-payment-high");
-        if (payHigh) payHigh.textContent = placements.highestPackage || "₹50.0 LPA";
-
-        document.getElementById("modal-direct-admission-note").textContent = college.paymentInfo.directNote;
-        document.getElementById("modal-merit-discounts-list").innerHTML = (college.paymentInfo.discounts || []).map(d =>
-          `<div class="p-2.5 rounded-lg bg-emerald-50 border border-emerald-200 text-xs font-semibold text-emerald-950">${d}</div>`
+      const recList = document.getElementById("cd-recruiters-list");
+      if (recList) {
+        recList.innerHTML = (placements.topRecruiters || []).map(r =>
+          `<span class="px-2.5 py-1 rounded-lg bg-slate-100 border border-slate-200 text-xs font-semibold text-slate-800">${r}</span>`
         ).join("");
-        document.getElementById("modal-exam-name").textContent = college.paymentInfo.examName;
-        document.getElementById("modal-exam-deadline").textContent = college.paymentInfo.deadline;
-        document.getElementById("modal-exam-dates").textContent = college.paymentInfo.examDates;
-        document.getElementById("modal-exam-fee-mode").textContent = college.paymentInfo.feeMode;
+      }
 
-        const pBranches = document.getElementById("modal-payment-branches-container");
-        if (pBranches) {
-          pBranches.innerHTML = (college.branches || []).map(b => {
-            const inPriority = appState.priorityList.some(p => p.collegeId === college.id && p.branchCode === b.code);
-            return `
-              <div class="p-2.5 rounded-xl bg-white border border-slate-200 flex items-center justify-between text-xs">
-                <div>
-                  <strong class="text-slate-900">${b.name} (${b.code})</strong>
-                  <div class="text-[10px] text-slate-500">Intake: ${b.intake || b.seats || "60"} seats • Criteria: ${college.paymentInfo.criteria || "Direct / MPC"}</div>
-                </div>
-                <button type="button" data-action="quick-add-branch" data-college-id="${college.id}" data-branch-code="${b.code}"
-                  class="px-3 py-1.5 rounded-lg font-bold text-xs ${inPriority ? "bg-slate-900 text-amber-300" : "bg-emerald-600 hover:bg-emerald-700 text-white"}">
-                  ${inPriority ? "✓ Added" : "+ Add Option"}
-                </button>
-              </div>
-            `;
-          }).join("");
+      // 8. Admission Route & Payment Policy
+      const admRoute = document.getElementById("cd-admission-route");
+      if (admRoute) {
+        admRoute.textContent = college.exam === "ap_cet"
+          ? `Admits via AP EAPCET (APSCHE) Web Counseling using College Code "${college.code}". 100% JVD tuition fee reimbursement available for eligible AP students.`
+          : (college.exam === "payment"
+            ? (college.paymentInfo ? college.paymentInfo.directNote : "Direct admission and merit scholarships available.")
+            : `Admits via Central JoSAA / CSAB counseling based on ${college.exam === "jee_adv" ? "JEE Advanced" : "JEE Main"} All-India Rank.`);
+      }
+      const payBox = document.getElementById("cd-payment-box");
+      if (payBox) {
+        if (college.paymentInfo) {
+          payBox.classList.remove("hidden");
+          const payNote = document.getElementById("cd-direct-admission-note");
+          if (payNote) payNote.textContent = college.paymentInfo.directNote || "Direct seat quota and merit discount scholarships available.";
+        } else {
+          payBox.classList.add("hidden");
         }
-      } else {
-        paymentBtn.classList.add("hidden");
       }
 
-      document.getElementById("modal-tuition").textContent = fees.annualTuition || "N/A";
-      document.getElementById("modal-jvd").textContent = fees.jvdStatus || "N/A";
-      document.getElementById("modal-hostel").textContent = fees.hostelFee || "N/A";
-      document.getElementById("modal-scholarships-list").innerHTML = scholarships.map(s =>
-        `<div class="p-3 rounded-xl bg-slate-50 border border-slate-200 text-xs font-medium text-slate-800">🎓 ${s}</div>`
-      ).join("");
+      // 9. Hostels
+      const campHostel = document.getElementById("cd-campus-hostel-info");
+      if (campHostel) campHostel.textContent = hostels.campus || "On-campus hostel accommodations available.";
+      const feeBadge = document.getElementById("cd-hostel-fee-badge");
+      if (feeBadge) feeBadge.textContent = fees.hostelFee || "₹28,000 / yr";
 
-      document.getElementById("modal-hostel-fee-badge").textContent = fees.hostelFee || "N/A";
-      document.getElementById("modal-campus-hostel-info").textContent = hostels.campus || "On-campus hostel accommodations available.";
-      document.getElementById("modal-outside-boys-hostels").innerHTML = (hostels.outsideBoys || []).map(h =>
-        `<div class="p-3 rounded-xl bg-slate-50 border border-slate-200 flex items-center justify-between text-xs">
-          <div>
-            <strong class="text-slate-900">${h.name}</strong> <span class="text-amber-600 font-bold ml-1">${h.rating}</span>
-            <p class="text-[11px] text-slate-500">${h.dist}</p>
-          </div>
-          <span class="font-bold text-blue-800 bg-blue-50 px-2.5 py-1 rounded-lg">${h.rent}</span>
-        </div>`
-      ).join("");
-      document.getElementById("modal-outside-girls-hostels").innerHTML = (hostels.outsideGirls || []).map(h =>
-        `<div class="p-3 rounded-xl bg-slate-50 border border-slate-200 flex items-center justify-between text-xs">
-          <div>
-            <strong class="text-slate-900">${h.name}</strong> <span class="text-amber-600 font-bold ml-1">${h.rating}</span>
-            <p class="text-[11px] text-slate-500">${h.dist}</p>
-          </div>
-          <span class="font-bold text-pink-800 bg-pink-50 px-2.5 py-1 rounded-lg">${h.rent}</span>
-        </div>`
-      ).join("");
-
-      const hubMeta = originHubOffsets[appState.originHub] || originHubOffsets.Bengaluru;
-      document.getElementById("modal-travel-origin-title").textContent = `📍 Travel From ${hubMeta.label} (Transit Hub)`;
-      document.getElementById("modal-travel-distance").textContent = appState.originHub === "Bengaluru"
-        ? (travel.distanceFromBengaluru || hubMeta.auDist)
-        : (college.region === "SVU" ? hubMeta.svuDist : hubMeta.auDist);
-      document.getElementById("modal-nearest-station").textContent = travel.nearestStation || "Nearest Railway Station";
-      document.getElementById("modal-nearest-busstand").textContent = travel.nearestBusStand || "Nearest Bus Stand";
-      document.getElementById("modal-travel-modes-table").innerHTML = (travel.modes || []).map(m =>
-        `<tr>
-          <td class="p-2.5 font-bold text-slate-900">${m.mode}</td>
-          <td class="p-2.5 text-slate-600">${m.time}</td>
-          <td class="p-2.5 font-semibold text-emerald-800">${m.cost}</td>
-          <td class="p-2.5 text-slate-600">${m.route}</td>
-        </tr>`
-      ).join("");
-      document.getElementById("modal-last-mile-transit").textContent = travel.localTransit || "Autos and taxis available.";
-
-      document.getElementById("modal-food-spots-list").innerHTML = food.map(f =>
-        `<div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200 text-xs space-y-1">
-          <div class="flex items-center justify-between">
-            <strong class="text-slate-900 text-sm">🍽️ ${f.spot}</strong>
-            <span class="text-[10px] font-bold bg-amber-100 text-amber-900 px-2 py-0.5 rounded">${f.type}</span>
-          </div>
-          <p class="text-slate-600">${f.dishes}</p>
-        </div>`
-      ).join("");
-
-      const inShortlist = appState.shortlist.includes(college.id);
-      document.getElementById("modal-shortlist-toggle").innerHTML = `<span>${inShortlist ? "★ In Favorites" : "⭐ Add to Favorites"}</span>`;
-
-      document.getElementById("detail-modal").classList.remove("hidden");
-      if (college.exam === "payment" && college.paymentInfo) {
-        switchModalTab("payment");
-      } else {
-        switchModalTab("overview");
+      const outBoys = document.getElementById("cd-outside-boys-hostels");
+      if (outBoys) {
+        outBoys.innerHTML = (hostels.outsideBoys || []).map(h =>
+          `<div class="p-3 rounded-xl bg-slate-50 border border-slate-200 flex items-center justify-between text-xs">
+            <div>
+              <strong class="text-slate-900">${h.name}</strong> <span class="text-amber-600 font-bold ml-1">${h.rating}</span>
+              <p class="text-[11px] text-slate-500">${h.dist}</p>
+            </div>
+            <span class="font-bold text-blue-800 bg-blue-50 px-2.5 py-1 rounded-lg">${h.rent}</span>
+          </div>`
+        ).join("");
       }
+      const outGirls = document.getElementById("cd-outside-girls-hostels");
+      if (outGirls) {
+        outGirls.innerHTML = (hostels.outsideGirls || []).map(h =>
+          `<div class="p-3 rounded-xl bg-slate-50 border border-slate-200 flex items-center justify-between text-xs">
+            <div>
+              <strong class="text-slate-900">${h.name}</strong> <span class="text-amber-600 font-bold ml-1">${h.rating}</span>
+              <p class="text-[11px] text-slate-500">${h.dist}</p>
+            </div>
+            <span class="font-bold text-pink-800 bg-pink-50 px-2.5 py-1 rounded-lg">${h.rent}</span>
+          </div>`
+        ).join("");
+      }
+
+      // 10. Transit & Connectivity
+      const stEl = document.getElementById("cd-nearest-station");
+      if (stEl) stEl.textContent = travel.nearestStation || "Nearest Railway Station";
+      const busEl = document.getElementById("cd-nearest-busstand");
+      if (busEl) busEl.textContent = travel.nearestBusStand || "Nearest Bus Stand";
+      const transitEl = document.getElementById("cd-last-mile-transit");
+      if (transitEl) transitEl.textContent = travel.localTransit || "Autos and local transit available.";
+
+      const travelTable = document.getElementById("cd-travel-modes-table");
+      if (travelTable) {
+        travelTable.innerHTML = (travel.modes || []).map(m =>
+          `<tr>
+            <td class="p-2.5 font-bold text-slate-900">${m.mode}</td>
+            <td class="p-2.5 text-slate-600">${m.time}</td>
+            <td class="p-2.5 font-semibold text-emerald-800">${m.cost}</td>
+            <td class="p-2.5 text-slate-600">${m.route}</td>
+          </tr>`
+        ).join("");
+      }
+
+      // 11. Food Spots
+      const foodList = document.getElementById("cd-food-spots-list");
+      if (foodList) {
+        foodList.innerHTML = food.map(f =>
+          `<div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200 text-xs space-y-1">
+            <div class="flex items-center justify-between">
+              <strong class="text-slate-900 text-sm">${f.spot}</strong>
+              <span class="text-[10px] font-bold bg-amber-100 text-amber-900 px-2 py-0.5 rounded">${f.type}</span>
+            </div>
+            <p class="text-slate-600">${f.dishes}</p>
+          </div>`
+        ).join("");
+      }
+
+      // 12. Scholarships
+      const schList = document.getElementById("cd-scholarships-list");
+      if (schList) {
+        schList.innerHTML = scholarships.map(s =>
+          `<div class="p-3 rounded-xl bg-slate-50 border border-slate-200 text-xs font-medium text-slate-800">🎓 ${s}</div>`
+        ).join("");
+      }
+
+      // 13. Facts Aside (matching demoooo for pagess.html facts dl)
+      const fCode = document.getElementById("cd-fact-code");
+      if (fCode) fCode.textContent = college.code || "-";
+      const fType = document.getElementById("cd-fact-type");
+      if (fType) fType.textContent = college.type || "Engineering College";
+      const fExam = document.getElementById("cd-fact-exam");
+      if (fExam) fExam.textContent = examLabel;
+      const fRegion = document.getElementById("cd-fact-region");
+      if (fRegion) fRegion.textContent = `${college.region || 'AU/SVU'} Region · ${college.district || college.state || 'AP'}`;
+      const fLoc = document.getElementById("cd-fact-location");
+      if (fLoc) fLoc.textContent = college.location || "Andhra Pradesh";
+      const fEst = document.getElementById("cd-fact-established");
+      if (fEst) fEst.textContent = String(college.established || "2008");
+      const fGrade = document.getElementById("cd-fact-grade");
+      if (fGrade) fGrade.textContent = `${college.rating || '4.5★'} (${college.grade || 'A'})`;
+      const fNirf = document.getElementById("cd-fact-nirf");
+      if (fNirf) fNirf.textContent = college.nirfRank ? `#${college.nirfRank}` : (college.nirfBand || "Rank Band 151-200");
+      const fMed = document.getElementById("cd-fact-median");
+      if (fMed) fMed.textContent = placements.medianPackage || "₹7.5 LPA";
+      const fHigh = document.getElementById("cd-fact-highest");
+      if (fHigh) fHigh.textContent = placements.highestPackage || "₹45.0 LPA";
+      const fRate = document.getElementById("cd-fact-rate");
+      if (fRate) fRate.textContent = placements.placementRate || "90%";
+      const fTuit = document.getElementById("cd-fact-tuition");
+      if (fTuit) fTuit.textContent = fees.annualTuition || "₹35,000 / yr";
+      const fJvd = document.getElementById("cd-fact-jvd");
+      if (fJvd) fJvd.textContent = fees.jvdStatus ? "100% Eligible" : "Eligible";
+      const fHostel = document.getElementById("cd-fact-hostel");
+      if (fHostel) fHostel.textContent = fees.hostelFee || "₹28,000 / yr";
+
+      // 14. Favorites Buttons State
+      updateCollegeDetailPageFavoriteUI();
+
+      // 15. Infrastructure / Campus Gallery (Referenced from demoooo for pagess.html gallery-lg)
+      const gal = document.getElementById("cd-gallery-container");
+      if (gal) {
+        gal.innerHTML = cdHeroImages.map((imgSrc, i) =>
+          `<figure class="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-2xs">
+            <img src="${imgSrc}" alt="${college.name} photo ${i+1}" class="w-full aspect-video object-cover" onerror="window.handleCollegeImgError(this, '${college.code || college.id}')">
+            <figcaption class="p-2.5 text-xs text-slate-500 bg-slate-50 border-t border-slate-100 font-medium">
+              ${college.name} - View #${i+1}
+            </figcaption>
+          </figure>`
+        ).join("");
+      }
+
+      // 16. Pager (Referenced from demoooo for pagess.html pager)
+      const curIndex = colleges.findIndex(c => c.id === college.id);
+      const prevCol = curIndex > 0 ? colleges[curIndex - 1] : colleges[colleges.length - 1];
+      const nextCol = curIndex < colleges.length - 1 ? colleges[curIndex + 1] : colleges[0];
+      const prevName = document.getElementById("cd-prev-name");
+      if (prevName && prevCol) prevName.textContent = prevCol.code ? `${prevCol.code} - ${prevCol.name.slice(0, 24)}...` : prevCol.name.slice(0, 30);
+      const nextName = document.getElementById("cd-next-name");
+      if (nextName && nextCol) nextName.textContent = nextCol.code ? `${nextCol.code} - ${nextCol.name.slice(0, 24)}...` : nextCol.name.slice(0, 30);
+
+      // 17. Hide other views & Show Detail View Page (Smooth Full-Page Navigation)
+      const homeView = document.getElementById("home-view-container");
+      const searchView = document.getElementById("search-view-container") || document.getElementById("explorer-view-container");
+      const priorityView = document.getElementById("priority-view-container");
+      const analyticsView = document.getElementById("analytics-view-container");
+      const docsView = document.getElementById("docs-view-container");
+      const profileView = document.getElementById("profile-view-container");
+      const historyView = document.getElementById("history-view-container");
+      const collegeDetailView = document.getElementById("college-detail-view-container");
+      if (collegeDetailView && viewName !== "college-detail") collegeDetailView.classList.add("hidden");
+      const detailPage = document.getElementById("college-detail-view-container");
+      const detailModal = document.getElementById("detail-modal");
+
+      if (homeView) homeView.classList.add("hidden");
+      if (searchView) searchView.classList.add("hidden");
+      if (priorityView) priorityView.classList.add("hidden");
+      if (analyticsView) analyticsView.classList.add("hidden");
+      if (docsView) docsView.classList.add("hidden");
+      if (profileView) profileView.classList.add("hidden");
+      if (historyView) historyView.classList.add("hidden");
+      if (detailModal) detailModal.classList.add("hidden");
+
+      if (detailPage) {
+        detailPage.classList.remove("hidden");
+      }
+
+      // Update URL hash cleanly
+      try {
+        window.history.pushState({ collegeId: college.id }, college.name, `#/college/${college.id}`);
+      } catch (e) {}
+
+      window.scrollTo({ top: 0, behavior: "smooth" });
     }
+
+    function closeCollegeDetailPage() {
+      const detailPage = document.getElementById("college-detail-view-container");
+      if (detailPage) detailPage.classList.add("hidden");
+
+      const returnView = appState.previousView || "add-rank";
+      switchMainView(returnView);
+      if (returnView === "add-rank" || returnView === "home") {
+        if (typeof showHomeSlide === "function") {
+          showHomeSlide(2); // Keep on Slide 2 so eligible college search is preserved!
+        }
+      }
+      try {
+        window.history.pushState({}, "The Bridge", `#/home`);
+      } catch (e) {}
+    }
+
+    function navigateAdjacentCollege(direction) {
+      const colleges = (typeof collegesData !== "undefined" && Array.isArray(collegesData)) ? collegesData : (window.collegesData || []);
+      const curIndex = colleges.findIndex(c => c.id === appState.activeDetailPageCollegeId);
+      if (curIndex === -1) return;
+      const targetIndex = (curIndex + direction + colleges.length) % colleges.length;
+      openCollegeDetailPage(colleges[targetIndex].id);
+    }
+
+    function updateCollegeDetailPageFavoriteUI() {
+      const collegeId = appState.activeDetailPageCollegeId;
+      const inShortlist = appState.shortlist.includes(collegeId);
+
+      const topLabel = document.getElementById("cd-top-favorite-label");
+      const topStar = document.getElementById("cd-top-favorite-star");
+      if (topLabel) topLabel.textContent = inShortlist ? "In Favorites" : "Add to Favorites";
+      if (topStar) topStar.textContent = inShortlist ? "★" : "☆";
+
+      const factLabel = document.getElementById("cd-fact-fav-label");
+      const factStar = document.getElementById("cd-fact-fav-star");
+      if (factLabel) factLabel.textContent = inShortlist ? "In Favorites" : "Add to Favorites";
+      if (factStar) factStar.textContent = inShortlist ? "★" : "☆";
+    }
+
+    function toggleCollegeDetailPageFavorite() {
+      const collegeId = appState.activeDetailPageCollegeId;
+      if (!collegeId) return;
+      const pos = appState.shortlist.indexOf(collegeId);
+      if (pos === -1) {
+        appState.shortlist.push(collegeId);
+        showToast("Added to Favorites", "★");
+      } else {
+        appState.shortlist.splice(pos, 1);
+        showToast("Removed from Favorites", "ℹ️");
+      }
+      saveState();
+      updateHeaderBadges();
+      updateCollegeDetailPageFavoriteUI();
+    }
+
+    // Alias openCollegeModal to openCollegeDetailPage so all legacy calls open the page!
+    function openCollegeModal(collegeId) {
+      return openCollegeDetailPage(collegeId);
+    }
+
+    window.openCollegeDetailPage = openCollegeDetailPage;
+    window.closeCollegeDetailPage = closeCollegeDetailPage;
+    window.navigateAdjacentCollege = navigateAdjacentCollege;
+    window.toggleCollegeDetailPageFavorite = toggleCollegeDetailPageFavorite;
+    window.openCollegeModal = openCollegeDetailPage;
+
 
     function switchModalTab(tabKey) {
       const sections = {
@@ -1052,6 +1228,18 @@
     }
 
     function initEventListeners() {
+      window.addEventListener("popstate", (e) => {
+        const hash = window.location.hash;
+        if (hash.startsWith("#/college/")) {
+          const colId = hash.replace("#/college/", "");
+          if (colId) openCollegeDetailPage(colId);
+        } else {
+          const cdView = document.getElementById("college-detail-view-container");
+          if (cdView && !cdView.classList.contains("hidden")) {
+            closeCollegeDetailPage();
+          }
+        }
+      });
       document.getElementById("view-explore-tab")?.addEventListener("click", () => switchMainView("explore"));
       document.getElementById("view-priority-tab")?.addEventListener("click", () => switchMainView("priority"));
       document.getElementById("view-analytics-tab")?.addEventListener("click", () => switchMainView("analytics"));
