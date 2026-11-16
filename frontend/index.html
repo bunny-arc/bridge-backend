@@ -321,7 +321,7 @@
           <!-- 1. YOUR EXPECTED / ACTUAL RANK -->
           <div>
             <div class="flex items-center justify-between mb-1.5">
-              <label for="rank-input" class="block text-xs font-bold text-slate-700 uppercase tracking-wider">
+              <label for="rank-input" id="rank-input-label" class="block text-xs font-bold text-slate-700 uppercase tracking-wider">
                 Your Expected / Actual Rank
               </label>
               <span id="rank-clear-btn" class="text-blue-600 hover:text-blue-800 text-[11px] cursor-pointer hidden font-bold">CLEAR</span>
@@ -334,30 +334,47 @@
                 Rank not required. Colleges ordered by institutional priority, 2025 placement records & NAAC accreditation.
               </p>
             </div>
+            <!-- JEE Rank Option Mode Selector (AIR vs General Rank) -->
+            <div id="jee-rank-mode-box" class="hidden mb-2">
+              <div class="flex items-center justify-between text-[11px] font-bold text-slate-600 mb-1">
+                <span>EVALUATE CUTOFFS USING:</span>
+                <span id="jee-active-mode-label" class="text-blue-600 font-extrabold uppercase">All India Rank (AIR)</span>
+              </div>
+              <div class="grid grid-cols-2 gap-1.5 p-1 bg-slate-100 rounded-xl">
+                <button type="button" id="jee-mode-air-btn" class="py-1.5 px-2 rounded-lg text-xs font-bold bg-white text-blue-700 shadow-sm border border-slate-200 transition text-center cursor-pointer">
+                  🎯 All India Rank
+                </button>
+                <button type="button" id="jee-mode-gen-btn" class="py-1.5 px-2 rounded-lg text-xs font-bold text-slate-600 hover:text-slate-900 border border-transparent transition text-center cursor-pointer">
+                  🏅 General Rank
+                </button>
+              </div>
+            </div>
             <div id="rank-input-container">
               <div class="relative">
                 <input
                   type="number"
                   id="rank-input"
                   min="1"
-                  max="350000"
+                  max="1500000"
                   placeholder=""
                   class="w-full pl-3.5 pr-14 py-3 bg-slate-50 border border-slate-300 rounded-xl text-base font-bold text-slate-800 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:bg-white transition"
                 />
-                <span class="absolute right-3.5 top-3.5 text-xs text-slate-400 font-bold uppercase">Rank</span>
+                <span id="rank-unit-tag" class="absolute right-3.5 top-3.5 text-xs text-slate-400 font-bold uppercase">Rank</span>
               </div>
             </div>
             <!-- Quick Rank Chips -->
             <div id="quick-rank-chips-container" class="flex items-center gap-1.5 mt-2 overflow-x-auto text-xs pb-1">
               <span class="text-slate-400 shrink-0 font-medium">Try:</span>
-              <button type="button" data-rank="2500" class="quick-rank-btn px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-blue-100 text-slate-700 hover:text-blue-800 font-semibold shrink-0 transition">2,500</button>
-              <button type="button" data-rank="7500" class="quick-rank-btn px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-blue-100 text-slate-700 hover:text-blue-800 font-semibold shrink-0 transition">7,500</button>
-              <button type="button" data-rank="18000" class="quick-rank-btn px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-blue-100 text-slate-700 hover:text-blue-800 font-semibold shrink-0 transition">18,000</button>
-              <button type="button" data-rank="35000" class="quick-rank-btn px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-blue-100 text-slate-700 hover:text-blue-800 font-semibold shrink-0 transition">35,000</button>
-              <button type="button" data-rank="85000" class="quick-rank-btn px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-blue-100 text-slate-700 hover:text-blue-800 font-semibold shrink-0 transition">85,000</button>
-              <button type="button" data-rank="150000" class="quick-rank-btn px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-blue-100 text-slate-700 hover:text-blue-800 font-semibold shrink-0 transition">1,50,000</button>
-              <button type="button" data-rank="220000" class="quick-rank-btn px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-blue-100 text-slate-700 hover:text-blue-800 font-semibold shrink-0 transition">2,20,000</button>
-              <button type="button" data-rank="300000" class="quick-rank-btn px-2.5 py-1 rounded-lg bg-amber-100 hover:bg-amber-200 text-amber-900 font-bold shrink-0 transition">3,00,000</button>
+              <div id="quick-rank-chips-list" class="flex items-center gap-1.5">
+                <button type="button" data-rank="2500" class="quick-rank-btn px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-blue-100 text-slate-700 hover:text-blue-800 font-semibold shrink-0 transition">2,500</button>
+                <button type="button" data-rank="7500" class="quick-rank-btn px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-blue-100 text-slate-700 hover:text-blue-800 font-semibold shrink-0 transition">7,500</button>
+                <button type="button" data-rank="18000" class="quick-rank-btn px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-blue-100 text-slate-700 hover:text-blue-800 font-semibold shrink-0 transition">18,000</button>
+                <button type="button" data-rank="35000" class="quick-rank-btn px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-blue-100 text-slate-700 hover:text-blue-800 font-semibold shrink-0 transition">35,000</button>
+                <button type="button" data-rank="85000" class="quick-rank-btn px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-blue-100 text-slate-700 hover:text-blue-800 font-semibold shrink-0 transition">85,000</button>
+                <button type="button" data-rank="150000" class="quick-rank-btn px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-blue-100 text-slate-700 hover:text-blue-800 font-semibold shrink-0 transition">1,50,000</button>
+                <button type="button" data-rank="220000" class="quick-rank-btn px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-blue-100 text-slate-700 hover:text-blue-800 font-semibold shrink-0 transition">2,20,000</button>
+                <button type="button" data-rank="300000" class="quick-rank-btn px-2.5 py-1 rounded-lg bg-amber-100 hover:bg-amber-200 text-amber-900 font-bold shrink-0 transition">3,00,000</button>
+              </div>
             </div>
           </div>
 
@@ -403,21 +420,46 @@
             <p class="text-[11px] text-slate-500 mt-1">Applies official counseling seat reservation multiplier</p>
           </div>
 
-          <!-- 4. LOCAL AREA / UNIVERSITY REGION -->
-          <div>
-            <label for="region-select" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
-              Local Area / University Region
-            </label>
-            <select
-              id="region-select"
-              class="w-full px-3.5 py-3 bg-slate-50 border border-slate-300 rounded-xl text-sm font-semibold text-slate-800 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
-            >
-              <option value="ALL" selected>All Regions (AU, SVU & National)</option>
-              <option value="AU">AU Region (Coastal Andhra Districts)</option>
-              <option value="SVU">SVU Region (Rayalaseema & Nellore)</option>
-              <option value="National">National / Deemed (Pan-India / Open)</option>
-            </select>
-            <p class="text-[11px] text-slate-500 mt-1">85% seats reserved for local university region in AP</p>
+          <!-- 4. LOCAL AREA / UNIVERSITY REGION (AP CET) & ALL INDIA RANK (JEE) -->
+          <div id="filter-region-col">
+            <!-- AP CET Local Region Selection -->
+            <div id="ap-region-container">
+              <label for="region-select" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+                Local Area / University Region
+              </label>
+              <select
+                id="region-select"
+                class="w-full px-3.5 py-3 bg-slate-50 border border-slate-300 rounded-xl text-sm font-semibold text-slate-800 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
+              >
+                <option value="ALL" selected>All Regions (AU, SVU & National)</option>
+                <option value="AU">AU Region (Coastal Andhra Districts)</option>
+                <option value="SVU">SVU Region (Rayalaseema & Nellore)</option>
+                <option value="National">National / Deemed (Pan-India / Open)</option>
+              </select>
+              <p class="text-[11px] text-slate-500 mt-1">85% seats reserved for local university region in AP</p>
+            </div>
+
+            <!-- JEE All India Rank (AIR / CRL) -->
+            <div id="jee-air-container" class="hidden">
+              <div class="flex items-center justify-between mb-1.5">
+                <label for="jee-air-input" class="block text-xs font-bold text-slate-700 uppercase tracking-wider">
+                  All India Rank (AIR / CRL)
+                </label>
+                <span id="jee-air-active-badge" class="text-[10px] text-blue-600 font-extrabold uppercase">ALL INDIA MERIT</span>
+              </div>
+              <div class="relative">
+                <input
+                  type="number"
+                  id="jee-air-input"
+                  min="1"
+                  max="1500000"
+                  placeholder="Enter All India Rank (e.g. 15,000)"
+                  class="w-full pl-3.5 pr-14 py-3 bg-slate-50 border border-slate-300 rounded-xl text-sm font-bold text-slate-800 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:bg-white transition"
+                />
+                <span class="absolute right-3.5 top-3.5 text-xs text-slate-400 font-bold uppercase">AIR</span>
+              </div>
+              <p class="text-[11px] text-slate-500 mt-1">Common Rank List (CRL) across India for JoSAA / CSAB</p>
+            </div>
           </div>
 
           <!-- 5. TARGET ENGINEERING BRANCH -->
@@ -483,17 +525,42 @@
             </select>
           </div>
 
-          <!-- 7. AP DISTRICT (ALL 26 DISTRICTS) -->
-          <div>
-            <label for="district-select" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
-              <span id="district-label-title">AP District (All 26 Districts)</span>
-            </label>
-            <select
-              id="district-select"
-              class="w-full px-3.5 py-3 bg-slate-50 border border-slate-300 rounded-xl text-sm font-semibold text-slate-800 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
-            >
-              <option value="ALL" selected>All 26 AP Districts</option>
-            </select>
+          <!-- 7. AP DISTRICT (ALL 26 DISTRICTS) (AP CET) & GENERAL RANK / CATEGORY RANK (JEE) -->
+          <div id="filter-district-col">
+            <!-- AP CET District Selection -->
+            <div id="ap-district-container">
+              <label for="district-select" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+                <span id="district-label-title">AP District (All 26 Districts)</span>
+              </label>
+              <select
+                id="district-select"
+                class="w-full px-3.5 py-3 bg-slate-50 border border-slate-300 rounded-xl text-sm font-semibold text-slate-800 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
+              >
+                <option value="ALL" selected>All 26 AP Districts</option>
+              </select>
+            </div>
+
+            <!-- JEE General Rank / Category Rank -->
+            <div id="jee-general-container" class="hidden">
+              <div class="flex items-center justify-between mb-1.5">
+                <label for="jee-general-input" class="block text-xs font-bold text-slate-700 uppercase tracking-wider">
+                  General Rank / Category Rank
+                </label>
+                <span id="jee-gen-active-badge" class="text-[10px] text-emerald-600 font-extrabold uppercase">CATEGORY QUOTA</span>
+              </div>
+              <div class="relative">
+                <input
+                  type="number"
+                  id="jee-general-input"
+                  min="1"
+                  max="500000"
+                  placeholder="Enter General / Category Rank (e.g. 3,500)"
+                  class="w-full pl-3.5 pr-14 py-3 bg-slate-50 border border-slate-300 rounded-xl text-sm font-bold text-slate-800 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:bg-white transition"
+                />
+                <span class="absolute right-3.5 top-3.5 text-xs text-slate-400 font-bold uppercase">RANK</span>
+              </div>
+              <p class="text-[11px] text-slate-500 mt-1">General / Quota category rank (GEN-EWS, OBC, SC, ST)</p>
+            </div>
           </div>
 
           <!-- 8. COLLEGE CATEGORY -->

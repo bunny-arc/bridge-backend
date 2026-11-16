@@ -946,6 +946,48 @@
         }
       }
 
+      // Handle JEE vs AP CET local area & district filter visibility
+      const apRegionContainer = document.getElementById("ap-region-container");
+      const apDistrictContainer = document.getElementById("ap-district-container");
+      const jeeAirContainer = document.getElementById("jee-air-container");
+      const jeeGenContainer = document.getElementById("jee-general-container");
+      const jeeRankModeBox = document.getElementById("jee-rank-mode-box");
+      const rankUnit = document.getElementById("rank-unit-tag");
+
+      if (examCode === "jee_main" || examCode === "jee_adv") {
+        // 1. Hide Local Area / University Region (Pic 2) and AP District (Pic 3)
+        if (apRegionContainer) apRegionContainer.classList.add("hidden");
+        if (apDistrictContainer) apDistrictContainer.classList.add("hidden");
+
+        // 2. In their place, show All India Rank (AIR / CRL) and General Rank / Category Rank
+        if (jeeAirContainer) jeeAirContainer.classList.remove("hidden");
+        if (jeeGenContainer) jeeGenContainer.classList.remove("hidden");
+        if (jeeRankModeBox) jeeRankModeBox.classList.remove("hidden");
+
+        // Reset AP local area and district state so they do not restrict national JEE results
+        appState.region = "ALL";
+        appState.district = "ALL";
+        const rSel = document.getElementById("region-select");
+        if (rSel) rSel.value = "ALL";
+        const dSel = document.getElementById("district-select");
+        if (dSel) dSel.value = "ALL";
+
+        if (rankUnit) rankUnit.textContent = appState.jeeRankMode === "general" ? "GEN" : "AIR";
+        if (typeof updateQuickRankChips === "function") updateQuickRankChips(examCode);
+      } else {
+        // Restore Local Area / Region and AP District for AP CET
+        if (apRegionContainer) apRegionContainer.classList.remove("hidden");
+        if (apDistrictContainer) apDistrictContainer.classList.remove("hidden");
+
+        // Hide JEE options
+        if (jeeAirContainer) jeeAirContainer.classList.add("hidden");
+        if (jeeGenContainer) jeeGenContainer.classList.add("hidden");
+        if (jeeRankModeBox) jeeRankModeBox.classList.add("hidden");
+
+        if (rankUnit) rankUnit.textContent = "Rank";
+        if (typeof updateQuickRankChips === "function") updateQuickRankChips("ap_cet");
+      }
+
       // If Payment is selected, hide the Rank filter box and show Direct Admission note
       const rankContainer = document.getElementById("rank-input-container");
       const quickChips = document.getElementById("quick-rank-chips-container");
@@ -1072,6 +1114,156 @@
 
       const rankInput = document.getElementById("rank-input");
       const rankClearBtn = document.getElementById("rank-clear-btn");
+      const jeeAirInput = document.getElementById("jee-air-input");
+      const jeeGenInput = document.getElementById("jee-general-input");
+      const jeeAirModeBtn = document.getElementById("jee-mode-air-btn");
+      const jeeGenModeBtn = document.getElementById("jee-mode-gen-btn");
+
+      function setJeeRankMode(mode) {
+        appState.jeeRankMode = mode;
+        const airBtn = document.getElementById("jee-mode-air-btn");
+        const genBtn = document.getElementById("jee-mode-gen-btn");
+        const modeLabel = document.getElementById("jee-active-mode-label");
+        const airBadge = document.getElementById("jee-air-active-badge");
+        const genBadge = document.getElementById("jee-gen-active-badge");
+        const airInp = document.getElementById("jee-air-input");
+        const genInp = document.getElementById("jee-general-input");
+        const rankInp = document.getElementById("rank-input");
+        const rankUnit = document.getElementById("rank-unit-tag");
+
+        if (mode === "air") {
+          if (airBtn) airBtn.className = "py-1.5 px-2 rounded-lg text-xs font-bold bg-white text-blue-700 shadow-sm border border-slate-200 transition text-center cursor-pointer";
+          if (genBtn) genBtn.className = "py-1.5 px-2 rounded-lg text-xs font-bold text-slate-600 hover:text-slate-900 border border-transparent transition text-center cursor-pointer";
+          if (modeLabel) modeLabel.textContent = "All India Rank (AIR)";
+          if (airBadge) { airBadge.textContent = "ACTIVE EVALUATION"; airBadge.className = "text-[10px] text-blue-600 font-extrabold uppercase"; }
+          if (genBadge) { genBadge.textContent = "CATEGORY QUOTA"; genBadge.className = "text-[10px] text-slate-400 font-bold uppercase"; }
+          if (rankUnit) rankUnit.textContent = "AIR";
+          if (airInp && airInp.value) {
+            const v = parseInt(airInp.value, 10);
+            appState.rank = (!isNaN(v) && v > 0) ? v : null;
+            if (rankInp) rankInp.value = airInp.value;
+          } else if (rankInp && rankInp.value) {
+            const v = parseInt(rankInp.value, 10);
+            appState.rank = (!isNaN(v) && v > 0) ? v : null;
+            if (airInp) airInp.value = rankInp.value;
+          }
+        } else {
+          if (genBtn) genBtn.className = "py-1.5 px-2 rounded-lg text-xs font-bold bg-white text-emerald-700 shadow-sm border border-slate-200 transition text-center cursor-pointer";
+          if (airBtn) airBtn.className = "py-1.5 px-2 rounded-lg text-xs font-bold text-slate-600 hover:text-slate-900 border border-transparent transition text-center cursor-pointer";
+          if (modeLabel) modeLabel.textContent = "General / Category Rank";
+          if (genBadge) { genBadge.textContent = "ACTIVE EVALUATION"; genBadge.className = "text-[10px] text-emerald-600 font-extrabold uppercase"; }
+          if (airBadge) { airBadge.textContent = "ALL INDIA MERIT"; airBadge.className = "text-[10px] text-slate-400 font-bold uppercase"; }
+          if (rankUnit) rankUnit.textContent = "GEN";
+          if (genInp && genInp.value) {
+            const v = parseInt(genInp.value, 10);
+            appState.rank = (!isNaN(v) && v > 0) ? v : null;
+            if (rankInp) rankInp.value = genInp.value;
+          } else if (rankInp && rankInp.value) {
+            const v = parseInt(rankInp.value, 10);
+            appState.rank = (!isNaN(v) && v > 0) ? v : null;
+            if (genInp) genInp.value = rankInp.value;
+          }
+        }
+
+        const clrBtn = document.getElementById("rank-clear-btn");
+        if (clrBtn) clrBtn.classList.toggle("hidden", !appState.rank);
+        updateHeaderBadges();
+        renderExplorer();
+      }
+
+      if (jeeAirModeBtn) jeeAirModeBtn.addEventListener("click", () => setJeeRankMode("air"));
+      if (jeeGenModeBtn) jeeGenModeBtn.addEventListener("click", () => setJeeRankMode("general"));
+
+      if (jeeAirInput) {
+        jeeAirInput.addEventListener("focus", () => {
+          if (!appState.exam) {
+            jeeAirInput.blur();
+            showExamRequiredAlert("First, please select your <strong>Entrance Exam</strong> before entering your rank!");
+          }
+        });
+        jeeAirInput.addEventListener("input", (e) => {
+          if (!appState.exam) {
+            jeeAirInput.value = "";
+            showExamRequiredAlert("First, please select your <strong>Entrance Exam</strong> before entering your rank!");
+            return;
+          }
+          const val = parseInt(e.target.value, 10);
+          appState.rank = (!isNaN(val) && val > 0) ? val : null;
+          appState.jeeRankMode = "air";
+          const rInp = document.getElementById("rank-input");
+          if (rInp) rInp.value = e.target.value;
+          setJeeRankMode("air");
+        });
+      }
+
+      if (jeeGenInput) {
+        jeeGenInput.addEventListener("focus", () => {
+          if (!appState.exam) {
+            jeeGenInput.blur();
+            showExamRequiredAlert("First, please select your <strong>Entrance Exam</strong> before entering your rank!");
+          }
+        });
+        jeeGenInput.addEventListener("input", (e) => {
+          if (!appState.exam) {
+            jeeGenInput.value = "";
+            showExamRequiredAlert("First, please select your <strong>Entrance Exam</strong> before entering your rank!");
+            return;
+          }
+          const val = parseInt(e.target.value, 10);
+          appState.rank = (!isNaN(val) && val > 0) ? val : null;
+          appState.jeeRankMode = "general";
+          const rInp = document.getElementById("rank-input");
+          if (rInp) rInp.value = e.target.value;
+          setJeeRankMode("general");
+        });
+      }
+
+      function updateQuickRankChips(examCode) {
+        const chipsList = document.getElementById("quick-rank-chips-list");
+        if (!chipsList) return;
+        let ranks = [2500, 7500, 18000, 35000, 85000, 150000, 220000, 300000];
+        if (examCode === "jee_main") {
+          ranks = [1500, 5000, 12000, 25000, 45000, 70000, 100000];
+        } else if (examCode === "jee_adv") {
+          ranks = [500, 1500, 3500, 7000, 12000, 18000, 25000];
+        }
+
+        chipsList.innerHTML = ranks.map(r => {
+          const isAmber = (examCode === "ap_cet" && r === 300000) || (examCode === "jee_main" && r === 100000) || (examCode === "jee_adv" && r === 25000);
+          const cls = isAmber
+            ? "quick-rank-btn px-2.5 py-1 rounded-lg bg-amber-100 hover:bg-amber-200 text-amber-900 font-bold shrink-0 transition cursor-pointer"
+            : "quick-rank-btn px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-blue-100 text-slate-700 hover:text-blue-800 font-semibold shrink-0 transition cursor-pointer";
+          return `<button type="button" data-rank="${r}" class="${cls}">${r.toLocaleString("en-IN")}</button>`;
+        }).join("");
+
+        chipsList.querySelectorAll(".quick-rank-btn").forEach(btn => {
+          btn.addEventListener("click", (e) => {
+            if (!appState.exam) {
+              e.preventDefault();
+              e.stopPropagation();
+              showExamRequiredAlert("First, please select your <strong>Entrance Exam</strong> before choosing a rank!");
+              return false;
+            }
+            const r = parseInt(btn.dataset.rank, 10);
+            appState.rank = r;
+            const rankInput = document.getElementById("rank-input");
+            if (rankInput) rankInput.value = r;
+            if (appState.exam === "jee_main" || appState.exam === "jee_adv") {
+              if (appState.jeeRankMode === "general") {
+                const gInp = document.getElementById("jee-general-input");
+                if (gInp) gInp.value = r;
+              } else {
+                const aInp = document.getElementById("jee-air-input");
+                if (aInp) aInp.value = r;
+              }
+            }
+            const rankClearBtn = document.getElementById("rank-clear-btn");
+            if (rankClearBtn) rankClearBtn.classList.remove("hidden");
+            updateHeaderBadges();
+            renderExplorer();
+          });
+        });
+      }
 
       rankInput.addEventListener("focus", () => {
         if (!appState.exam) {
@@ -1088,6 +1280,15 @@
         }
         const val = parseInt(rankInput.value, 10);
         appState.rank = (!isNaN(val) && val > 0) ? val : null;
+        if (appState.exam === "jee_main" || appState.exam === "jee_adv") {
+          if (appState.jeeRankMode === "general") {
+            const genInp = document.getElementById("jee-general-input");
+            if (genInp) genInp.value = rankInput.value;
+          } else {
+            const airInp = document.getElementById("jee-air-input");
+            if (airInp) airInp.value = rankInput.value;
+          }
+        }
         rankClearBtn.classList.toggle("hidden", !appState.rank);
         updateHeaderBadges();
         renderExplorer();
@@ -1095,29 +1296,17 @@
 
       rankClearBtn.addEventListener("click", () => {
         rankInput.value = "";
+        const airInp = document.getElementById("jee-air-input");
+        if (airInp) airInp.value = "";
+        const genInp = document.getElementById("jee-general-input");
+        if (genInp) genInp.value = "";
         appState.rank = null;
         rankClearBtn.classList.add("hidden");
         updateHeaderBadges();
         renderExplorer();
       });
 
-      document.querySelectorAll(".quick-rank-btn").forEach(btn => {
-        btn.addEventListener("click", (e) => {
-          if (!appState.exam) {
-            e.preventDefault();
-            e.stopPropagation();
-            showExamRequiredAlert("First, please select your <strong>Entrance Exam</strong> before choosing a rank!");
-            return false;
-          }
-          const r = parseInt(btn.dataset.rank, 10);
-          appState.rank = r;
-          rankInput.value = r;
-          rankClearBtn.classList.remove("hidden");
-          updateHeaderBadges();
-          renderExplorer();
-          /* showToast(`Filtered for Rank ${r.toLocaleString("en-IN")} (${appState.category})`, "🎯"); (suppressed) */
-        });
-      });
+      updateQuickRankChips("ap_cet");
 
       const genderSelectEl = document.getElementById("gender-select");
       if (genderSelectEl) {
@@ -1227,6 +1416,10 @@
         appState.currentLimit = appState.pageSize;
 
         rankInput.value = "";
+        const airReset = document.getElementById("jee-air-input");
+        if (airReset) airReset.value = "";
+        const genReset = document.getElementById("jee-general-input");
+        if (genReset) genReset.value = "";
         rankClearBtn.classList.add("hidden");
         const stReset = document.getElementById("state-select");
         if (stReset) stReset.value = "Andhra Pradesh";

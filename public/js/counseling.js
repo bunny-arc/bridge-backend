@@ -48,6 +48,7 @@
     let appState = {
       activeView: "explore",
       exam: null,
+      jeeRankMode: "air", // "air" (All India Rank) or "general" (General / Category Rank)
       rank: null,
       category: "OC",
       region: "ALL",
@@ -110,7 +111,10 @@
     // 4. CUTOFF SCALING & ELIGIBILITY ENGINE
     // =========================================================================
     function getScaledCutoff(baseCutoff, category, exam) {
-      const mult = categoryMultipliers[category] || 1.0;
+      // In JEE counseling, if the user evaluates by General / Category Rank, the rank is already on the category scale
+      const mult = (appState.jeeRankMode === "general" && (exam === "jee_main" || exam === "jee_adv"))
+        ? 1.0
+        : (categoryMultipliers[category] || 1.0);
       const maxCap = exam === "ap_cet" || exam === "payment" ? 350000 : (exam === "jee_main" ? 180000 : 35000);
       return Math.min(maxCap, Math.round(baseCutoff * mult));
     }
