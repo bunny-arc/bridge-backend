@@ -6144,54 +6144,6 @@ Student Profile Context:
       }
 
 
-// ==============================================================
-// GOOGLE IDENTITY SERVICES (GIS) AUTHENTICATION INTEGRATION
-// ==============================================================
-function initGoogleAuth() {
-  const clientId = window.I2T_CONFIG ? window.I2T_CONFIG.GOOGLE_CLIENT_ID : "";
-  if (!clientId || clientId.includes("YOUR_GOOGLE_CLIENT_ID") || typeof google === "undefined" || !google.accounts) return;
-
-  // Initialize GIS
-  google.accounts.id.initialize({
-    client_id: clientId,
-    callback: handleGoogleCredentialResponse,
-    auto_select: false,
-    cancel_on_tap_outside: true
-  });
-
-  // Attach click listener to your button
-  const btn = document.getElementById("google-signin-btn") || document.getElementById("google-connect-submit-btn");
-  if (btn) {
-    btn.onclick = (e) => {
-      e.preventDefault();
-      // Trigger Google Account Picker Prompt
-      google.accounts.id.prompt((notification) => {
-        if (notification.isNotDisplayed() || notification.isSkippedMomentum()) {
-          // Fallback: render and click native button if popup was blocked
-          const slot = document.getElementById("google-native-btn-slot");
-          if (slot) {
-            slot.classList.remove("hidden");
-            google.accounts.id.renderButton(slot, {
-              theme: "outline",
-              size: "large",
-              width: "100%",
-              text: "continue_with"
-            });
-          }
-        }
-      });
-    };
-  }
-
-  // Also bind round Google icon button if present
-  const roundBtn = document.getElementById("google-login-btn");
-  if (roundBtn) {
-    roundBtn.addEventListener("click", () => {
-      google.accounts.id.prompt();
-    });
-  }
-}
-
 // Handler executed when user selects their Google account
 async function handleGoogleCredentialResponse(response) {
   try {
@@ -6247,21 +6199,6 @@ async function handleGoogleCredentialResponse(response) {
   }
 }
 
-// Expose handlers globally
-window.initGoogleAuth = initGoogleAuth;
-window.handleGoogleCredentialResponse = handleGoogleCredentialResponse;
-
-// Call init once DOM is ready and Google SDK loads
-window.addEventListener("DOMContentLoaded", () => {
-  const checkGoogle = setInterval(() => {
-    if (typeof google !== "undefined" && google.accounts) {
-      clearInterval(checkGoogle);
-      initGoogleAuth();
-    }
-  }, 100);
-});
-
-      
 xGoogleReady();
 
       fresh("proceed-to-student-details-btn").addEventListener("click", async () => {

@@ -1427,6 +1427,7 @@ if (STATIC_DIR !== PUBLIC_DIR && fs.existsSync(PUBLIC_DIR)) {
 }
 
 app.get("*", (req, res) => {
+  res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
   const indexFile = path.join(STATIC_DIR, "index.html");
   if (fs.existsSync(indexFile)) {
     res.sendFile(indexFile);
