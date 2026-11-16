@@ -930,8 +930,8 @@
       // Option selected badge removed as requested
       const statusInd = document.getElementById("exam-status-indicator");
       if (statusInd) {
-        const examNameMap = { ap_cet: "AP CET (EAPCET)", jee_main: "JEE Main", jee_adv: "JEE Advanced", payment: "Payment Colleges" };
-        statusInd.innerHTML = '<span class="text-emerald-700 font-bold">Selected: ' + (examNameMap[examCode] || examCode.toUpperCase()) + '</span>';
+        statusInd.innerHTML = '';
+        statusInd.classList.add('hidden');
       }
 
       // When selecting All Indian Colleges, JEE Main, or JEE Advanced, default state scope to ALL states
