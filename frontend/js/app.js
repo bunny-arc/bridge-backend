@@ -1003,16 +1003,10 @@
       if (typeof showExplorerSlide === "function") {
         showExplorerSlide(1);
       }
-      const target = document.getElementById("rank-input-container") || document.getElementById("explorer-slide-1-filters");
-      if (target) {
-        target.scrollIntoView({ behavior: "smooth", block: "center" });
-        const rInput = document.getElementById("rank-input");
-        if (rInput) {
-          rInput.focus();
-          rInput.classList.add("ring-4", "ring-blue-400");
-          setTimeout(() => rInput.classList.remove("ring-4", "ring-blue-400"), 1800);
-        }
+      if (typeof showHomeSlide === "function") {
+        showHomeSlide(1);
       }
+      window.scrollTo({ top: 0, behavior: "instant" });
     }
 
     function initEventListeners() {
@@ -5317,7 +5311,16 @@ Student Profile Context:
       if (typeof window.updateAppNavVisibility === "function") window.updateAppNavVisibility();
       updateStudentBannersAndSheetHeader(); updateHeaderBadges();
       xPull();
-      switchMainView(appState.priorityList.length ? "priority" : "explore");
+      const urlParams = new URLSearchParams(window.location.search);
+      const requestedTab = urlParams.get("tab");
+      if (requestedTab && ["priority", "search", "analytics", "docs", "profile"].includes(requestedTab)) {
+        switchMainView(requestedTab);
+      } else {
+        switchMainView("add-rank");
+        if (typeof showHomeSlide === "function") {
+          showHomeSlide(1);
+        }
+      }
     }
     const _applyWiz = applyStudentWizardAndLaunch;
     applyStudentWizardAndLaunch = function (t) { _applyWiz(t); xSaveSession(); xPendingPw = ""; xPendingRaw = ""; xSnap(false); };
@@ -5640,6 +5643,14 @@ Student Profile Context:
           }, 450);
         } else {
           if (typeof window.updateAppNavVisibility === "function") window.updateAppNavVisibility();
+        }
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const requestedTab = urlParams.get("tab");
+        if (!requestedTab || requestedTab === "home" || requestedTab === "add-rank") {
+          if (typeof switchMainView === "function") switchMainView("add-rank");
+          if (typeof showHomeSlide === "function") showHomeSlide(1);
+          window.scrollTo({ top: 0, behavior: "instant" });
         }
       }
       setTimeout(dismissSplash, 1800);
