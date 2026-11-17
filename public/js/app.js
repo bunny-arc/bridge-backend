@@ -506,9 +506,9 @@
       const lifeText = placementsText;
 
       const fastBadges = [
-        { icon: "🏛️", title: "Founding Legacy", value: `${est} (${years}+ Yrs)`, sub: type.split(" ")[0] || "Autonomous" },
-        { icon: "🎖️", title: "Accreditation", value: `NAAC ${grade}`, sub: `${rating} Rating` },
-        { icon: "💼", title: "Placement Peak", value: highPkg, sub: `${rate} Rate` },
+        { icon: "", title: "Founding Legacy", value: `${est} (${years}+ Yrs)`, sub: type.split(" ")[0] || "Autonomous" },
+        { icon: "", title: "Accreditation", value: `NAAC ${grade}`, sub: `${rating} Rating` },
+        { icon: "", title: "Placement Peak", value: highPkg, sub: `${rate} Rate` },
         { icon: "📍", title: "Campus & Region", value: district, sub: `${region} Region` }
       ];
 
