@@ -450,21 +450,31 @@
       const sections = sectionIds.map(id => document.getElementById(id)).filter(Boolean);
       if (sections.length === 0) return;
 
+      const headerEl = document.querySelector("header");
+      const navBarEl = document.getElementById("cd-nav-bar");
+      const headerH = headerEl ? headerEl.offsetHeight : 68;
+      const navBarH = navBarEl ? navBarEl.offsetHeight : 48;
+      const totalOffset = headerH + navBarH + 20;
+
       if ("IntersectionObserver" in window) {
         cdScrollSpyObserver = new IntersectionObserver((entries) => {
           const intersecting = entries.filter(e => e.isIntersecting);
           if (intersecting.length > 0) {
-            intersecting.sort((a, b) => Math.abs(a.boundingClientRect.top - 80) - Math.abs(b.boundingClientRect.top - 80));
+            intersecting.sort((a, b) => Math.abs(a.boundingClientRect.top - totalOffset) - Math.abs(b.boundingClientRect.top - totalOffset));
             const activeId = intersecting[0].target.id;
             const navLinks = document.querySelectorAll("#cd-nav-bar .cd-nav-link");
             navLinks.forEach(link => {
-              link.classList.toggle("active", link.getAttribute("data-target") === activeId);
+              const isActive = link.getAttribute("data-target") === activeId;
+              link.classList.toggle("active", isActive);
+              if (isActive && typeof link.scrollIntoView === "function") {
+                link.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
+              }
             });
           }
         }, {
           root: null,
-          rootMargin: "-80px 0px -60% 0px",
-          threshold: [0, 0.2, 0.5, 1.0]
+          rootMargin: `-${totalOffset}px 0px -50% 0px`,
+          threshold: [0, 0.15, 0.4, 0.8]
         });
 
         sections.forEach(s => cdScrollSpyObserver.observe(s));
@@ -475,10 +485,27 @@
       if (!sectionId) return;
       const targetEl = document.getElementById(sectionId);
       if (targetEl) {
-        targetEl.scrollIntoView({ behavior: "smooth", block: "start" });
+        const headerEl = document.querySelector("header");
+        const navBarEl = document.getElementById("cd-nav-bar");
+        const headerH = headerEl ? headerEl.offsetHeight : 68;
+        const navBarH = navBarEl ? navBarEl.offsetHeight : 48;
+        const totalStickyOffset = headerH + navBarH + 16;
+
+        const elementPosition = targetEl.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.pageYOffset - totalStickyOffset;
+
+        window.scrollTo({
+          top: Math.max(0, offsetPosition),
+          behavior: "smooth"
+        });
+
         const navLinks = document.querySelectorAll("#cd-nav-bar .cd-nav-link");
         navLinks.forEach(link => {
-          link.classList.toggle("active", link.getAttribute("data-target") === sectionId);
+          const isActive = link.getAttribute("data-target") === sectionId;
+          link.classList.toggle("active", isActive);
+          if (isActive && typeof link.scrollIntoView === "function") {
+            link.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
+          }
         });
       }
     }
