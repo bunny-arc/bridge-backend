@@ -863,10 +863,7 @@ function openCollegeDetailPage(collegeId) {
       const curIndex = colleges.findIndex(c => c.id === college.id);
       const prevCol = curIndex > 0 ? colleges[curIndex - 1] : colleges[colleges.length - 1];
       const nextCol = curIndex < colleges.length - 1 ? colleges[curIndex + 1] : colleges[0];
-      const prevName = document.getElementById("cd-prev-name");
-      if (prevName && prevCol) prevName.textContent = prevCol.code ? `${prevCol.code} - ${prevCol.name.slice(0, 24)}...` : prevCol.name.slice(0, 30);
-      const nextName = document.getElementById("cd-next-name");
-      if (nextName && nextCol) nextName.textContent = nextCol.code ? `${nextCol.code} - ${nextCol.name.slice(0, 24)}...` : nextCol.name.slice(0, 30);
+      // Pager labels remain clean without truncated college names
 
       // 17. Hide other views & Show Detail View Page (Smooth Full-Page Navigation)
       const homeView = document.getElementById("home-view-container");
@@ -5101,12 +5098,12 @@ function openCollegeDetailPage(collegeId) {
         if (/^(hey|hi|hello|hey there|hai|namaste|greetings)\b/i.test(q)) {
           return `
             <div class="space-y-2">
-              <div class="font-extrabold text-blue-600 text-sm flex items-center gap-1.5"><span>🤖</span> <span>Bridge AI • Powered by Gemini AI</span></div>
+              <div class="font-extrabold text-blue-600 text-sm flex items-center gap-1.5"><span>🤖</span> <span>Bridge AI</span></div>
               <p class="text-slate-900 font-semibold text-sm">
                 Hey ${displayGreeting}! I am Bridge AI, how can I help you?
               </p>
               <p class="text-slate-600 text-[11px]">
-                I am directly linked with Google Gemini AI and pre-trained on <strong>658 verified engineering institutions across India</strong>.
+                I am pre-trained on <strong>658 verified engineering institutions across India</strong>.
               </p>
               <div class="pt-1">
                 <p class="text-slate-500 text-[10px] uppercase font-bold mb-1">Popular questions to ask:</p>
@@ -5399,7 +5396,7 @@ function openCollegeDetailPage(collegeId) {
         typingDiv.className = "flex justify-start";
         typingDiv.innerHTML = `<div class="bg-blue-50 border border-blue-200 text-blue-700 p-3 rounded-2xl rounded-tl-none text-xs flex items-center gap-2 shadow-xs">
           <span class="animate-bounce inline-block text-sm">🤖</span>
-          <span class="font-semibold text-slate-700">Bridge AI is reasoning with Gemini...</span>
+          <span class="font-semibold text-slate-700">Bridge AI is reasoning...</span>
         </div>`;
         msgBox?.appendChild(typingDiv);
         msgBox.scrollTop = msgBox.scrollHeight;
