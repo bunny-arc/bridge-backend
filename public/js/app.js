@@ -502,14 +502,14 @@ function openCollegeDetailPage(collegeId) {
       viewsToHide.forEach(v => {
         if (v) {
           v.classList.add("hidden");
-          v.style.setProperty("display", "none", "important");
+          v.style.removeProperty("display");
         }
       });
 
       if (detailPage) {
         detailPage.classList.remove("hidden");
         detailPage.style.removeProperty("display");
-        detailPage.style.setProperty("display", "block", "important");
+        detailPage.style.display = "block";
       }
 
       // Reset Detail Sub-Nav bar to About section & attach scroll spy
@@ -608,18 +608,26 @@ function openCollegeDetailPage(collegeId) {
       const detailPage = document.getElementById("college-detail-view-container");
       if (detailPage) {
         detailPage.classList.add("hidden");
-        detailPage.style.setProperty("display", "none", "important");
+        detailPage.style.removeProperty("display");
+        detailPage.style.display = "none";
       }
 
-      const returnView = appState.previousView || "add-rank";
-      switchMainView(returnView);
-      if (returnView === "add-rank" || returnView === "home") {
-        if (typeof showHomeSlide === "function") {
-          showHomeSlide(2); // Keep on Slide 2 so eligible college search is preserved!
-        }
+      // Smoothly return directly to the Search Directory view (Pic 3)
+      switchMainView("search");
+
+      if (typeof window.renderSearchDirectory === "function") {
+        window.renderSearchDirectory();
       }
+
+      setTimeout(() => {
+        const searchInput = document.getElementById("search-directory-input") || document.getElementById("slide2-college-search");
+        if (searchInput) {
+          searchInput.focus();
+        }
+      }, 80);
+
       try {
-        window.history.pushState({}, "The Bridge", `#/home`);
+        window.history.pushState({}, "Search Colleges", "#/search");
       } catch (e) {}
     }
 
@@ -1246,9 +1254,15 @@ function openCollegeDetailPage(collegeId) {
       const profileView = document.getElementById("profile-view-container");
       const historyView = document.getElementById("history-view-container");
       const collegeDetailView = document.getElementById("college-detail-view-container");
+
+      // Reset inline display styles on ALL views so none remain locked in display: none !important!
+      [homeView, searchView, priorityView, analyticsView, docsView, profileView, historyView, collegeDetailView].forEach(v => {
+        if (v) v.style.removeProperty("display");
+      });
+
       if (collegeDetailView && viewName !== "college-detail") {
         collegeDetailView.classList.add("hidden");
-        collegeDetailView.style.setProperty("display", "none", "important");
+        collegeDetailView.style.display = "none";
       }
 
       if (viewName === "add-rank" || viewName === "home") {
@@ -1269,14 +1283,24 @@ function openCollegeDetailPage(collegeId) {
         }
       } else if (viewName === "search") {
         if (homeView) homeView.classList.add("hidden");
-        if (searchView) searchView.classList.remove("hidden");
+        if (searchView) {
+          searchView.classList.remove("hidden");
+          searchView.style.removeProperty("display");
+          searchView.style.display = "block";
+        }
         if (priorityView) priorityView.classList.add("hidden");
         if (analyticsView) analyticsView.classList.add("hidden");
         if (docsView) docsView.classList.add("hidden");
         if (profileView) profileView.classList.add("hidden");
         if (historyView) historyView.classList.add("hidden");
 
-        document.querySelectorAll("#app-nav button").forEach(b => b.classList.toggle("on", b.dataset.nav === "search"));
+        // Update both bottom-nav and header-nav buttons
+        document.querySelectorAll("#app-nav button, .bottom-nav-btn").forEach(b => {
+          const isSearch = b.dataset.nav === "search" || b.id === "nav-search" || b.getAttribute("data-tab") === "search";
+          b.classList.toggle("on", isSearch);
+          b.classList.toggle("active", isSearch);
+        });
+
         if (typeof renderSearchDirectory === "function") {
           renderSearchDirectory();
         }
