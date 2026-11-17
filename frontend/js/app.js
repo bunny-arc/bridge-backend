@@ -59,7 +59,101 @@
     let cdHeroActiveSlide = 0;
     let cdHeroImages = [];
 
-    function openCollegeDetailPage(collegeId) {
+        function findAnyCollege(id) {
+      if (!id) return null;
+      const strId = String(id).trim().toLowerCase();
+      const list1 = (typeof collegesData !== "undefined" && Array.isArray(collegesData)) ? collegesData : (window.collegesData || []);
+      let found = list1.find(c => String(c.id).toLowerCase() === strId || String(c.code || '').toLowerCase() === strId);
+      if (found) return found;
+
+      const list2 = (typeof allCollegesDataset !== "undefined" && Array.isArray(allCollegesDataset)) ? allCollegesDataset : (window.allCollegesDataset || []);
+      found = list2.find(c => String(c.id).toLowerCase() === strId || String(c.code || '').toLowerCase() === strId);
+      if (found) return found;
+
+      const list3 = (typeof allCollegesDatasetList !== "undefined" && Array.isArray(allCollegesDatasetList)) ? allCollegesDatasetList : [];
+      found = list3.find(c => String(c.id).toLowerCase() === strId || String(c.code || '').toLowerCase() === strId);
+      if (found) return found;
+
+      const list4 = (typeof coreCollegesData !== "undefined" && Array.isArray(coreCollegesData)) ? coreCollegesData : [];
+      found = list4.find(c => String(c.id).toLowerCase() === strId || String(c.code || '').toLowerCase() === strId);
+      return found || null;
+    }
+    window.findAnyCollege = findAnyCollege;
+
+    function getCollegeDetailedDossier(college) {
+      const code = (college.code || "").toUpperCase();
+      const name = college.name || "Engineering College";
+      const est = college.established || 2008;
+      const years = Math.max(10, new Date().getFullYear() - est);
+      const loc = college.location || (college.district ? `${college.district}, Andhra Pradesh` : "Andhra Pradesh");
+      const district = college.district || "Andhra Pradesh";
+      const grade = college.grade || "A";
+      const rating = college.rating || "4.5★";
+      const type = college.type || "Autonomous Engineering College";
+      const region = college.region || "AP";
+      const highPkg = college.placements?.highestPackage || "₹24.0 LPA";
+      const medPkg = college.placements?.medianPackage || "₹6.0 LPA";
+      const avgPkg = college.placements?.avgPackage || "₹6.5 LPA";
+      const rate = college.placements?.placementRate || "75%";
+      const recruiters = (college.placements?.topRecruiters || ["TCS", "Infosys", "Wipro", "Accenture", "Cognizant", "L&T"]).slice(0, 7).join(", ");
+      const branches = (college.branches || []).map(b => b.name || b.code).slice(0, 5).join(", ");
+
+      let historyText = "";
+      let academicText = "";
+      let infraText = "";
+      let researchText = "";
+      let lifeText = "";
+
+      if (code === "AUCE") {
+        historyText = "Andhra University College of Engineering (AUCE), Visakhapatnam, stands as one of India's oldest and most prestigious technical institutions. Technical education at Andhra University traces back to 1933 with the pioneering Department of Sugar Technology (which later evolved into the Department of Chemical Engineering—the first of its kind in India). The engineering college was formally sanctioned in 1946 under the composite Madras State and relocated in 1955 to its sprawling 160-acre coastal North Campus in Waltair, Visakhapatnam, overlooking the scenic Bay of Bengal. Over eight decades, AUCE has nurtured eminent engineers, scientists, and industry leaders across the globe.";
+        academicText = "AUCE operates with autonomous governance under Andhra University, holding the highest NAAC A++ accreditation (CGPA 3.74) and NBA Tier-1 programmatic accreditations. In the National Institutional Ranking Framework (NIRF), the institution consistently features among India's top engineering colleges (Rank 88). Its academic model incorporates Outcome-Based Education (OBE) and a flexible Choice-Based Credit System (CBCS), offering specialized B.Tech programs in Computer Science & Systems Engineering, Naval Architecture & Offshore Marine Engineering (a rare national specialty), Artificial Intelligence, Bio-Technology, Electronics, Chemical, and Geo-Informatics.";
+        infraText = "The 160-acre coastal campus boasts specialized domain laboratories, the Siemens Center of Excellence, high-performance computing centers, and high-speed campus-wide gigabit Wi-Fi. Students enjoy full access to the historic Dr. V.S. Krishna Central Library, which houses over 500,000 volumes, international print journals, and 24/7 digital subscriptions to IEEE Xplore, ScienceDirect, and Springer repositories. The campus provides dedicated hostels, a modern indoor gymnasium, basketball and tennis complexes, and a seaside cricket pavilion.";
+        researchText = "AUCE is an internationally recognized research center with extensive sponsored R&D grants from DST, DBT, AICTE, ISRO, DRDO, and the Naval Science & Technological Laboratory (NSTL). Faculty members regularly publish in high-impact Scopus and SCI-indexed journals. The campus hosts a dedicated MSME-recognized startup incubation center, facilitating student patent filings, prototypes, and deep-tech entrepreneurship.";
+        lifeText = "Campus life at AUCE is culturally rich and intellectually dynamic. Active student chapters include IEEE, ACM, CSI, IETE, and the Society of Naval Architects. The college hosts 'RHYTHMS' and annual departmental national technical symposiums (including 'AU TECHNOMANIA') that bring together thousands of engineering delegates across India. Additionally, NCC (Army and Navy wings), NSS units, coding clubs, and university sports tournaments foster comprehensive student leadership.";
+      } else if (code === "JNTUK") {
+        historyText = "University College of Engineering Kakinada (UCEK), the premier constituent college and headquarters of JNTU Kakinada, was founded in 1946 by the Government of the Composite Madras State as the 'College of Engineering, Vizagpatnam', temporarily located in Kakinada. In 1972, it became a founding constituent college of the newly formed Jawaharlal Nehru Technological University (JNTU). Following the university restructuring in 2008, it became the flagship campus of JNTU Kakinada, maintaining an exceptional 79-year tradition of rigorous academic training, high GATE pass percentages, and public service leadership.";
+        academicText = "Situated on a lush 110-acre campus in the port city of Kakinada, the institution holds autonomous status with NAAC A+ accreditation and NBA accredited departments. Nationally ranked in NIRF's top university and engineering bands (101-150 band), UCEK provides rigorous curricula aligned with AICTE models. Students undergo advanced coursework in Computer Science, Artificial Intelligence & Machine Learning, Electronics & Communication, Electrical Power Systems, and Petroleum/Petrochemical Engineering.";
+        infraText = "The 110-acre campus blends historic architecture with cutting-edge engineering laboratories, heavy machinery workshops, robotics labs, and CAD/CAM computing suites. The University Central Library offers over 75,000 technical titles, DELNET access, and electronic journals. On-campus residential facilities include dedicated Nagavali and Krishna student hostel blocks, a modern auditorium, health center, and sprawling sports grounds.";
+        researchText = "JNTUK UCEK drives extensive applied research funded by UGC, AICTE, and regional industries. Faculty and student research spans smart grid technologies, earthquake-resistant structural analysis, composite materials, and cybersecurity. The University Innovation & Incubation Center supports student ventures, hackathons, and state-level startup initiatives.";
+        lifeText = "Student life thrives through technical societies and competitive hackathons. Key annual national symposiums include 'ENSEMBLE' (CSE), 'STRIDE' (ECE), and 'EXPLORERS' (Mechanical). Students actively participate in Google Developer Student Clubs (GDSC), robotics teams, cultural societies, and inter-university athletic championships.";
+      } else if (code === "SVUCE") {
+        historyText = "Sri Venkateswara University College of Engineering (SVUCE), Tirupati, was established in 1959 as a constituent college of Sri Venkateswara University. Nestled at the serene foothills of the sacred Tirumala Hills, the college spans an expansive 150-acre campus. Over six decades, SVUCE has stood as a pillar of higher technical education in Rayalaseema and South India, graduating distinguished engineers, scientists, and civil administrators.";
+        academicText = "SVUCE is an autonomous technical institution accredited by NAAC with an 'A+' grade, with its core engineering branches accredited by the NBA under Tier-1. The curriculum emphasizes fundamental engineering mastery, multidisciplinary electives, and hands-on laboratory rigor. Major offerings include Computer Science & Engineering, Electronics & Communication, Electrical & Electronics, Mechanical, Civil, and Chemical Engineering.";
+        infraText = "The 150-acre green campus houses specialized computing laboratories, a high-voltage testing facility, soil mechanics and environmental testing setups, and high-speed Wi-Fi connectivity. Students have full access to the SV University Central Library, one of the largest in Andhra Pradesh, with over 350,000 volumes and digital IEEE access. On-campus residential hostels provide secure accommodation and sports facilities including tennis, volleyball, and athletic tracks.";
+        researchText = "SVUCE hosts dedicated research facilities supported by DST-PURSE, AICTE, and UGC. Research thrust areas include signal processing, renewable solar/wind microgrids, advanced concrete materials, and data analytics. An active Industry-Institute Interaction Cell bridges academic innovation with leading industrial corporations.";
+        lifeText = "Campus culture combines academic rigor with lively extracurricular engagement. The college organizes annual national technical symposia such as 'SIGMOID', 'ELECTROFOCUS', and 'MECHANO', alongside vibrant cultural festivals, literary clubs, NSS initiatives, and university sports tournaments.";
+      } else if (code === "GVP" || code === "GVPCE") {
+        historyText = "Gayatri Vidya Parishad College of Engineering (Autonomous), Visakhapatnam, was founded in 1996 by the Gayatri Vidya Parishad educational society, a renowned association of visionary academicians, scientists, and philanthropists. Located on a scenic 21-acre campus in Madhurawada along NH-16, GVPCE has earned the reputation of being the premier private engineering college in Andhra Pradesh, recognized for exceptional academic standards and top-tier placement results.";
+        academicText = "GVPCE holds autonomous status conferred by UGC and is accredited by NAAC with the highest 'A++' grade (CGPA 3.52). All eligible undergraduate programs are accredited by the NBA under Tier-1. The institution follows an agile, industry-aligned curriculum offering cutting-edge specializations in AI & Machine Learning, Data Science, IoT, VLSI, Robotics, and Computer Science & Business Systems.";
+        infraText = "The campus features contemporary architecture, high-speed campus-wide Wi-Fi, air-conditioned computer centers, Siemens CoE labs, robotics labs, and advanced fluid mechanics and strength of materials laboratories. The college digital library has a collection of over 80,000 books and digital access to IEEE, ASME, and ASCE. On-campus amenities include hygienic student hostels, food courts, and an indoor sports complex.";
+        researchText = "GVPCE maintains a vibrant research culture with grants exceeding ₹5 Crores from DST, AICTE, and naval defense establishments. The GVP Center for Research & Development and the MSME Business Incubator nurture patent filings, commercial prototypes, and student-founded startups.";
+        lifeText = "Student life is packed with technical festivals and cultural vibrancy. 'EKATHRA', the grand national annual fest, draws participants from across South India. Clubs like the Coding Club, Rotaract, IEEE Student Branch, and SAE Collegiate Club organize round-the-year hackathons, robotics challenges, and community outreach drives.";
+      } else if (code === "VRSEC") {
+        historyText = "Velagapudi Ramakrishna Siddhartha Engineering College (VRSEC), Vijayawada, established in 1977, is the historic first private engineering college in the composite state of Andhra Pradesh. Sponsored by the Siddhartha Academy of General & Technical Education, the 24-acre green campus in Kanuru has set the benchmark for private technical education in Andhra Pradesh for over four decades.";
+        academicText = "VRSEC is an autonomous institution affiliated with JNTU Kakinada, holding NAAC 'A+' grade accreditation and NBA accreditation for all eligible programs under Tier-1. Regularly ranked in the NIRF top 150 engineering band, VRSEC offers industry-curated B.Tech tracks in CSE, AI & Data Science, IT, ECE, EEE, Mechanical, and Civil Engineering with minors and honors degrees.";
+        infraText = "The 24-acre urban campus is equipped with specialized innovation centers, an Apple iOS Developer Lab, an Intel Intelligent Systems Lab, and Dassault 3D Experience centers. The Dr. K.V. Rao Central Digital Library contains over 100,000 books and extensive digital repositories. Campus amenities include on-campus student hostels, an indoor sports stadium, gymnasiums, and multiple dining outlets.";
+        researchText = "VRSEC boasts an active Center of Excellence in Advanced Materials and Smart Grids, funded by AICTE and DST. The college incubation center has produced several successful student ventures and filed over 50 patents in recent years.";
+        lifeText = "Campus vitality is reflected in 'AFOSEC', one of the largest student-run technical and cultural festivals in Andhra Pradesh. Active chapters of CSI, ACM, IEEE, and ISTE sponsor year-round coding competitions, design hackathons, and sports leagues.";
+      } else {
+        historyText = `${name} (${code}) is a premier engineering institution situated in ${loc}. Established in ${est}, the college has built a distinguished heritage spanning ${years}+ years of academic discipline, technical innovation, and career excellence. The campus is designed to provide an inspiring environment with modern multi-acre educational infrastructure, green landscaped grounds, and a focused atmosphere for technical discovery.`;
+        academicText = `Operating under the governance of ${type} with ${region} regional affiliation, the college holds accreditation from NAAC (Grade ${grade}, rating ${rating}) and approval from AICTE. Core B.Tech branches${branches ? ` including ${branches}` : ''} follow Outcome-Based Education (OBE) and Choice-Based Credit System (CBCS) principles. The curriculum integrates modern computational tools, data science electives, and hands-on laboratory practice to ensure graduates meet industry engineering benchmarks.`;
+        infraText = `The campus features modern air-conditioned computing centers, high-speed fiber-optic Wi-Fi, advanced core engineering workshops, smart interactive lecture halls, and specialized domain laboratories. The central digital library provides access to thousands of technical volumes, reference handbooks, and online subscriptions to national and international engineering e-journals (including IEEE and DELNET). Residential campus hostels offer secure accommodation, hygienic dining halls, sports fields, and 24/7 security.`;
+        researchText = `The institution maintains active research initiatives through its R&D cell and Industry-Institute Interaction Cell (IIIC). Faculty members and undergraduate scholars collaborate on applied technical projects, paper publications, and student innovation competitions. A dedicated Entrepreneurship Development Cell (EDC) mentors students on prototyping, startup ideation, and intellectual property.`;
+        lifeText = `Student life is lively and multidimensional. The campus hosts active technical student chapters (such as CSI, IEEE, IETE), developer clubs, coding bootcamps, and annual national-level technical symposiums that showcase student projects and robotics designs. In addition, cultural fests, sports meets, NSS, and social leadership activities provide holistic development.`;
+      }
+
+      const fastBadges = [
+        { icon: "🏛️", title: "Founding Legacy", value: `${est} (${years}+ Yrs)`, sub: type.split(" ")[0] || "Autonomous" },
+        { icon: "🎖️", title: "Accreditation", value: `NAAC ${grade}`, sub: `${rating} Rating` },
+        { icon: "💼", title: "Placement Peak", value: highPkg, sub: `${rate} Rate` },
+        { icon: "📍", title: "Campus & Region", value: district, sub: `${region} Region` }
+      ];
+
+      return { historyText, academicText, infraText, researchText, lifeText, fastBadges };
+    }
+    window.getCollegeDetailedDossier = getCollegeDetailedDossier;
+
+function openCollegeDetailPage(collegeId) {
       if (!collegeId) return;
       const colleges = (typeof collegesData !== "undefined" && Array.isArray(collegesData)) ? collegesData : (window.collegesData || []);
       const strId = String(collegeId).trim().toLowerCase();
