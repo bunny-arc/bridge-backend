@@ -426,12 +426,68 @@
         detailPage.style.display = "block";
       }
 
+      // Reset Detail Sub-Nav bar to About section & attach scroll spy
+      const navLinks = document.querySelectorAll("#cd-nav-bar .cd-nav-link");
+      navLinks.forEach(l => {
+        l.classList.toggle("active", l.getAttribute("data-target") === "cd-section-about");
+      });
+      setupCdNavScrollSpy();
+
       // Update URL hash cleanly
       try {
         window.history.pushState({ collegeId: college.id }, college.name, `#/college/${college.id}`);
       } catch (e) {}
 
       window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    let cdScrollSpyObserver = null;
+    function setupCdNavScrollSpy() {
+      if (cdScrollSpyObserver) {
+        cdScrollSpyObserver.disconnect();
+        cdScrollSpyObserver = null;
+      }
+      const sectionIds = [
+        "cd-section-about",
+        "cd-section-placements",
+        "cd-section-travel",
+        "cd-section-food",
+        "cd-section-hostels"
+      ];
+      const sections = sectionIds.map(id => document.getElementById(id)).filter(Boolean);
+      if (sections.length === 0) return;
+
+      if ("IntersectionObserver" in window) {
+        cdScrollSpyObserver = new IntersectionObserver((entries) => {
+          const intersecting = entries.filter(e => e.isIntersecting);
+          if (intersecting.length > 0) {
+            intersecting.sort((a, b) => Math.abs(a.boundingClientRect.top - 80) - Math.abs(b.boundingClientRect.top - 80));
+            const activeId = intersecting[0].target.id;
+            const navLinks = document.querySelectorAll("#cd-nav-bar .cd-nav-link");
+            navLinks.forEach(link => {
+              link.classList.toggle("active", link.getAttribute("data-target") === activeId);
+            });
+          }
+        }, {
+          root: null,
+          rootMargin: "-80px 0px -60% 0px",
+          threshold: [0, 0.2, 0.5, 1.0]
+        });
+
+        sections.forEach(s => cdScrollSpyObserver.observe(s));
+      }
+    }
+
+    function scrollToCdSection(sectionId) {
+      if (!sectionId) return;
+      const targetEl = document.getElementById(sectionId);
+      if (targetEl) {
+        targetEl.scrollIntoView({ behavior: "smooth", block: "start" });
+        const navLinks = document.querySelectorAll("#cd-nav-bar .cd-nav-link");
+        navLinks.forEach(link => {
+          link.classList.toggle("active", link.getAttribute("data-target") === sectionId);
+        });
+      }
     }
 
     function closeCollegeDetailPage() {
@@ -502,6 +558,7 @@
     window.navigateAdjacentCollege = navigateAdjacentCollege;
     window.toggleCollegeDetailPageFavorite = toggleCollegeDetailPageFavorite;
     window.openCollegeModal = openCollegeDetailPage;
+    window.scrollToCdSection = scrollToCdSection;
 
 
     function switchModalTab(tabKey) {

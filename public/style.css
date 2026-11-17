@@ -897,3 +897,65 @@ html.dark .cd-gallery-lg figcaption {
 html.dark .cd-pager {
   border-color: #334155;
 }
+
+/* ============================================================
+   College Detail Page - Sub Navigation (Pic 1 / AJ Architects Reference)
+   ============================================================ */
+.cd-nav-bar {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  border-bottom: 1px solid #e2e8f0;
+  padding: 0 4px;
+  margin: 1.25rem 0 2rem 0;
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  background: rgba(255, 255, 255, 0.96);
+  backdrop-filter: blur(8px);
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.cd-nav-bar::-webkit-scrollbar {
+  display: none;
+}
+.cd-nav-link {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #64748b;
+  padding: 10px 2px 12px 2px;
+  border-bottom: 2.5px solid transparent;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  white-space: nowrap;
+  text-decoration: none;
+  display: inline-block;
+}
+.cd-nav-link:hover {
+  color: #0f172a;
+}
+.cd-nav-link.active {
+  color: #0f172a;
+  border-bottom-color: #a44a24; /* Terracotta active underline matching Pic 1 */
+  font-weight: 700;
+}
+.cd-detail-section {
+  scroll-margin-top: 5rem;
+}
+
+html.dark .cd-nav-bar {
+  background: rgba(15, 23, 42, 0.96);
+  border-bottom-color: #334155;
+}
+html.dark .cd-nav-link {
+  color: #94a3b8;
+}
+html.dark .cd-nav-link:hover {
+  color: #f8fafc;
+}
+html.dark .cd-nav-link.active {
+  color: #f8fafc;
+  border-bottom-color: #ea580c;
+}
+
