@@ -742,42 +742,10 @@
       <!-- Main Detail Content Card -->
       <div class="bg-white rounded-2xl shadow-sm border border-slate-200/90 p-5 sm:p-8 space-y-6">
 
-        <!-- Top Header Info (Full Width) -->
-        <div class="flex items-start justify-between gap-4 flex-wrap sm:flex-nowrap">
-          <div class="flex-1 min-w-0">
-            <!-- Eyebrow -->
-            <p id="cd-eyebrow" class="cd-eyebrow">AP CET · AU REGION · ESTD 1946 · CODE: AUCE</p>
-
-            <!-- H1 College Name Title -->
-            <h1 id="cd-title" class="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 tracking-tight leading-tight mt-1">
-              Andhra University College of Engineering (AUCE)
-            </h1>
-
-            <!-- Lede Description / Tagline -->
-            <p id="cd-lede" class="cd-lede mt-3">
-              Premier state government university engineering college with NAAC A++ accreditation and top-tier placement record.
-            </p>
-          </div>
-
-          <!-- Add to Favorites button directly on College Page Header (Pic 1 & Pic 2) -->
-          <div class="shrink-0 pt-1">
-            <button id="cd-page-fav-btn" type="button" onclick="toggleCollegeDetailPageFavorite(); return false;" class="px-4 py-2.5 rounded-xl border border-slate-300 bg-white hover:bg-slate-50 text-slate-800 font-bold text-xs sm:text-sm transition flex items-center gap-2 shadow-2xs cursor-pointer active:scale-95" title="Add to Favorites">
-              <span id="cd-page-fav-star" class="text-amber-500 font-bold text-base">☆</span>
-              <span id="cd-page-fav-label">Add to Favorites</span>
-            </button>
-          </div>
-        </div>
-
-        <!-- Hero Campus Photo with Navigation Controls (FULL WIDTH, extends across container) -->
+        <!-- 1. Hero Photo with Navigation Controls (FIRST) -->
         <div id="cd-hero-slide-container" class="relative w-full rounded-2xl overflow-hidden border border-slate-200 bg-slate-950 shadow-md group cursor-pointer" onclick="openCollegeImageZoomModal(cdHeroActiveSlide)">
-          <img id="cd-hero-img" class="w-full h-72 sm:h-96 md:h-[480px] lg:h-[520px] object-cover transition-all duration-300 group-hover:scale-[1.02]" src="" alt="College Campus">
+          <img id="cd-hero-img" class="w-full h-72 sm:h-96 md:h-[480px] lg:h-[520px] object-cover transition-all duration-300 group-hover:scale-[1.02]" src="" alt="College Photo">
           <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20 pointer-events-none"></div>
-
-          <!-- Click to Zoom & View Info Badge -->
-          <div class="absolute bottom-3 left-3 px-3 py-1.5 rounded-full backdrop-blur-md bg-black/70 text-white text-xs font-bold border border-white/20 flex items-center gap-1.5 transition group-hover:bg-blue-600 pointer-events-none shadow-sm">
-            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v6m3-3H7"/></svg>
-            <span>Click to Zoom & View Info</span>
-          </div>
 
           <!-- Slide Controls for Multiple Photos -->
           <button id="cd-hero-prev" type="button" onclick="event.stopPropagation();" class="absolute left-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-black/60 hover:bg-black/85 backdrop-blur-md text-white flex items-center justify-center font-bold border border-white/20 transition z-20 cursor-pointer shadow-md active:scale-95" title="Previous Photo">
@@ -788,6 +756,27 @@
           </button>
           <div class="absolute bottom-3 right-3 px-3 py-1 rounded-full backdrop-blur-md bg-black/70 text-white text-xs font-bold border border-white/20 select-none">
             <span id="cd-hero-counter">1 / 1</span>
+          </div>
+        </div>
+
+        <!-- 2. College Name & Details (BELOW PHOTO) -->
+        <div class="flex items-start justify-between gap-4 flex-wrap sm:flex-nowrap pt-2">
+          <div class="flex-1 min-w-0">
+            <!-- Eyebrow -->
+            <p id="cd-eyebrow" class="cd-eyebrow">AP CET · AU REGION · ESTD 1946 · CODE: AUCE</p>
+
+            <!-- H1 College Name Title -->
+            <h1 id="cd-title" class="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 tracking-tight leading-tight mt-1">
+              Andhra University College of Engineering (AUCE)
+            </h1>
+          </div>
+
+          <!-- Add to Favorites button directly on College Page Header -->
+          <div class="shrink-0 pt-1">
+            <button id="cd-page-fav-btn" type="button" onclick="toggleCollegeDetailPageFavorite(); return false;" class="px-4 py-2.5 rounded-xl border border-slate-300 bg-white hover:bg-slate-50 text-slate-800 font-bold text-xs sm:text-sm transition flex items-center gap-2 shadow-2xs cursor-pointer active:scale-95" title="Add to Favorites">
+              <span id="cd-page-fav-star" class="text-amber-500 font-bold text-base">☆</span>
+              <span id="cd-page-fav-label">Add to Favorites</span>
+            </button>
           </div>
         </div>
 
@@ -1023,8 +1012,8 @@
                   <!-- 2. Google Maps Navigation Banner -->
                   <div class="mt-4 p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-700 text-white shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4">
                     <div class="flex items-center gap-3.5">
-                      <div class="w-10 h-10 rounded-xl bg-white/20 backdrop-blur-md flex items-center justify-center shrink-0 shadow-inner">
-                        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"/><line x1="9" y1="3" x2="9" y2="18"/><line x1="15" y1="6" x2="15" y2="21"/></svg>
+                      <div class="w-10 h-10 rounded-xl bg-white flex items-center justify-center shrink-0 shadow-sm text-slate-900">
+                        <svg class="w-5 h-5 text-slate-900" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
                       </div>
                       <div>
                         <h4 class="font-bold text-base sm:text-lg text-white">Google Maps Navigation</h4>
@@ -3247,7 +3236,7 @@
           <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v6m3-3H7"/></svg>
         </span>
         <div class="min-w-0">
-          <div id="cd-zoom-modal-title" class="text-sm sm:text-base font-bold truncate">College Campus Photo</div>
+          <div id="cd-zoom-modal-title" class="text-sm sm:text-base font-bold truncate">College Photo</div>
           <div id="cd-zoom-modal-subtitle" class="text-[11px] text-slate-300 truncate">Photo 1 of 4</div>
         </div>
       </div>

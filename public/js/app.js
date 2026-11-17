@@ -556,10 +556,7 @@ function openCollegeDetailPage(collegeId) {
         const codeSuffix = `(${college.code})`;
         title.textContent = (college.name && college.name.includes(codeSuffix)) ? college.name : `${college.name} ${codeSuffix}`;
       }
-      const lede = document.getElementById("cd-lede");
-      if (lede) {
-        lede.textContent = college.summary || "Comprehensive autonomous engineering college offering cutting-edge B.Tech curriculum, industry-sponsored laboratories, and high placement outcomes.";
-      }
+      
       const summary = document.getElementById("cd-summary");
       if (summary) {
         summary.textContent = college.summary || `${college.name} (${college.code}) is located in ${getCollegeCardLocation(college)}. Established in ${college.established || '2008'}, the college holds a rating of ${college.rating || '4.5★'} and NAAC ${college.grade || 'A'} accreditation.`;
