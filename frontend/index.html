@@ -743,69 +743,70 @@
       </div>
 
       <!-- Main Detail Content Card -->
-      <div class="bg-white rounded-2xl shadow-sm border border-slate-200/90 p-5 sm:p-8">
-        <div class="cd-detail-grid">
+      <div class="bg-white rounded-2xl shadow-sm border border-slate-200/90 p-5 sm:p-8 space-y-6">
 
-          <!-- Left Main Column (Overview, Concept, Branches, Placements, Hostels, Travel, Food) -->
-          <div class="min-w-0">
-            <!-- Eyebrow -->
-            <p id="cd-eyebrow" class="cd-eyebrow">AP CET · AU REGION · ESTD 1946 · CODE: AUCE</p>
+        <!-- Top Header Info (Full Width) -->
+        <div>
+          <!-- Eyebrow -->
+          <p id="cd-eyebrow" class="cd-eyebrow">AP CET · AU REGION · ESTD 1946 · CODE: AUCE</p>
 
-            <!-- H1 College Name Title -->
-            <h1 id="cd-title" class="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 tracking-tight leading-tight">
-              Andhra University College of Engineering (AUCE)
-            </h1>
+          <!-- H1 College Name Title -->
+          <h1 id="cd-title" class="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 tracking-tight leading-tight mt-1">
+            Andhra University College of Engineering (AUCE)
+          </h1>
 
-            <!-- Lede Description / Tagline -->
-            <p id="cd-lede" class="cd-lede mt-3">
-              Premier state government university engineering college with NAAC A++ accreditation and top-tier placement record.
-            </p>
+          <!-- Lede Description / Tagline -->
+          <p id="cd-lede" class="cd-lede mt-3">
+            Premier state government university engineering college with NAAC A++ accreditation and top-tier placement record.
+          </p>
+        </div>
 
-            <!-- Hero Campus Photo with Navigation Controls (Taking reference from demoooo for pagess.html hero-shot) -->
-            <div id="cd-hero-slide-container" class="relative w-full rounded-2xl overflow-hidden border border-slate-200 bg-slate-950 shadow-md my-6 group cursor-pointer" onclick="openCollegeImageZoomModal(cdHeroActiveSlide)">
-              <img id="cd-hero-img" class="w-full h-64 sm:h-80 md:h-96 object-cover transition-all duration-300 group-hover:scale-[1.02]" src="" alt="College Campus">
-              <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20 pointer-events-none"></div>
+        <!-- Hero Campus Photo with Navigation Controls (FULL WIDTH, extends across container) -->
+        <div id="cd-hero-slide-container" class="relative w-full rounded-2xl overflow-hidden border border-slate-200 bg-slate-950 shadow-md group cursor-pointer" onclick="openCollegeImageZoomModal(cdHeroActiveSlide)">
+          <img id="cd-hero-img" class="w-full h-72 sm:h-96 md:h-[480px] lg:h-[520px] object-cover transition-all duration-300 group-hover:scale-[1.02]" src="" alt="College Campus">
+          <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20 pointer-events-none"></div>
 
-              <!-- Click to Zoom & View Info Badge -->
-              <div class="absolute bottom-3 left-3 px-3 py-1.5 rounded-full backdrop-blur-md bg-black/70 text-white text-xs font-bold border border-white/20 flex items-center gap-1.5 transition group-hover:bg-blue-600 pointer-events-none shadow-sm">
-                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v6m3-3H7"/></svg>
-                <span>Click to Zoom & View Info</span>
-              </div>
+          <!-- Click to Zoom & View Info Badge -->
+          <div class="absolute bottom-3 left-3 px-3 py-1.5 rounded-full backdrop-blur-md bg-black/70 text-white text-xs font-bold border border-white/20 flex items-center gap-1.5 transition group-hover:bg-blue-600 pointer-events-none shadow-sm">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v6m3-3H7"/></svg>
+            <span>Click to Zoom & View Info</span>
+          </div>
 
-              <!-- Slide Controls for Multiple Photos -->
-              <button id="cd-hero-prev" type="button" onclick="event.stopPropagation();" class="absolute left-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-black/60 hover:bg-black/85 backdrop-blur-md text-white flex items-center justify-center font-bold border border-white/20 transition z-20 cursor-pointer shadow-md active:scale-95" title="Previous Photo">
-                <svg class="w-5 h-5 pointer-events-none" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
-              </button>
-              <button id="cd-hero-next" type="button" onclick="event.stopPropagation();" class="absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-black/60 hover:bg-black/85 backdrop-blur-md text-white flex items-center justify-center font-bold border border-white/20 transition z-20 cursor-pointer shadow-md active:scale-95" title="Next Photo">
-                <svg class="w-5 h-5 pointer-events-none" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
-              </button>
-              <div class="absolute bottom-3 right-3 px-3 py-1 rounded-full backdrop-blur-md bg-black/70 text-white text-xs font-bold border border-white/20 select-none">
-                <span id="cd-hero-counter">1 / 1</span>
-              </div>
-            </div>
+          <!-- Slide Controls for Multiple Photos -->
+          <button id="cd-hero-prev" type="button" onclick="event.stopPropagation();" class="absolute left-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-black/60 hover:bg-black/85 backdrop-blur-md text-white flex items-center justify-center font-bold border border-white/20 transition z-20 cursor-pointer shadow-md active:scale-95" title="Previous Photo">
+            <svg class="w-5 h-5 pointer-events-none" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+          </button>
+          <button id="cd-hero-next" type="button" onclick="event.stopPropagation();" class="absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-black/60 hover:bg-black/85 backdrop-blur-md text-white flex items-center justify-center font-bold border border-white/20 transition z-20 cursor-pointer shadow-md active:scale-95" title="Next Photo">
+            <svg class="w-5 h-5 pointer-events-none" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+          </button>
+          <div class="absolute bottom-3 right-3 px-3 py-1 rounded-full backdrop-blur-md bg-black/70 text-white text-xs font-bold border border-white/20 select-none">
+            <span id="cd-hero-counter">1 / 1</span>
+          </div>
+        </div>
 
-            <!-- Low Placement Warning Alert (if flagged) -->
-            <div id="cd-low-placement-alert" class="hidden mb-6 p-4 rounded-xl bg-amber-50 border border-amber-300 text-amber-950 space-y-1">
-              <div class="font-extrabold flex items-center gap-1.5 text-amber-900 text-sm">
-                <span>Placement Notice:</span>
-                <span id="cd-low-placement-rate" class="font-bold underline"></span>
-              </div>
-              <p class="text-xs text-amber-900 leading-relaxed font-medium">
-                This college has lower reported campus drive participation in the 2024-2025 academic cycle. Review branch placements and alumni records carefully before locking in web options.
-              </p>
-            </div>
+        <!-- Low Placement Warning Alert (if flagged) -->
+        <div id="cd-low-placement-alert" class="hidden p-4 rounded-xl bg-amber-50 border border-amber-300 text-amber-950 space-y-1">
+          <div class="font-extrabold flex items-center gap-1.5 text-amber-900 text-sm">
+            <span>Placement Notice:</span>
+            <span id="cd-low-placement-rate" class="font-bold underline"></span>
+          </div>
+          <p class="text-xs text-amber-900 leading-relaxed font-medium">
+            This college has lower reported campus drive participation in the 2024-2025 academic cycle. Review branch placements and alumni records carefully before locking in web options.
+          </p>
+        </div>
 
-            <!-- In-Page Sub Navigation Bar (Referencing Pic 1 & AJ-Architects-Website.html) -->
-            <nav id="cd-nav-bar" class="cd-nav-bar" aria-label="College details navigation">
-              <a href="#cd-section-about" class="cd-nav-link active" data-target="cd-section-about" onclick="window.scrollToCdSection('cd-section-about'); return false;">About</a>
-              <a href="#cd-section-placements" class="cd-nav-link" data-target="cd-section-placements" onclick="window.scrollToCdSection('cd-section-placements'); return false;">Placement Breakdown</a>
-              <a href="#cd-section-travel" class="cd-nav-link" data-target="cd-section-travel" onclick="window.scrollToCdSection('cd-section-travel'); return false;">Travel</a>
-              <a href="#cd-section-food" class="cd-nav-link" data-target="cd-section-food" onclick="window.scrollToCdSection('cd-section-food'); return false;">Surrounding Food</a>
-              <a href="#cd-section-hostels" class="cd-nav-link" data-target="cd-section-hostels" onclick="window.scrollToCdSection('cd-section-hostels'); return false;">Hostels</a>
-            </nav>
+        <!-- In-Page Sub Navigation Bar (Referencing Pic 1 & AJ-Architects-Website.html) -->
+        <nav id="cd-nav-bar" class="cd-nav-bar" aria-label="College details navigation">
+          <a href="#cd-section-about" class="cd-nav-link active" data-target="cd-section-about" onclick="window.scrollToCdSection('cd-section-about'); return false;">About</a>
+          <a href="#cd-section-placements" class="cd-nav-link" data-target="cd-section-placements" onclick="window.scrollToCdSection('cd-section-placements'); return false;">Placement Breakdown</a>
+          <a href="#cd-section-travel" class="cd-nav-link" data-target="cd-section-travel" onclick="window.scrollToCdSection('cd-section-travel'); return false;">Travel</a>
+          <a href="#cd-section-food" class="cd-nav-link" data-target="cd-section-food" onclick="window.scrollToCdSection('cd-section-food'); return false;">Surrounding Food</a>
+          <a href="#cd-section-hostels" class="cd-nav-link" data-target="cd-section-hostels" onclick="window.scrollToCdSection('cd-section-hostels'); return false;">Hostels</a>
+          <a href="#cd-section-quick-facts" class="cd-nav-link" data-target="cd-section-quick-facts" onclick="window.scrollToCdSection('cd-section-quick-facts'); return false;">Quick Info</a>
+        </nav>
 
-            <!-- Prose Content Blocks (5 Sections in Requested Order) -->
-            <div class="cd-prose space-y-12">
+        <!-- Prose Content Blocks (Sections in Requested Order) -->
+        <div class="cd-prose space-y-12">
 
               <!-- Section 1: About (Includes Concept, Qualifying Branches & Cutoffs, and Scholarships & Financial Aid) -->
               <section id="cd-section-about" class="cd-detail-section space-y-8">
@@ -920,39 +921,280 @@
                 </div>
               </section>
 
-              <!-- Section 3: Campus Connectivity & Travel (Pic 5) -->
+              <!-- Section 3: Campus Connectivity & Travel -->
               <section id="cd-section-travel" class="cd-detail-section space-y-6">
                 <div>
-                  <h3 class="text-xl font-bold text-slate-900 border-b border-slate-200 pb-2">Campus Connectivity & Travel</h3>
-                  <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-3">
-                    <div class="p-3 rounded-xl bg-slate-50 border border-slate-200 text-xs">
-                      <span class="text-slate-500 font-semibold block">Nearest Railway Station</span>
-                      <strong id="cd-nearest-station" class="text-slate-900 text-sm font-bold block mt-0.5">-</strong>
+                  <div class="flex items-center justify-between flex-wrap gap-2 border-b border-slate-200 pb-2">
+                    <h3 class="text-xl font-bold text-slate-900 m-0">Campus Connectivity & Travel</h3>
+                    <span class="text-xs font-bold text-blue-700 bg-blue-50 border border-blue-200 px-2.5 py-1 rounded-lg">Live Route & Transit Hub</span>
+                  </div>
+
+                  <!-- 1. Student Origin & Current Location Selector Bar -->
+                  <div class="mt-4 p-4 rounded-2xl bg-slate-50 border border-slate-200 flex flex-col md:flex-row items-start md:items-center justify-between gap-3 shadow-2xs">
+                    <div class="flex items-center gap-2.5">
+                      <span class="w-9 h-9 rounded-xl bg-blue-100 text-blue-700 flex items-center justify-center shrink-0">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                      </span>
+                      <div>
+                        <div class="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Your Journey Departure Point</div>
+                        <div class="text-sm font-extrabold text-slate-900 flex items-center gap-1.5 flex-wrap">
+                          <span>From:</span>
+                          <span id="cd-travel-current-origin-label" class="text-blue-700 underline decoration-blue-300">Vijayawada, Andhra Pradesh</span>
+                          <span id="cd-travel-gps-badge" class="hidden text-[10px] bg-emerald-100 text-emerald-800 font-bold px-2 py-0.5 rounded-full">GPS Live</span>
+                        </div>
+                      </div>
                     </div>
-                    <div class="p-3 rounded-xl bg-slate-50 border border-slate-200 text-xs">
-                      <span class="text-slate-500 font-semibold block">Nearest Bus Stand</span>
-                      <strong id="cd-nearest-busstand" class="text-slate-900 text-sm font-bold block mt-0.5">-</strong>
-                    </div>
-                    <div class="p-3 rounded-xl bg-slate-50 border border-slate-200 text-xs">
-                      <span class="text-slate-500 font-semibold block">Last-Mile Transit</span>
-                      <strong id="cd-last-mile-transit" class="text-slate-900 text-sm font-bold block mt-0.5">-</strong>
+
+                    <div class="flex items-center gap-2 w-full md:w-auto">
+                      <button type="button" onclick="detectStudentCurrentLocation(); return false;" class="flex-1 md:flex-initial px-3.5 py-2 rounded-xl bg-white hover:bg-slate-100 text-blue-700 border border-blue-200 font-bold text-xs shadow-2xs transition flex items-center justify-center gap-1.5 cursor-pointer active:scale-95" title="Detect GPS coordinates">
+                        <svg class="w-4 h-4 text-blue-600 animate-pulse" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 2v2m0 16v2m10-10h-2M4 12H2m15.07-7.07l-1.41 1.41M8.34 15.66l-1.41 1.41m0-10.14l1.41 1.41m7.07 7.07l1.41 1.41M12 16a4 4 0 100-8 4 4 0 000 8z"/></svg>
+                        <span>📍 Use Live GPS</span>
+                      </button>
+                      <div class="relative flex-1 md:flex-initial">
+                        <select id="cd-travel-origin-select" onchange="changeStudentTravelOrigin(this.value)" class="w-full bg-white border border-slate-300 rounded-xl px-3 py-2 text-xs font-semibold text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-2xs cursor-pointer">
+                          <option value="Vijayawada">Vijayawada</option>
+                          <option value="Visakhapatnam">Visakhapatnam</option>
+                          <option value="Guntur">Guntur</option>
+                          <option value="Tirupati">Tirupati</option>
+                          <option value="Kakinada">Kakinada</option>
+                          <option value="Rajahmundry">Rajahmundry</option>
+                          <option value="Nellore">Nellore</option>
+                          <option value="Kurnool">Kurnool</option>
+                          <option value="Kadapa">Kadapa</option>
+                          <option value="Anantapur">Anantapur</option>
+                          <option value="Ongole">Ongole</option>
+                          <option value="Eluru">Eluru</option>
+                          <option value="Machilipatnam">Machilipatnam</option>
+                          <option value="Vizianagaram">Vizianagaram</option>
+                          <option value="Srikakulam">Srikakulam</option>
+                          <option value="Chittoor">Chittoor</option>
+                          <option value="Hyderabad">Hyderabad</option>
+                          <option value="Bengaluru">Bengaluru</option>
+                          <option value="Chennai">Chennai</option>
+                        </select>
+                      </div>
                     </div>
                   </div>
 
-                  <!-- Travel Modes Table -->
-                  <div class="mt-4 overflow-x-auto border border-slate-200 rounded-xl">
-                    <table class="w-full text-left text-xs">
-                      <thead class="bg-slate-50 border-b border-slate-200 text-slate-600 font-bold uppercase text-[10px] tracking-wider">
-                        <tr>
-                          <th class="p-2.5">Mode</th>
-                          <th class="p-2.5">Duration</th>
-                          <th class="p-2.5">Estimated Cost</th>
-                          <th class="p-2.5">Route</th>
-                        </tr>
-                      </thead>
-                      <tbody id="cd-travel-modes-table" class="divide-y divide-slate-100"></tbody>
-                    </table>
+                  <!-- 2. Step-by-Step Google Maps Turn-by-Turn Direct Banner (Requirement) -->
+                  <div class="mt-4 p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-700 text-white shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4">
+                    <div class="flex items-center gap-3.5">
+                      <div class="w-12 h-12 rounded-xl bg-white/20 backdrop-blur-md flex items-center justify-center shrink-0 text-2xl shadow-inner">
+                        🗺️
+                      </div>
+                      <div>
+                        <div class="flex items-center gap-2">
+                          <h4 class="font-bold text-base sm:text-lg text-white">Live Step-by-Step Route in Google Maps</h4>
+                          <span class="px-2 py-0.5 rounded-full bg-emerald-400 text-emerald-950 text-[10px] font-black uppercase">Live Navigation</span>
+                        </div>
+                        <p id="cd-travel-route-summary" class="text-xs text-blue-100 font-medium mt-0.5">
+                          Turn-by-turn traveling directions with live transit schedules, buses, trains & walking from your location straight to campus.
+                        </p>
+                      </div>
+                    </div>
+                    <a id="cd-google-maps-direct-btn" href="#" target="_blank" rel="noopener noreferrer" class="w-full sm:w-auto px-5 py-3 rounded-xl bg-white hover:bg-slate-50 text-blue-700 font-extrabold text-xs sm:text-sm tracking-wide shadow-md transition flex items-center justify-center gap-2 shrink-0 active:scale-95 text-center">
+                      <span>Open Step-by-Step Map</span>
+                      <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                    </a>
                   </div>
+
+                  <!-- 3. Four Transit Hub Cards (Train, Bus, Airport, Walking) -->
+                  <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-5">
+
+                    <!-- Train Card -->
+                    <div class="p-4 rounded-2xl bg-white border border-slate-200 shadow-2xs hover:border-blue-300 transition flex flex-col justify-between space-y-3">
+                      <div>
+                        <div class="flex items-center justify-between">
+                          <div class="flex items-center gap-2">
+                            <span class="w-8 h-8 rounded-lg bg-blue-50 text-blue-700 flex items-center justify-center font-bold text-sm">🚆</span>
+                            <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">Railway Connectivity</span>
+                          </div>
+                          <span class="text-[11px] font-extrabold text-blue-700 bg-blue-50 px-2 py-0.5 rounded-full">Indian Railways</span>
+                        </div>
+                        <div class="mt-2.5">
+                          <span class="text-xs text-slate-500 font-semibold block">Nearest Station:</span>
+                          <strong id="cd-nearest-station" class="text-slate-900 text-sm font-bold block mt-0.5">-</strong>
+                        </div>
+                        <p id="cd-train-connectivity-summary" class="text-xs text-slate-600 mt-1 leading-relaxed">
+                          Direct express and superfast trains available from all major stations across Andhra Pradesh and Telangana.
+                        </p>
+                      </div>
+
+                      <div class="space-y-2 pt-2 border-t border-slate-100">
+                        <button type="button" id="cd-toggle-trains-btn" onclick="toggleAvailableTrainsDrawer(); return false;" class="w-full py-2.5 px-3 rounded-xl bg-blue-50 hover:bg-blue-100 text-blue-700 font-bold text-xs transition flex items-center justify-center gap-1.5 cursor-pointer shadow-2xs active:scale-98">
+                          <span>🚆 Show Trains Available from <span class="cd-current-origin-text font-black">Vijayawada</span></span>
+                          <svg id="cd-trains-chevron" class="w-4 h-4 transition-transform" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+                        </button>
+                        <a id="cd-train-confirmtkt-btn" href="#" target="_blank" rel="noopener noreferrer" class="w-full py-2 px-3 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs transition flex items-center justify-center gap-1.5 cursor-pointer shadow-2xs active:scale-98">
+                          <span>Check Live Train Seats on ConfirmTkt / IRCTC ↗</span>
+                        </a>
+                      </div>
+                    </div>
+
+                    <!-- Bus Card -->
+                    <div class="p-4 rounded-2xl bg-white border border-slate-200 shadow-2xs hover:border-emerald-300 transition flex flex-col justify-between space-y-3">
+                      <div>
+                        <div class="flex items-center justify-between">
+                          <div class="flex items-center gap-2">
+                            <span class="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-700 flex items-center justify-center font-bold text-sm">🚌</span>
+                            <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">Bus Connectivity</span>
+                          </div>
+                          <span class="text-[11px] font-extrabold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full">APSRTC Network</span>
+                        </div>
+                        <div class="mt-2.5">
+                          <span class="text-xs text-slate-500 font-semibold block">Nearest Bus Stand:</span>
+                          <strong id="cd-nearest-busstand" class="text-slate-900 text-sm font-bold block mt-0.5">-</strong>
+                        </div>
+                        <p id="cd-bus-connectivity-summary" class="text-xs text-slate-600 mt-1 leading-relaxed">
+                          Frequent round-the-clock RTC buses (Amaravati, Garuda Plus, Super Luxury, Express) operating along state highways.
+                        </p>
+                      </div>
+
+                      <div class="space-y-2 pt-2 border-t border-slate-100">
+                        <button type="button" id="cd-toggle-buses-btn" onclick="toggleAvailableBusesDrawer(); return false;" class="w-full py-2.5 px-3 rounded-xl bg-emerald-50 hover:bg-emerald-100 text-emerald-700 font-bold text-xs transition flex items-center justify-center gap-1.5 cursor-pointer shadow-2xs active:scale-98">
+                          <span>🚌 Show Buses Available from <span class="cd-current-origin-text font-black">Vijayawada</span></span>
+                          <svg id="cd-buses-chevron" class="w-4 h-4 transition-transform" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+                        </button>
+                        <div class="grid grid-cols-2 gap-2">
+                          <a id="cd-bus-apsrtc-btn" href="https://www.apsrtconline.in/" target="_blank" rel="noopener noreferrer" class="py-2 px-2.5 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white font-bold text-[11px] transition text-center shadow-2xs truncate">
+                            APSRTC Online ↗
+                          </a>
+                          <a id="cd-bus-abhibus-btn" href="https://www.abhibus.com/" target="_blank" rel="noopener noreferrer" class="py-2 px-2.5 rounded-xl bg-red-600 hover:bg-red-700 text-white font-bold text-[11px] transition text-center shadow-2xs truncate">
+                            AbhiBus ↗
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Airport / Flight Card -->
+                    <div class="p-4 rounded-2xl bg-white border border-slate-200 shadow-2xs hover:border-purple-300 transition flex flex-col justify-between space-y-3">
+                      <div>
+                        <div class="flex items-center justify-between">
+                          <div class="flex items-center gap-2">
+                            <span class="w-8 h-8 rounded-lg bg-purple-50 text-purple-700 flex items-center justify-center font-bold text-sm">✈️</span>
+                            <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">Airport & Flights</span>
+                          </div>
+                          <span class="text-[11px] font-extrabold text-purple-700 bg-purple-50 px-2 py-0.5 rounded-full">Domestic / Intl</span>
+                        </div>
+                        <div class="mt-2.5">
+                          <span class="text-xs text-slate-500 font-semibold block">Nearest Airport:</span>
+                          <strong id="cd-nearest-airport" class="text-slate-900 text-sm font-bold block mt-0.5">-</strong>
+                        </div>
+                        <p id="cd-airport-connectivity-summary" class="text-xs text-slate-600 mt-1 leading-relaxed">
+                          Connected via direct flights from Hyderabad, Bengaluru, Chennai, Mumbai, and Delhi. App-cabs & airport shuttles connect to campus in 25–40 minutes.
+                        </p>
+                      </div>
+
+                      <div class="pt-2 border-t border-slate-100">
+                        <a id="cd-airport-flights-btn" href="#" target="_blank" rel="noopener noreferrer" class="w-full py-2.5 px-3 rounded-xl bg-purple-600 hover:bg-purple-700 text-white font-bold text-xs transition flex items-center justify-center gap-1.5 cursor-pointer shadow-2xs active:scale-98">
+                          <span>✈️ Show Flights on Google Flights ↗</span>
+                        </a>
+                      </div>
+                    </div>
+
+                    <!-- Walking Option Card (Requirement) -->
+                    <div class="p-4 rounded-2xl bg-white border border-slate-200 shadow-2xs hover:border-amber-300 transition flex flex-col justify-between space-y-3">
+                      <div>
+                        <div class="flex items-center justify-between">
+                          <div class="flex items-center gap-2">
+                            <span class="w-8 h-8 rounded-lg bg-amber-50 text-amber-700 flex items-center justify-center font-bold text-sm">🚶</span>
+                            <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">Walking Option (Campus Arrival)</span>
+                          </div>
+                          <span class="text-[11px] font-extrabold text-amber-700 bg-amber-50 px-2 py-0.5 rounded-full">Last-Mile Walk</span>
+                        </div>
+                        <div class="mt-2.5">
+                          <span class="text-xs text-slate-500 font-semibold block">Transit Stop to Academic Blocks & Hostels:</span>
+                          <strong id="cd-walking-distance" class="text-slate-900 text-sm font-bold block mt-0.5">~300 meters · 4–5 min walk</strong>
+                        </div>
+                        <p class="text-xs text-slate-600 mt-1 leading-relaxed">
+                          Safe pedestrian footpath with tree canopies, 24/7 security lighting, and eco-friendly campus battery shuttles available at the main entrance gate.
+                        </p>
+                      </div>
+
+                      <div class="pt-2 border-t border-slate-100">
+                        <a id="cd-walking-google-btn" href="#" target="_blank" rel="noopener noreferrer" class="w-full py-2.5 px-3 rounded-xl bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold text-xs transition flex items-center justify-center gap-1.5 cursor-pointer shadow-2xs active:scale-98">
+                          <span>🚶 View Walking Route in Google Maps ↗</span>
+                        </a>
+                      </div>
+                    </div>
+
+                  </div>
+
+                  <!-- 4. Interactive Available Trains Drawer (Expands when clicked) -->
+                  <div id="cd-trains-available-drawer" class="hidden mt-4 p-4 rounded-2xl bg-blue-50/60 border border-blue-200 space-y-3 transition-all duration-300">
+                    <div class="flex items-center justify-between">
+                      <div class="flex items-center gap-2">
+                        <span class="text-blue-700 font-bold text-sm">🚆 Key Trains Available from <span class="cd-current-origin-text font-black">Vijayawada</span></span>
+                      </div>
+                      <button type="button" onclick="toggleAvailableTrainsDrawer();" class="text-xs text-slate-500 hover:text-slate-800 font-bold">✕ Close</button>
+                    </div>
+                    <div class="overflow-x-auto border border-blue-200/80 rounded-xl bg-white shadow-2xs">
+                      <table class="w-full text-left text-xs">
+                        <thead class="bg-blue-100/60 border-b border-blue-200 text-blue-900 font-bold uppercase text-[10px] tracking-wider">
+                          <tr>
+                            <th class="p-2.5">Train Name & No.</th>
+                            <th class="p-2.5">Departure</th>
+                            <th class="p-2.5">Arrival</th>
+                            <th class="p-2.5">Duration</th>
+                            <th class="p-2.5">Frequency</th>
+                            <th class="p-2.5 text-center">Seat Booking</th>
+                          </tr>
+                        </thead>
+                        <tbody id="cd-available-trains-tbody" class="divide-y divide-blue-50 font-medium">
+                          <!-- Populated dynamically -->
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+
+                  <!-- 5. Interactive Available Buses Drawer (Expands when clicked) -->
+                  <div id="cd-buses-available-drawer" class="hidden mt-4 p-4 rounded-2xl bg-emerald-50/60 border border-emerald-200 space-y-3 transition-all duration-300">
+                    <div class="flex items-center justify-between">
+                      <div class="flex items-center gap-2">
+                        <span class="text-emerald-700 font-bold text-sm">🚌 Buses Available from <span class="cd-current-origin-text font-black">Vijayawada</span></span>
+                      </div>
+                      <button type="button" onclick="toggleAvailableBusesDrawer();" class="text-xs text-slate-500 hover:text-slate-800 font-bold">✕ Close</button>
+                    </div>
+                    <div class="overflow-x-auto border border-emerald-200/80 rounded-xl bg-white shadow-2xs">
+                      <table class="w-full text-left text-xs">
+                        <thead class="bg-emerald-100/60 border-b border-emerald-200 text-emerald-900 font-bold uppercase text-[10px] tracking-wider">
+                          <tr>
+                            <th class="p-2.5">Bus Type & Service</th>
+                            <th class="p-2.5">Operating Route</th>
+                            <th class="p-2.5">Frequency</th>
+                            <th class="p-2.5">Approx Fare</th>
+                            <th class="p-2.5 text-center">Direct Portal</th>
+                          </tr>
+                        </thead>
+                        <tbody id="cd-available-buses-tbody" class="divide-y divide-emerald-50 font-medium">
+                          <!-- Populated dynamically -->
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+
+                  <!-- 6. Local Transit & Travel Modes Table -->
+                  <div class="mt-5 p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-3">
+                    <div class="flex items-center justify-between">
+                      <span class="text-xs font-bold text-slate-700 uppercase tracking-wider">Local City Transit & Auto Connectivity:</span>
+                      <strong id="cd-last-mile-transit" class="text-slate-900 text-xs font-semibold">-</strong>
+                    </div>
+
+                    <div class="overflow-x-auto border border-slate-200 rounded-xl bg-white">
+                      <table class="w-full text-left text-xs">
+                        <thead class="bg-slate-50 border-b border-slate-200 text-slate-600 font-bold uppercase text-[10px] tracking-wider">
+                          <tr>
+                            <th class="p-2.5">Mode</th>
+                            <th class="p-2.5">Duration</th>
+                            <th class="p-2.5">Estimated Cost</th>
+                            <th class="p-2.5">Route</th>
+                          </tr>
+                        </thead>
+                        <tbody id="cd-travel-modes-table" class="divide-y divide-slate-100"></tbody>
+                      </table>
+                    </div>
+                  </div>
+
                 </div>
               </section>
 
@@ -964,110 +1206,111 @@
                 </div>
               </section>
 
-              <!-- Section 5: Hostels & Living Accommodations (Pic 4) -->
-              <section id="cd-section-hostels" class="cd-detail-section space-y-6">
-                <div>
-                  <h3 class="text-xl font-bold text-slate-900 border-b border-slate-200 pb-2">Hostels & Living Accommodations</h3>
-                  <div class="mt-3 p-4 rounded-xl bg-blue-50/50 border border-blue-100 flex items-center justify-between flex-wrap gap-2">
-                    <div>
-                      <span class="text-xs font-bold text-blue-900 uppercase block">On-Campus Hostels</span>
-                      <p id="cd-campus-hostel-info" class="text-xs text-slate-700 mt-0.5">Campus residential accommodation available.</p>
+              <!-- Section 5: Hostels & Quick College Facts Side-by-Side Grid (Requirement 10) -->
+              <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start pt-6 border-t border-slate-200">
+                <!-- Hostels & Living Accommodations (Left) -->
+                <section id="cd-section-hostels" class="cd-detail-section space-y-6">
+                  <div>
+                    <h3 class="text-xl font-bold text-slate-900 border-b border-slate-200 pb-2">Hostels & Living Accommodations</h3>
+                    <div class="mt-3 p-4 rounded-xl bg-blue-50/50 border border-blue-100 flex items-center justify-between flex-wrap gap-2">
+                      <div>
+                        <span class="text-xs font-bold text-blue-900 uppercase block">On-Campus Hostels</span>
+                        <p id="cd-campus-hostel-info" class="text-xs text-slate-700 mt-0.5">Campus residential accommodation available.</p>
+                      </div>
+                      <span id="cd-hostel-fee-badge" class="px-3 py-1 rounded-lg bg-blue-100 text-blue-800 text-xs font-extrabold font-mono">₹28,000 / yr</span>
                     </div>
-                    <span id="cd-hostel-fee-badge" class="px-3 py-1 rounded-lg bg-blue-100 text-blue-800 text-xs font-extrabold font-mono">₹28,000 / yr</span>
-                  </div>
 
-                  <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-                    <div>
-                      <span class="text-xs font-bold text-slate-700 uppercase tracking-wider block mb-2">Nearest Boys Hostels / PGs:</span>
-                      <div id="cd-outside-boys-hostels" class="space-y-2"></div>
-                    </div>
-                    <div>
-                      <span class="text-xs font-bold text-slate-700 uppercase tracking-wider block mb-2">Nearest Girls Hostels / PGs:</span>
-                      <div id="cd-outside-girls-hostels" class="space-y-2"></div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                      <div>
+                        <span class="text-xs font-bold text-slate-700 uppercase tracking-wider block mb-2">Nearest Boys Hostels / PGs:</span>
+                        <div id="cd-outside-boys-hostels" class="space-y-2"></div>
+                      </div>
+                      <div>
+                        <span class="text-xs font-bold text-slate-700 uppercase tracking-wider block mb-2">Nearest Girls Hostels / PGs:</span>
+                        <div id="cd-outside-girls-hostels" class="space-y-2"></div>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </section>
+                </section>
+
+                <!-- Quick College Facts Section (Right - Side off the Hostel) -->
+                <section id="cd-section-quick-facts" class="cd-detail-section space-y-6">
+                  <div class="cd-facts">
+                    <div class="cd-facts-head flex items-center justify-between">
+                      <span>Quick College Facts</span>
+                      <span class="text-[10px] font-bold uppercase tracking-wider text-blue-700 bg-blue-50 px-2 py-0.5 rounded border border-blue-200">Verified 2025</span>
+                    </div>
+                    <dl>
+                      <div>
+                        <dt>College Code</dt>
+                        <dd id="cd-fact-code" class="font-mono text-blue-700 font-bold">-</dd>
+                      </div>
+                      <div>
+                        <dt>Institution Type</dt>
+                        <dd id="cd-fact-type">-</dd>
+                      </div>
+                      <div>
+                        <dt>Entrance Exam</dt>
+                        <dd id="cd-fact-exam">-</dd>
+                      </div>
+                      <div>
+                        <dt>University Region</dt>
+                        <dd id="cd-fact-region">-</dd>
+                      </div>
+                      <div>
+                        <dt>Location</dt>
+                        <dd id="cd-fact-location">-</dd>
+                      </div>
+                      <div>
+                        <dt>Established Year</dt>
+                        <dd id="cd-fact-established">-</dd>
+                      </div>
+                      <div>
+                        <dt>NAAC & Grade</dt>
+                        <dd id="cd-fact-grade">-</dd>
+                      </div>
+                      <div>
+                        <dt>NIRF 2025 Rank</dt>
+                        <dd id="cd-fact-nirf" class="text-blue-700 font-bold">-</dd>
+                      </div>
+                      <div>
+                        <dt>Median Package</dt>
+                        <dd id="cd-fact-median" class="text-blue-700 font-bold">-</dd>
+                      </div>
+                      <div>
+                        <dt>Highest Package</dt>
+                        <dd id="cd-fact-highest" class="text-purple-700 font-bold">-</dd>
+                      </div>
+                      <div>
+                        <dt>Placement Rate</dt>
+                        <dd id="cd-fact-rate" class="text-emerald-700 font-bold">-</dd>
+                      </div>
+                      <div>
+                        <dt>Annual Tuition</dt>
+                        <dd id="cd-fact-tuition">-</dd>
+                      </div>
+                      <div>
+                        <dt>JVD Reimbursement</dt>
+                        <dd id="cd-fact-jvd" class="text-emerald-700 font-bold">-</dd>
+                      </div>
+                      <div>
+                        <dt>Campus Hostel Fee</dt>
+                        <dd id="cd-fact-hostel">-</dd>
+                      </div>
+                    </dl>
+                    <div class="p-4 bg-slate-50 border-t border-slate-200 flex flex-col sm:flex-row gap-2">
+                      <button id="cd-fact-btn-add" type="button" onclick="addPriorityOption(appState.activeDetailPageCollegeId); return false;" class="flex-1 py-2.5 px-3 bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs rounded-xl shadow-sm transition flex items-center justify-center gap-1.5 cursor-pointer active:scale-98">
+                        + Add to Web Options
+                      </button>
+                      <button id="cd-fact-btn-fav" type="button" onclick="toggleCollegeDetailPageFavorite(); return false;" class="flex-1 py-2 px-3 bg-white hover:bg-slate-100 text-slate-800 font-bold text-xs rounded-xl border border-slate-200 shadow-2xs transition flex items-center justify-center gap-1.5 cursor-pointer active:scale-98">
+                        <span id="cd-fact-fav-star">★</span> <span id="cd-fact-fav-label">Add to Favorites</span>
+                      </button>
+                    </div>
+                  </div>
+                </section>
+              </div>
 
             </div><!-- end cd-prose -->
-          </div><!-- end left column -->
-
-          <!-- Right Column: Sticky Facts Aside (Referenced directly from demoooo for pagess.html) -->
-          <aside class="w-full">
-            <div class="cd-facts sticky top-20">
-              <div class="cd-facts-head">
-                Quick College Facts
-              </div>
-              <dl>
-                <div>
-                  <dt>College Code</dt>
-                  <dd id="cd-fact-code" class="font-mono text-blue-700 font-bold">-</dd>
-                </div>
-                <div>
-                  <dt>Institution Type</dt>
-                  <dd id="cd-fact-type">-</dd>
-                </div>
-                <div>
-                  <dt>Entrance Exam</dt>
-                  <dd id="cd-fact-exam">-</dd>
-                </div>
-                <div>
-                  <dt>University Region</dt>
-                  <dd id="cd-fact-region">-</dd>
-                </div>
-                <div>
-                  <dt>Location</dt>
-                  <dd id="cd-fact-location">-</dd>
-                </div>
-                <div>
-                  <dt>Established Year</dt>
-                  <dd id="cd-fact-established">-</dd>
-                </div>
-                <div>
-                  <dt>NAAC & Grade</dt>
-                  <dd id="cd-fact-grade">-</dd>
-                </div>
-                <div>
-                  <dt>NIRF 2025 Rank</dt>
-                  <dd id="cd-fact-nirf" class="text-blue-700 font-bold">-</dd>
-                </div>
-                <div>
-                  <dt>Median Package</dt>
-                  <dd id="cd-fact-median" class="text-blue-700 font-bold">-</dd>
-                </div>
-                <div>
-                  <dt>Highest Package</dt>
-                  <dd id="cd-fact-highest" class="text-purple-700 font-bold">-</dd>
-                </div>
-                <div>
-                  <dt>Placement Rate</dt>
-                  <dd id="cd-fact-rate" class="text-emerald-700 font-bold">-</dd>
-                </div>
-                <div>
-                  <dt>Annual Tuition</dt>
-                  <dd id="cd-fact-tuition">-</dd>
-                </div>
-                <div>
-                  <dt>JVD Reimbursement</dt>
-                  <dd id="cd-fact-jvd" class="text-emerald-700 font-bold">-</dd>
-                </div>
-                <div>
-                  <dt>Campus Hostel Fee</dt>
-                  <dd id="cd-fact-hostel">-</dd>
-                </div>
-              </dl>
-              <div class="p-4 bg-slate-50 border-t border-slate-200 flex flex-col gap-2">
-                <button id="cd-fact-btn-add" type="button" onclick="addPriorityOption(appState.activeDetailPageCollegeId); return false;" class="w-full py-2.5 px-3 bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs rounded-xl shadow-sm transition flex items-center justify-center gap-1.5 cursor-pointer active:scale-98">
-                  + Add to Web Options
-                </button>
-                <button id="cd-fact-btn-fav" type="button" onclick="toggleCollegeDetailPageFavorite(); return false;" class="w-full py-2 px-3 bg-white hover:bg-slate-100 text-slate-800 font-bold text-xs rounded-xl border border-slate-200 shadow-2xs transition flex items-center justify-center gap-1.5 cursor-pointer active:scale-98">
-                  <span id="cd-fact-fav-star">★</span> <span id="cd-fact-fav-label">Add to Favorites</span>
-                </button>
-              </div>
-            </div>
-          </aside>
-
-        </div><!-- end cd-detail-grid -->
 
         <!-- Campus & Infrastructure Gallery (Referenced from demoooo for pagess.html gallery-lg) -->
         <div class="mt-12 pt-8 border-t border-slate-200">
