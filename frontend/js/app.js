@@ -906,11 +906,18 @@ function openCollegeDetailPage(collegeId) {
     }
 
     let cdScrollSpyObserver = null;
+    let cdNavClickTimeout = null;
+
     function setupCdNavScrollSpy() {
       if (cdScrollSpyObserver) {
         cdScrollSpyObserver.disconnect();
         cdScrollSpyObserver = null;
       }
+      if (window.__cdNavScrollHandler) {
+        window.removeEventListener("scroll", window.__cdNavScrollHandler);
+        window.__cdNavScrollHandler = null;
+      }
+
       const sectionIds = [
         "cd-section-about",
         "cd-section-placements",
@@ -922,41 +929,58 @@ function openCollegeDetailPage(collegeId) {
       const sections = sectionIds.map(id => document.getElementById(id)).filter(Boolean);
       if (sections.length === 0) return;
 
-      const headerEl = document.querySelector("header");
-      const navBarEl = document.getElementById("cd-nav-bar");
-      const headerH = headerEl ? headerEl.offsetHeight : 68;
-      const navBarH = navBarEl ? navBarEl.offsetHeight : 48;
-      const totalOffset = headerH + navBarH + 20;
-
-      if ("IntersectionObserver" in window) {
-        cdScrollSpyObserver = new IntersectionObserver((entries) => {
-          const intersecting = entries.filter(e => e.isIntersecting);
-          if (intersecting.length > 0) {
-            intersecting.sort((a, b) => Math.abs(a.boundingClientRect.top - totalOffset) - Math.abs(b.boundingClientRect.top - totalOffset));
-            const activeId = intersecting[0].target.id;
-            const navLinks = document.querySelectorAll("#cd-nav-bar .cd-nav-link");
-            navLinks.forEach(link => {
-              const isActive = link.getAttribute("data-target") === activeId;
-              link.classList.toggle("active", isActive);
-              if (isActive && typeof link.scrollIntoView === "function") {
-                link.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
-              }
-            });
-          }
-        }, {
-          root: null,
-          rootMargin: `-${totalOffset}px 0px -50% 0px`,
-          threshold: [0, 0.15, 0.4, 0.8]
+      const updateActiveNav = (activeId) => {
+        if (!activeId) return;
+        const navLinks = document.querySelectorAll("#cd-nav-bar .cd-nav-link");
+        navLinks.forEach(link => {
+          const isActive = link.getAttribute("data-target") === activeId;
+          link.classList.toggle("active", isActive);
         });
+      };
 
-        sections.forEach(s => cdScrollSpyObserver.observe(s));
-      }
+      // Accurate scroll spy that supports short sections and bottom-of-page Quick Info
+      window.__cdNavScrollHandler = () => {
+        if (window.__isManualCdNavClick) return;
+        const detailPage = document.getElementById("college-detail-view-container");
+        if (!detailPage || detailPage.classList.contains("hidden") || detailPage.style.display === "none") return;
+
+        // Bottom of page check -> activate Quick Info
+        if ((window.innerHeight + window.pageYOffset) >= (document.documentElement.scrollHeight - 70)) {
+          updateActiveNav("cd-section-quick-facts");
+          return;
+        }
+
+        const headerEl = document.querySelector("header");
+        const navBarEl = document.getElementById("cd-nav-bar");
+        const headerH = headerEl ? headerEl.offsetHeight : 68;
+        const navBarH = navBarEl ? navBarEl.offsetHeight : 48;
+        const totalOffset = headerH + navBarH + 24;
+
+        let currentActiveId = "cd-section-about";
+        for (let i = 0; i < sections.length; i++) {
+          const rect = sections[i].getBoundingClientRect();
+          if (rect.top <= totalOffset) {
+            currentActiveId = sections[i].id;
+          } else {
+            break;
+          }
+        }
+        updateActiveNav(currentActiveId);
+      };
+
+      window.addEventListener("scroll", window.__cdNavScrollHandler, { passive: true });
     }
 
     function scrollToCdSection(sectionId) {
       if (!sectionId) return;
       const targetEl = document.getElementById(sectionId);
       if (targetEl) {
+        window.__isManualCdNavClick = true;
+        if (cdNavClickTimeout) clearTimeout(cdNavClickTimeout);
+        cdNavClickTimeout = setTimeout(() => {
+          window.__isManualCdNavClick = false;
+        }, 900);
+
         const headerEl = document.querySelector("header");
         const navBarEl = document.getElementById("cd-nav-bar");
         const headerH = headerEl ? headerEl.offsetHeight : 68;
@@ -975,14 +999,15 @@ function openCollegeDetailPage(collegeId) {
         navLinks.forEach(link => {
           const isActive = link.getAttribute("data-target") === sectionId;
           link.classList.toggle("active", isActive);
-          if (isActive && typeof link.scrollIntoView === "function") {
-            link.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
-          }
         });
       }
     }
 
     function closeCollegeDetailPage() {
+      if (window.__cdNavScrollHandler) {
+        window.removeEventListener("scroll", window.__cdNavScrollHandler);
+        window.__cdNavScrollHandler = null;
+      }
       const detailPage = document.getElementById("college-detail-view-container");
       if (detailPage) {
         detailPage.classList.add("hidden");
