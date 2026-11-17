@@ -381,30 +381,8 @@
       // 14. Favorites Buttons State
       updateCollegeDetailPageFavoriteUI();
 
-      // 15. Infrastructure / Campus Gallery (Referenced from demoooo for pagess.html gallery-lg)
-      const gal = document.getElementById("cd-gallery-container");
-      if (gal) {
-        gal.innerHTML = cdHeroImages.map((imgSrc, i) =>
-          `<figure class="group bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-2xs hover:shadow-xl transition-all duration-300 cursor-pointer relative" onclick="openCollegeImageZoomModal(${i})">
-            <div class="relative overflow-hidden aspect-video bg-slate-900">
-              <img src="${imgSrc}" alt="${college.name} photo ${i+1}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" onerror="window.handleCollegeImgError(this, '${college.code || college.id}')">
-              <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2 text-white">
-                <span class="px-3 py-1.5 rounded-full bg-black/75 backdrop-blur-md text-xs font-bold border border-white/20 flex items-center gap-1.5 shadow-lg">
-                  <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v6m3-3H7"/></svg>
-                  Click to Zoom & View Info
-                </span>
-              </div>
-            </div>
-            <figcaption class="p-3 text-xs text-slate-700 bg-slate-50 border-t border-slate-100 font-medium flex items-center justify-between">
-              <span class="font-bold text-slate-900 truncate">${college.name} - View #${i+1}</span>
-              <span class="text-[11px] text-blue-600 font-bold shrink-0 flex items-center gap-1">
-                <span>Zoom</span>
-                <span>🔍</span>
-              </span>
-            </figcaption>
-          </figure>`
-        ).join("");
-      }
+      // 15. Shuffled Random Colleges Discovery Section (Replaces static gallery)
+      shuffleAndRenderDetailColleges(college.id);
 
       // 16. Pager (Referenced from demoooo for pagess.html pager)
       const curIndex = colleges.findIndex(c => c.id === college.id);
@@ -426,19 +404,18 @@
       const detailPage = document.getElementById("college-detail-view-container");
       const detailModal = document.getElementById("detail-modal");
 
-      if (homeView) homeView.classList.add("hidden");
-      if (searchView) searchView.classList.add("hidden");
-      if (priorityView) priorityView.classList.add("hidden");
-      if (analyticsView) analyticsView.classList.add("hidden");
-      if (docsView) docsView.classList.add("hidden");
-      if (profileView) profileView.classList.add("hidden");
-      if (historyView) historyView.classList.add("hidden");
-      if (detailModal) detailModal.classList.add("hidden");
+      const viewsToHide = [homeView, searchView, priorityView, analyticsView, docsView, profileView, historyView, detailModal];
+      viewsToHide.forEach(v => {
+        if (v) {
+          v.classList.add("hidden");
+          v.style.setProperty("display", "none", "important");
+        }
+      });
 
       if (detailPage) {
         detailPage.classList.remove("hidden");
         detailPage.style.removeProperty("display");
-        detailPage.style.display = "block";
+        detailPage.style.setProperty("display", "block", "important");
       }
 
       // Reset Detail Sub-Nav bar to About section & attach scroll spy
@@ -586,6 +563,7 @@
     window.toggleAvailableTrainsDrawer = toggleAvailableTrainsDrawer;
     window.toggleAvailableBusesDrawer = toggleAvailableBusesDrawer;
     window.updateCollegeTravelUI = updateCollegeTravelUI;
+    window.shuffleAndRenderDetailColleges = shuffleAndRenderDetailColleges;
 
     // ============================================================
     // College Detail Page - Transit, Live Route & Travel System
@@ -807,6 +785,74 @@
         },
         { timeout: 10000, enableHighAccuracy: false }
       );
+    }
+
+    // ============================================================
+    // College Detail Page - Shuffled Random Colleges Discovery
+    // ============================================================
+    function shuffleAndRenderDetailColleges(excludeCollegeId) {
+      const container = document.getElementById("cd-gallery-container");
+      if (!container) return;
+
+      const currentId = excludeCollegeId || appState.activeDetailPageCollegeId;
+      const colleges = (typeof collegesData !== "undefined" && Array.isArray(collegesData)) ? collegesData : (window.collegesData || []);
+      if (!Array.isArray(colleges) || colleges.length === 0) return;
+
+      // Filter out current college so user discovers other colleges
+      const others = colleges.filter(c => String(c.id).toLowerCase() !== String(currentId).toLowerCase());
+
+      // Fisher-Yates shuffle algorithm for true randomness
+      const shuffled = [...others];
+      for (let i = shuffled.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+      }
+
+      // Pick 6 random colleges
+      const selected = shuffled.slice(0, 6);
+
+      container.className = "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6";
+      container.innerHTML = selected.map(rc => {
+        const imgUrl = (typeof getCollegeImageUrl === "function") ? getCollegeImageUrl(rc) : (rc.imageUrl || "");
+        const loc = (typeof getCollegeCardLocation === "function") ? getCollegeCardLocation(rc) : (rc.location || rc.district || "Andhra Pradesh");
+        const medianPkg = rc.placements?.medianPackage || "₹6.5 LPA";
+        const tuition = rc.fees?.annualTuition || "₹35,000 / yr";
+        return `
+          <div class="group bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-2xs hover:shadow-xl hover:border-blue-400 transition-all duration-300 cursor-pointer flex flex-col justify-between" onclick="openCollegeDetailPage('${rc.id}')">
+            <!-- Top Image Banner -->
+            <div class="relative aspect-video overflow-hidden bg-slate-900 select-none">
+              <img src="${imgUrl}" alt="${rc.name}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" onerror="window.handleCollegeImgError(this, '${rc.code || rc.id}')">
+              <div class="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-black/20 pointer-events-none"></div>
+
+              <!-- Code & Rating Badges -->
+              <div class="absolute top-2.5 left-2.5 flex items-center gap-1.5 z-10">
+                <span class="px-2 py-0.5 rounded-md text-[10px] font-extrabold uppercase backdrop-blur-md bg-black/75 text-white border border-white/20 shadow-sm">${rc.code || 'ENG'}</span>
+                <span class="px-2 py-0.5 rounded-md text-[10px] font-black backdrop-blur-md bg-black/60 text-amber-300 border border-amber-400/40 shadow-sm">★ ${rc.rating || '4.5'}</span>
+              </div>
+
+              <!-- Location Overlay -->
+              <div class="absolute bottom-2 left-2 right-2 text-white text-[11px] font-semibold truncate pointer-events-none z-10">
+                📍 ${loc}
+              </div>
+            </div>
+
+            <!-- Bottom Details & Click Action -->
+            <div class="p-4 flex flex-col justify-between flex-1 bg-slate-50/70 border-t border-slate-100">
+              <div>
+                <h4 class="font-extrabold text-sm text-slate-900 group-hover:text-blue-700 transition line-clamp-1">${rc.name}</h4>
+                <div class="flex items-center justify-between text-[11px] text-slate-500 mt-2 pt-2 border-t border-slate-200/60">
+                  <span>Median: <strong class="text-blue-700 font-bold">${medianPkg}</strong></span>
+                  <span>Tuition: <strong class="text-slate-800 font-bold">${tuition}</strong></span>
+                </div>
+              </div>
+              <div class="mt-3 pt-2.5 flex items-center justify-between text-xs font-bold text-blue-600 group-hover:text-blue-800 border-t border-slate-200/40">
+                <span>View College Details</span>
+                <span class="transition-transform group-hover:translate-x-1">→</span>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join("");
     }
 
     // ============================================================
@@ -1772,6 +1818,16 @@
       }
       if (typeof showExplorerSlide === "function") {
         showExplorerSlide(1);
+      }
+      // Check if URL has a direct college link on page refresh/load!
+      const initHash = window.location.hash;
+      if (initHash && initHash.startsWith("#/college/")) {
+        const colId = initHash.replace("#/college/", "").trim();
+        if (colId) {
+          setTimeout(() => {
+            openCollegeDetailPage(colId);
+          }, 80);
+        }
       }
       if (typeof showHomeSlide === "function") {
         showHomeSlide(1);
@@ -6017,6 +6073,16 @@
       }
       if (typeof showExplorerSlide === "function") {
         showExplorerSlide(1);
+      }
+      // Check if URL has a direct college link on page refresh/load!
+      const initHash = window.location.hash;
+      if (initHash && initHash.startsWith("#/college/")) {
+        const colId = initHash.replace("#/college/", "").trim();
+        if (colId) {
+          setTimeout(() => {
+            openCollegeDetailPage(colId);
+          }, 80);
+        }
       }
     });
 

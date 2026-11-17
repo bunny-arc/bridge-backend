@@ -607,6 +607,7 @@
             <span class="text-slate-500 font-medium">Sort By:</span>
             <select id="sort-select" class="bg-slate-100 border border-slate-200 rounded-lg px-2.5 py-1.5 text-xs font-semibold text-slate-800 focus:outline-none">
               <option value="rank_asc">Best Rank Match / Closing Cutoff</option>
+              <option value="random">🔀 Random Shuffle (Discover Colleges)</option>
               <option value="rating_high">Highest Verified Rating (★ Grade)</option>
               <option value="placement_avg">Highest Median / Avg Package (LPA)</option>
               <option value="placement_high">Highest Peak Package (CTC)</option>
@@ -1312,14 +1313,25 @@
 
             </div><!-- end cd-prose -->
 
-        <!-- Campus & Infrastructure Gallery (Referenced from demoooo for pagess.html gallery-lg) -->
+        <!-- Explore More Shuffled Colleges (Random Colleges Discovery) -->
         <div class="mt-12 pt-8 border-t border-slate-200">
           <div class="flex items-center justify-between mb-4 flex-wrap gap-2">
-            <h3 class="text-lg font-bold text-slate-900 m-0">Campus & Infrastructure Gallery</h3>
-            <span class="text-xs text-slate-500 font-medium">Campus photos & aerial facilities</span>
+            <div>
+              <h3 id="cd-random-colleges-title" class="text-lg font-bold text-slate-900 m-0 flex items-center gap-2">
+                <span>Explore More Colleges</span>
+                <span class="text-[11px] px-2.5 py-0.5 rounded-full bg-blue-100 text-blue-700 font-extrabold uppercase tracking-wider">Shuffled Discovery</span>
+              </h3>
+              <p class="text-xs text-slate-500 font-medium mt-0.5">
+                Random colleges shuffled for you · Click any college to view its full details
+              </p>
+            </div>
+            <button type="button" onclick="shuffleAndRenderDetailColleges(); return false;" class="px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs transition flex items-center gap-1.5 cursor-pointer shadow-2xs active:scale-95" title="Shuffle Random Colleges">
+              <span>🔀</span>
+              <span>Shuffle Colleges</span>
+            </button>
           </div>
-          <div id="cd-gallery-container" class="cd-gallery-lg">
-            <!-- Rendered dynamically -->
+          <div id="cd-gallery-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Rendered dynamically with random shuffled colleges -->
           </div>
         </div>
 

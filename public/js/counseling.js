@@ -478,6 +478,8 @@
           if (cutA !== cutB) return cutA - cutB;
           return (b.placements?.numAvgPkg || 0) - (a.placements?.numAvgPkg || 0);
         });
+      } else if (appState.sortBy === "random") {
+        list.sort(() => Math.random() - 0.5);
       } else if (appState.sortBy === "rating_high") {
         list.sort((a, b) => parseFloat(b.rating || 0) - parseFloat(a.rating || 0));
       } else if (appState.sortBy === "placement_avg") {
