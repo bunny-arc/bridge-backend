@@ -762,15 +762,21 @@
             </p>
 
             <!-- Hero Campus Photo with Navigation Controls (Taking reference from demoooo for pagess.html hero-shot) -->
-            <div class="relative w-full rounded-2xl overflow-hidden border border-slate-200 bg-slate-950 shadow-md my-6 group">
-              <img id="cd-hero-img" class="w-full h-64 sm:h-80 md:h-96 object-cover transition-opacity duration-300" src="" alt="College Campus">
+            <div id="cd-hero-slide-container" class="relative w-full rounded-2xl overflow-hidden border border-slate-200 bg-slate-950 shadow-md my-6 group cursor-pointer" onclick="openCollegeImageZoomModal(cdHeroActiveSlide)">
+              <img id="cd-hero-img" class="w-full h-64 sm:h-80 md:h-96 object-cover transition-all duration-300 group-hover:scale-[1.02]" src="" alt="College Campus">
               <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20 pointer-events-none"></div>
 
+              <!-- Click to Zoom & View Info Badge -->
+              <div class="absolute bottom-3 left-3 px-3 py-1.5 rounded-full backdrop-blur-md bg-black/70 text-white text-xs font-bold border border-white/20 flex items-center gap-1.5 transition group-hover:bg-blue-600 pointer-events-none shadow-sm">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v6m3-3H7"/></svg>
+                <span>Click to Zoom & View Info</span>
+              </div>
+
               <!-- Slide Controls for Multiple Photos -->
-              <button id="cd-hero-prev" type="button" class="absolute left-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-black/60 hover:bg-black/85 backdrop-blur-md text-white flex items-center justify-center font-bold border border-white/20 transition z-20 cursor-pointer shadow-md active:scale-95" title="Previous Photo">
+              <button id="cd-hero-prev" type="button" onclick="event.stopPropagation();" class="absolute left-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-black/60 hover:bg-black/85 backdrop-blur-md text-white flex items-center justify-center font-bold border border-white/20 transition z-20 cursor-pointer shadow-md active:scale-95" title="Previous Photo">
                 <svg class="w-5 h-5 pointer-events-none" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
               </button>
-              <button id="cd-hero-next" type="button" class="absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-black/60 hover:bg-black/85 backdrop-blur-md text-white flex items-center justify-center font-bold border border-white/20 transition z-20 cursor-pointer shadow-md active:scale-95" title="Next Photo">
+              <button id="cd-hero-next" type="button" onclick="event.stopPropagation();" class="absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-black/60 hover:bg-black/85 backdrop-blur-md text-white flex items-center justify-center font-bold border border-white/20 transition z-20 cursor-pointer shadow-md active:scale-95" title="Next Photo">
                 <svg class="w-5 h-5 pointer-events-none" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
               </button>
               <div class="absolute bottom-3 right-3 px-3 py-1 rounded-full backdrop-blur-md bg-black/70 text-white text-xs font-bold border border-white/20 select-none">
@@ -2553,6 +2559,76 @@
         </button>
       </div>
 
+    </div>
+  </div>
+
+  <!-- ===================================================================== -->
+  <!-- CAMPUS IMAGE ZOOM & COLLEGE INFO LIGHTBOX MODAL                       -->
+  <!-- ===================================================================== -->
+  <div id="cd-image-zoom-modal" class="fixed inset-0 z-50 bg-slate-950/92 backdrop-blur-md hidden flex flex-col items-center justify-between p-3 sm:p-6 select-none animate-in fade-in duration-200">
+    <!-- Top Action Bar -->
+    <div class="w-full max-w-5xl flex items-center justify-between text-white pb-3 border-b border-white/10 shrink-0">
+      <div class="flex items-center gap-2.5 min-w-0">
+        <span class="w-8 h-8 rounded-lg bg-white/10 border border-white/15 flex items-center justify-center text-white shrink-0">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v6m3-3H7"/></svg>
+        </span>
+        <div class="min-w-0">
+          <div id="cd-zoom-modal-title" class="text-sm sm:text-base font-bold truncate">College Campus Photo</div>
+          <div id="cd-zoom-modal-subtitle" class="text-[11px] text-slate-300 truncate">Photo 1 of 4</div>
+        </div>
+      </div>
+
+      <!-- Controls: Zoom In / Zoom Out / Reset & Close -->
+      <div class="flex items-center gap-2">
+        <div class="flex items-center bg-white/10 rounded-xl p-1 border border-white/15">
+          <button id="cd-zoom-btn-out" type="button" class="w-8 h-8 rounded-lg hover:bg-white/20 text-white flex items-center justify-center font-bold text-base transition cursor-pointer" title="Zoom Out" aria-label="Zoom Out">−</button>
+          <span id="cd-zoom-level-badge" class="px-2 text-xs font-mono font-bold text-white/90">100%</span>
+          <button id="cd-zoom-btn-in" type="button" class="w-8 h-8 rounded-lg hover:bg-white/20 text-white flex items-center justify-center font-bold text-base transition cursor-pointer" title="Zoom In" aria-label="Zoom In">+</button>
+        </div>
+        <button id="cd-zoom-btn-close" type="button" onclick="closeCollegeImageZoomModal()" class="w-9 h-9 rounded-xl bg-white/10 hover:bg-rose-600 text-white flex items-center justify-center font-bold text-lg border border-white/15 transition cursor-pointer shadow-md active:scale-95" title="Close (Esc)" aria-label="Close">
+          ✕
+        </button>
+      </div>
+    </div>
+
+    <!-- Center Photo Stage with Next / Prev buttons -->
+    <div class="relative w-full max-w-5xl flex-1 flex items-center justify-center overflow-hidden my-3">
+      <!-- Prev Button -->
+      <button id="cd-zoom-prev-btn" type="button" onclick="navigateCollegeImageZoom(-1)" class="absolute left-2 sm:left-4 z-20 w-11 h-11 rounded-full bg-black/60 hover:bg-black/85 text-white flex items-center justify-center border border-white/20 shadow-xl transition cursor-pointer active:scale-95" title="Previous Photo">
+        <svg class="w-6 h-6 pointer-events-none" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+      </button>
+
+      <!-- Zoomable Image Wrapper -->
+      <div id="cd-zoom-img-viewport" class="relative max-h-full max-w-full flex items-center justify-center overflow-auto cursor-zoom-in" onclick="toggleCollegeImageZoomScale()">
+        <img id="cd-zoom-modal-img" src="" alt="Campus Zoom" class="max-h-[58vh] sm:max-h-[64vh] w-auto max-w-full object-contain rounded-2xl shadow-2xl transition-transform duration-200 select-none">
+      </div>
+
+      <!-- Next Button -->
+      <button id="cd-zoom-next-btn" type="button" onclick="navigateCollegeImageZoom(1)" class="absolute right-2 sm:right-4 z-20 w-11 h-11 rounded-full bg-black/60 hover:bg-black/85 text-white flex items-center justify-center border border-white/20 shadow-xl transition cursor-pointer active:scale-95" title="Next Photo">
+        <svg class="w-6 h-6 pointer-events-none" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+      </button>
+    </div>
+
+    <!-- Bottom College Information Card -->
+    <div class="w-full max-w-5xl bg-slate-900/90 border border-white/15 rounded-2xl p-3.5 sm:p-4 text-white shrink-0 backdrop-blur-md shadow-2xl">
+      <div class="flex items-start sm:items-center justify-between gap-3 flex-wrap">
+        <div class="space-y-1 min-w-0 flex-1">
+          <div class="flex items-center gap-2 flex-wrap">
+            <span id="cd-zoom-info-code" class="px-2 py-0.5 rounded-md bg-blue-600 text-white font-extrabold text-xs uppercase tracking-wider">AUCE</span>
+            <span id="cd-zoom-info-loc" class="text-xs text-slate-300 font-medium">📍 Visakhapatnam, Andhra Pradesh</span>
+            <span id="cd-zoom-info-naac" class="px-2 py-0.5 rounded-md bg-amber-400/20 text-amber-300 border border-amber-400/30 text-[11px] font-bold">NAAC A++ · 4.6★</span>
+            <span id="cd-zoom-info-nirf" class="px-2 py-0.5 rounded-md bg-indigo-500/30 text-indigo-200 border border-indigo-400/30 text-[11px] font-bold">NIRF Band 151-200</span>
+          </div>
+          <p id="cd-zoom-info-caption" class="text-xs sm:text-sm text-slate-200 font-semibold line-clamp-1">Campus View #1 · Main Entrance Gate & Administration Building</p>
+          <p id="cd-zoom-info-desc" class="text-[11px] sm:text-xs text-slate-400 line-clamp-2">Autonomous government university college offering premier technical education, advanced laboratories, and guaranteed campus hostel facilities.</p>
+        </div>
+        <div class="flex items-center gap-2 shrink-0">
+          <button type="button" onclick="closeCollegeImageZoomModalAndScrollToAbout()" class="px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-xl text-xs font-bold transition shadow cursor-pointer flex items-center gap-1.5 active:scale-95">
+            <span>Read About College</span>
+            <span>↓</span>
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 

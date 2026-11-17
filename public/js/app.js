@@ -382,10 +382,22 @@
       const gal = document.getElementById("cd-gallery-container");
       if (gal) {
         gal.innerHTML = cdHeroImages.map((imgSrc, i) =>
-          `<figure class="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-2xs">
-            <img src="${imgSrc}" alt="${college.name} photo ${i+1}" class="w-full aspect-video object-cover" onerror="window.handleCollegeImgError(this, '${college.code || college.id}')">
-            <figcaption class="p-2.5 text-xs text-slate-500 bg-slate-50 border-t border-slate-100 font-medium">
-              ${college.name} - View #${i+1}
+          `<figure class="group bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-2xs hover:shadow-xl transition-all duration-300 cursor-pointer relative" onclick="openCollegeImageZoomModal(${i})">
+            <div class="relative overflow-hidden aspect-video bg-slate-900">
+              <img src="${imgSrc}" alt="${college.name} photo ${i+1}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" onerror="window.handleCollegeImgError(this, '${college.code || college.id}')">
+              <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2 text-white">
+                <span class="px-3 py-1.5 rounded-full bg-black/75 backdrop-blur-md text-xs font-bold border border-white/20 flex items-center gap-1.5 shadow-lg">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v6m3-3H7"/></svg>
+                  Click to Zoom & View Info
+                </span>
+              </div>
+            </div>
+            <figcaption class="p-3 text-xs text-slate-700 bg-slate-50 border-t border-slate-100 font-medium flex items-center justify-between">
+              <span class="font-bold text-slate-900 truncate">${college.name} - View #${i+1}</span>
+              <span class="text-[11px] text-blue-600 font-bold shrink-0 flex items-center gap-1">
+                <span>Zoom</span>
+                <span>🔍</span>
+              </span>
             </figcaption>
           </figure>`
         ).join("");
@@ -559,6 +571,193 @@
     window.toggleCollegeDetailPageFavorite = toggleCollegeDetailPageFavorite;
     window.openCollegeModal = openCollegeDetailPage;
     window.scrollToCdSection = scrollToCdSection;
+    window.openCollegeImageZoomModal = openCollegeImageZoomModal;
+    window.closeCollegeImageZoomModal = closeCollegeImageZoomModal;
+    window.navigateCollegeImageZoom = navigateCollegeImageZoom;
+    window.toggleCollegeImageZoomScale = toggleCollegeImageZoomScale;
+    window.setCollegeImageZoomScale = setCollegeImageZoomScale;
+    window.closeCollegeImageZoomModalAndScrollToAbout = closeCollegeImageZoomModalAndScrollToAbout;
+
+    // ============================================================
+    // College Detail Page - Image Zoom & Info Lightbox Functions
+    // ============================================================
+    let cdZoomActiveIdx = 0;
+    let cdZoomScale = 1.0;
+
+    function openCollegeImageZoomModal(idx) {
+      const collegeId = appState.activeDetailPageCollegeId;
+      const colleges = (typeof collegesData !== "undefined" && Array.isArray(collegesData)) ? collegesData : (window.collegesData || []);
+      let college = null;
+      if (collegeId) {
+        const strId = String(collegeId).trim().toLowerCase();
+        college = colleges.find(c => String(c.id).toLowerCase() === strId || String(c.code || '').toLowerCase() === strId);
+      }
+      if (!college && typeof allCollegesDataset !== "undefined" && Array.isArray(allCollegesDataset)) {
+        college = allCollegesDataset.find(c => String(c.id).toLowerCase() === String(collegeId).toLowerCase() || String(c.code || '').toLowerCase() === String(collegeId).toLowerCase());
+      }
+      if (!college && colleges.length > 0) {
+        college = colleges[0];
+      }
+      if (!college) return;
+
+      const images = (typeof cdHeroImages !== "undefined" && Array.isArray(cdHeroImages) && cdHeroImages.length > 0)
+        ? cdHeroImages
+        : (typeof window.getCollegeImages === "function" ? window.getCollegeImages(college) : [getCollegeImageUrl(college)]);
+
+      cdZoomActiveIdx = (typeof idx === "number" && idx >= 0 && idx < images.length) ? idx : 0;
+      cdZoomScale = 1.0;
+
+      const modal = document.getElementById("cd-image-zoom-modal");
+      if (!modal) return;
+
+      updateCollegeImageZoomModalContent(college, images);
+      modal.classList.remove("hidden");
+      document.body.style.overflow = "hidden";
+    }
+
+    function updateCollegeImageZoomModalContent(college, images) {
+      if (!images || images.length === 0) return;
+      const curImg = images[cdZoomActiveIdx] || images[0];
+
+      const imgEl = document.getElementById("cd-zoom-modal-img");
+      if (imgEl) {
+        imgEl.src = curImg;
+        imgEl.style.transform = `scale(${cdZoomScale})`;
+        imgEl.onerror = function() {
+          window.handleCollegeImgError(this, college.code || college.id);
+        };
+      }
+
+      const titleEl = document.getElementById("cd-zoom-modal-title");
+      if (titleEl) titleEl.textContent = `${college.name} (${college.code})`;
+
+      const subEl = document.getElementById("cd-zoom-modal-subtitle");
+      if (subEl) subEl.textContent = `Photo ${cdZoomActiveIdx + 1} of ${images.length} · Campus Facilities`;
+
+      const codeEl = document.getElementById("cd-zoom-info-code");
+      if (codeEl) codeEl.textContent = college.code || "COLLEGE";
+
+      const locEl = document.getElementById("cd-zoom-info-loc");
+      if (locEl) locEl.textContent = `📍 ${getCollegeCardLocation(college)}`;
+
+      const naacEl = document.getElementById("cd-zoom-info-naac");
+      if (naacEl) naacEl.textContent = `NAAC ${college.grade || 'A'} · ${college.rating || '4.5★'}`;
+
+      const nirfEl = document.getElementById("cd-zoom-info-nirf");
+      if (nirfEl) {
+        if (college.nirfRank) {
+          nirfEl.textContent = `NIRF #${college.nirfRank}`;
+          nirfEl.classList.remove("hidden");
+        } else if (college.nirfBand) {
+          nirfEl.textContent = `NIRF ${college.nirfBand}`;
+          nirfEl.classList.remove("hidden");
+        } else {
+          nirfEl.classList.add("hidden");
+        }
+      }
+
+      const capEl = document.getElementById("cd-zoom-info-caption");
+      if (capEl) capEl.textContent = `Campus View #${cdZoomActiveIdx + 1} · ${college.name} Infrastructure`;
+
+      const descEl = document.getElementById("cd-zoom-info-desc");
+      if (descEl) descEl.textContent = college.summary || `${college.name} is a premier accredited engineering institution established in ${college.established || '2008'} with modern labs, libraries, sports grounds, and student hostels.`;
+
+      const badgeEl = document.getElementById("cd-zoom-level-badge");
+      if (badgeEl) badgeEl.textContent = `${Math.round(cdZoomScale * 100)}%`;
+
+      const prevBtn = document.getElementById("cd-zoom-prev-btn");
+      const nextBtn = document.getElementById("cd-zoom-next-btn");
+      if (prevBtn) prevBtn.style.display = images.length > 1 ? "flex" : "none";
+      if (nextBtn) nextBtn.style.display = images.length > 1 ? "flex" : "none";
+    }
+
+    function setCollegeImageZoomScale(newScale) {
+      cdZoomScale = Math.max(0.75, Math.min(2.5, newScale));
+      const imgEl = document.getElementById("cd-zoom-modal-img");
+      if (imgEl) imgEl.style.transform = `scale(${cdZoomScale})`;
+      const badgeEl = document.getElementById("cd-zoom-level-badge");
+      if (badgeEl) badgeEl.textContent = `${Math.round(cdZoomScale * 100)}%`;
+      const viewport = document.getElementById("cd-zoom-img-viewport");
+      if (viewport) {
+        viewport.className = cdZoomScale > 1.0 ? "relative max-h-full max-w-full flex items-center justify-center overflow-auto cursor-zoom-out" : "relative max-h-full max-w-full flex items-center justify-center overflow-auto cursor-zoom-in";
+      }
+    }
+
+    function toggleCollegeImageZoomScale() {
+      if (cdZoomScale > 1.1) {
+        setCollegeImageZoomScale(1.0);
+      } else {
+        setCollegeImageZoomScale(1.6);
+      }
+    }
+
+    function navigateCollegeImageZoom(direction) {
+      const collegeId = appState.activeDetailPageCollegeId;
+      const colleges = (typeof collegesData !== "undefined" && Array.isArray(collegesData)) ? collegesData : (window.collegesData || []);
+      let college = null;
+      if (collegeId) {
+        const strId = String(collegeId).trim().toLowerCase();
+        college = colleges.find(c => String(c.id).toLowerCase() === strId || String(c.code || '').toLowerCase() === strId);
+      }
+      if (!college && colleges.length > 0) college = colleges[0];
+      if (!college) return;
+      const images = (typeof cdHeroImages !== "undefined" && Array.isArray(cdHeroImages) && cdHeroImages.length > 0)
+        ? cdHeroImages
+        : (typeof window.getCollegeImages === "function" ? window.getCollegeImages(college) : [getCollegeImageUrl(college)]);
+      if (!images || images.length <= 1) return;
+
+      cdZoomActiveIdx = (cdZoomActiveIdx + direction + images.length) % images.length;
+      cdZoomScale = 1.0;
+      updateCollegeImageZoomModalContent(college, images);
+    }
+
+    function closeCollegeImageZoomModal() {
+      const modal = document.getElementById("cd-image-zoom-modal");
+      if (modal) modal.classList.add("hidden");
+      document.body.style.removeProperty("overflow");
+    }
+
+    function closeCollegeImageZoomModalAndScrollToAbout() {
+      closeCollegeImageZoomModal();
+      setTimeout(() => {
+        if (typeof scrollToCdSection === "function") {
+          scrollToCdSection("cd-section-about");
+        }
+      }, 100);
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      document.getElementById("cd-zoom-btn-in")?.addEventListener("click", () => setCollegeImageZoomScale(cdZoomScale + 0.3));
+      document.getElementById("cd-zoom-btn-out")?.addEventListener("click", () => setCollegeImageZoomScale(cdZoomScale - 0.3));
+    });
+
+    document.addEventListener("click", (e) => {
+      const modal = document.getElementById("cd-image-zoom-modal");
+      if (modal && !modal.classList.contains("hidden")) {
+        if (e.target === modal) {
+          closeCollegeImageZoomModal();
+        }
+      }
+    });
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") {
+        const modal = document.getElementById("cd-image-zoom-modal");
+        if (modal && !modal.classList.contains("hidden")) {
+          closeCollegeImageZoomModal();
+        }
+      } else if (e.key === "ArrowLeft") {
+        const modal = document.getElementById("cd-image-zoom-modal");
+        if (modal && !modal.classList.contains("hidden")) {
+          navigateCollegeImageZoom(-1);
+        }
+      } else if (e.key === "ArrowRight") {
+        const modal = document.getElementById("cd-image-zoom-modal");
+        if (modal && !modal.classList.contains("hidden")) {
+          navigateCollegeImageZoom(1);
+        }
+      }
+    });
 
 
     function switchModalTab(tabKey) {
@@ -2476,7 +2675,7 @@
           }
 
           return `
-            <div class="college-card bg-white rounded-2xl border border-slate-200/90 shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col justify-between group">
+            <div class="college-card bg-white rounded-2xl border border-slate-200/90 shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col justify-between group cursor-pointer" onclick="openCollegeDetailPage('${c.id}')" data-college-id="${c.id}">
               <!-- Top Image Banner & Interactive Photo Slide -->
               <div class="relative h-64 sm:h-72 w-full overflow-hidden bg-slate-900 shrink-0 select-none group/slide cursor-pointer" onclick="openCollegeDetailPage('${c.id}')" data-college-id="${c.id}">
                 <img id="card-img-${c.id}" src="${currentImgUrl}" alt="${c.name}" data-orig-src="${currentImgUrl}" data-fallback-step="0" class="w-full h-full object-cover transition-all duration-300 group-hover:scale-105" loading="lazy" onerror="window.handleCollegeImgError(this, '${c.code || c.id}');">
@@ -2573,11 +2772,11 @@
 
                 <!-- Bottom Actions Bar -->
                 <div class="mt-4 pt-3.5 border-t border-slate-100 flex items-center justify-between gap-2">
-                  <button type="button" onclick="openCollegeDetailPage('${c.id}')" class="flex-1 py-2.5 px-3 bg-blue-50 hover:bg-blue-100 text-blue-700 font-bold text-xs rounded-xl transition cursor-pointer text-center flex items-center justify-center gap-1.5 shadow-2xs">
+                  <button type="button" onclick="event.stopPropagation(); openCollegeDetailPage('${c.id}')" class="flex-1 py-2.5 px-3 bg-blue-50 hover:bg-blue-100 text-blue-700 font-bold text-xs rounded-xl transition cursor-pointer text-center flex items-center justify-center gap-1.5 shadow-2xs">
                     <span>View College Profile & Cutoffs</span>
                     <span>→</span>
                   </button>
-                  <button type="button" onclick="addPriorityOption('${c.id}')" class="py-2.5 px-3 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs rounded-xl transition cursor-pointer shadow-2xs active:scale-95">
+                  <button type="button" onclick="event.stopPropagation(); addPriorityOption('${c.id}')" class="py-2.5 px-3 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs rounded-xl transition cursor-pointer shadow-2xs active:scale-95">
                     + Add Choice
                   </button>
                 </div>

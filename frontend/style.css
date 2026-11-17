@@ -959,3 +959,25 @@ html.dark .cd-nav-link.active {
   border-bottom-color: #ea580c;
 }
 
+/* ============================================================
+   College Detail Page - Image Zoom & Info Lightbox
+   ============================================================ */
+#cd-image-zoom-modal {
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+#cd-zoom-img-viewport {
+  transition: cursor 0.15s ease;
+}
+#cd-zoom-modal-img {
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
+}
+.cursor-zoom-in {
+  cursor: zoom-in;
+}
+.cursor-zoom-out {
+  cursor: zoom-out;
+}
+
+
