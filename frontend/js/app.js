@@ -56,6 +56,374 @@
     }
     window.getCollegeCardLocation = getCollegeCardLocation;
 
+    // =========================================================================
+    // DEDICATED SEARCH SECTION CONTROLLER (COLLEGE DIRECTORY ONLY) - TOP-LEVEL
+    // =========================================================================
+// ==============================================================
+      // DEDICATED SEARCH SECTION CONTROLLER (COLLEGE DIRECTORY ONLY)
+      // ==============================================================
+      let searchDirCategory = "all";
+
+      // City & Town Aliases Map for Instant Intelligent Matching
+      const CITY_EXPANSIONS = {
+        "visakhapatnam": "vizag waltair vskp",
+        "vijayawada": "bza bezawada",
+        "rajahmundry": "rajamahendravaram rjy",
+        "tirupati": "tpty tpt",
+        "anantapur": "anantapuramu atp",
+        "kakinada": "coconada",
+        "hyderabad": "hyd secunderabad",
+        "bhimavaram": "bvrm"
+      };
+
+      function matchCollegeSearch(c, rawQuery) {
+        if (!rawQuery) return true;
+        const tokens = rawQuery.toLowerCase().replace(/[()[\],.-]/g, " ").split(/\s+/).filter(Boolean);
+        if (tokens.length === 0) return true;
+
+        const combinedLoc = `${c.city || ''} ${c.location || ''} ${c.district || ''}`.toLowerCase();
+        let cityExtras = "";
+        for (const [k, v] of Object.entries(CITY_EXPANSIONS)) {
+          if (combinedLoc.includes(k)) cityExtras += " " + v;
+        }
+
+        const searchFields = [
+          c.name || "",
+          c.code || "",
+          c.fullName || "",
+          c.location || "",
+          c.district || "",
+          c.city || "",
+          c.state || "",
+          c.type || "",
+          c.category || "",
+          cityExtras,
+          ...(Array.isArray(c.aliases) ? c.aliases : []),
+          ...(Array.isArray(c.branches) ? c.branches.map(b => (b.code || "") + " " + (b.name || "")) : [])
+        ].join(" ").toLowerCase();
+
+        return tokens.every(token => searchFields.includes(token));
+      }
+
+      function matchesCollegeCategory(c, cat) {
+        if (!cat || cat === "all") return true;
+        if (cat === "iit_nit") {
+          const isIit = c.category === "IIT" || c.type === "IIT" || (c.code && c.code.startsWith("IIT")) || (c.name && c.name.includes("IIT"));
+          const isNit = c.category === "NIT" || c.type === "NIT" || (c.code && c.code.startsWith("NIT")) || (c.name && c.name.includes("NIT"));
+          return isIit || isNit;
+        }
+        if (cat === "iiit_bits") {
+          const isIiit = c.category === "IIIT" || c.type === "IIIT" || (c.code && c.code.startsWith("IIIT")) || (c.name && c.name.includes("IIIT"));
+          const isBits = c.exam === "bitsat" || (c.code && c.code.startsWith("BITS")) || (c.name && c.name.includes("BITS"));
+          return isIiit || isBits;
+        }
+        if (cat === "top") {
+          const ratingVal = parseFloat(c.rating || 0);
+          const isTopGrade = c.grade && (c.grade.includes("A") || c.grade.includes("Top") || c.grade.includes("NIRF"));
+          return ratingVal >= 4.2 || Boolean(c.nirfRank) || Boolean(isTopGrade);
+        }
+        if (cat === "University") {
+          return (c.category && (c.category.includes("Univ") || c.category.includes("Govt"))) ||
+                 (c.type && (c.type.includes("Univ") || c.type.includes("Govt") || c.type.includes("IIT") || c.type.includes("NIT") || c.type.includes("State") || c.type.includes("Central"))) ||
+                 (c.name && (c.name.includes("University") || c.name.includes("IIT") || c.name.includes("NIT")));
+        }
+        if (cat === "Autonomous") {
+          return (c.category && c.category.toLowerCase().includes("auto")) ||
+                 (c.type && c.type.toLowerCase().includes("auto")) ||
+                 (c.name && c.name.toLowerCase().includes("autonomous")) ||
+                 (c.grade && c.grade.toLowerCase().includes("auto"));
+        }
+        if (cat === "payment") {
+          return c.exam === "payment" || (c.type && (c.type.includes("Payment") || c.type.includes("Deemed") || c.type.includes("Private")));
+        }
+        return true;
+      }
+
+      // Helper: Live Auto-Suggest Dropdown under Search Bar
+      function updateSearchDirectorySuggestions() {
+        const inputEl = document.getElementById("search-directory-input");
+        const suggestionsEl = document.getElementById("search-directory-suggestions");
+        if (!inputEl || !suggestionsEl) return;
+
+        const q = inputEl.value.trim();
+        if (!q || q.length < 1) {
+          suggestionsEl.innerHTML = "";
+          suggestionsEl.classList.add("hidden");
+          return;
+        }
+
+        const colleges = (typeof collegesData !== "undefined" && Array.isArray(collegesData)) 
+          ? collegesData 
+          : (window.collegesData || []);
+
+        const matches = colleges.filter(c => matchCollegeSearch(c, q)).slice(0, 8);
+
+        if (matches.length === 0) {
+          suggestionsEl.innerHTML = `
+            <div class="p-3 text-center text-xs text-slate-500">
+              No colleges found matching "<strong>${inputEl.value.trim()}</strong>"
+            </div>
+          `;
+          suggestionsEl.classList.remove("hidden");
+          return;
+        }
+
+        suggestionsEl.innerHTML = matches.map(c => `
+          <div class="p-3 hover:bg-blue-50/80 cursor-pointer transition flex items-center justify-between gap-3 text-left group" data-suggest-name="${(c.name || '').replace(/"/g, '&quot;')}" data-suggest-id="${c.id}" onclick="openCollegeDetailPage('${c.id}')">
+            <div class="flex items-center gap-2.5 min-w-0">
+              <span class="w-8 h-8 rounded-lg bg-blue-50 group-hover:bg-blue-100 text-blue-700 flex items-center justify-center shrink-0">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 21v-8.25M15.75 21v-8.25M8.25 21v-8.25M3 9l9-6 9 6m-1.5 12V10.5M4.5 21V10.5M3 21h18"/></svg>
+              </span>
+              <div class="min-w-0">
+                <div class="text-xs sm:text-sm font-bold text-slate-900 truncate group-hover:text-blue-700">${c.name}</div>
+                <div class="text-[11px] text-slate-500 flex items-center gap-1.5 mt-0.5">
+                  <span class="font-semibold text-blue-900 bg-blue-50 px-1.5 py-0.2 rounded border border-blue-200/60">${c.code}</span>
+                  <span>📍 ${getCollegeCardLocation(c)}</span>
+                </div>
+              </div>
+            </div>
+            <div class="shrink-0 text-right">
+              <span class="text-xs font-black text-amber-600 bg-amber-50 px-2 py-0.5 rounded border border-amber-200">${c.rating || '4.5★'}</span>
+            </div>
+          </div>
+        `).join("");
+
+        suggestionsEl.classList.remove("hidden");
+      }
+
+      
+    // Search Directory College Card Active Slide Indices Tracker
+    const cardSlideIndices = {};
+
+    function changeCollegeCardSlide(collegeId, direction) {
+      const colleges = (typeof collegesData !== "undefined" && Array.isArray(collegesData)) ? collegesData : (window.collegesData || []);
+      const college = colleges.find(c => c.id === collegeId);
+      if (!college) return;
+      const images = (typeof window.getCollegeImages === "function") ? window.getCollegeImages(college) : [getCollegeImageUrl(college)];
+      if (!Array.isArray(images) || images.length <= 1) return;
+
+      const current = cardSlideIndices[collegeId] || 0;
+      const nextIdx = (current + direction + images.length) % images.length;
+      cardSlideIndices[collegeId] = nextIdx;
+
+      const imgEl = document.getElementById("card-img-" + collegeId);
+      const counterEl = document.getElementById("card-counter-" + collegeId);
+      if (imgEl) {
+        imgEl.style.opacity = "0.7";
+        imgEl.src = images[nextIdx];
+        imgEl.dataset.origSrc = images[nextIdx];
+        imgEl.dataset.fallbackStep = "0";
+        imgEl.onerror = function() {
+          window.handleCollegeImgError(this, college.code || college.id);
+        };
+        setTimeout(() => { imgEl.style.opacity = "1"; }, 100);
+      }
+      if (counterEl) {
+        counterEl.textContent = (nextIdx + 1) + " / " + images.length;
+      }
+    };
+
+    function renderSearchDirectory() {
+        const inputEl = document.getElementById("search-directory-input");
+        const clearBtn = document.getElementById("search-directory-clear-btn");
+        const countBar = document.getElementById("search-directory-count-bar");
+        const countText = document.getElementById("search-directory-count-text");
+        const promptEl = document.getElementById("search-directory-empty-prompt");
+        const gridEl = document.getElementById("search-directory-grid");
+        if (!gridEl) return;
+
+        const rawQuery = (inputEl ? inputEl.value : "").trim();
+        const query = rawQuery.toLowerCase();
+        if (clearBtn) clearBtn.classList.toggle("hidden", !rawQuery);
+
+        if (promptEl) promptEl.classList.add("hidden");
+        gridEl.classList.remove("hidden");
+
+        const colleges = (typeof collegesData !== "undefined" && Array.isArray(collegesData)) 
+          ? collegesData 
+          : (window.collegesData || []);
+
+        let matches = colleges.filter(c => matchesCollegeCategory(c, searchDirCategory) && matchCollegeSearch(c, rawQuery));
+
+        // Intelligent fallback: if 0 colleges match under active filter chip, search across all categories so users never get a false 0!
+        if (matches.length === 0 && rawQuery && searchDirCategory !== "all") {
+          const allMatches = colleges.filter(c => matchCollegeSearch(c, rawQuery));
+          if (allMatches.length > 0) {
+            matches = allMatches;
+          }
+        }
+
+        if (countBar && countText) {
+          countBar.classList.remove("hidden");
+          if (rawQuery) {
+            countText.textContent = `Showing ${matches.length} matching college${matches.length === 1 ? '' : 's'} for "${rawQuery}"`;
+          } else {
+            countText.textContent = `Showing ${matches.length} colleges in directory`;
+          }
+        }
+
+        if (matches.length === 0) {
+          gridEl.innerHTML = `
+            <div class="col-span-full py-12 text-center bg-white rounded-2xl border border-slate-200/90 p-8 shadow-xs">
+              <svg class="w-10 h-10 mx-auto text-slate-400 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+              <h4 class="text-base font-bold text-slate-800">No colleges matched "${rawQuery}"</h4>
+              <p class="text-xs text-slate-500 mt-1">Try searching by college code (e.g., AUCE, GVP, VRSEC), city, or branch (CSE, AIDS, ECE).</p>
+              <button type="button" onclick="if(document.getElementById('search-directory-input')){document.getElementById('search-directory-input').value='';renderSearchDirectory();}" class="mt-4 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold rounded-xl transition cursor-pointer">
+                Clear Search & Show All Colleges
+              </button>
+            </div>
+          `;
+          return;
+        }
+
+        // Limit initial display for snappy performance
+        const displayLimit = rawQuery ? matches.length : 36;
+        const displayedColleges = matches.slice(0, displayLimit);
+
+        gridEl.innerHTML = displayedColleges.map(c => {
+          const ratingVal = parseFloat(c.rating || 0);
+          const branchesCount = Array.isArray(c.branches) ? c.branches.length : 0;
+          const branchBadges = Array.isArray(c.branches) 
+            ? c.branches.slice(0, 5).map(b => `<span class="px-2 py-0.5 rounded-md bg-slate-100 text-slate-800 text-[10px] font-bold border border-slate-200/60">${b.code}</span>`).join(" ") + (c.branches.length > 5 ? ` <span class="text-[10px] font-bold text-slate-400 self-center">+${c.branches.length - 5}</span>` : '')
+            : '';
+          const isShortlisted = Array.isArray(appState.shortlist) && appState.shortlist.includes(c.id);
+          
+          // Real College Photos List from Dataset
+          const imagesList = (typeof window.getCollegeImages === "function") ? window.getCollegeImages(c) : [getCollegeImageUrl(c)];
+          const activeSlideIdx = cardSlideIndices[c.id] || 0;
+          const currentImgUrl = imagesList[activeSlideIdx] || imagesList[0] || getCollegeImageUrl(c);
+
+          const medianStr = c.placements?.medianPackage || c.placements?.medianSalary || (c.placements?.numMedianPkg ? `₹${c.placements.numMedianPkg} LPA` : '₹4.5 LPA');
+          const tuitionStr = c.fees?.annualTuition || c.fees?.tuition || (c.fees?.numTuition ? `₹${Math.round(c.fees.numTuition / 1000)}K/yr` : '₹70K/yr');
+          const placeRate = c.placements?.placementRate || (c.placements?.numRate ? `${c.placements.numRate}%` : '85%');
+          const typeLabel = c.type || c.category || 'Engineering';
+
+          // NIRF 2025 Badge
+          let nirfBadgeHtml = '';
+          if (c.nirfRank) {
+            nirfBadgeHtml = `<span class="px-2 py-0.5 rounded-md text-[10px] font-black backdrop-blur-md bg-blue-600 text-white border border-blue-400/50 shadow-sm flex items-center gap-1"><span class="text-[9px] opacity-80">NIRF</span> #${c.nirfRank} <span class="text-[9px] font-normal opacity-90">(${c.nirfScore})</span></span>`;
+          } else if (c.nirfBand) {
+            nirfBadgeHtml = `<span class="px-2 py-0.5 rounded-md text-[10px] font-black backdrop-blur-md bg-indigo-600 text-white border border-indigo-400/50 shadow-sm flex items-center gap-1"><span class="text-[9px] opacity-80">NIRF</span> ${c.nirfBand}</span>`;
+          }
+
+          return `
+            <div class="college-card bg-white rounded-2xl border border-slate-200/90 shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col justify-between group cursor-pointer" onclick="openCollegeDetailPage('${c.id}')" data-college-id="${c.id}">
+              <!-- Top Image Banner & Interactive Photo Slide -->
+              <div class="relative h-64 sm:h-72 w-full overflow-hidden bg-slate-900 shrink-0 select-none group/slide cursor-pointer" onclick="openCollegeDetailPage('${c.id}')" data-college-id="${c.id}">
+                <img id="card-img-${c.id}" src="${currentImgUrl}" alt="${c.name}" data-orig-src="${currentImgUrl}" data-fallback-step="0" class="w-full h-full object-cover transition-all duration-300 group-hover:scale-105" loading="lazy" onerror="window.handleCollegeImgError(this, '${c.code || c.id}');">
+
+                <!-- Previous Photo Slide Button -->
+                ${imagesList.length > 1 ? `
+                  <button type="button" data-action="slide-prev" data-target="${c.id}" onclick="event.stopPropagation(); changeCollegeCardSlide('${c.id}', -1);" class="absolute left-2.5 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/60 hover:bg-black/90 text-white flex items-center justify-center font-black transition z-20 cursor-pointer shadow-lg active:scale-90" title="Previous Campus Photo" aria-label="Previous Campus Photo">
+                    <svg class="w-4 h-4 pointer-events-none" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+                  </button>
+                  <button type="button" data-action="slide-next" data-target="${c.id}" onclick="event.stopPropagation(); changeCollegeCardSlide('${c.id}', 1);" class="absolute right-2.5 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/60 hover:bg-black/90 text-white flex items-center justify-center font-black transition z-20 cursor-pointer shadow-lg active:scale-90" title="Next Campus Photo" aria-label="Next Campus Photo">
+                    <svg class="w-4 h-4 pointer-events-none" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+                  </button>
+                  <div class="absolute bottom-11 right-3 z-20 px-2 py-0.5 rounded-full backdrop-blur-md bg-black/70 text-white text-[9px] font-black border border-white/20 shadow-sm flex items-center justify-center">
+                    <span id="card-counter-${c.id}">${activeSlideIdx + 1} / ${imagesList.length}</span>
+                  </div>
+                ` : ''}
+                
+                <!-- Top Left Badges: NIRF & Rating & Code -->
+                <div class="absolute top-3 left-3 flex items-center gap-1.5 flex-wrap z-20">
+                  ${nirfBadgeHtml}
+                  <span class="px-2 py-0.5 rounded-md text-[10px] font-black backdrop-blur-md bg-black/60 text-amber-300 border border-amber-400/40 shadow-sm flex items-center gap-1">
+                    ★ ${c.rating || "4.5★"} <span class="text-white/80 font-semibold text-[9px]">(${c.grade || "A"})</span>
+                  </span>
+                  <span class="px-2 py-0.5 rounded-md text-[10px] font-extrabold uppercase backdrop-blur-md bg-black/70 text-white border border-white/20 shadow-sm">
+                    ${c.code}
+                  </span>
+                </div>
+
+                <!-- Top Right Badge: Live Favorite Star Toggle -->
+                <button type="button" data-action="toggle-shortlist" data-college-id="${c.id}" onclick="event.stopPropagation();" class="absolute top-3 right-3 p-2 rounded-xl backdrop-blur-md ${isShortlisted ? 'bg-amber-400 text-slate-950 font-black ring-2 ring-amber-300' : 'bg-black/60 text-white hover:bg-black/80 hover:text-amber-300'} border border-white/20 transition cursor-pointer shadow-md z-20 active:scale-90" title="${isShortlisted ? 'Favorited' : 'Add to Favorites'}">
+                  <span class="text-sm sm:text-base leading-none">${isShortlisted ? '★' : '☆'}</span>
+                </button>
+
+                <!-- Bottom Image Gradient Overlay with Location & Package -->
+                <div class="absolute inset-x-0 bottom-0 p-3 bg-gradient-to-t from-black/90 via-black/50 to-transparent flex items-center justify-between text-white z-10 pointer-events-none">
+                  <span class="text-[11px] font-bold text-slate-100 flex items-center gap-1 truncate max-w-[65%]">
+                    <span>📍</span>
+                    <span>${getCollegeCardLocation(c)}</span>
+                  </span>
+                  <span class="text-[11px] font-black text-amber-300 bg-amber-400/20 px-1.5 py-0.5 rounded border border-amber-400/40 shadow-xs">
+                    ${medianStr}
+                  </span>
+                </div>
+              </div>
+
+              <!-- Card Body Content -->
+              <div class="p-4 sm:p-5 flex-1 flex flex-col justify-between">
+                <div>
+                  <div class="flex items-center gap-2 mb-1.5 flex-wrap">
+                    <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-slate-100 text-slate-700 border border-slate-200/60">${typeLabel}</span>
+                    <span class="text-xs text-slate-500">• Est. ${c.established || '2008'}</span>
+                    ${c.lowPlacementFlag ? '<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-rose-100 text-rose-800">Low 2025 Activity</span>' : ''}
+                  </div>
+                  <h4 class="font-black text-base text-slate-900 leading-snug line-clamp-2 hover:text-blue-700 transition cursor-pointer" onclick="openCollegeDetailPage('${c.id}')">
+                    ${c.name}
+                  </h4>
+                  <p class="text-xs text-slate-500 mt-1">${c.university || 'AP Affiliated'} • ${c.region || 'AU/SVU'} Region</p>
+
+                  <!-- NIRF 2025 Verified Indicator Bar -->
+                  ${c.nirfRank ? `
+                    <div class="mt-2.5 p-2 rounded-xl bg-blue-50/80 border border-blue-200/80 flex items-center justify-between text-xs">
+                      <span class="font-bold text-blue-900">🏆 NIRF 2025 Engineering Rank</span>
+                      <span class="font-black text-blue-700">#${c.nirfRank} (Score: ${c.nirfScore})</span>
+                    </div>
+                  ` : (c.nirfBand ? `
+                    <div class="mt-2.5 p-2 rounded-xl bg-indigo-50/80 border border-indigo-200/80 flex items-center justify-between text-xs">
+                      <span class="font-bold text-indigo-900">🏆 NIRF 2025 Ranking Band</span>
+                      <span class="font-black text-indigo-700">${c.nirfBand}</span>
+                    </div>
+                  ` : '')}
+
+                  <!-- 3 Key Metric Blocks -->
+                  <div class="mt-3.5 grid grid-cols-3 gap-2 text-center bg-slate-50 p-2.5 rounded-xl border border-slate-100">
+                    <div>
+                      <span class="text-[10px] uppercase font-bold text-slate-400 block">Placed</span>
+                      <span class="text-xs font-extrabold ${c.lowPlacementFlag ? 'text-rose-700' : 'text-emerald-700'}">${placeRate}</span>
+                    </div>
+                    <div>
+                      <span class="text-[10px] uppercase font-bold text-slate-400 block">Median CTC</span>
+                      <span class="text-xs font-extrabold text-blue-800">${medianStr}</span>
+                    </div>
+                    <div>
+                      <span class="text-[10px] uppercase font-bold text-slate-400 block">Est. Tuition</span>
+                      <span class="text-xs font-extrabold text-slate-800">${tuitionStr}</span>
+                    </div>
+                  </div>
+
+                  <!-- Offered Branches -->
+                  <div class="mt-3">
+                    <span class="text-[11px] font-bold text-slate-700 block mb-1">Offered Branches (${branchesCount}):</span>
+                    <div class="flex flex-wrap gap-1">${branchBadges}</div>
+                  </div>
+                </div>
+
+                <!-- Bottom Actions Bar -->
+                <div class="mt-4 pt-3.5 border-t border-slate-100 flex items-center justify-between gap-2">
+                  <button type="button" onclick="event.stopPropagation(); openCollegeDetailPage('${c.id}')" class="flex-1 py-2.5 px-3 bg-blue-50 hover:bg-blue-100 text-blue-700 font-bold text-xs rounded-xl transition cursor-pointer text-center flex items-center justify-center gap-1.5 shadow-2xs">
+                    <span>View College Profile & Cutoffs</span>
+                    <span>→</span>
+                  </button>
+                  <button type="button" onclick="event.stopPropagation(); addPriorityOption('${c.id}')" class="py-2.5 px-3 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs rounded-xl transition cursor-pointer shadow-2xs active:scale-95">
+                    + Add Choice
+                  </button>
+                </div>
+              </div>
+            </div>
+          `;
+        }).join("");
+      };
+    window.renderSearchDirectory = renderSearchDirectory;
+    window.changeCollegeCardSlide = changeCollegeCardSlide;
+    window.matchCollegeSearch = matchCollegeSearch;
+    window.matchesCollegeCategory = matchesCollegeCategory;
+
+
+
     let cdHeroActiveSlide = 0;
     let cdHeroImages = [];
 
@@ -631,20 +999,38 @@ function openCollegeDetailPage(collegeId) {
       // Smoothly return directly to the Search Directory view (Pic 3)
       switchMainView("search");
 
-      if (typeof window.renderSearchDirectory === "function") {
+      const searchView = document.getElementById("search-view-container");
+      if (searchView) {
+        searchView.classList.remove("hidden");
+        searchView.style.removeProperty("display");
+        searchView.style.display = "block";
+      }
+
+      const gridEl = document.getElementById("search-directory-grid");
+      if (gridEl) {
+        gridEl.classList.remove("hidden");
+        gridEl.style.removeProperty("display");
+        gridEl.style.display = "grid";
+      }
+
+      if (typeof renderSearchDirectory === "function") {
+        renderSearchDirectory();
+      } else if (typeof window.renderSearchDirectory === "function") {
         window.renderSearchDirectory();
       }
+
+      window.scrollTo({ top: 0, behavior: "instant" });
+
+      try {
+        window.history.pushState({}, "Search Colleges", "#/search");
+      } catch (e) {}
 
       setTimeout(() => {
         const searchInput = document.getElementById("search-directory-input") || document.getElementById("slide2-college-search");
         if (searchInput) {
           searchInput.focus();
         }
-      }, 80);
-
-      try {
-        window.history.pushState({}, "Search Colleges", "#/search");
-      } catch (e) {}
+      }, 50);
     }
 
     function navigateAdjacentCollege(direction) {
@@ -1335,8 +1721,17 @@ function openCollegeDetailPage(collegeId) {
           b.classList.toggle("active", isSearch);
         });
 
+        const gridEl = document.getElementById("search-directory-grid");
+        if (gridEl) {
+          gridEl.classList.remove("hidden");
+          gridEl.style.removeProperty("display");
+          gridEl.style.display = "grid";
+        }
+
         if (typeof renderSearchDirectory === "function") {
           renderSearchDirectory();
+        } else if (typeof window.renderSearchDirectory === "function") {
+          window.renderSearchDirectory();
         }
         window.scrollTo({ top: 0, behavior: "smooth" });
       } else {
@@ -1995,22 +2390,14 @@ function openCollegeDetailPage(collegeId) {
       if (typeof switchMainView === "function") {
         switchMainView("add-rank");
       }
-      if (typeof showExplorerSlide === "function") {
-        showExplorerSlide(1);
-      }
-      // Check if URL has a direct college link on page refresh/load!
-      const initHash = window.location.hash;
-      if (initHash && initHash.startsWith("#/college/")) {
-        const colId = initHash.replace("#/college/", "").trim();
-        if (colId) {
-          setTimeout(() => {
-            openCollegeDetailPage(colId);
-          }, 80);
-        }
-      }
       if (typeof showHomeSlide === "function") {
         showHomeSlide(1);
+      } else if (typeof showExplorerSlide === "function") {
+        showExplorerSlide(1);
       }
+      try {
+        window.history.replaceState(null, "The Bridge", "#/");
+      } catch (e) {}
       window.scrollTo({ top: 0, behavior: "instant" });
     }
 
@@ -2018,12 +2405,23 @@ function openCollegeDetailPage(collegeId) {
       window.addEventListener("popstate", (e) => {
         const hash = window.location.hash;
         if (hash.startsWith("#/college/")) {
-          const colId = hash.replace("#/college/", "");
+          const colId = hash.replace("#/college/", "").trim();
           if (colId) openCollegeDetailPage(colId);
+        } else if (hash === "#/search" || hash.startsWith("#/search")) {
+          const cdView = document.getElementById("college-detail-view-container");
+          if (cdView && !cdView.classList.contains("hidden")) {
+            closeCollegeDetailPage();
+          } else {
+            switchMainView("search");
+            if (typeof renderSearchDirectory === "function") renderSearchDirectory();
+          }
         } else {
           const cdView = document.getElementById("college-detail-view-container");
           if (cdView && !cdView.classList.contains("hidden")) {
             closeCollegeDetailPage();
+          } else {
+            switchMainView("add-rank");
+            if (typeof showHomeSlide === "function") showHomeSlide(1);
           }
         }
       });
@@ -2892,365 +3290,6 @@ function openCollegeDetailPage(collegeId) {
       if (btnSearchBackHome) {
         btnSearchBackHome.addEventListener("click", () => switchMainView("add-rank"));
       }
-
-      // ==============================================================
-      // DEDICATED SEARCH SECTION CONTROLLER (COLLEGE DIRECTORY ONLY)
-      // ==============================================================
-      let searchDirCategory = "all";
-
-      // City & Town Aliases Map for Instant Intelligent Matching
-      const CITY_EXPANSIONS = {
-        "visakhapatnam": "vizag waltair vskp",
-        "vijayawada": "bza bezawada",
-        "rajahmundry": "rajamahendravaram rjy",
-        "tirupati": "tpty tpt",
-        "anantapur": "anantapuramu atp",
-        "kakinada": "coconada",
-        "hyderabad": "hyd secunderabad",
-        "bhimavaram": "bvrm"
-      };
-
-      function matchCollegeSearch(c, rawQuery) {
-        if (!rawQuery) return true;
-        const tokens = rawQuery.toLowerCase().replace(/[()[\],.-]/g, " ").split(/\s+/).filter(Boolean);
-        if (tokens.length === 0) return true;
-
-        const combinedLoc = `${c.city || ''} ${c.location || ''} ${c.district || ''}`.toLowerCase();
-        let cityExtras = "";
-        for (const [k, v] of Object.entries(CITY_EXPANSIONS)) {
-          if (combinedLoc.includes(k)) cityExtras += " " + v;
-        }
-
-        const searchFields = [
-          c.name || "",
-          c.code || "",
-          c.fullName || "",
-          c.location || "",
-          c.district || "",
-          c.city || "",
-          c.state || "",
-          c.type || "",
-          c.category || "",
-          cityExtras,
-          ...(Array.isArray(c.aliases) ? c.aliases : []),
-          ...(Array.isArray(c.branches) ? c.branches.map(b => (b.code || "") + " " + (b.name || "")) : [])
-        ].join(" ").toLowerCase();
-
-        return tokens.every(token => searchFields.includes(token));
-      }
-
-      function matchesCollegeCategory(c, cat) {
-        if (!cat || cat === "all") return true;
-        if (cat === "iit_nit") {
-          const isIit = c.category === "IIT" || c.type === "IIT" || (c.code && c.code.startsWith("IIT")) || (c.name && c.name.includes("IIT"));
-          const isNit = c.category === "NIT" || c.type === "NIT" || (c.code && c.code.startsWith("NIT")) || (c.name && c.name.includes("NIT"));
-          return isIit || isNit;
-        }
-        if (cat === "iiit_bits") {
-          const isIiit = c.category === "IIIT" || c.type === "IIIT" || (c.code && c.code.startsWith("IIIT")) || (c.name && c.name.includes("IIIT"));
-          const isBits = c.exam === "bitsat" || (c.code && c.code.startsWith("BITS")) || (c.name && c.name.includes("BITS"));
-          return isIiit || isBits;
-        }
-        if (cat === "top") {
-          const ratingVal = parseFloat(c.rating || 0);
-          const isTopGrade = c.grade && (c.grade.includes("A") || c.grade.includes("Top") || c.grade.includes("NIRF"));
-          return ratingVal >= 4.2 || Boolean(c.nirfRank) || Boolean(isTopGrade);
-        }
-        if (cat === "University") {
-          return (c.category && (c.category.includes("Univ") || c.category.includes("Govt"))) ||
-                 (c.type && (c.type.includes("Univ") || c.type.includes("Govt") || c.type.includes("IIT") || c.type.includes("NIT") || c.type.includes("State") || c.type.includes("Central"))) ||
-                 (c.name && (c.name.includes("University") || c.name.includes("IIT") || c.name.includes("NIT")));
-        }
-        if (cat === "Autonomous") {
-          return (c.category && c.category.toLowerCase().includes("auto")) ||
-                 (c.type && c.type.toLowerCase().includes("auto")) ||
-                 (c.name && c.name.toLowerCase().includes("autonomous")) ||
-                 (c.grade && c.grade.toLowerCase().includes("auto"));
-        }
-        if (cat === "payment") {
-          return c.exam === "payment" || (c.type && (c.type.includes("Payment") || c.type.includes("Deemed") || c.type.includes("Private")));
-        }
-        return true;
-      }
-
-      // Helper: Live Auto-Suggest Dropdown under Search Bar
-      function updateSearchDirectorySuggestions() {
-        const inputEl = document.getElementById("search-directory-input");
-        const suggestionsEl = document.getElementById("search-directory-suggestions");
-        if (!inputEl || !suggestionsEl) return;
-
-        const q = inputEl.value.trim();
-        if (!q || q.length < 1) {
-          suggestionsEl.innerHTML = "";
-          suggestionsEl.classList.add("hidden");
-          return;
-        }
-
-        const colleges = (typeof collegesData !== "undefined" && Array.isArray(collegesData)) 
-          ? collegesData 
-          : (window.collegesData || []);
-
-        const matches = colleges.filter(c => matchCollegeSearch(c, q)).slice(0, 8);
-
-        if (matches.length === 0) {
-          suggestionsEl.innerHTML = `
-            <div class="p-3 text-center text-xs text-slate-500">
-              No colleges found matching "<strong>${inputEl.value.trim()}</strong>"
-            </div>
-          `;
-          suggestionsEl.classList.remove("hidden");
-          return;
-        }
-
-        suggestionsEl.innerHTML = matches.map(c => `
-          <div class="p-3 hover:bg-blue-50/80 cursor-pointer transition flex items-center justify-between gap-3 text-left group" data-suggest-name="${(c.name || '').replace(/"/g, '&quot;')}" data-suggest-id="${c.id}" onclick="openCollegeDetailPage('${c.id}')">
-            <div class="flex items-center gap-2.5 min-w-0">
-              <span class="w-8 h-8 rounded-lg bg-blue-50 group-hover:bg-blue-100 text-blue-700 flex items-center justify-center shrink-0">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 21v-8.25M15.75 21v-8.25M8.25 21v-8.25M3 9l9-6 9 6m-1.5 12V10.5M4.5 21V10.5M3 21h18"/></svg>
-              </span>
-              <div class="min-w-0">
-                <div class="text-xs sm:text-sm font-bold text-slate-900 truncate group-hover:text-blue-700">${c.name}</div>
-                <div class="text-[11px] text-slate-500 flex items-center gap-1.5 mt-0.5">
-                  <span class="font-semibold text-blue-900 bg-blue-50 px-1.5 py-0.2 rounded border border-blue-200/60">${c.code}</span>
-                  <span>📍 ${getCollegeCardLocation(c)}</span>
-                </div>
-              </div>
-            </div>
-            <div class="shrink-0 text-right">
-              <span class="text-xs font-black text-amber-600 bg-amber-50 px-2 py-0.5 rounded border border-amber-200">${c.rating || '4.5★'}</span>
-            </div>
-          </div>
-        `).join("");
-
-        suggestionsEl.classList.remove("hidden");
-      }
-
-      
-    // Search Directory College Card Active Slide Indices Tracker
-    const cardSlideIndices = {};
-
-    window.changeCollegeCardSlide = function(collegeId, direction) {
-      const colleges = (typeof collegesData !== "undefined" && Array.isArray(collegesData)) ? collegesData : (window.collegesData || []);
-      const college = colleges.find(c => c.id === collegeId);
-      if (!college) return;
-      const images = (typeof window.getCollegeImages === "function") ? window.getCollegeImages(college) : [getCollegeImageUrl(college)];
-      if (!Array.isArray(images) || images.length <= 1) return;
-
-      const current = cardSlideIndices[collegeId] || 0;
-      const nextIdx = (current + direction + images.length) % images.length;
-      cardSlideIndices[collegeId] = nextIdx;
-
-      const imgEl = document.getElementById("card-img-" + collegeId);
-      const counterEl = document.getElementById("card-counter-" + collegeId);
-      if (imgEl) {
-        imgEl.style.opacity = "0.7";
-        imgEl.src = images[nextIdx];
-        imgEl.dataset.origSrc = images[nextIdx];
-        imgEl.dataset.fallbackStep = "0";
-        imgEl.onerror = function() {
-          window.handleCollegeImgError(this, college.code || college.id);
-        };
-        setTimeout(() => { imgEl.style.opacity = "1"; }, 100);
-      }
-      if (counterEl) {
-        counterEl.textContent = (nextIdx + 1) + " / " + images.length;
-      }
-    };
-
-    window.renderSearchDirectory = function() {
-        const inputEl = document.getElementById("search-directory-input");
-        const clearBtn = document.getElementById("search-directory-clear-btn");
-        const countBar = document.getElementById("search-directory-count-bar");
-        const countText = document.getElementById("search-directory-count-text");
-        const promptEl = document.getElementById("search-directory-empty-prompt");
-        const gridEl = document.getElementById("search-directory-grid");
-        if (!gridEl) return;
-
-        const rawQuery = (inputEl ? inputEl.value : "").trim();
-        const query = rawQuery.toLowerCase();
-        if (clearBtn) clearBtn.classList.toggle("hidden", !rawQuery);
-
-        if (promptEl) promptEl.classList.add("hidden");
-        gridEl.classList.remove("hidden");
-
-        const colleges = (typeof collegesData !== "undefined" && Array.isArray(collegesData)) 
-          ? collegesData 
-          : (window.collegesData || []);
-
-        let matches = colleges.filter(c => matchesCollegeCategory(c, searchDirCategory) && matchCollegeSearch(c, rawQuery));
-
-        // Intelligent fallback: if 0 colleges match under active filter chip, search across all categories so users never get a false 0!
-        if (matches.length === 0 && rawQuery && searchDirCategory !== "all") {
-          const allMatches = colleges.filter(c => matchCollegeSearch(c, rawQuery));
-          if (allMatches.length > 0) {
-            matches = allMatches;
-          }
-        }
-
-        if (countBar && countText) {
-          countBar.classList.remove("hidden");
-          if (rawQuery) {
-            countText.textContent = `Showing ${matches.length} matching college${matches.length === 1 ? '' : 's'} for "${rawQuery}"`;
-          } else {
-            countText.textContent = `Showing ${matches.length} colleges in directory`;
-          }
-        }
-
-        if (matches.length === 0) {
-          gridEl.innerHTML = `
-            <div class="col-span-full py-12 text-center bg-white rounded-2xl border border-slate-200/90 p-8 shadow-xs">
-              <svg class="w-10 h-10 mx-auto text-slate-400 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
-              <h4 class="text-base font-bold text-slate-800">No colleges matched "${rawQuery}"</h4>
-              <p class="text-xs text-slate-500 mt-1">Try searching by college code (e.g., AUCE, GVP, VRSEC), city, or branch (CSE, AIDS, ECE).</p>
-              <button type="button" onclick="if(document.getElementById('search-directory-input')){document.getElementById('search-directory-input').value='';renderSearchDirectory();}" class="mt-4 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold rounded-xl transition cursor-pointer">
-                Clear Search & Show All Colleges
-              </button>
-            </div>
-          `;
-          return;
-        }
-
-        // Limit initial display for snappy performance
-        const displayLimit = rawQuery ? matches.length : 36;
-        const displayedColleges = matches.slice(0, displayLimit);
-
-        gridEl.innerHTML = displayedColleges.map(c => {
-          const ratingVal = parseFloat(c.rating || 0);
-          const branchesCount = Array.isArray(c.branches) ? c.branches.length : 0;
-          const branchBadges = Array.isArray(c.branches) 
-            ? c.branches.slice(0, 5).map(b => `<span class="px-2 py-0.5 rounded-md bg-slate-100 text-slate-800 text-[10px] font-bold border border-slate-200/60">${b.code}</span>`).join(" ") + (c.branches.length > 5 ? ` <span class="text-[10px] font-bold text-slate-400 self-center">+${c.branches.length - 5}</span>` : '')
-            : '';
-          const isShortlisted = Array.isArray(appState.shortlist) && appState.shortlist.includes(c.id);
-          
-          // Real College Photos List from Dataset
-          const imagesList = (typeof window.getCollegeImages === "function") ? window.getCollegeImages(c) : [getCollegeImageUrl(c)];
-          const activeSlideIdx = cardSlideIndices[c.id] || 0;
-          const currentImgUrl = imagesList[activeSlideIdx] || imagesList[0] || getCollegeImageUrl(c);
-
-          const medianStr = c.placements?.medianPackage || c.placements?.medianSalary || (c.placements?.numMedianPkg ? `₹${c.placements.numMedianPkg} LPA` : '₹4.5 LPA');
-          const tuitionStr = c.fees?.annualTuition || c.fees?.tuition || (c.fees?.numTuition ? `₹${Math.round(c.fees.numTuition / 1000)}K/yr` : '₹70K/yr');
-          const placeRate = c.placements?.placementRate || (c.placements?.numRate ? `${c.placements.numRate}%` : '85%');
-          const typeLabel = c.type || c.category || 'Engineering';
-
-          // NIRF 2025 Badge
-          let nirfBadgeHtml = '';
-          if (c.nirfRank) {
-            nirfBadgeHtml = `<span class="px-2 py-0.5 rounded-md text-[10px] font-black backdrop-blur-md bg-blue-600 text-white border border-blue-400/50 shadow-sm flex items-center gap-1"><span class="text-[9px] opacity-80">NIRF</span> #${c.nirfRank} <span class="text-[9px] font-normal opacity-90">(${c.nirfScore})</span></span>`;
-          } else if (c.nirfBand) {
-            nirfBadgeHtml = `<span class="px-2 py-0.5 rounded-md text-[10px] font-black backdrop-blur-md bg-indigo-600 text-white border border-indigo-400/50 shadow-sm flex items-center gap-1"><span class="text-[9px] opacity-80">NIRF</span> ${c.nirfBand}</span>`;
-          }
-
-          return `
-            <div class="college-card bg-white rounded-2xl border border-slate-200/90 shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col justify-between group cursor-pointer" onclick="openCollegeDetailPage('${c.id}')" data-college-id="${c.id}">
-              <!-- Top Image Banner & Interactive Photo Slide -->
-              <div class="relative h-64 sm:h-72 w-full overflow-hidden bg-slate-900 shrink-0 select-none group/slide cursor-pointer" onclick="openCollegeDetailPage('${c.id}')" data-college-id="${c.id}">
-                <img id="card-img-${c.id}" src="${currentImgUrl}" alt="${c.name}" data-orig-src="${currentImgUrl}" data-fallback-step="0" class="w-full h-full object-cover transition-all duration-300 group-hover:scale-105" loading="lazy" onerror="window.handleCollegeImgError(this, '${c.code || c.id}');">
-
-                <!-- Previous Photo Slide Button -->
-                ${imagesList.length > 1 ? `
-                  <button type="button" data-action="slide-prev" data-target="${c.id}" onclick="event.stopPropagation(); changeCollegeCardSlide('${c.id}', -1);" class="absolute left-2.5 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/60 hover:bg-black/90 text-white flex items-center justify-center font-black transition z-20 cursor-pointer shadow-lg active:scale-90" title="Previous Campus Photo" aria-label="Previous Campus Photo">
-                    <svg class="w-4 h-4 pointer-events-none" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
-                  </button>
-                  <button type="button" data-action="slide-next" data-target="${c.id}" onclick="event.stopPropagation(); changeCollegeCardSlide('${c.id}', 1);" class="absolute right-2.5 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/60 hover:bg-black/90 text-white flex items-center justify-center font-black transition z-20 cursor-pointer shadow-lg active:scale-90" title="Next Campus Photo" aria-label="Next Campus Photo">
-                    <svg class="w-4 h-4 pointer-events-none" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
-                  </button>
-                  <div class="absolute bottom-11 right-3 z-20 px-2 py-0.5 rounded-full backdrop-blur-md bg-black/70 text-white text-[9px] font-black border border-white/20 shadow-sm flex items-center justify-center">
-                    <span id="card-counter-${c.id}">${activeSlideIdx + 1} / ${imagesList.length}</span>
-                  </div>
-                ` : ''}
-                
-                <!-- Top Left Badges: NIRF & Rating & Code -->
-                <div class="absolute top-3 left-3 flex items-center gap-1.5 flex-wrap z-20">
-                  ${nirfBadgeHtml}
-                  <span class="px-2 py-0.5 rounded-md text-[10px] font-black backdrop-blur-md bg-black/60 text-amber-300 border border-amber-400/40 shadow-sm flex items-center gap-1">
-                    ★ ${c.rating || "4.5★"} <span class="text-white/80 font-semibold text-[9px]">(${c.grade || "A"})</span>
-                  </span>
-                  <span class="px-2 py-0.5 rounded-md text-[10px] font-extrabold uppercase backdrop-blur-md bg-black/70 text-white border border-white/20 shadow-sm">
-                    ${c.code}
-                  </span>
-                </div>
-
-                <!-- Top Right Badge: Live Favorite Star Toggle -->
-                <button type="button" data-action="toggle-shortlist" data-college-id="${c.id}" onclick="event.stopPropagation();" class="absolute top-3 right-3 p-2 rounded-xl backdrop-blur-md ${isShortlisted ? 'bg-amber-400 text-slate-950 font-black ring-2 ring-amber-300' : 'bg-black/60 text-white hover:bg-black/80 hover:text-amber-300'} border border-white/20 transition cursor-pointer shadow-md z-20 active:scale-90" title="${isShortlisted ? 'Favorited' : 'Add to Favorites'}">
-                  <span class="text-sm sm:text-base leading-none">${isShortlisted ? '★' : '☆'}</span>
-                </button>
-
-                <!-- Bottom Image Gradient Overlay with Location & Package -->
-                <div class="absolute inset-x-0 bottom-0 p-3 bg-gradient-to-t from-black/90 via-black/50 to-transparent flex items-center justify-between text-white z-10 pointer-events-none">
-                  <span class="text-[11px] font-bold text-slate-100 flex items-center gap-1 truncate max-w-[65%]">
-                    <span>📍</span>
-                    <span>${getCollegeCardLocation(c)}</span>
-                  </span>
-                  <span class="text-[11px] font-black text-amber-300 bg-amber-400/20 px-1.5 py-0.5 rounded border border-amber-400/40 shadow-xs">
-                    ${medianStr}
-                  </span>
-                </div>
-              </div>
-
-              <!-- Card Body Content -->
-              <div class="p-4 sm:p-5 flex-1 flex flex-col justify-between">
-                <div>
-                  <div class="flex items-center gap-2 mb-1.5 flex-wrap">
-                    <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-slate-100 text-slate-700 border border-slate-200/60">${typeLabel}</span>
-                    <span class="text-xs text-slate-500">• Est. ${c.established || '2008'}</span>
-                    ${c.lowPlacementFlag ? '<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-rose-100 text-rose-800">Low 2025 Activity</span>' : ''}
-                  </div>
-                  <h4 class="font-black text-base text-slate-900 leading-snug line-clamp-2 hover:text-blue-700 transition cursor-pointer" onclick="openCollegeDetailPage('${c.id}')">
-                    ${c.name}
-                  </h4>
-                  <p class="text-xs text-slate-500 mt-1">${c.university || 'AP Affiliated'} • ${c.region || 'AU/SVU'} Region</p>
-
-                  <!-- NIRF 2025 Verified Indicator Bar -->
-                  ${c.nirfRank ? `
-                    <div class="mt-2.5 p-2 rounded-xl bg-blue-50/80 border border-blue-200/80 flex items-center justify-between text-xs">
-                      <span class="font-bold text-blue-900">🏆 NIRF 2025 Engineering Rank</span>
-                      <span class="font-black text-blue-700">#${c.nirfRank} (Score: ${c.nirfScore})</span>
-                    </div>
-                  ` : (c.nirfBand ? `
-                    <div class="mt-2.5 p-2 rounded-xl bg-indigo-50/80 border border-indigo-200/80 flex items-center justify-between text-xs">
-                      <span class="font-bold text-indigo-900">🏆 NIRF 2025 Ranking Band</span>
-                      <span class="font-black text-indigo-700">${c.nirfBand}</span>
-                    </div>
-                  ` : '')}
-
-                  <!-- 3 Key Metric Blocks -->
-                  <div class="mt-3.5 grid grid-cols-3 gap-2 text-center bg-slate-50 p-2.5 rounded-xl border border-slate-100">
-                    <div>
-                      <span class="text-[10px] uppercase font-bold text-slate-400 block">Placed</span>
-                      <span class="text-xs font-extrabold ${c.lowPlacementFlag ? 'text-rose-700' : 'text-emerald-700'}">${placeRate}</span>
-                    </div>
-                    <div>
-                      <span class="text-[10px] uppercase font-bold text-slate-400 block">Median CTC</span>
-                      <span class="text-xs font-extrabold text-blue-800">${medianStr}</span>
-                    </div>
-                    <div>
-                      <span class="text-[10px] uppercase font-bold text-slate-400 block">Est. Tuition</span>
-                      <span class="text-xs font-extrabold text-slate-800">${tuitionStr}</span>
-                    </div>
-                  </div>
-
-                  <!-- Offered Branches -->
-                  <div class="mt-3">
-                    <span class="text-[11px] font-bold text-slate-700 block mb-1">Offered Branches (${branchesCount}):</span>
-                    <div class="flex flex-wrap gap-1">${branchBadges}</div>
-                  </div>
-                </div>
-
-                <!-- Bottom Actions Bar -->
-                <div class="mt-4 pt-3.5 border-t border-slate-100 flex items-center justify-between gap-2">
-                  <button type="button" onclick="event.stopPropagation(); openCollegeDetailPage('${c.id}')" class="flex-1 py-2.5 px-3 bg-blue-50 hover:bg-blue-100 text-blue-700 font-bold text-xs rounded-xl transition cursor-pointer text-center flex items-center justify-center gap-1.5 shadow-2xs">
-                    <span>View College Profile & Cutoffs</span>
-                    <span>→</span>
-                  </button>
-                  <button type="button" onclick="event.stopPropagation(); addPriorityOption('${c.id}')" class="py-2.5 px-3 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs rounded-xl transition cursor-pointer shadow-2xs active:scale-95">
-                    + Add Choice
-                  </button>
-                </div>
-              </div>
-            </div>
-          `;
-        }).join("");
-      };
 
       const sDirIn = document.getElementById("search-directory-input");
       const sDirClr = document.getElementById("search-directory-clear-btn");
@@ -6253,16 +6292,10 @@ function openCollegeDetailPage(collegeId) {
       if (typeof showExplorerSlide === "function") {
         showExplorerSlide(1);
       }
-      // Check if URL has a direct college link on page refresh/load!
-      const initHash = window.location.hash;
-      if (initHash && initHash.startsWith("#/college/")) {
-        const colId = initHash.replace("#/college/", "").trim();
-        if (colId) {
-          setTimeout(() => {
-            openCollegeDetailPage(colId);
-          }, 80);
-        }
-      }
+      // Always ensure page refresh / initial load lands cleanly on Home Page (Slide 1: Enter Rank & Filters)
+      try {
+        window.history.replaceState(null, "The Bridge", "#/");
+      } catch (e) {}
     });
 
     // =========================================================================
