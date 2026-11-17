@@ -2812,7 +2812,7 @@ function openCollegeDetailPage(collegeId) {
 
         updateHeaderBadges();
         renderExplorer();
-        showToast("All filters reset", "🔄");
+        showToast("All filters reset");
       }
 
       document.getElementById("reset-all-btn").addEventListener("click", resetAllFilters);
@@ -3063,7 +3063,7 @@ function openCollegeDetailPage(collegeId) {
         appState.checkedDocs = {};
         saveState();
         renderChecklist();
-        showToast("Document checklist reset", "🔄");
+        showToast("Document checklist reset");
       });
 
       document.getElementById("close-modal-btn").addEventListener("click", () => {
@@ -8015,3 +8015,147 @@ function openCollegeDetailPage(collegeId) {
         if (s && s.profile) xq("auth-portal-overlay").classList.add("hidden"); else xSetMode("login");
       });
     });
+
+
+    // Set Student JVD Eligibility Status and persist to localStorage
+    window.setStudentJvdStatus = function(isEligible) {
+      if (typeof studentProfile === "object") {
+        studentProfile.jvdEligible = isEligible;
+      }
+      try {
+        localStorage.setItem("student_jvd_eligible", isEligible ? "true" : "false");
+      } catch(e) {}
+
+      const bNotEligible = document.getElementById("jvd-banner-not-eligible");
+      const bEligible = document.getElementById("jvd-banner-eligible");
+      const btnNot = document.getElementById("jvd-btn-not-eligible");
+      const btnEl = document.getElementById("jvd-btn-eligible");
+
+      const card1Title = document.getElementById("jvd-card1-title");
+      const card1Sub = document.getElementById("jvd-card1-subtitle");
+      const card1Badge = document.getElementById("jvd-card1-badge");
+      const card1List = document.getElementById("jvd-card1-list");
+
+      const card2Title = document.getElementById("jvd-card2-title");
+      const card2Sub = document.getElementById("jvd-card2-subtitle");
+      const card2Badge = document.getElementById("jvd-card2-badge");
+      const card2List = document.getElementById("jvd-card2-list");
+
+      if (isEligible) {
+        if (bNotEligible) bNotEligible.classList.add("hidden");
+        if (bEligible) bEligible.classList.remove("hidden");
+
+        if (btnNot) {
+          btnNot.className = "px-3.5 py-1.5 rounded-lg text-xs font-bold transition cursor-pointer active:scale-95 text-slate-400 hover:text-white";
+        }
+        if (btnEl) {
+          btnEl.className = "px-3.5 py-1.5 rounded-lg text-xs font-bold transition cursor-pointer active:scale-95 bg-emerald-600 text-white shadow";
+        }
+
+        if (card1Title) card1Title.textContent = "Jagananna Vidya Deevena (RTF)";
+        if (card1Sub) card1Sub.textContent = "100% Tuition Fee Reimbursement";
+        if (card1Badge) {
+          card1Badge.className = "px-2.5 py-0.5 rounded-full text-[11px] font-black bg-blue-500/20 text-blue-300 border border-blue-500/30";
+          card1Badge.textContent = "100% Free";
+        }
+        if (card1List) {
+          card1List.innerHTML = `
+            <li class="flex items-start gap-2">
+              <span class="text-emerald-400 mt-0.5">✓</span>
+              <span><strong>Full Tuition Fee Covered:</strong> ₹35,000 to ₹1,05,000/yr directly credited by AP Government.</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-emerald-400 mt-0.5">✓</span>
+              <span><strong>Quarterly Disbursement:</strong> Credited in 4 equal tranches every academic year.</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-emerald-400 mt-0.5">✓</span>
+              <span><strong>Direct DBT Credit:</strong> Transferred directly into the student's Mother's Aadhaar-linked NPCI bank account.</span>
+            </li>`;
+        }
+
+        if (card2Title) card2Title.textContent = "Jagananna Vasathi Deevena (MTF)";
+        if (card2Sub) card2Sub.textContent = "Maintenance & Hostel Food Assistance";
+        if (card2Badge) {
+          card2Badge.className = "px-2.5 py-0.5 rounded-full text-[11px] font-black bg-amber-500/20 text-amber-300 border border-amber-500/30";
+          card2Badge.textContent = "₹20,000 / Yr";
+        }
+        if (card2List) {
+          card2List.innerHTML = `
+            <li class="flex items-start gap-2">
+              <span class="text-emerald-400 mt-0.5">✓</span>
+              <span><strong>Hostel & Mess Support:</strong> ₹20,000 per academic year for Engineering (B.Tech) students to cover boarding and lodging expenses.</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-emerald-400 mt-0.5">✓</span>
+              <span><strong>2 Installments:</strong> Disbursed in two equal installments of ₹10,000 each (July and December cycles).</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-emerald-400 mt-0.5">✓</span>
+              <span><strong>Mother's Account Link:</strong> Paid directly into the Mother's active e-KYC savings account.</span>
+            </li>`;
+        }
+      } else {
+        if (bNotEligible) bNotEligible.classList.remove("hidden");
+        if (bEligible) bEligible.classList.add("hidden");
+
+        if (btnNot) {
+          btnNot.className = "px-3.5 py-1.5 rounded-lg text-xs font-bold transition cursor-pointer active:scale-95 bg-rose-600 text-white shadow";
+        }
+        if (btnEl) {
+          btnEl.className = "px-3.5 py-1.5 rounded-lg text-xs font-bold transition cursor-pointer active:scale-95 text-slate-400 hover:text-white";
+        }
+
+        if (card1Title) card1Title.textContent = "Student Tuition Obligation";
+        if (card1Sub) card1Sub.textContent = "Payable directly to college";
+        if (card1Badge) {
+          card1Badge.className = "px-2.5 py-0.5 rounded-full text-[11px] font-black bg-rose-500/20 text-rose-300 border border-rose-500/30";
+          card1Badge.textContent = "Self-Financed";
+        }
+        if (card1List) {
+          card1List.innerHTML = `
+            <li class="flex items-start gap-2">
+              <span class="text-rose-400 mt-0.5">●</span>
+              <span><strong>Annual Tuition Fee:</strong> ₹35,000 to ₹1,05,000/yr as fixed by AP Higher Education Regulatory and Monitoring Commission (APHERMC).</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-rose-400 mt-0.5">●</span>
+              <span><strong>Payment Schedule:</strong> Payable in semester/annual installments directly to the college administration at admission.</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-rose-400 mt-0.5">●</span>
+              <span><strong>Seat Allotment:</strong> Student must produce fee receipt during physical reporting at the allotted campus.</span>
+            </li>`;
+        }
+
+        if (card2Title) card2Title.textContent = "Hostel & Living Expenses";
+        if (card2Sub) card2Sub.textContent = "Boarding & Mess Charges";
+        if (card2Badge) {
+          card2Badge.className = "px-2.5 py-0.5 rounded-full text-[11px] font-black bg-slate-700 text-slate-300 border border-slate-600";
+          card2Badge.textContent = "Self-Paid";
+        }
+        if (card2List) {
+          card2List.innerHTML = `
+            <li class="flex items-start gap-2">
+              <span class="text-amber-400 mt-0.5">●</span>
+              <span><strong>Hostel & Mess Charges:</strong> Average ₹40,000 to ₹75,000 per academic year for on-campus or affiliated hostels.</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-amber-400 mt-0.5">●</span>
+              <span><strong>Govt Assistance:</strong> Vasathi Deevena assistance (₹20,000/yr) applies only if eligible under Navasakam income guidelines.</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-amber-400 mt-0.5">●</span>
+              <span><strong>Mother's Account Link:</strong> When eligible, JVD payments are transferred directly into the Mother's active NPCI Aadhaar bank account.</span>
+            </li>`;
+        }
+      }
+    };
+    
+    // Auto-restore saved JVD eligibility state
+    try {
+      const savedJvd = localStorage.getItem("student_jvd_eligible");
+      if (savedJvd === "true") {
+        setTimeout(() => { if (typeof window.setStudentJvdStatus === "function") window.setStudentJvdStatus(true); }, 50);
+      }
+    } catch(e) {}

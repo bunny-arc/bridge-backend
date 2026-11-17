@@ -937,7 +937,7 @@
           const diff = Math.max(0, simRank - topCut);
           slideForecastHtml = `
             <div class="mt-2.5 p-2.5 rounded-xl bg-white/80 border border-emerald-200 text-xs text-slate-700">
-              <strong>🔄 Round 2 Sliding Forecast:</strong> You are <strong>${diff.toLocaleString("en-IN")} ranks</strong> away from Option #1 (<strong>${topCol.code} - ${topBr.code}</strong>, Cutoff ~${topCut.toLocaleString("en-IN")}). Keep Option #1 above your allotted seat for Phase-2 upgradation!
+              <strong>Round 2 Sliding Forecast:</strong> You are <strong>${diff.toLocaleString("en-IN")} ranks</strong> away from Option #1 (<strong>${topCol.code} - ${topBr.code}</strong>, Cutoff ~${topCut.toLocaleString("en-IN")}). Keep Option #1 above your allotted seat for Phase-2 upgradation!
             </div>
           `;
         }

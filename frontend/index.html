@@ -289,26 +289,26 @@
               <div class="flex items-center justify-between w-full">
                 <span>AP CET (EAPCET)</span>
               </div>
-              <span class="block text-[10px] text-slate-500 mt-1 font-normal">AU, JNTU, GVP, VRSEC & All 26 Districts</span>
+              
             </button>
             <button type="button" data-exam="jee_main" onclick="setExamTab('jee_main')" class="exam-tab-btn px-3 py-2.5 rounded-xl font-bold text-xs sm:text-sm bg-slate-50 hover:bg-blue-50 hover:border-blue-300 text-slate-700 border border-slate-200 text-left transition flex flex-col justify-between cursor-pointer">
               <div class="flex items-center justify-between w-full">
                 <span>JEE Main</span>
               </div>
-              <span class="block text-[10px] text-slate-500 mt-1 font-normal">NIT AP, NIT Warangal, IIITs, DU</span>
+              
             </button>
             <button type="button" data-exam="jee_adv" onclick="setExamTab('jee_adv')" class="exam-tab-btn px-3 py-2.5 rounded-xl font-bold text-xs sm:text-sm bg-slate-50 hover:bg-blue-50 hover:border-blue-300 text-slate-700 border border-slate-200 text-left transition flex flex-col justify-between cursor-pointer">
               <div class="flex items-center justify-between w-full">
                 <span>JEE Advanced</span>
               </div>
-              <span class="block text-[10px] text-slate-500 mt-1 font-normal">IIT Tirupati, Madras, Hyderabad, Bombay</span>
+              
             </button>
             <button type="button" data-exam="payment" onclick="setExamTab('payment')" class="exam-tab-btn px-3 py-2.5 rounded-xl font-bold text-xs sm:text-sm bg-amber-50/70 hover:bg-amber-100 text-amber-950 border border-amber-300 text-left transition flex flex-col justify-between cursor-pointer">
               <div class="flex items-center justify-between w-full">
                 <span>Payment Colleges</span>
                 <span class="text-[10px] bg-amber-200 text-amber-900 px-1.5 py-0.2 rounded font-bold">Direct</span>
               </div>
-              <span class="block text-[10px] text-amber-800 mt-1 font-normal">Direct Seat, Separate Exams, Discounts</span>
+              
             </button>
           </div>
         </div>
@@ -1554,7 +1554,7 @@
             <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
           </button>
           <span class="text-base sm:text-lg font-black text-slate-900 flex items-center gap-1.5">
-            <span>🧮</span> 4-Year B.Tech ROI & Cutoff Matrix
+            <span class="flex items-center gap-1.5"><svg class="w-4 h-4 text-slate-800" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="16" y1="14" x2="16" y2="18"/><path d="M16 10h.01M12 10h.01M8 10h.01M12 14h.01M8 14h.01M12 18h.01M8 18h.01"/></svg><span>4-Year B.Tech ROI & Cutoff Matrix</span></span>
           </span>
         </div>
       </div>
@@ -1828,8 +1828,471 @@
         <button type="button" class="kodnest-subtab-btn py-2 text-slate-950 border-b-2 border-slate-950 font-black transition flex items-center gap-1.5 cursor-pointer whitespace-nowrap" data-tab="tab-profile" style="color: #0f172a !important;">
           <span class="font-black text-slate-950" style="color: #0f172a !important;">Profile</span>
         </button>
-        <button type="button" class="kodnest-subtab-btn py-2 text-slate-600 hover:text-slate-950 border-b-2 border-transparent transition flex items-center gap-1.5 cursor-pointer whitespace-nowrap" data-tab="tab-counseling" style="color: #334155;">
-          <span>Entrance & Quotas</span>
+        <button type="button" class="kodnest-subtab-btn py-2 text-slate-600 hover:text-slate-950 border-b-2 border-transparent transition flex items-center gap-1.5 cursor-pointer whitespace-nowrap" data-tab="tab-scholarships" style="color: #334155;">
+          <span>Fee & Scholarships</span>
+        </button>
+      </div>
+
+      <!-- ================= SUBTAB 1: PROFILE MAIN CARDS ================= -->
+      <div id="kodnest-tab-profile-content" class="space-y-4">
+
+        <!-- CARD 1: Identity & Avatar Card with 100% Progress Ring -->
+        <div class="bg-[#0b1120] rounded-2xl border border-slate-800 p-5 sm:p-6 shadow-xl relative overflow-hidden">
+
+
+          <!-- Top Right Edit Profile Action -->
+          <div class="flex justify-end mb-1">
+            <button type="button" class="open-edit-modal-btn inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-800/90 hover:bg-slate-700 text-slate-200 hover:text-white border border-slate-700/80 hover:border-slate-500 text-xs font-bold transition shadow-sm cursor-pointer" data-target="identity" title="Edit Profile Details">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-3.5 h-3.5 text-slate-300 flex-shrink-0" fill="currentColor" aria-hidden="true">
+                <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/>
+              </svg>
+              <span>Edit Profile</span>
+            </button>
+          </div>
+
+          <!-- Profile Header Card (Avatar Wrapper with Fallback Initials & Camera Upload) -->
+          <div class="profile-header-card flex flex-col items-center text-center">
+            <div class="avatar-wrapper cursor-pointer" onclick="openAvatarActionModal()" title="Click to change or remove photo">
+              <!-- User Profile Picture -->
+              <img id="userProfileImg" src="" alt="Profile Picture" class="profile-avatar" style="display: none;" />
+              
+              <!-- Default Empty State Avatar with Initials -->
+              <div id="defaultAvatar" class="profile-avatar default-fallback" style="display: flex;">
+                <span id="avatarInitials">SB</span>
+              </div>
+
+              <!-- Camera / Edit Overlay Button -->
+              <button type="button" class="edit-avatar-btn" title="Change or Remove Profile Picture" onclick="event.stopPropagation(); openAvatarActionModal();">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
+                  <circle cx="12" cy="13" r="4"/>
+                </svg>
+              </button>
+              <input type="file" id="profileImageInput" accept="image/*" style="display: none;" onchange="handleImageUpload(event)" />
+            </div>
+
+            <!-- Student Full Name & Email Display -->
+            <h2 id="userNameDisplay" class="text-xl sm:text-2xl font-black text-white mt-1 tracking-tight">Student Bridge</h2>
+            <span id="kodnest-display-fullname" class="hidden">Student Bridge</span>
+            <p id="userEmailDisplay" class="text-xs sm:text-sm text-slate-400 mt-0.5">student.bridge@gmail.com</p>
+          </div>
+
+          <div class="flex flex-col items-center text-center">
+            <!-- Guest Auth Call-To-Action Banner -->
+            <div id="kodnest-guest-auth-prompt" class="mt-3 p-3 rounded-xl bg-blue-950/60 border border-blue-500/40 text-left w-full max-w-md">
+              <div class="text-xs font-bold text-blue-200 flex items-center gap-1.5">
+                <span>New Student? Sign up to save your complete profile</span>
+              </div>
+              <p class="text-[11px] text-slate-300 mt-1">Your 10th, 12th marks, and counseling preferences will be stored permanently in the dataset.</p>
+              <div class="mt-2.5 flex items-center gap-2">
+                <button type="button" id="profile-guest-signup-btn" class="px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-white text-xs font-black shadow cursor-pointer">Sign Up New Account</button>
+                <button type="button" id="profile-guest-signin-btn" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold border border-slate-700 cursor-pointer">Direct Login</button>
+              </div>
+            </div>
+
+            <!-- Contact & Personal Details Stack -->
+            <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-2 text-xs sm:text-sm text-slate-300 w-full max-w-md text-left pt-3 border-t border-slate-800/80">
+              <div class="flex items-center gap-2">
+                <span class="text-slate-400 text-base">✉️</span>
+                <span id="kodnest-display-email" class="truncate font-medium text-slate-200">Not Signed In</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="text-slate-400 text-base">♂️</span>
+                <span id="kodnest-display-gender" class="font-medium text-slate-200">—</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="text-slate-400 text-base">🎂</span>
+                <span id="kodnest-display-dob" class="font-medium text-slate-200">—</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-4 h-4 text-slate-300 flex-shrink-0" fill="currentColor" aria-hidden="true">
+                  <path d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56a.977.977 0 0 0-1.01.24l-2.2 2.2a15.053 15.053 0 0 1-6.59-6.59l2.2-2.21c.28-.26.36-.65.25-1.01A11.36 11.36 0 0 1 8.57 4c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1 0 9.39 7.61 17 17 17 .55 0 1-.45 1-1v-3.62c0-.55-.45-1-1-1z"/>
+                </svg>
+                <span id="kodnest-display-whatsapp" class="font-medium text-slate-200">—</span>
+              </div>
+            </div>
+
+            <!-- Bottom Account Controls: Logout / Signin Toggle -->
+            <div class="flex items-center justify-end w-full pt-4 border-t border-slate-800/80 mt-4">
+              <button id="kodnest-btn-logout" type="button" class="hidden inline-flex items-center gap-1.5 px-4 py-1.5 rounded-xl bg-rose-600 hover:bg-rose-500 text-white text-xs font-black transition shadow cursor-pointer">
+                <span>🚪</span> Log Out
+              </button>
+              <button id="kodnest-btn-signin" type="button" class="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-black transition shadow cursor-pointer">
+                <span>🔑</span> Sign In / Sign Up
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- CARD 3: 10th / Secondary School Details -->
+        <div class="bg-[#0b1120] rounded-2xl border border-slate-800 p-5 shadow-lg">
+          <div class="flex items-center justify-between pb-3 border-b border-slate-800/80">
+            <div class="text-sm font-bold text-white flex items-center gap-2">
+              <span class="w-1 h-4 bg-sky-400 rounded-full inline-block"></span>
+              <span>10th / Secondary School Details</span>
+            </div>
+
+          </div>
+
+          <div class="mt-3 space-y-2.5 text-xs sm:text-sm">
+            <div>
+              <div class="text-[11px] text-slate-400 font-semibold uppercase">School Name</div>
+              <div id="kodnest-display-school10-name" class="text-slate-200 font-medium mt-0.5">Oxford EM High School, Tenali, Guntur District</div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-4">
+              <div>
+                <div class="text-[11px] text-slate-400 font-semibold uppercase">Year of Passout</div>
+                <div id="kodnest-display-school10-year" class="text-slate-200 font-medium mt-0.5">2020</div>
+              </div>
+              <div>
+                <div class="text-[11px] text-slate-400 font-semibold uppercase">Marks in %</div>
+                <div id="kodnest-display-school10-pct" class="text-emerald-400 font-bold mt-0.5">91.3%</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CARD 4: 12th / PUC / Intermediate / Diploma -->
+        <div class="bg-[#0b1120] rounded-2xl border border-slate-800 p-5 shadow-lg">
+          <div class="flex items-center justify-between pb-3 border-b border-slate-800/80">
+            <div class="text-sm font-bold text-white flex items-center gap-2">
+              <span class="w-1 h-4 bg-sky-400 rounded-full inline-block"></span>
+              <span>12th / PUC / Intermediate / Diploma</span>
+              <span class="text-slate-500 text-xs" title="Board verification active">ⓘ</span>
+            </div>
+
+          </div>
+
+          <div class="mt-3 space-y-2.5 text-xs sm:text-sm">
+            <div>
+              <div class="text-[11px] text-slate-400 font-semibold uppercase">School / Junior College Name</div>
+              <div id="kodnest-display-inter-name" class="text-slate-200 font-medium mt-0.5">Sri Vivekananda Jr. College</div>
+            </div>
+
+            <div class="grid grid-cols-2 sm:grid-cols-3 gap-4">
+              <div>
+                <div class="text-[11px] text-slate-400 font-semibold uppercase">Education Board</div>
+                <div id="kodnest-display-inter-board" class="text-slate-200 font-medium mt-0.5">BIEAP (Andhra Pradesh)</div>
+              </div>
+              <div>
+                <div class="text-[11px] text-slate-400 font-semibold uppercase">Year of Passout</div>
+                <div id="kodnest-display-inter-year" class="text-slate-200 font-medium mt-0.5">2022</div>
+              </div>
+              <div>
+                <div class="text-[11px] text-slate-400 font-semibold uppercase">Marks in %</div>
+                <div id="kodnest-display-inter-pct" class="text-emerald-400 font-bold mt-0.5">75%</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        
+      </div>
+
+      <!-- ================= SUBTAB 2: COUNSELING & QUOTAS ================= -->
+      <div id="kodnest-tab-counseling-content" class="hidden"></div>
+
+      <!-- ================= SUBTAB 3: FEE & SCHOLARSHIPS (JVD ELIGIBLE DETAILS) ================= -->
+      <div id="kodnest-tab-scholarships-content" class="hidden space-y-4">
+        
+        <!-- Interactive JVD Reimbursement Status Selector -->
+        <div class="p-4 sm:p-5 rounded-2xl bg-[#0b1120] border border-slate-800 shadow-lg space-y-3">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div>
+              <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">AP Govt JVD Scheme Status</span>
+              <h4 class="text-sm sm:text-base font-bold text-white mt-0.5">Are you eligible for Jagananna Vidya Deevena (JVD)?</h4>
+            </div>
+            <div class="inline-flex rounded-xl p-1 bg-slate-950 border border-slate-800 shrink-0" role="group">
+              <button type="button" id="jvd-btn-not-eligible" onclick="setStudentJvdStatus(false); return false;" class="px-3.5 py-1.5 rounded-lg text-xs font-bold transition cursor-pointer active:scale-95 bg-rose-600 text-white shadow">
+                ✕ Not Eligible (Self-Financed)
+              </button>
+              <button type="button" id="jvd-btn-eligible" onclick="setStudentJvdStatus(true); return false;" class="px-3.5 py-1.5 rounded-lg text-xs font-bold transition cursor-pointer active:scale-95 text-slate-400 hover:text-white">
+                ✓ Eligible (Income ≤ ₹2.5L)
+              </button>
+            </div>
+          </div>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            Students who are <strong>not eligible</strong> for JVD fee reimbursement must pay the standard college tuition fee. Select your eligibility status above to view your exact fee obligations.
+          </p>
+        </div>
+
+        <!-- Banner 1: NOT ELIGIBLE / SELF-FINANCED (Default) -->
+        <div id="jvd-banner-not-eligible" class="bg-gradient-to-r from-rose-950/80 via-slate-900 to-amber-950/80 rounded-2xl border-2 border-rose-500/40 p-5 sm:p-6 shadow-xl relative overflow-hidden">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div class="space-y-1">
+              <div class="flex items-center gap-2 flex-wrap">
+                <span class="px-3 py-1 rounded-full text-xs font-black bg-rose-500 text-white flex items-center gap-1 shadow">
+                  <span>✕</span> SELF-FINANCED (NOT JVD ELIGIBLE)
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30">
+                  Full Tuition Fee Payable
+                </span>
+              </div>
+              <h3 class="text-lg sm:text-xl font-extrabold text-white mt-1">
+                Standard College Tuition Fee Payable by Student
+              </h3>
+              <p class="text-xs text-slate-300 leading-relaxed max-w-2xl">
+                Because you are not eligible for government fee reimbursement, you are required to pay the <strong class="text-rose-400">full annual college tuition fee</strong> and hostel expenses directly to the institution under Category-A Convener Quota or Category-B Management Quota.
+              </p>
+            </div>
+            <div class="bg-rose-500/10 border border-rose-500/30 rounded-2xl p-4 text-center sm:text-right flex-shrink-0">
+              <div class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Estimated Tuition Fee</div>
+              <div class="text-2xl font-black text-rose-400 mt-0.5">₹35,000 – ₹1,05,000</div>
+              <div class="text-[10px] text-rose-300 font-semibold mt-0.5">Per Academic Year (Payable by Student)</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Banner 2: ELIGIBLE / 100% REIMBURSEMENT (Shown when toggled to Eligible) -->
+        <div id="jvd-banner-eligible" class="hidden bg-gradient-to-r from-emerald-950/80 via-slate-900 to-indigo-950/80 rounded-2xl border-2 border-emerald-500/40 p-5 sm:p-6 shadow-xl relative overflow-hidden">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div class="space-y-1">
+              <div class="flex items-center gap-2 flex-wrap">
+                <span class="px-3 py-1 rounded-full text-xs font-black bg-emerald-500 text-slate-950 flex items-center gap-1 shadow">
+                  <span>✓</span> JVD VERIFIED ELIGIBLE
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-bold bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">
+                  AP Govt B.Tech Scheme
+                </span>
+              </div>
+              <h3 class="text-lg sm:text-xl font-extrabold text-white mt-1">
+                Jagananna Vidya Deevena (JVD) 100% Fee Reimbursement
+              </h3>
+              <p class="text-xs text-slate-300 leading-relaxed max-w-2xl">
+                Government of Andhra Pradesh covers <strong class="text-emerald-400">100% Full Tuition Fee</strong> directly for all 4 years of your B.Tech course under Convener Quota (Category-A).
+              </p>
+            </div>
+            <div class="bg-emerald-500/10 border border-emerald-500/30 rounded-2xl p-4 text-center sm:text-right flex-shrink-0">
+              <div class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Total Scholarship Value</div>
+              <div class="text-2xl font-black text-emerald-400 mt-0.5">₹2,80,000+</div>
+              <div class="text-[10px] text-emerald-300 font-semibold mt-0.5">4 Years Full Tuition + Vasathi</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2 Main Cards: Tuition Breakdown & Living Cost -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <!-- Card 1: Tuition Fee Details -->
+          <div class="bg-[#0b1120] rounded-2xl border border-slate-800 p-5 shadow-lg space-y-3">
+            <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+              <div class="flex items-center gap-2.5">
+                <span class="w-8 h-8 rounded-xl bg-blue-500/20 text-blue-400 font-bold flex items-center justify-center">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 21v-8.25M15.75 21v-8.25M8.25 21v-8.25M3 9l9-6 9 6m-1.5 12V10.5M4.5 21V10.5M3 21h18"/></svg>
+                </span>
+                <div>
+                  <h4 id="jvd-card1-title" class="text-sm font-bold text-white">Student Tuition Obligation</h4>
+                  <span id="jvd-card1-subtitle" class="text-[10px] text-slate-400">Payable directly to college</span>
+                </div>
+              </div>
+              <span id="jvd-card1-badge" class="px-2.5 py-0.5 rounded-full text-[11px] font-black bg-rose-500/20 text-rose-300 border border-rose-500/30">Self-Financed</span>
+            </div>
+            <ul id="jvd-card1-list" class="text-xs text-slate-300 space-y-2 pt-1">
+              <li class="flex items-start gap-2">
+                <span class="text-rose-400 mt-0.5">●</span>
+                <span><strong>Annual Tuition Fee:</strong> ₹35,000 to ₹1,05,000/yr as fixed by AP Higher Education Regulatory and Monitoring Commission (APHERMC).</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-rose-400 mt-0.5">●</span>
+                <span><strong>Payment Schedule:</strong> Payable in semester/annual installments directly to the college administration at admission.</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-rose-400 mt-0.5">●</span>
+                <span><strong>Seat Allotment:</strong> Student must produce fee receipt during physical reporting at the allotted campus.</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Card 2: Hostel & Accommodation Assistance -->
+          <div class="bg-[#0b1120] rounded-2xl border border-slate-800 p-5 shadow-lg space-y-3">
+            <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+              <div class="flex items-center gap-2.5">
+                <span class="w-8 h-8 rounded-xl bg-amber-500/20 text-amber-400 font-bold flex items-center justify-center text-base">
+                  <svg class="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+                </span>
+                <div>
+                  <h4 id="jvd-card2-title" class="text-sm font-bold text-white">Hostel & Living Expenses</h4>
+                  <span id="jvd-card2-subtitle" class="text-[10px] text-slate-400">Boarding & Mess Charges</span>
+                </div>
+              </div>
+              <span id="jvd-card2-badge" class="px-2.5 py-0.5 rounded-full text-[11px] font-black bg-slate-700 text-slate-300 border border-slate-600">Self-Paid</span>
+            </div>
+            <ul id="jvd-card2-list" class="text-xs text-slate-300 space-y-2 pt-1">
+              <li class="flex items-start gap-2">
+                <span class="text-amber-400 mt-0.5">●</span>
+                <span><strong>Hostel & Mess Charges:</strong> Average ₹40,000 to ₹75,000 per academic year for on-campus or affiliated hostels.</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-amber-400 mt-0.5">●</span>
+                <span><strong>Govt Assistance:</strong> Vasathi Deevena assistance (₹20,000/yr) applies only if eligible under Navasakam income guidelines.</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-amber-400 mt-0.5">●</span>
+                <span><strong>Mother's Account Link:</strong> When eligible, JVD payments are transferred directly into the Mother's active NPCI Aadhaar bank account.</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Official AP Government JVD Eligibility Rules (Statutory Criteria) -->
+        <div class="bg-[#0b1120] rounded-2xl border border-slate-800 p-5 shadow-lg space-y-4">
+          <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+            <h4 class="text-sm font-bold text-white flex items-center gap-2">
+              <span class="w-1.5 h-4 bg-amber-400 rounded-full inline-block"></span>
+              <span>Official AP Government JVD Eligibility Rules (G.O.Ms.No. 115 & 77)</span>
+            </h4>
+            <span class="text-[11px] text-slate-400 font-medium">Navasakam Beneficiary Verification</span>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5 text-xs">
+            <div class="p-3.5 rounded-xl bg-slate-900/90 border border-slate-800/80 space-y-1">
+              <div class="flex items-center gap-2 text-amber-400 font-bold">
+                <svg class="w-4 h-4 text-amber-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                <span>Family Income Ceiling</span>
+              </div>
+              <div class="text-slate-100 font-black text-sm">≤ ₹2.50 Lakhs / Year</div>
+              <p class="text-[11px] text-slate-400">Total annual household income from all sources must not exceed 2.5 Lakhs (MeeSeva certified).</p>
+            </div>
+
+            <div class="p-3.5 rounded-xl bg-slate-900/90 border border-slate-800/80 space-y-1">
+              <div class="flex items-center gap-2 text-emerald-400 font-bold">
+                <svg class="w-4 h-4 text-emerald-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064"/></svg>
+                <span>Agricultural Land Limit</span>
+              </div>
+              <div class="text-slate-100 font-black text-sm">&lt; 10 Ac Wetland / 25 Ac Dry</div>
+              <p class="text-[11px] text-slate-400">Family total land holding must be less than 10 Acres Wetland, or 25 Acres Dryland, or 25 Acres combined.</p>
+            </div>
+
+            <div class="p-3.5 rounded-xl bg-slate-900/90 border border-slate-800/80 space-y-1">
+              <div class="flex items-center gap-2 text-sky-400 font-bold">
+                <svg class="w-4 h-4 text-sky-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+                <span>Urban Property Ceiling</span>
+              </div>
+              <div class="text-slate-100 font-black text-sm">&lt; 1,500 sq.ft Built-up Area</div>
+              <p class="text-[11px] text-slate-400">No residential or commercial property exceeding 1,500 sq.ft in Municipal / Municipal Corporation limits.</p>
+            </div>
+
+            <div class="p-3.5 rounded-xl bg-slate-900/90 border border-slate-800/80 space-y-1">
+              <div class="flex items-center gap-2 text-rose-400 font-bold">
+                <svg class="w-4 h-4 text-rose-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+                <span>Govt Employee / Pensioner</span>
+              </div>
+              <div class="text-slate-100 font-black text-sm">No Regular Govt Employees</div>
+              <p class="text-[11px] text-slate-400">No family member should be in regular government service or receiving govt pension (Sanitary workers exempted).</p>
+            </div>
+
+            <div class="p-3.5 rounded-xl bg-slate-900/90 border border-slate-800/80 space-y-1">
+              <div class="flex items-center gap-2 text-purple-400 font-bold">
+                <svg class="w-4 h-4 text-purple-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 17a2 2 0 11-4 0 2 2 0 014 0zM19 17a2 2 0 11-4 0 2 2 0 014 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1 1H9m4-1V8a1 1 0 011-1h2.586a1 1 0 01.707.293l3.414 3.414a1 1 0 01.293.707V16a1 1 0 01-1 1h-1m-6-1a1 1 0 001 1h1M5 17a2 2 0 104 0m-4 0a2 2 0 114 0m6 0a2 2 0 104 0m-4 0a2 2 0 114 0"/></svg>
+                <span>Four-Wheeler Ownership</span>
+              </div>
+              <div class="text-slate-100 font-black text-sm">No Private 4-Wheelers</div>
+              <p class="text-[11px] text-slate-400">Family must not own a 4-wheeler (Taxis, Tractors, and Auto Rickshaws registered for livelihood are allowed).</p>
+            </div>
+
+            <div class="p-3.5 rounded-xl bg-slate-900/90 border border-slate-800/80 space-y-1">
+              <div class="flex items-center gap-2 text-indigo-400 font-bold">
+                <svg class="w-4 h-4 text-indigo-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+                <span>Income Tax & Attendance</span>
+              </div>
+              <div class="text-slate-100 font-black text-sm">No IT Payee + 75% Biometric</div>
+              <p class="text-[11px] text-slate-400">No family member should pay Income Tax. Student must maintain minimum 75% biometric attendance each semester.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Mandatory Seat Quota Rule & Required Verification Documents -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <!-- Convener Quota Requirement -->
+          <div class="bg-[#0b1120] rounded-2xl border border-slate-800 p-5 shadow-lg space-y-2.5">
+            <h4 class="text-xs font-bold text-amber-400 uppercase tracking-wider flex items-center gap-1.5">
+              <svg class="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+              <span>Mandatory Admission Quota Rule</span>
+            </h4>
+            <div class="p-3 rounded-xl bg-amber-500/10 border border-amber-500/20 text-xs text-slate-200 leading-relaxed">
+              <strong class="text-amber-300">Convener Quota (Category-A) Only:</strong> JVD is strictly applicable only to candidates admitted through AP EAPCET government web counseling. 
+              <span class="block mt-1 text-slate-400">Candidates admitted under Management Quota (Category-B), NRI, or Spot Admissions are <em>NOT</em> eligible for JVD fee reimbursement and must pay full institution fees.</span>
+            </div>
+          </div>
+
+          <!-- Required Documents for JVD Release -->
+          <div class="bg-[#0b1120] rounded-2xl border border-slate-800 p-5 shadow-lg space-y-2.5">
+            <h4 class="text-xs font-bold text-emerald-400 uppercase tracking-wider flex items-center gap-1.5">
+              <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              <span>Documents Required for JVD Sanction</span>
+            </h4>
+            <ul class="text-xs text-slate-300 space-y-1.5">
+              <li class="flex items-center gap-2"><span class="text-emerald-400 font-bold">✓</span> Rice Card / White Ration Card</li>
+              <li class="flex items-center gap-2"><span class="text-emerald-400 font-bold">✓</span> Integrated MeeSeva Income & Caste Certificates</li>
+              <li class="flex items-center gap-2"><span class="text-emerald-400 font-bold">✓</span> Mother's Aadhaar & Active NPCI-Mapped Bank Passbook</li>
+              <li class="flex items-center gap-2"><span class="text-emerald-400 font-bold">✓</span> AP EAPCET Rank Card & Allotment Order</li>
+              <li class="flex items-center gap-2"><span class="text-emerald-400 font-bold">✓</span> Grama / Ward Sachivalayam Social Audit & E-KYC</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Bottom Action: Return to Home -->
+        <div class="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between no-print">
+          <button type="button" onclick="switchMainView('add-rank'); if(typeof showHomeSlide==='function') showHomeSlide(1); return false;" class="px-5 py-2.5 bg-slate-900 hover:bg-slate-800 text-white rounded-xl font-bold text-xs transition cursor-pointer">
+            ← Back to Home
+          </button>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div id="history-view-container" class="hidden space-y-5 w-full max-w-5xl mx-auto pb-16">
+      <!-- Top Bar: Back to Home + Title -->
+      <div class="flex items-center justify-between gap-3 p-4 bg-white rounded-2xl shadow-sm border border-slate-200/90 no-print">
+        <div class="flex items-center gap-3">
+          <button id="btn-history-back-home" type="button" onclick="switchMainView('add-rank'); if(typeof showHomeSlide==='function') showHomeSlide(1); return false;" class="p-2 bg-slate-900 hover:bg-slate-800 text-white rounded-xl shadow-sm transition cursor-pointer flex items-center justify-center active:scale-95" title="Back to Home" aria-label="Back to Home">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+          </button>
+          <h2 class="font-black text-base sm:text-lg text-slate-900 flex items-center gap-1.5">
+            <span>🕘</span> Priority List History
+          </h2>
+        </div>
+        <button id="hist-save-btn" type="button" class="px-3.5 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 text-xs font-extrabold shadow transition cursor-pointer active:scale-98">＋ Save current version</button>
+      </div>
+
+
+      <div id="hist-list" class="space-y-3"></div>
+      <div class="pt-4 text-center no-print">
+        <button type="button" onclick="switchMainView('add-rank'); if(typeof showHomeSlide==='function') showHomeSlide(1); return false;" class="px-5 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-800 rounded-xl font-bold text-xs transition cursor-pointer">
+          ← Back to Home
+        </button>
+      </div>
+    </div>
+
+    <!-- ========================================================== -->
+    <!-- VIEW 5: STUDENT PROFILE, INTERMEDIATE DETAILS & LOGOUT     -->
+    <!-- ========================================================== -->
+    
+    <!-- ========================================================== -->
+    <!-- KODNEST-STYLE "MY PROFILE" VIEW (EXACT REPLICA FROM VIDEO) -->
+    <!-- ========================================================== -->
+    <div id="profile-view-container" class="hidden space-y-6 w-full max-w-5xl mx-auto pb-16 text-slate-100">
+
+      <!-- Top Bar: Back to Home + Title + Theme & Mini-Avatar -->
+      <div class="flex items-center justify-between pb-3 border-b border-slate-300">
+        <div class="flex items-center gap-3">
+          <button id="kodnest-profile-back-btn" type="button" onclick="switchMainView('add-rank'); if(typeof showHomeSlide==='function') showHomeSlide(1); return false;" class="p-2 bg-slate-900 hover:bg-slate-800 text-white rounded-xl shadow-sm transition cursor-pointer flex items-center justify-center active:scale-95" title="Back to Home" aria-label="Back to Home">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+          </button>
+          <span class="font-black text-base sm:text-lg text-slate-900" style="color: #0f172a !important;">My Account / Profile</span>
+        </div>
+        <div class="flex items-center gap-3">
+          <div class="w-8 h-8 rounded-full overflow-hidden border border-amber-400/80 shadow cursor-pointer" id="profile-header-mini-avatar-btn" >
+            <img id="profile-mini-avatar-img" src="data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20120%20120%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22bgG%22%20x1%3D%220%25%22%20y1%3D%220%25%22%20x2%3D%22100%25%22%20y2%3D%22100%25%22%3E%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%233b82f6%22%2F%3E%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%231d4ed8%22%2F%3E%3C%2FlinearGradient%3E%3ClinearGradient%20id%3D%22skinG%22%20x1%3D%220%25%22%20y1%3D%220%25%22%20x2%3D%220%25%22%20y2%3D%22100%25%22%3E%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23fed7aa%22%2F%3E%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23fdba74%22%2F%3E%3C%2FlinearGradient%3E%3ClinearGradient%20id%3D%22hoodG%22%20x1%3D%220%25%22%20y1%3D%220%25%22%20x2%3D%22100%25%22%20y2%3D%22100%25%22%3E%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%230f172a%22%2F%3E%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%231e293b%22%2F%3E%3C%2FlinearGradient%3E%3C%2Fdefs%3E%3Crect%20width%3D%22120%22%20height%3D%22120%22%20rx%3D%2260%22%20fill%3D%22url(%23bgG)%22%2F%3E%3Cpath%20d%3D%22M24%20120c0-22%2016-36%2036-36s36%2014%2036%2036%22%20fill%3D%22url(%23hoodG)%22%2F%3E%3Cpath%20d%3D%22M48%2084l12%2016%2012-16%22%20fill%3D%22%23f59e0b%22%20stroke%3D%22%23d97706%22%20stroke-width%3D%222%22%2F%3E%3Ccircle%20cx%3D%2260%22%20cy%3D%22106%22%20r%3D%223%22%20fill%3D%22%23ffffff%22%2F%3E%3Crect%20x%3D%2252%22%20y%3D%2268%22%20width%3D%2216%22%20height%3D%2218%22%20rx%3D%224%22%20fill%3D%22%23fed7aa%22%2F%3E%3Cellipse%20cx%3D%2260%22%20cy%3D%2250%22%20rx%3D%2222%22%20ry%3D%2225%22%20fill%3D%22url(%23skinG)%22%2F%3E%3Ccircle%20cx%3D%2238%22%20cy%3D%2252%22%20r%3D%226%22%20fill%3D%22%23fdba74%22%2F%3E%3Ccircle%20cx%3D%2282%22%20cy%3D%2252%22%20r%3D%226%22%20fill%3D%22%23fdba74%22%2F%3E%3Cpath%20d%3D%22M36%2044c2-18%2016-24%2024-24s22%206%2024%2024c-6-4-14-6-24-6s-18%202-24%206z%22%20fill%3D%22%231e1b4b%22%2F%3E%3Cpath%20d%3D%22M38%2034c4-12%2018-16%2026-14%208%202%2016%208%2018%2018-6-4-14-6-24-6-10%200-16%204-20%202z%22%20fill%3D%22%230f172a%22%2F%3E%3Cpath%20d%3D%22M45%2040q5%20-3%2010%200%22%20stroke%3D%22%230f172a%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20fill%3D%22none%22%2F%3E%3Cpath%20d%3D%22M65%2040q5%20-3%2010%200%22%20stroke%3D%22%230f172a%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20fill%3D%22none%22%2F%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2248%22%20r%3D%223.5%22%20fill%3D%22%230f172a%22%2F%3E%3Ccircle%20cx%3D%2270%22%20cy%3D%2248%22%20r%3D%223.5%22%20fill%3D%22%230f172a%22%2F%3E%3Ccircle%20cx%3D%2251.5%22%20cy%3D%2246.5%22%20r%3D%221.2%22%20fill%3D%22%23ffffff%22%2F%3E%3Ccircle%20cx%3D%2271.5%22%20cy%3D%2246.5%22%20r%3D%221.2%22%20fill%3D%22%23ffffff%22%2F%3E%3Crect%20x%3D%2242%22%20y%3D%2242%22%20width%3D%2216%22%20height%3D%2212%22%20rx%3D%224%22%20stroke%3D%22%23f59e0b%22%20stroke-width%3D%222.2%22%20fill%3D%22none%22%2F%3E%3Crect%20x%3D%2262%22%20y%3D%2242%22%20width%3D%2216%22%20height%3D%2212%22%20rx%3D%224%22%20stroke%3D%22%23f59e0b%22%20stroke-width%3D%222.2%22%20fill%3D%22none%22%2F%3E%3Cline%20x1%3D%2258%22%20y1%3D%2248%22%20x2%3D%2262%22%20y2%3D%2248%22%20stroke%3D%22%23f59e0b%22%20stroke-width%3D%222.2%22%2F%3E%3Cline%20x1%3D%2238%22%20y1%3D%2246%22%20x2%3D%2242%22%20y2%3D%2246%22%20stroke%3D%22%23f59e0b%22%20stroke-width%3D%221.8%22%2F%3E%3Cline%20x1%3D%2278%22%20y1%3D%2246%22%20x2%3D%2282%22%20y2%3D%2246%22%20stroke%3D%22%23f59e0b%22%20stroke-width%3D%221.8%22%2F%3E%3Cpath%20d%3D%22M59%2052v4a1%201%200%200%200%202%200v-4%22%20stroke%3D%22%23fb923c%22%20stroke-width%3D%221.5%22%20stroke-linecap%3D%22round%22%20fill%3D%22none%22%2F%3E%3Cpath%20d%3D%22M53%2062q7%206%2014%200%22%20stroke%3D%22%23991b1b%22%20stroke-width%3D%222.5%22%20stroke-linecap%3D%22round%22%20fill%3D%22none%22%2F%3E%3Ccircle%20cx%3D%2245%22%20cy%3D%2256%22%20r%3D%223%22%20fill%3D%22%23f43f5e%22%20opacity%3D%220.3%22%2F%3E%3Ccircle%20cx%3D%2275%22%20cy%3D%2256%22%20r%3D%223%22%20fill%3D%22%23f43f5e%22%20opacity%3D%220.3%22%2F%3E%3C%2Fsvg%3E" alt="athota" class="w-full h-full object-cover" />
+          </div>
+        </div>
+      </div>
+
+      <!-- Sub-Tabs Navigation Strip (Profile, Counseling, JVD Fee, Documents) -->
+      <div class="flex items-center gap-6 border-b border-slate-300 text-xs sm:text-sm font-semibold overflow-x-auto scrollbar-none px-1">
+        <button type="button" class="kodnest-subtab-btn py-2 text-slate-950 border-b-2 border-slate-950 font-black transition flex items-center gap-1.5 cursor-pointer whitespace-nowrap" data-tab="tab-profile" style="color: #0f172a !important;">
+          <span class="font-black text-slate-950" style="color: #0f172a !important;">Profile</span>
         </button>
         <button type="button" class="kodnest-subtab-btn py-2 text-slate-600 hover:text-slate-950 border-b-2 border-transparent transition flex items-center gap-1.5 cursor-pointer whitespace-nowrap" data-tab="tab-scholarships" style="color: #334155;">
           <span>Fee & Scholarships</span>
@@ -1994,57 +2457,7 @@
       </div>
 
       <!-- ================= SUBTAB 2: COUNSELING & QUOTAS ================= -->
-      <div id="kodnest-tab-counseling-content" class="hidden space-y-4">
-        <!-- KPI Strip -->
-        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
-          <div class="bg-[#0b1120] rounded-2xl p-4 border border-slate-800 shadow">
-            <div class="text-[10px] font-black uppercase text-slate-400">Entrance Rank</div>
-            <div id="kodnest-kpi-rank" class="text-lg sm:text-xl font-black text-amber-400 mt-0.5">12,500</div>
-            <div class="text-[10px] text-emerald-400 font-bold mt-0.5">AP EAPCET 2026</div>
-          </div>
-          <div class="bg-[#0b1120] rounded-2xl p-4 border border-slate-800 shadow">
-            <div class="text-[10px] font-black uppercase text-slate-400">Inter Score</div>
-            <div id="kodnest-kpi-inter" class="text-lg sm:text-xl font-black text-blue-400 mt-0.5">75%</div>
-            <div class="text-[10px] text-slate-400 font-bold mt-0.5">MPC Stream (BIEAP)</div>
-          </div>
-          <div class="bg-[#0b1120] rounded-2xl p-4 border border-slate-800 shadow">
-            <div class="text-[10px] font-black uppercase text-slate-400">Category Quota</div>
-            <div id="kodnest-kpi-category" class="text-lg sm:text-xl font-black text-purple-400 mt-0.5">OC</div>
-            <div class="text-[10px] text-slate-400 font-bold mt-0.5">General / Unreserved</div>
-          </div>
-          <div class="bg-[#0b1120] rounded-2xl p-4 border border-slate-800 shadow">
-            <div class="text-[10px] font-black uppercase text-slate-400">Local Area Quota</div>
-            <div id="kodnest-kpi-region" class="text-lg sm:text-xl font-black text-amber-400 mt-0.5">AU Region</div>
-            <div class="text-[10px] text-slate-400 font-bold mt-0.5">85% Seat Reservation</div>
-          </div>
-        </div>
-
-        <!-- GPS Location Auto-Detection Card -->
-        <div class="p-4 bg-gradient-to-r from-blue-950/80 to-indigo-950/80 border border-blue-800/80 rounded-2xl space-y-2">
-          <div class="flex items-center justify-between gap-2 flex-wrap">
-            <span class="text-xs font-extrabold text-blue-200 flex items-center gap-1.5">
-              <span>📍</span> Auto-Detect Home District & Counseling Region
-            </span>
-            <button id="kodnest-btn-detect-location" type="button" class="px-3 py-1.5 bg-blue-600 hover:bg-blue-500 active:scale-95 text-white rounded-xl text-xs font-bold shadow transition flex items-center gap-1.5 cursor-pointer">
-              <span>🛰️ Detect My Location</span>
-            </button>
-          </div>
-          <p id="kodnest-location-detect-status" class="text-[11px] text-blue-300 leading-tight font-medium">
-            Tap to detect your current AP district using device GPS and auto-select your 85% Local AU/SVU counseling region.
-          </p>
-        </div>
-
-        <!-- JSON Dataset Exporter -->
-        <div class="p-4 bg-[#0b1120] rounded-2xl border border-slate-800 flex items-center justify-between gap-3 flex-wrap">
-          <div>
-            <h4 class="text-sm font-bold text-white">Export Complete Student Dataset</h4>
-            <p class="text-xs text-slate-400">Download all your verified academic credentials, cutoffs, and preferences as JSON.</p>
-          </div>
-          <button id="kodnest-btn-export-dataset" type="button" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-white rounded-xl text-xs font-bold border border-slate-700 transition flex items-center gap-1.5 cursor-pointer">
-            <span>📥 Export Verified JSON</span>
-          </button>
-        </div>
-      </div>
+      <div id="kodnest-tab-counseling-content" class="hidden"></div>
 
       <!-- ================= SUBTAB 3: FEE & SCHOLARSHIPS (JVD ELIGIBLE DETAILS) ================= -->
       <div id="kodnest-tab-scholarships-content" class="hidden space-y-4">
@@ -2842,7 +3255,7 @@
             <span>+ Add Best Branch to Priority Sheet</span>
           </button>
           <button id="modal-calc-roi-btn" type="button" class="flex items-center gap-1 px-2.5 sm:px-3 py-1.5 rounded-lg bg-indigo-50 hover:bg-indigo-100 text-indigo-800 border border-indigo-200 text-[11px] sm:text-xs font-bold">
-            <span>🧮 Calculate 4-Yr ROI</span>
+            <span class="flex items-center gap-1.5"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><path d="M16 10h.01M12 10h.01M8 10h.01M12 14h.01M8 14h.01M12 18h.01M8 18h.01"/></svg><span>Calculate 4-Yr ROI</span></span>
           </button>
         </div>
         <button id="close-modal-bottom-btn" type="button" class="px-3.5 sm:px-4 py-1.5 bg-slate-800 hover:bg-slate-900 text-white rounded-lg text-xs font-semibold ml-auto">
@@ -3801,7 +4214,7 @@
         </div>
         <div class="flex items-center gap-2">
           <button id="compiler-reset-btn" type="button" class="px-3 py-1 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-lg font-medium transition flex items-center gap-1.5">
-            🔄 Reset
+            <svg class="w-3.5 h-3.5 text-slate-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg><span>Reset</span>
           </button>
           <button id="compiler-run-btn" type="button" class="px-4 py-1 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-lg shadow-md transition flex items-center gap-1.5">
             ▶️ Run Code
