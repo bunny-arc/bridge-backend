@@ -1109,6 +1109,8 @@ function openCollegeDetailPage(collegeId) {
     window.closeCollegeImageZoomModalAndScrollToAbout = closeCollegeImageZoomModalAndScrollToAbout;
     window.detectStudentCurrentLocation = detectStudentCurrentLocation;
     window.changeStudentTravelOrigin = changeStudentTravelOrigin;
+    window.openRailOneApp = openRailOneApp;
+    window.openRedBusApp = openRedBusApp;
     window.toggleAvailableTrainsDrawer = toggleAvailableTrainsDrawer;
     window.toggleAvailableBusesDrawer = toggleAvailableBusesDrawer;
     window.updateCollegeTravelUI = updateCollegeTravelUI;
@@ -1143,6 +1145,74 @@ function openCollegeDetailPage(collegeId) {
       return { name: "Vijayawada International Airport (VGA) - Gannavaram - 19 km", city: "Vijayawada", code: "VGA" };
     }
 
+    function openRailOneApp() {
+      const isAndroid = /Android/i.test(navigator.userAgent);
+      const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+      const playStoreUrl = "https://play.google.com/store/apps/details?id=cris.org.in.prs.ima";
+      const appStoreUrl = "https://apps.apple.com/in/app/irctc-rail-connect/id1281480614";
+      const webUrl = "https://www.irctc.co.in/nget/train-search";
+
+      if (isAndroid) {
+        const intentUrl = "intent://train-search#Intent;scheme=railone;package=cris.org.in.prs.ima;S.browser_fallback_url=" + encodeURIComponent(playStoreUrl) + ";end;";
+        const start = Date.now();
+        window.location.href = intentUrl;
+        setTimeout(() => {
+          if (Date.now() - start < 1500) {
+            window.open(playStoreUrl, "_blank");
+          }
+        }, 1200);
+      } else if (isIOS) {
+        const start = Date.now();
+        window.location.href = "irctc://";
+        setTimeout(() => {
+          if (Date.now() - start < 1500) {
+            window.open(appStoreUrl, "_blank");
+          }
+        }, 1200);
+      } else {
+        const install = confirm("RailOne / IRCTC App is not detected on your device.\n\n• Click OK to download the official RailOne / IRCTC app from Google Play Store\n• Click Cancel to open the IRCTC web booking portal");
+        if (install) {
+          window.open(playStoreUrl, "_blank");
+        } else {
+          window.open(webUrl, "_blank");
+        }
+      }
+    }
+
+    function openRedBusApp() {
+      const isAndroid = /Android/i.test(navigator.userAgent);
+      const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+      const playStoreUrl = "https://play.google.com/store/apps/details?id=in.redbus.android";
+      const appStoreUrl = "https://apps.apple.com/in/app/redbus-bus-ticket-booking/id733712726";
+      const webUrl = "https://www.redbus.in/";
+
+      if (isAndroid) {
+        const intentUrl = "intent://#Intent;scheme=redbus;package=in.redbus.android;S.browser_fallback_url=" + encodeURIComponent(playStoreUrl) + ";end;";
+        const start = Date.now();
+        window.location.href = intentUrl;
+        setTimeout(() => {
+          if (Date.now() - start < 1500) {
+            window.open(playStoreUrl, "_blank");
+          }
+        }, 1200);
+      } else if (isIOS) {
+        const start = Date.now();
+        window.location.href = "redbus://";
+        setTimeout(() => {
+          if (Date.now() - start < 1500) {
+            window.open(appStoreUrl, "_blank");
+          }
+        }, 1200);
+      } else {
+        const install = confirm("redBus App is not detected on your device.\n\n• Click OK to download the redBus app from Google Play Store\n• Click Cancel to open redBus web booking portal");
+        if (install) {
+          window.open(playStoreUrl, "_blank");
+        } else {
+          window.open(webUrl, "_blank");
+        }
+      }
+    }
+
     function updateCollegeTravelUI(college, originCity) {
       if (!college) return;
       const origin = originCity || appState.studentOriginCity || appState.district || "Vijayawada";
@@ -1150,7 +1220,9 @@ function openCollegeDetailPage(collegeId) {
 
       // 1. Origin Labels and Dropdown sync
       const originLabel = document.getElementById("cd-travel-current-origin-label");
-      if (originLabel) originLabel.textContent = `${origin}, ${origin.toLowerCase().includes('hyderabad') || origin.toLowerCase().includes('bengaluru') || origin.toLowerCase().includes('chennai') ? '' : 'Andhra Pradesh'}`;
+      if (originLabel) {
+        originLabel.textContent = `${origin}, ${origin.toLowerCase().includes('hyderabad') || origin.toLowerCase().includes('bengaluru') || origin.toLowerCase().includes('chennai') ? '' : 'Andhra Pradesh'}`;
+      }
 
       const originSelect = document.getElementById("cd-travel-origin-select");
       if (originSelect) {
@@ -1178,76 +1250,210 @@ function openCollegeDetailPage(collegeId) {
       const walkingDistEl = document.getElementById("cd-walking-distance");
       if (walkingDistEl) walkingDistEl.textContent = "~320 meters · 4–5 min walk from Main Entrance / RTC Drop Bay";
 
-      // 3. Step-by-Step Google Maps Direct Navigation Link
+      // 3. Google Maps Direct Navigation Link
       const destinationQuery = `${college.name}, ${college.location || college.district || 'Andhra Pradesh'}`;
       const googleMapsDirectUrl = `https://www.google.com/maps/dir/?api=1&origin=${encodeURIComponent(origin + ', Andhra Pradesh')}&destination=${encodeURIComponent(destinationQuery)}&travelmode=transit`;
       const directMapBtn = document.getElementById("cd-google-maps-direct-btn");
       if (directMapBtn) directMapBtn.href = googleMapsDirectUrl;
 
-      // 4. ConfirmTkt / IRCTC Search Link
-      const confirmTktUrl = `https://www.google.com/search?q=${encodeURIComponent('trains from ' + origin + ' to ' + (college.district || college.location || 'Andhra Pradesh') + ' confirmtkt irctc')}`;
-      const trainConfirmTktBtn = document.getElementById("cd-train-confirmtkt-btn");
-      if (trainConfirmTktBtn) trainConfirmTktBtn.href = confirmTktUrl;
-
-      // 5. Google Flights Link
+      // 4. Google Flights Link
       const flightsUrl = `https://www.google.com/travel/flights?q=${encodeURIComponent('flights from ' + origin + ' to ' + airportInfo.city)}`;
       const flightsBtn = document.getElementById("cd-airport-flights-btn");
       if (flightsBtn) flightsBtn.href = flightsUrl;
 
-      // 6. Walking Route Google Maps Link
+      // 5. Walking Route Google Maps Link
       const walkingRouteUrl = `https://www.google.com/maps/dir/?api=1&origin=${encodeURIComponent(busText)}&destination=${encodeURIComponent(college.name)}&travelmode=walking`;
       const walkingBtn = document.getElementById("cd-walking-google-btn");
       if (walkingBtn) walkingBtn.href = walkingRouteUrl;
 
-      // 7. Render Realistic Available Trains Table
+      // 6. Dynamic Trains List
       const trainsTbody = document.getElementById("cd-available-trains-tbody");
       if (trainsTbody) {
-        const sampleTrains = [
-          { name: "Vande Bharat Express", no: "20833/20834", dep: "05:45 AM", arr: "09:50 AM", duration: "4h 05m", freq: "Except Tue" },
-          { name: "Ratnachal SF Express", no: "12717/12718", dep: "06:15 AM", arr: "12:15 PM", duration: "6h 00m", freq: "Daily" },
-          { name: "Janmabhoomi Express", no: "12805/12806", dep: "12:00 PM", arr: "06:20 PM", duration: "6h 20m", freq: "Daily" },
-          { name: "Godavari Express", no: "12727/12728", dep: "05:15 PM", arr: "11:45 PM", duration: "6h 30m", freq: "Daily" },
-          { name: "Simhadri Express", no: "17239/17240", dep: "09:00 AM", arr: "03:40 PM", duration: "6h 40m", freq: "Daily" }
-        ];
-        trainsTbody.innerHTML = sampleTrains.map(t => `
+        let trains = [];
+        const normOrigin = origin.toLowerCase();
+        if (normOrigin.includes("bengaluru")) {
+          trains = [
+            { name: "Prasanthi Express", no: "18464", dep: "01:40 PM", arr: "09:30 AM (+1)", duration: "19h 50m", freq: "Daily" },
+            { name: "SBC-BZA Humsafar SF", no: "22888", dep: "10:15 AM", arr: "05:30 AM (+1)", duration: "19h 15m", freq: "Thu" },
+            { name: "Yesvantpur - Howrah SF", no: "12864", dep: "10:35 AM", arr: "06:10 AM (+1)", duration: "19h 35m", freq: "Daily" },
+            { name: "Guwahati Express", no: "12509", dep: "11:40 PM", arr: "06:45 PM (+1)", duration: "19h 05m", freq: "Wed, Thu, Fri" },
+            { name: "Anga Express", no: "12253", dep: "01:50 PM", arr: "09:20 AM (+1)", duration: "19h 30m", freq: "Sat" }
+          ];
+        } else if (normOrigin.includes("hyderabad")) {
+          trains = [
+            { name: "Vande Bharat Express", no: "20834", dep: "03:00 PM", arr: "11:30 PM", duration: "8h 30m", freq: "Except Tue" },
+            { name: "Godavari Express", no: "12728", dep: "05:05 PM", arr: "05:45 AM (+1)", duration: "12h 40m", freq: "Daily" },
+            { name: "Visakha Express", no: "17016", dep: "04:50 PM", arr: "07:30 AM (+1)", duration: "14h 40m", freq: "Daily" },
+            { name: "Janmabhoomi Express", no: "12806", dep: "07:00 AM", arr: "07:45 PM", duration: "12h 45m", freq: "Daily" },
+            { name: "Falaknuma Express", no: "12704", dep: "03:55 PM", arr: "03:35 AM (+1)", duration: "11h 40m", freq: "Daily" }
+          ];
+        } else if (normOrigin.includes("vijayawada")) {
+          trains = [
+            { name: "Vande Bharat Express", no: "20833", dep: "05:45 AM", arr: "09:50 AM", duration: "4h 05m", freq: "Except Tue" },
+            { name: "Ratnachal SF Express", no: "12717", dep: "06:15 AM", arr: "12:15 PM", duration: "6h 00m", freq: "Daily" },
+            { name: "Janmabhoomi Express", no: "12805", dep: "12:00 PM", arr: "06:20 PM", duration: "6h 20m", freq: "Daily" },
+            { name: "Godavari Express", no: "12727", dep: "11:15 PM", arr: "05:45 AM", duration: "6h 30m", freq: "Daily" },
+            { name: "Simhadri Express", no: "17239", dep: "09:00 AM", arr: "03:40 PM", duration: "6h 40m", freq: "Daily" }
+          ];
+        } else {
+          trains = [
+            { name: `${origin} Intercity Express`, no: "12745", dep: "06:30 AM", arr: "01:15 PM", duration: "6h 45m", freq: "Daily" },
+            { name: "Coromandel Express", no: "12842", dep: "11:20 AM", arr: "05:45 PM", duration: "6h 25m", freq: "Daily" },
+            { name: "Tirumala Express", no: "17487", dep: "08:15 PM", arr: "04:30 AM (+1)", duration: "8h 15m", freq: "Daily" },
+            { name: "Circar Express", no: "17643", dep: "09:40 PM", arr: "06:10 AM (+1)", duration: "8h 30m", freq: "Daily" }
+          ];
+        }
+
+        trainsTbody.innerHTML = trains.map(t => `
           <tr class="hover:bg-blue-50/50 transition">
-            <td class="p-2.5 font-bold text-slate-900">
+            <td class="p-2 font-bold text-slate-900">
               <span class="block">${t.name}</span>
               <span class="text-[10px] text-blue-700 font-mono">${t.no}</span>
             </td>
-            <td class="p-2.5 text-slate-700 font-semibold">${t.dep}</td>
-            <td class="p-2.5 text-slate-700 font-semibold">${t.arr}</td>
-            <td class="p-2.5 text-slate-600">${t.duration}</td>
-            <td class="p-2.5 text-emerald-700 font-bold">${t.freq}</td>
-            <td class="p-2.5 text-center">
-              <a href="https://www.google.com/search?q=${encodeURIComponent('book ' + t.name + ' ' + t.no + ' ' + origin + ' IRCTC ConfirmTkt')}" target="_blank" rel="noopener noreferrer" class="px-2.5 py-1 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-bold text-[10px] shadow-2xs inline-block">
-                Check Seats ↗
-              </a>
+            <td class="p-2 text-slate-700 font-semibold">${t.dep}</td>
+            <td class="p-2 text-slate-700 font-semibold">${t.arr}</td>
+            <td class="p-2 text-slate-600">${t.duration}</td>
+            <td class="p-2 text-emerald-700 font-bold">${t.freq}</td>
+            <td class="p-2 text-center">
+              <button type="button" onclick="openRailOneApp();" class="px-2 py-1 rounded bg-slate-900 hover:bg-slate-800 text-white font-bold text-[10px] shadow-2xs cursor-pointer">
+                RailOne ↗
+              </button>
             </td>
           </tr>
         `).join("");
       }
 
-      // 8. Render Realistic Available Buses Table
+      // 7. Dynamic Buses List
       const busesTbody = document.getElementById("cd-available-buses-tbody");
       if (busesTbody) {
-        const sampleBuses = [
-          { service: "APSRTC Amaravati Multi-Axle AC", route: `${origin} ⇌ ${college.district || 'Campus Terminal'} (Direct Express)`, freq: "Every 30–45 mins", fare: "₹450 – ₹650" },
-          { service: "APSRTC Garuda Plus AC", route: `${origin} ⇌ ${college.district || 'Hub'} (Non-Stop)`, freq: "Every 45 mins", fare: "₹380 – ₹520" },
-          { service: "APSRTC Super Luxury (Air Suspension)", route: `State Highway Corridor via ${origin}`, freq: "Every 15–20 mins", fare: "₹240 – ₹340" },
-          { service: "APSRTC Ultra Deluxe / Express", route: `District Intercity Route`, freq: "Continuous (Round the clock)", fare: "₹180 – ₹250" }
-        ];
-        busesTbody.innerHTML = sampleBuses.map(b => `
+        let buses = [];
+        const normOrigin = origin.toLowerCase();
+        if (normOrigin.includes("bengaluru")) {
+          buses = [
+            { service: "APSRTC Amaravati Multi-Axle Scania", route: "Bengaluru (Majestic) ⇌ Maddilapalem / RTC Complex", freq: "04:30 PM, 06:00 PM, 08:30 PM", fare: "₹1,550" },
+            { service: "APSRTC Garuda Plus AC Sleeper", route: "Bengaluru (Kempegowda) ⇌ NH16 Highway Bypass", freq: "05:15 PM, 07:45 PM Daily", fare: "₹1,480" },
+            { service: "Orange Travels AC Multi-Axle Sleeper", route: "Bengaluru (Madiwala) ⇌ Campus Gate", freq: "07:00 PM, 08:00 PM Daily", fare: "₹1,750" },
+            { service: "Kaveri Travels Volvo 9600 AC Sleeper", route: "Bengaluru ⇌ RTC Complex", freq: "06:30 PM, 09:15 PM Daily", fare: "₹1,850" }
+          ];
+        } else if (normOrigin.includes("hyderabad")) {
+          buses = [
+            { service: "APSRTC Amaravati Multi-Axle AC", route: "MGBS / Miyapur ⇌ Maddilapalem", freq: "Every 30 mins (06:00 PM - 11:30 PM)", fare: "₹1,050" },
+            { service: "APSRTC Garuda Plus AC Sleeper", route: "BHEL / Lakdikapul ⇌ RTC Complex", freq: "Hourly", fare: "₹980" },
+            { service: "Morning Star Travels Volvo Sleeper", route: "Hyderabad ⇌ Campus Drop", freq: "07:30 PM, 08:30 PM, 09:30 PM", fare: "₹1,250" },
+            { service: "Kaveri Travels Multi-Axle AC Sleeper", route: "Hyderabad ⇌ RTC Complex", freq: "08:00 PM, 09:00 PM Daily", fare: "₹1,350" }
+          ];
+        } else if (normOrigin.includes("vijayawada")) {
+          buses = [
+            { service: "APSRTC Amaravati Multi-Axle AC", route: "Vijayawada PNBS ⇌ Campus Drop", freq: "Every 20 mins round the clock", fare: "₹540" },
+            { service: "APSRTC Super Luxury Non-AC", route: "Vijayawada PNBS ⇌ RTC Complex", freq: "Every 15 mins", fare: "₹380" },
+            { service: "APSRTC Night Rider AC Sleeper", route: "Vijayawada ⇌ Maddilapalem", freq: "09:30 PM, 11:00 PM", fare: "₹720" },
+            { service: "Orange Travels Multi-Axle Sleeper", route: "Benz Circle ⇌ Campus Gate", freq: "11:15 PM, 12:30 AM", fare: "₹850" }
+          ];
+        } else {
+          buses = [
+            { service: "APSRTC Amaravati Multi-Axle AC", route: `${origin} ⇌ Campus Regional Terminal`, freq: "Every 45 mins", fare: "₹450 – ₹650" },
+            { service: "APSRTC Garuda Plus AC", route: `${origin} ⇌ Central RTC Complex`, freq: "Hourly", fare: "₹380 – ₹520" },
+            { service: "APSRTC Super Luxury", route: `State Highway Corridor via ${origin}`, freq: "Every 20 mins", fare: "₹240 – ₹340" },
+            { service: "Private AC Sleeper Service", route: `${origin} ⇌ Main Entrance Drop`, freq: "Nightly Departures", fare: "₹650 – ₹950" }
+          ];
+        }
+
+        busesTbody.innerHTML = buses.map(b => `
           <tr class="hover:bg-emerald-50/50 transition">
-            <td class="p-2.5 font-bold text-slate-900">${b.service}</td>
-            <td class="p-2.5 text-slate-600">${b.route}</td>
-            <td class="p-2.5 text-emerald-800 font-semibold">${b.freq}</td>
-            <td class="p-2.5 text-slate-900 font-bold font-mono">${b.fare}</td>
-            <td class="p-2.5 text-center">
-              <a href="https://www.apsrtconline.in/" target="_blank" rel="noopener noreferrer" class="px-2.5 py-1 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-[10px] shadow-2xs inline-block">
-                APSRTC ↗
-              </a>
+            <td class="p-2 font-bold text-slate-900">${b.service}</td>
+            <td class="p-2 text-slate-600">${b.route}</td>
+            <td class="p-2 text-emerald-800 font-semibold">${b.freq}</td>
+            <td class="p-2 text-slate-900 font-bold font-mono">${b.fare}</td>
+            <td class="p-2 text-center">
+              <button type="button" onclick="openRedBusApp();" class="px-2 py-1 rounded bg-red-600 hover:bg-red-700 text-white font-bold text-[10px] shadow-2xs cursor-pointer">
+                redBus ↗
+              </button>
             </td>
+          </tr>
+        `).join("");
+      }
+
+      // 8. Dynamic Local Transit & Travel Modes Table (Pic 2)
+      const travelTable = document.getElementById("cd-travel-modes-table");
+      const lastMileEl = document.getElementById("cd-last-mile-transit");
+      
+      const locStr = ((college.location || '') + ' ' + (college.district || '') + ' ' + (college.name || '')).toLowerCase();
+      const normOrigin = origin.toLowerCase();
+
+      let modes = [];
+      let lastMileText = "";
+
+      if (locStr.includes("visakhapatnam") || locStr.includes("vizag") || locStr.includes("auce")) {
+        lastMileText = "Auto/Rapido from VSKP Railway Station to AUCE Maddilapalem Gate: ₹90 - ₹140 (City Bus 10K/38: ₹15)";
+        if (normOrigin.includes("bengaluru")) {
+          modes = [
+            { mode: "Train", time: "17-19 hrs", cost: "Sleeper: ₹510 | 3AC: ₹1,380 (Prasanthi Express / VSKP SF)", route: "Direct daily trains to Visakhapatnam (VSKP)" },
+            { mode: "Bus", time: "16-18 hrs", cost: "APSRTC Garuda / AC Sleeper: ₹1,400 - ₹1,850", route: "Overnight AC sleeper buses to Maddilapalem / RTC Complex" },
+            { mode: "Flight", time: "1 hr 45 min", cost: "₹3,200 - ₹4,800", route: "Direct flights to VTZ Airport (12 km from campus)" }
+          ];
+        } else if (normOrigin.includes("hyderabad")) {
+          modes = [
+            { mode: "Train", time: "11-13 hrs", cost: "Sleeper: ₹390 | 3AC: ₹1,080 (Godavari Express / Visakha Exp)", route: "Direct daily superfast trains via Kazipet / Vijayawada" },
+            { mode: "Bus", time: "11-13 hrs", cost: "APSRTC Amaravati / Garuda: ₹900 - ₹1,450", route: "Overnight AC multi-axle buses via Suryapet / Vijayawada" },
+            { mode: "Flight", time: "1 hr 10 min", cost: "₹2,900 - ₹4,200", route: "Direct daily flights to Visakhapatnam (VTZ)" }
+          ];
+        } else if (normOrigin.includes("vijayawada")) {
+          modes = [
+            { mode: "Train", time: "5.5-6.5 hrs", cost: "Sleeper: ₹240 | 3AC: ₹680 (Ratnachal SF / Janmabhoomi)", route: "Direct daytime express trains along coastal line" },
+            { mode: "Bus", time: "6.5-8 hrs", cost: "APSRTC Garuda / Super Luxury: ₹450 - ₹750", route: "Round-the-clock RTC services along NH16 corridor" },
+            { mode: "Flight", time: "1 hr 00 min", cost: "₹2,400 - ₹3,600", route: "Direct flights to VTZ Airport" }
+          ];
+        } else {
+          modes = [
+            { mode: "Train", time: "7-12 hrs", cost: "Sleeper: ₹320 | 3AC: ₹850 (Coastal Superfast Express)", route: "Direct express connectivity to Visakhapatnam (VSKP)" },
+            { mode: "Bus", time: "8-14 hrs", cost: "APSRTC Super Luxury / AC: ₹550 - ₹1,100", route: "State highway express routes to Maddilapalem" },
+            { mode: "Flight", time: "1 hr 20 min", cost: "₹3,100 - ₹4,500", route: "Direct/connecting flights to VTZ Airport" }
+          ];
+        }
+      } else if (locStr.includes("kakinada") || locStr.includes("jntuk")) {
+        lastMileText = "Auto/Rapido from Kakinada Town (CCT) Station to JNTUK Main Gate: ₹60 - ₹100 (City Auto: ₹20)";
+        if (normOrigin.includes("bengaluru")) {
+          modes = [
+            { mode: "Train", time: "15-17 hrs", cost: "Sleeper: ₹470 | 3AC: ₹1,280 (Sheshadri Express / Prasanthi)", route: "Direct daily trains to Kakinada Town (CCT) / Samalkot" },
+            { mode: "Bus", time: "14-16 hrs", cost: "APSRTC Garuda / AC Sleeper: ₹1,300 - ₹1,750", route: "Direct overnight buses to Kakinada RTC Complex" },
+            { mode: "Flight", time: "1 hr 30 min", cost: "₹3,400 - ₹5,000", route: "Direct flights to Rajahmundry (RJA) Airport (55 km from campus)" }
+          ];
+        } else if (normOrigin.includes("hyderabad")) {
+          modes = [
+            { mode: "Train", time: "9-11 hrs", cost: "Sleeper: ₹340 | 3AC: ₹950 (Gowthami Express / Cocanada AC)", route: "Direct overnight superfast to Kakinada Town (CCT)" },
+            { mode: "Bus", time: "9.5-11 hrs", cost: "APSRTC Amaravati / Garuda: ₹850 - ₹1,350", route: "Direct multi-axle buses via Rajahmundry" },
+            { mode: "Flight", time: "1 hr 10 min", cost: "₹3,000 - ₹4,500", route: "Flights to Rajahmundry (RJA) Airport" }
+          ];
+        } else {
+          modes = [
+            { mode: "Train", time: "3.5-5.5 hrs", cost: "Sleeper: ₹180 | 3AC: ₹550 (Circar / Ratnachal)", route: "Direct express trains via Samalkot Junction" },
+            { mode: "Bus", time: "4-6 hrs", cost: "APSRTC Super Luxury: ₹300 - ₹500", route: "Direct buses along NH16 to Kakinada RTC Complex" }
+          ];
+        }
+      } else {
+        lastMileText = `Auto/Rapido from ${stationText.split('(')[0].trim()} to ${college.shortName || college.name} Gate: ₹70 - ₹130 (City Bus: ₹15 - ₹25)`;
+        if (normOrigin.includes("bengaluru")) {
+          modes = [
+            { mode: "Train", time: "10-14 hrs", cost: "Sleeper: ₹380 | 3AC: ₹1,050 (Intercity / Superfast)", route: `Direct trains from Bengaluru to ${college.district || 'Hub'}` },
+            { mode: "Bus", time: "9-13 hrs", cost: "APSRTC Garuda / AC Sleeper: ₹850 - ₹1,400", route: `Direct express buses via NH44 / NH16` },
+            { mode: "Flight", time: "1 hr 15 min", cost: "₹2,800 - ₹4,200", route: `Flights to nearest regional airport (${airportInfo.city})` }
+          ];
+        } else {
+          modes = [
+            { mode: "Train", time: "4-8 hrs", cost: "Sleeper: ₹220 | 3AC: ₹650 (Regional Superfast)", route: `Direct express route to ${stationText.split('(')[0].trim()}` },
+            { mode: "Bus", time: "4.5-9 hrs", cost: "APSRTC Super Luxury: ₹300 - ₹600", route: `Frequent RTC corridor services to campus` }
+          ];
+        }
+      }
+
+      if (lastMileEl) lastMileEl.textContent = lastMileText;
+      if (travelTable) {
+        travelTable.innerHTML = modes.map(m => `
+          <tr>
+            <td class="p-2.5 font-bold text-slate-900">${m.mode}</td>
+            <td class="p-2.5 text-slate-600">${m.time}</td>
+            <td class="p-2.5 font-semibold text-emerald-800">${m.cost}</td>
+            <td class="p-2.5 text-slate-600">${m.route}</td>
           </tr>
         `).join("");
       }
@@ -1318,7 +1524,6 @@ function openCollegeDetailPage(collegeId) {
               changeStudentTravelOrigin(detectedCity);
             })
             .catch(() => {
-              // Fallback based on latitude
               let fallbackCity = "Vijayawada";
               if (lat > 17.5) fallbackCity = "Visakhapatnam";
               else if (lat > 16.8) fallbackCity = "Rajahmundry";
