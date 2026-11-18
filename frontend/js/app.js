@@ -5535,38 +5535,125 @@ function openCollegeDetailPage(collegeId) {
       });
 
       const micBtn = document.getElementById("bridge-ai-mic-btn");
+      const voiceLangSelect = document.getElementById("bridge-ai-voice-lang");
+      const voiceStatus = document.getElementById("bridge-ai-voice-status");
+      const voiceLangName = document.getElementById("bridge-ai-voice-lang-name");
+      const voiceStopBtn = document.getElementById("bridge-ai-voice-stop-btn");
+
+      const voiceLangMap = {
+        "en-IN": "English (India)",
+        "te-IN": "Telugu (తెలుగు)",
+        "hi-IN": "Hindi (हिन्दी)",
+        "ta-IN": "Tamil (தமிழ்)",
+        "kn-IN": "Kannada (ಕನ್ನಡ)",
+        "en-US": "English (US)"
+      };
+
       if (micBtn) {
         const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
         if (SpeechRec) {
           const recognition = new SpeechRec();
-          recognition.continuous = false;
-          recognition.interimResults = false;
-          recognition.lang = "en-IN";
-          recognition.onstart = () => {
-            micBtn.classList.add("text-red-500", "animate-pulse");
-            showToast("Listening... Speak your question now", "🎙️");
+          recognition.continuous = true;
+          recognition.interimResults = true;
+          let isListening = false;
+          let baseText = "";
+
+          const setMicListening = (active) => {
+            isListening = active;
+            if (active) {
+              micBtn.className = "w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center bg-rose-600 text-white shadow-md animate-pulse ring-4 ring-rose-200 transition cursor-pointer";
+              if (voiceStatus) voiceStatus.classList.remove("hidden");
+              const currentLang = voiceLangSelect?.value || "en-IN";
+              if (voiceLangName) voiceLangName.textContent = voiceLangMap[currentLang] || currentLang;
+            } else {
+              micBtn.className = "w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition cursor-pointer";
+              if (voiceStatus) voiceStatus.classList.add("hidden");
+            }
           };
+
+          window.stopBridgeAiVoiceListening = () => {
+            if (isListening) {
+              try { recognition.stop(); } catch(e){}
+              setMicListening(false);
+            }
+          };
+
+          voiceStopBtn?.addEventListener("click", () => {
+            window.stopBridgeAiVoiceListening();
+          });
+
+          recognition.onstart = () => {
+            setMicListening(true);
+            baseText = input ? (input.value ? input.value.trim() + " " : "") : "";
+          };
+
           recognition.onresult = (e) => {
-            const transcript = e.results[0][0].transcript;
+            let interimTranscript = "";
+            let finalTranscript = "";
+
+            for (let i = e.resultIndex; i < e.results.length; ++i) {
+              const chunk = e.results[i][0].transcript;
+              if (e.results[i].isFinal) {
+                finalTranscript += chunk;
+              } else {
+                interimTranscript += chunk;
+              }
+            }
+
             if (input) {
-              input.value = transcript;
+              input.value = baseText + finalTranscript + interimTranscript;
               input.focus();
             }
-            showToast(`Heard: "${transcript}"`, "🗣️");
+
+            if (finalTranscript) {
+              baseText += finalTranscript + " ";
+            }
           };
-          recognition.onerror = () => {
-            micBtn.classList.remove("text-red-500", "animate-pulse");
-            showToast("Could not recognize voice. Please type your query.", "⚠️");
+
+          recognition.onerror = (e) => {
+            setMicListening(false);
+            if (e.error === "not-allowed") {
+              showToast("Microphone permission was denied. Please allow microphone in browser settings.", "⚠️");
+            } else if (e.error !== "no-speech") {
+              showToast("Speech recognition paused.", "🎙️");
+            }
           };
+
           recognition.onend = () => {
-            micBtn.classList.remove("text-red-500", "animate-pulse");
+            setMicListening(false);
           };
+
           micBtn.addEventListener("click", () => {
-            try { recognition.start(); } catch (err) { try { recognition.stop(); } catch(e){} }
+            if (isListening) {
+              recognition.stop();
+              setMicListening(false);
+            } else {
+              const currentLang = voiceLangSelect?.value || "en-IN";
+              recognition.lang = currentLang;
+              try {
+                recognition.start();
+              } catch (err) {
+                try { recognition.stop(); } catch(e){}
+                setTimeout(() => {
+                  try { recognition.start(); } catch(e){}
+                }, 100);
+              }
+            }
           });
+
+          voiceLangSelect?.addEventListener("change", () => {
+            if (isListening) {
+              recognition.stop();
+              setTimeout(() => {
+                recognition.lang = voiceLangSelect.value;
+                try { recognition.start(); } catch(e){}
+              }, 150);
+            }
+          });
+
         } else {
           micBtn.addEventListener("click", () => {
-            showToast("Voice input not supported in this browser. Please type your query.", "🎙️");
+            showToast("Speech recognition is not supported in this browser. Please use Chrome, Edge, or Safari.", "🎙️");
           });
         }
       }

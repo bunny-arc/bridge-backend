@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Real-Time Voice Chat & Multi-Language Speech-to-Text</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          keyframes: {
+            pulseRing: {
+              '0%': { transform: 'scale(0.95)', boxShadow: '0 0 0 0 rgba(239, 68, 68, 0.7)' },
+              '70%': { transform: 'scale(1)', boxShadow: '0 0 0 12px rgba(239, 68, 68, 0)' },
+              '100%': { transform: 'scale(0.95)', boxShadow: '0 0 0 0 rgba(239, 68, 68, 0)' }
+            },
+            wave: {
+              '0%, 100%': { height: '6px' },
+              '50%': { height: '22px' }
+            }
+          },
+          animation: {
+            pulseRing: 'pulseRing 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+            waveSlow: 'wave 1s ease-in-out infinite',
+            waveMed: 'wave 0.8s ease-in-out infinite 0.2s',
+            waveFast: 'wave 0.6s ease-in-out infinite 0.4s'
+          }
+        }
+      }
+    };
+  </script>
+</head>
+<body class="bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 text-slate-100 min-h-screen flex items-center justify-center p-3 sm:p-6 font-sans antialiased">
+
+  <!-- Chat Component Container -->
+  <div class="w-full max-w-2xl bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl border border-slate-200 dark:border-slate-800 rounded-3xl shadow-2xl flex flex-col h-[650px] max-h-[92vh] overflow-hidden">
+    
+    <!-- Top Header -->
+    <header class="px-5 py-4 bg-slate-50 dark:bg-slate-800/80 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between gap-3 shrink-0">
+      <div class="flex items-center gap-3">
+        <div class="relative">
+          <div class="w-10 h-10 rounded-2xl bg-indigo-600 flex items-center justify-center text-white shadow-md font-black text-lg">
+            🎙️
+          </div>
+          <span class="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-emerald-500 border-2 border-white dark:border-slate-900 rounded-full"></span>
+        </div>
+        <div>
+          <h1 class="text-sm sm:text-base font-extrabold text-slate-900 dark:text-white tracking-tight">Voice & Multi-Lingual Assistant</h1>
+          <p class="text-xs text-slate-500 dark:text-slate-400 font-medium flex items-center gap-1.5">
+            <span class="inline-block w-1.5 h-1.5 rounded-full bg-emerald-500 animate-ping"></span>
+            Real-Time Speech-to-Text Active
+          </p>
+        </div>
+      </div>
+
+      <!-- Language Selector Dropdown -->
+      <div class="flex items-center gap-2">
+        <label for="language-select" class="text-xs font-semibold text-slate-500 dark:text-slate-400 hidden sm:inline">Voice Lang:</label>
+        <div class="relative">
+          <select id="language-select" class="appearance-none bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-200 text-xs font-bold pl-3 pr-8 py-2 rounded-xl border border-slate-300 dark:border-slate-700 hover:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 cursor-pointer shadow-xs transition">
+            <option value="en-IN" selected>🇮🇳 English (India)</option>
+            <option value="en-US">🇺🇸 English (US)</option>
+            <option value="te-IN">🇮🇳 Telugu (తెలుగు)</option>
+            <option value="hi-IN">🇮🇳 Hindi (हिन्दी)</option>
+            <option value="ta-IN">🇮🇳 Tamil (தமிழ்)</option>
+            <option value="kn-IN">🇮🇳 Kannada (ಕನ್ನಡ)</option>
+            <option value="mr-IN">🇮🇳 Marathi (मराठी)</option>
+            <option value="es-ES">🇪🇸 Spanish (Español)</option>
+            <option value="fr-FR">🇫🇷 French (Français)</option>
+            <option value="de-DE">🇩🇪 German (Deutsch)</option>
+            <option value="ja-JP">🇯🇵 Japanese (日本語)</option>
+            <option value="ar-SA">🇸🇦 Arabic (العربية)</option>
+          </select>
+          <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-slate-500">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Message History Box -->
+    <div id="chat-messages" class="flex-1 overflow-y-auto p-4 sm:p-5 space-y-4 bg-slate-50/50 dark:bg-slate-950/40">
+      <!-- Welcome Message from Bot -->
+      <div class="flex items-start gap-3 max-w-[85%]">
+        <div class="w-8 h-8 rounded-full bg-indigo-600/10 text-indigo-600 dark:text-indigo-400 flex items-center justify-center font-bold text-xs shrink-0 border border-indigo-200 dark:border-indigo-800">
+          AI
+        </div>
+        <div class="space-y-1">
+          <div class="bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-3.5 rounded-2xl rounded-tl-none border border-slate-200/80 dark:border-slate-700 shadow-xs text-xs sm:text-sm leading-relaxed">
+            Hello! I support <strong>real-time voice input</strong> in multiple languages.
+            <div class="mt-2 text-[11px] text-slate-500 dark:text-slate-400">
+              Click the <strong class="text-indigo-600 dark:text-indigo-400">microphone icon</strong> below and start speaking in English, Telugu (తెలుగు), Hindi (हिन्दी), or any selected language. Your voice will be transcribed into text live!
+            </div>
+          </div>
+          <span class="text-[10px] text-slate-400 px-1">Just now</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Active Listening Visualizer Banner (Hidden by default) -->
+    <div id="listening-banner" class="hidden px-5 py-2.5 bg-rose-50 dark:bg-rose-950/40 border-t border-rose-200 dark:border-rose-900/50 flex items-center justify-between text-xs text-rose-700 dark:text-rose-300 font-semibold transition-all">
+      <div class="flex items-center gap-2.5">
+        <div class="flex items-center gap-1 h-5">
+          <span class="w-1 bg-rose-500 rounded-full animate-waveSlow"></span>
+          <span class="w-1 bg-rose-500 rounded-full animate-waveMed"></span>
+          <span class="w-1 bg-rose-500 rounded-full animate-waveFast"></span>
+          <span class="w-1 bg-rose-500 rounded-full animate-waveSlow"></span>
+        </div>
+        <span>Listening in <span id="active-lang-label" class="font-bold underline">English (India)</span>... speak now</span>
+      </div>
+      <button id="cancel-listening-btn" type="button" class="text-[11px] bg-rose-200/60 dark:bg-rose-900/60 hover:bg-rose-300 dark:hover:bg-rose-800 text-rose-800 dark:text-rose-200 px-2 py-0.5 rounded-md transition cursor-pointer">
+        Stop
+      </button>
+    </div>
+
+    <!-- Bottom Input Area -->
+    <div class="p-3 sm:p-4 bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 shrink-0">
+      <form id="chat-form" class="relative flex items-center gap-2" onsubmit="event.preventDefault(); submitMessage();">
+        <div class="relative flex-1">
+          <!-- Text Input Field -->
+          <input
+            type="text"
+            id="chat-input"
+            autocomplete="off"
+            placeholder="Type a message or click mic to speak..."
+            class="w-full bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 text-xs sm:text-sm pl-4 pr-12 py-3 rounded-2xl border border-slate-300 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 shadow-xs transition"
+          />
+
+          <!-- Microphone Button inside/next to the input box -->
+          <button
+            type="button"
+            id="mic-btn"
+            title="Click to speak (Voice input)"
+            aria-label="Voice input"
+            class="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-xl flex items-center justify-center text-slate-400 hover:text-indigo-600 hover:bg-slate-200/60 dark:hover:bg-slate-700/60 transition cursor-pointer"
+          >
+            <!-- Microphone SVG Icon -->
+            <svg id="mic-icon" class="w-5 h-5 transition-transform" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+              <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"></path>
+              <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+              <line x1="12" x2="12" y1="19" y2="22"></line>
+            </svg>
+          </button>
+        </div>
+
+        <!-- Send Button -->
+        <button
+          type="submit"
+          id="send-btn"
+          title="Send message"
+          aria-label="Send message"
+          class="w-11 h-11 rounded-2xl bg-indigo-600 hover:bg-indigo-700 active:scale-95 text-white flex items-center justify-center shadow-md transition cursor-pointer shrink-0"
+        >
+          <svg class="w-4 h-4 translate-x-0.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+            <line x1="22" y1="2" x2="11" y2="13"></line>
+            <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+          </svg>
+        </button>
+      </form>
+    </div>
+
+  </div>
+
+  <!-- Vanilla JavaScript Logic -->
+  <script>
+    // Elements
+    const chatMessages = document.getElementById("chat-messages");
+    const chatInput = document.getElementById("chat-input");
+    const micBtn = document.getElementById("mic-btn");
+    const micIcon = document.getElementById("mic-icon");
+    const languageSelect = document.getElementById("language-select");
+    const listeningBanner = document.getElementById("listening-banner");
+    const activeLangLabel = document.getElementById("active-lang-label");
+    const cancelListeningBtn = document.getElementById("cancel-listening-btn");
+
+    // Speech Recognition Setup
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    let recognition = null;
+    let isListening = false;
+    let baseTranscriptBeforeInterim = "";
+
+    // Language Name Map for nice display
+    const langNames = {
+      'en-IN': 'English (India)',
+      'en-US': 'English (US)',
+      'te-IN': 'Telugu (తెలుగు)',
+      'hi-IN': 'Hindi (हिन्दी)',
+      'ta-IN': 'Tamil (தமிழ்)',
+      'kn-IN': 'Kannada (ಕನ್ನಡ)',
+      'mr-IN': 'Marathi (मराठी)',
+      'es-ES': 'Spanish (Español)',
+      'fr-FR': 'French (Français)',
+      'de-DE': 'German (Deutsch)',
+      'ja-JP': 'Japanese (日本語)',
+      'ar-SA': 'Arabic (العربية)'
+    };
+
+    if (SpeechRecognition) {
+      recognition = new SpeechRecognition();
+      recognition.continuous = true;      // Keep listening until user pauses or manually stops
+      recognition.interimResults = true;  // Real-time transcription as the user speaks!
+      recognition.lang = languageSelect.value;
+
+      // When listening starts
+      recognition.onstart = () => {
+        isListening = true;
+        setMicActiveState(true);
+        baseTranscriptBeforeInterim = chatInput.value ? chatInput.value.trim() + " " : "";
+      };
+
+      // Real-time transcription stream
+      recognition.onresult = (event) => {
+        let interimTranscript = "";
+        let finalTranscript = "";
+
+        for (let i = event.resultIndex; i < event.results.length; ++i) {
+          const chunk = event.results[i][0].transcript;
+          if (event.results[i].isFinal) {
+            finalTranscript += chunk;
+          } else {
+            interimTranscript += chunk;
+          }
+        }
+
+        // Live update the input textbox in real-time
+        const currentText = baseTranscriptBeforeInterim + finalTranscript + interimTranscript;
+        chatInput.value = currentText;
+        chatInput.scrollLeft = chatInput.scrollWidth;
+
+        if (finalTranscript) {
+          baseTranscriptBeforeInterim += finalTranscript + " ";
+        }
+      };
+
+      // When recognition encountered an error
+      recognition.onerror = (event) => {
+        console.warn("Speech recognition event error:", event.error);
+        if (event.error === "not-allowed") {
+          alert("Microphone permission was denied. Please allow microphone access in your browser settings to use voice input.");
+        } else if (event.error === "no-speech") {
+          // Normal timeout when silence occurs
+        } else if (event.error === "network") {
+          alert("Network error occurred during speech recognition. Please check your internet connection.");
+        }
+        stopListening();
+      };
+
+      // When recognition ends (silence, timeout, or stopped)
+      recognition.onend = () => {
+        stopListening();
+      };
+
+    } else {
+      // Browser does not support Web Speech API
+      console.warn("SpeechRecognition API not supported by this browser.");
+    }
+
+    // Toggle Listening on Microphone Click
+    micBtn.addEventListener("click", () => {
+      if (!SpeechRecognition) {
+        alert("Speech recognition is not supported in this browser. Please try Google Chrome, Microsoft Edge, or Safari.");
+        return;
+      }
+
+      if (isListening) {
+        stopListening();
+      } else {
+        startListening();
+      }
+    });
+
+    cancelListeningBtn.addEventListener("click", () => {
+      stopListening();
+    });
+
+    // Update recognition language when dropdown changes
+    languageSelect.addEventListener("change", () => {
+      const selectedLang = languageSelect.value;
+      if (recognition) {
+        recognition.lang = selectedLang;
+      }
+      activeLangLabel.textContent = langNames[selectedLang] || selectedLang;
+      if (isListening) {
+        // Restart recognition with new language
+        recognition.stop();
+        setTimeout(() => {
+          try { recognition.start(); } catch(e){}
+        }, 150);
+      }
+    });
+
+    function startListening() {
+      if (!recognition) return;
+      try {
+        recognition.lang = languageSelect.value;
+        activeLangLabel.textContent = langNames[languageSelect.value] || languageSelect.value;
+        recognition.start();
+      } catch (err) {
+        console.warn("Recognition start error:", err);
+      }
+    }
+
+    function stopListening() {
+      isListening = false;
+      setMicActiveState(false);
+      if (recognition) {
+        try { recognition.stop(); } catch (e) {}
+      }
+      chatInput.focus();
+    }
+
+    // UI state helper for microphone
+    function setMicActiveState(active) {
+      if (active) {
+        // Turn red and pulse
+        micBtn.className = "absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-xl flex items-center justify-center bg-rose-600 text-white shadow-lg animate-pulseRing transition cursor-pointer";
+        micIcon.classList.add("scale-110");
+        listeningBanner.classList.remove("hidden");
+      } else {
+        // Reset to default slate
+        micBtn.className = "absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-xl flex items-center justify-center text-slate-400 hover:text-indigo-600 hover:bg-slate-200/60 dark:hover:bg-slate-700/60 transition cursor-pointer";
+        micIcon.classList.remove("scale-110");
+        listeningBanner.classList.add("hidden");
+      }
+    }
+
+    // Append message to chat interface
+    function appendMessage(text, isUser = false, langCode = null) {
+      const wrapper = document.createElement("div");
+      wrapper.className = isUser ? "flex items-start justify-end gap-3" : "flex items-start gap-3 max-w-[85%]";
+
+      const time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      const langBadge = langCode ? `<span class="inline-block text-[9px] font-bold px-1.5 py-0.5 rounded bg-indigo-500/10 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800 ml-1.5 uppercase">${langCode.split('-')[0]}</span>` : "";
+
+      if (isUser) {
+        wrapper.innerHTML = `
+          <div class="space-y-1 text-right max-w-[85%]">
+            <div class="inline-block bg-indigo-600 text-white p-3.5 rounded-2xl rounded-tr-none shadow-md text-xs sm:text-sm leading-relaxed break-words text-left">
+              ${escapeHtml(text)}
+            </div>
+            <div class="text-[10px] text-slate-400 px-1 flex items-center justify-end gap-1">
+              <span>${time}</span>
+              ${langBadge}
+            </div>
+          </div>
+          <div class="w-8 h-8 rounded-full bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300 flex items-center justify-center font-bold text-xs shrink-0 border border-slate-300 dark:border-slate-600">
+            You
+          </div>
+        `;
+      } else {
+        wrapper.innerHTML = `
+          <div class="w-8 h-8 rounded-full bg-indigo-600/10 text-indigo-600 dark:text-indigo-400 flex items-center justify-center font-bold text-xs shrink-0 border border-indigo-200 dark:border-indigo-800">
+            AI
+          </div>
+          <div class="space-y-1">
+            <div class="bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-3.5 rounded-2xl rounded-tl-none border border-slate-200/80 dark:border-slate-700 shadow-xs text-xs sm:text-sm leading-relaxed break-words">
+              ${escapeHtml(text)}
+            </div>
+            <div class="text-[10px] text-slate-400 px-1">
+              ${time}
+            </div>
+          </div>
+        `;
+      }
+
+      chatMessages.appendChild(wrapper);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    // Submit user message
+    function submitMessage() {
+      const message = chatInput.value.trim();
+      if (!message) return;
+
+      const currentLang = languageSelect.value;
+
+      // Stop speech recognition if still listening
+      if (isListening) stopListening();
+
+      // Display user message in chat with their spoken language
+      appendMessage(message, true, currentLang);
+      chatInput.value = "";
+      baseTranscriptBeforeInterim = "";
+
+      // Simulated Intelligent Response in matching/translated context
+      simulateBotReply(message, currentLang);
+    }
+
+    // Contextual bot response
+    function simulateBotReply(userText, lang) {
+      setTimeout(() => {
+        let reply = "";
+        if (lang === "te-IN") {
+          reply = `మీ సందేశం అందింది: "${userText}". మీ ఇంజనీరింగ్ కౌన్సిలింగ్ మరియు కాలేజీ వివరాలపై నేను మీకు సహాయం చేయగలను!`;
+        } else if (lang === "hi-IN") {
+          reply = `आपका संदेश प्राप्त हुआ: "${userText}". इंजीनियरिंग प्रवेश और कॉलेज वेब विकल्पों के लिए मैं आपकी सहायता कर सकता हूँ!`;
+        } else if (lang === "ta-IN") {
+          reply = `உங்கள் செய்தி பெறப்பட்டது: "${userText}". கல்லூரி சேர்க்கை மற்றும் ஆலோசனையில் நான் உங்களுக்கு உதவ முடியும்!`;
+        } else if (lang === "es-ES") {
+          reply = `Mensaje recibido en español: "${userText}". ¡Estoy listo para ayudarte con tus consultas universitarias!`;
+        } else {
+          reply = `Received your message in ${langNames[lang] || 'English'}: "${userText}". How can I assist you with your college selection and cutoffs today?`;
+        }
+        appendMessage(reply, false);
+      }, 700);
+    }
+
+    function escapeHtml(text) {
+      const div = document.createElement("div");
+      div.textContent = text;
+      return div.innerHTML;
+    }
+  </script>
+</body>
+</html>

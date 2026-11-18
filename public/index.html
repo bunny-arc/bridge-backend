@@ -2833,11 +2833,28 @@
 
     <!-- Prominent Chat & Search Bar (Always Sticky at Bottom) -->
     <div class="p-3 sm:p-4 bg-white border-t border-slate-200 shrink-0 shadow-lg relative z-20" style="padding-bottom: max(14px, env(safe-area-inset-bottom, 14px));">
+      <!-- Real-Time Voice Listening Banner -->
+      <div id="bridge-ai-voice-status" class="hidden mb-2 px-3 py-1.5 rounded-xl bg-rose-50 border border-rose-200 text-rose-700 text-xs font-semibold flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-rose-600 animate-ping"></span>
+          <span>Listening in <span id="bridge-ai-voice-lang-name" class="font-bold underline">English (India)</span>... speak now</span>
+        </div>
+        <button type="button" id="bridge-ai-voice-stop-btn" class="text-[11px] bg-rose-200 text-rose-800 hover:bg-rose-300 px-2 py-0.5 rounded-md font-bold cursor-pointer">Stop</button>
+      </div>
       <div class="relative flex items-center w-full">
         <input type="text" id="bridge-ai-input" placeholder="Ask Bridge AI anything..." class="w-full bg-slate-50 hover:bg-slate-100/60 focus:bg-white text-slate-900 placeholder-slate-400 text-xs sm:text-sm pl-4 pr-22 py-2.5 sm:py-3 rounded-2xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 shadow-xs transition">
         
         <!-- Actions inside input bar (Pic 4: Mic + Blue Circle Send Arrow) -->
-        <div class="absolute right-2 top-1/2 -translate-y-1/2 flex items-center gap-1.5 z-10">
+        <div class="absolute right-2 top-1/2 -translate-y-1/2 flex items-center gap-1 z-10">
+          <!-- Voice Language Selector -->
+          <select id="bridge-ai-voice-lang" title="Select Voice Input Language" class="text-[11px] font-bold bg-slate-100 hover:bg-slate-200 text-slate-700 px-1.5 py-1 rounded-lg border border-slate-300 outline-none cursor-pointer transition">
+            <option value="en-IN" selected>EN</option>
+            <option value="te-IN">తెలుగు</option>
+            <option value="hi-IN">हिन्दी</option>
+            <option value="ta-IN">தமிழ்</option>
+            <option value="kn-IN">ಕನ್ನಡ</option>
+            <option value="en-US">US</option>
+          </select>
           <!-- Microphone Button -->
           <button id="bridge-ai-mic-btn" type="button" class="w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition cursor-pointer" title="Voice Search / Dictation" aria-label="Microphone">
             <svg class="w-4 h-4 sm:w-4.5 sm:h-4.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
