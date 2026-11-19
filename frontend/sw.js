@@ -1,4 +1,4 @@
-const CACHE_NAME = 'bridge-v4';
+const CACHE_NAME = 'bridge-v5';
 
 // Install Event: Activate immediately
 self.addEventListener('install', (event) => {

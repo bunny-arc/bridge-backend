@@ -5,7 +5,7 @@
       "public": "frontend",
       "headers": [
         {
-          "source": "/@(index.html|sw.js)",
+          "source": "**",
           "headers": [
             {
               "key": "Cache-Control",

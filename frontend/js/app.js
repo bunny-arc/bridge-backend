@@ -2531,62 +2531,70 @@ function openCollegeDetailPage(collegeId) {
         if (typeof updateQuickRankChips === "function") updateQuickRankChips(examCode);
       } else if (examCode === "tg_eapcet" || examCode === "ts_eamcet") {
         // TG EAPCET: Telangana specific -> SHOW Telangana Regions & Telangana Districts!
-        if (filterRegionCol) { filterRegionCol.classList.remove("hidden"); filterRegionCol.style.setProperty("display", "block", "important"); }
-        if (apRegionContainer) { apRegionContainer.classList.remove("hidden"); apRegionContainer.style.setProperty("display", "block", "important"); }
-        if (filterDistrictCol) { filterDistrictCol.classList.remove("hidden"); filterDistrictCol.style.setProperty("display", "block", "important"); }
-        if (apDistrictContainer) { apDistrictContainer.classList.remove("hidden"); apDistrictContainer.style.setProperty("display", "block", "important"); }
+        if (filterRegionCol) { filterRegionCol.classList.remove("hidden"); filterRegionCol.style.removeProperty("display"); }
+        if (apRegionContainer) { apRegionContainer.classList.remove("hidden"); apRegionContainer.style.removeProperty("display"); }
+        if (filterDistrictCol) { filterDistrictCol.classList.remove("hidden"); filterDistrictCol.style.removeProperty("display"); }
+        if (apDistrictContainer) { apDistrictContainer.classList.remove("hidden"); apDistrictContainer.style.removeProperty("display"); }
 
         appState.state = "Telangana";
         appState.selectedStates = ["Telangana"];
         appState.region = "ALL";
         appState.district = "ALL";
-        if (typeof updateRegionDropdown === "function") updateRegionDropdown("tg_eapcet");
-        if (typeof updateDistrictDropdown === "function") updateDistrictDropdown("Telangana");
+        const updateReg = window.updateRegionDropdown || (typeof updateRegionDropdown === "function" ? updateRegionDropdown : null);
+        const updateDist = window.updateDistrictDropdown || (typeof updateDistrictDropdown === "function" ? updateDistrictDropdown : null);
+        if (updateReg) updateReg("tg_eapcet");
+        if (updateDist) updateDist("Telangana");
         if (rankUnit) rankUnit.textContent = "Rank";
         if (typeof updateQuickRankChips === "function") updateQuickRankChips("tg_eapcet");
       } else if (examCode === "kcet") {
         // KCET: Karnataka specific -> SHOW Karnataka Regions & Karnataka Districts!
-        if (filterRegionCol) { filterRegionCol.classList.remove("hidden"); filterRegionCol.style.setProperty("display", "block", "important"); }
-        if (apRegionContainer) { apRegionContainer.classList.remove("hidden"); apRegionContainer.style.setProperty("display", "block", "important"); }
-        if (filterDistrictCol) { filterDistrictCol.classList.remove("hidden"); filterDistrictCol.style.setProperty("display", "block", "important"); }
-        if (apDistrictContainer) { apDistrictContainer.classList.remove("hidden"); apDistrictContainer.style.setProperty("display", "block", "important"); }
+        if (filterRegionCol) { filterRegionCol.classList.remove("hidden"); filterRegionCol.style.removeProperty("display"); }
+        if (apRegionContainer) { apRegionContainer.classList.remove("hidden"); apRegionContainer.style.removeProperty("display"); }
+        if (filterDistrictCol) { filterDistrictCol.classList.remove("hidden"); filterDistrictCol.style.removeProperty("display"); }
+        if (apDistrictContainer) { apDistrictContainer.classList.remove("hidden"); apDistrictContainer.style.removeProperty("display"); }
 
         appState.state = "Karnataka";
         appState.selectedStates = ["Karnataka"];
         appState.region = "ALL";
         appState.district = "ALL";
-        if (typeof updateRegionDropdown === "function") updateRegionDropdown("kcet");
-        if (typeof updateDistrictDropdown === "function") updateDistrictDropdown("Karnataka");
+        const updateReg = window.updateRegionDropdown || (typeof updateRegionDropdown === "function" ? updateRegionDropdown : null);
+        const updateDist = window.updateDistrictDropdown || (typeof updateDistrictDropdown === "function" ? updateDistrictDropdown : null);
+        if (updateReg) updateReg("kcet");
+        if (updateDist) updateDist("Karnataka");
         if (rankUnit) rankUnit.textContent = "Rank";
         if (typeof updateQuickRankChips === "function") updateQuickRankChips("kcet");
       } else if (examCode === "ap_cet") {
         // AP EAPCET: Andhra Pradesh specific -> SHOW AP AU/SVU Regions & AP 26 Districts!
-        if (filterRegionCol) { filterRegionCol.classList.remove("hidden"); filterRegionCol.style.setProperty("display", "block", "important"); }
-        if (apRegionContainer) { apRegionContainer.classList.remove("hidden"); apRegionContainer.style.setProperty("display", "block", "important"); }
-        if (filterDistrictCol) { filterDistrictCol.classList.remove("hidden"); filterDistrictCol.style.setProperty("display", "block", "important"); }
-        if (apDistrictContainer) { apDistrictContainer.classList.remove("hidden"); apDistrictContainer.style.setProperty("display", "block", "important"); }
+        if (filterRegionCol) { filterRegionCol.classList.remove("hidden"); filterRegionCol.style.removeProperty("display"); }
+        if (apRegionContainer) { apRegionContainer.classList.remove("hidden"); apRegionContainer.style.removeProperty("display"); }
+        if (filterDistrictCol) { filterDistrictCol.classList.remove("hidden"); filterDistrictCol.style.removeProperty("display"); }
+        if (apDistrictContainer) { apDistrictContainer.classList.remove("hidden"); apDistrictContainer.style.removeProperty("display"); }
 
         appState.state = "Andhra Pradesh";
         appState.selectedStates = ["Andhra Pradesh"];
         appState.region = "ALL";
         appState.district = "ALL";
-        if (typeof updateRegionDropdown === "function") updateRegionDropdown("ap_cet");
-        if (typeof updateDistrictDropdown === "function") updateDistrictDropdown("Andhra Pradesh");
+        const updateReg = window.updateRegionDropdown || (typeof updateRegionDropdown === "function" ? updateRegionDropdown : null);
+        const updateDist = window.updateDistrictDropdown || (typeof updateDistrictDropdown === "function" ? updateDistrictDropdown : null);
+        if (updateReg) updateReg("ap_cet");
+        if (updateDist) updateDist("Andhra Pradesh");
         if (rankUnit) rankUnit.textContent = "Rank";
         if (typeof updateQuickRankChips === "function") updateQuickRankChips("ap_cet");
       } else if (examCode === "payment") {
         // Payment Colleges: Direct management / NRI admissions
-        if (filterRegionCol) { filterRegionCol.classList.remove("hidden"); filterRegionCol.style.setProperty("display", "block", "important"); }
-        if (apRegionContainer) { apRegionContainer.classList.remove("hidden"); apRegionContainer.style.setProperty("display", "block", "important"); }
-        if (filterDistrictCol) { filterDistrictCol.classList.remove("hidden"); filterDistrictCol.style.setProperty("display", "block", "important"); }
-        if (apDistrictContainer) { apDistrictContainer.classList.remove("hidden"); apDistrictContainer.style.setProperty("display", "block", "important"); }
+        if (filterRegionCol) { filterRegionCol.classList.remove("hidden"); filterRegionCol.style.removeProperty("display"); }
+        if (apRegionContainer) { apRegionContainer.classList.remove("hidden"); apRegionContainer.style.removeProperty("display"); }
+        if (filterDistrictCol) { filterDistrictCol.classList.remove("hidden"); filterDistrictCol.style.removeProperty("display"); }
+        if (apDistrictContainer) { apDistrictContainer.classList.remove("hidden"); apDistrictContainer.style.removeProperty("display"); }
 
         appState.state = "ALL";
         appState.selectedStates = ["ALL"];
         appState.region = "ALL";
         appState.district = "ALL";
-        if (typeof updateRegionDropdown === "function") updateRegionDropdown("payment");
-        if (typeof updateDistrictDropdown === "function") updateDistrictDropdown("ALL");
+        const updateReg = window.updateRegionDropdown || (typeof updateRegionDropdown === "function" ? updateRegionDropdown : null);
+        const updateDist = window.updateDistrictDropdown || (typeof updateDistrictDropdown === "function" ? updateDistrictDropdown : null);
+        if (updateReg) updateReg("payment");
+        if (updateDist) updateDist("ALL");
       } else {
         if (typeof updateQuickRankChips === "function") updateQuickRankChips(examCode);
       }
