@@ -284,38 +284,29 @@
             <button type="button" onclick="document.getElementById('exam-required-alert').classList.add('hidden')" class="text-rose-500 hover:text-rose-800 text-sm font-black px-1.5 py-0.5 cursor-pointer">✕</button>
           </div>
 
-          <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2.5">
-            <button type="button" data-exam="ap_cet" onclick="setExamTab('ap_cet')" class="exam-tab-btn px-3 py-2.5 rounded-xl font-bold text-xs sm:text-sm bg-slate-50 hover:bg-blue-50 hover:border-blue-300 text-slate-700 border border-slate-200 text-left transition flex flex-col justify-between cursor-pointer">
-              <div class="flex items-center justify-between w-full">
+          <!-- The One Bar: Single Unified Entrance Exam Bar across all viewports -->
+          <div class="w-full bg-slate-100/90 p-1.5 rounded-2xl border border-slate-200/90 shadow-inner">
+            <div class="flex items-center gap-1.5 sm:gap-2 overflow-x-auto no-scrollbar flex-nowrap w-full scroll-smooth">
+              <button type="button" data-exam="ap_cet" onclick="setExamTab('ap_cet')" class="exam-tab-btn active px-3.5 py-2.5 rounded-xl font-bold text-xs sm:text-sm bg-blue-600 text-white shadow-xs whitespace-nowrap transition shrink-0 sm:flex-1 text-center justify-center flex items-center cursor-pointer">
                 <span>AP CET (EAPCET)</span>
-              </div>
-            </button>
-            <button type="button" data-exam="tg_eapcet" onclick="setExamTab('tg_eapcet')" class="exam-tab-btn px-3 py-2.5 rounded-xl font-bold text-xs sm:text-sm bg-slate-50 hover:bg-blue-50 hover:border-blue-300 text-slate-700 border border-slate-200 text-left transition flex flex-col justify-between cursor-pointer">
-              <div class="flex items-center justify-between w-full">
+              </button>
+              <button type="button" data-exam="tg_eapcet" onclick="setExamTab('tg_eapcet')" class="exam-tab-btn px-3.5 py-2.5 rounded-xl font-bold text-xs sm:text-sm bg-white hover:bg-slate-50 text-slate-700 border border-slate-200/80 whitespace-nowrap transition shrink-0 sm:flex-1 text-center justify-center flex items-center cursor-pointer">
                 <span>TG EAPCET (Telangana)</span>
-              </div>
-            </button>
-            <button type="button" data-exam="kcet" onclick="setExamTab('kcet')" class="exam-tab-btn px-3 py-2.5 rounded-xl font-bold text-xs sm:text-sm bg-slate-50 hover:bg-blue-50 hover:border-blue-300 text-slate-700 border border-slate-200 text-left transition flex flex-col justify-between cursor-pointer">
-              <div class="flex items-center justify-between w-full">
+              </button>
+              <button type="button" data-exam="kcet" onclick="setExamTab('kcet')" class="exam-tab-btn px-3.5 py-2.5 rounded-xl font-bold text-xs sm:text-sm bg-white hover:bg-slate-50 text-slate-700 border border-slate-200/80 whitespace-nowrap transition shrink-0 sm:flex-1 text-center justify-center flex items-center cursor-pointer">
                 <span>KCET (Karnataka)</span>
-              </div>
-            </button>
-            <button type="button" data-exam="jee_main" onclick="setExamTab('jee_main')" class="exam-tab-btn px-3 py-2.5 rounded-xl font-bold text-xs sm:text-sm bg-slate-50 hover:bg-blue-50 hover:border-blue-300 text-slate-700 border border-slate-200 text-left transition flex flex-col justify-between cursor-pointer">
-              <div class="flex items-center justify-between w-full">
+              </button>
+              <button type="button" data-exam="jee_main" onclick="setExamTab('jee_main')" class="exam-tab-btn px-3.5 py-2.5 rounded-xl font-bold text-xs sm:text-sm bg-white hover:bg-slate-50 text-slate-700 border border-slate-200/80 whitespace-nowrap transition shrink-0 sm:flex-1 text-center justify-center flex items-center cursor-pointer">
                 <span>JEE Main</span>
-              </div>
-            </button>
-            <button type="button" data-exam="jee_adv" onclick="setExamTab('jee_adv')" class="exam-tab-btn px-3 py-2.5 rounded-xl font-bold text-xs sm:text-sm bg-slate-50 hover:bg-blue-50 hover:border-blue-300 text-slate-700 border border-slate-200 text-left transition flex flex-col justify-between cursor-pointer">
-              <div class="flex items-center justify-between w-full">
+              </button>
+              <button type="button" data-exam="jee_adv" onclick="setExamTab('jee_adv')" class="exam-tab-btn px-3.5 py-2.5 rounded-xl font-bold text-xs sm:text-sm bg-white hover:bg-slate-50 text-slate-700 border border-slate-200/80 whitespace-nowrap transition shrink-0 sm:flex-1 text-center justify-center flex items-center cursor-pointer">
                 <span>JEE Advanced</span>
-              </div>
-            </button>
-            <button type="button" data-exam="payment" onclick="setExamTab('payment')" class="exam-tab-btn px-3 py-2.5 rounded-xl font-bold text-xs sm:text-sm bg-amber-50/70 hover:bg-amber-100 text-amber-950 border border-amber-300 text-left transition flex flex-col justify-between cursor-pointer">
-              <div class="flex items-center justify-between w-full">
+              </button>
+              <button type="button" data-exam="payment" onclick="setExamTab('payment')" class="exam-tab-btn px-3.5 py-2.5 rounded-xl font-bold text-xs sm:text-sm bg-amber-50 hover:bg-amber-100 text-amber-950 border border-amber-300 whitespace-nowrap transition shrink-0 sm:flex-1 text-center justify-center flex items-center gap-1.5 cursor-pointer">
                 <span>Payment Colleges</span>
                 <span class="text-[10px] bg-amber-200 text-amber-900 px-1.5 py-0.2 rounded font-bold">Direct</span>
-              </div>
-            </button>
+              </button>
+            </div>
           </div>
         </div>
 

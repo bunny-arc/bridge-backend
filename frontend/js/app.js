@@ -2611,13 +2611,20 @@ function openCollegeDetailPage(collegeId) {
 
       document.querySelectorAll(".exam-tab-btn").forEach(btn => {
         if (btn.dataset.exam === examCode) {
-          btn.className = "exam-tab-btn active px-3 py-2.5 rounded-xl font-bold text-xs sm:text-sm bg-blue-600 text-white shadow-sm border border-blue-600 text-left transition flex flex-col justify-between";
+          btn.className = "exam-tab-btn active px-3.5 py-2.5 rounded-xl font-bold text-xs sm:text-sm bg-blue-600 text-white shadow-xs whitespace-nowrap transition shrink-0 sm:flex-1 text-center justify-center flex items-center cursor-pointer";
         } else if (btn.dataset.exam === "payment") {
-          btn.className = "exam-tab-btn px-3 py-2.5 rounded-xl font-bold text-xs sm:text-sm bg-amber-50/70 hover:bg-amber-100/80 text-amber-950 border border-amber-300 text-left transition flex flex-col justify-between";
+          btn.className = "exam-tab-btn px-3.5 py-2.5 rounded-xl font-bold text-xs sm:text-sm bg-amber-50 hover:bg-amber-100 text-amber-950 border border-amber-300 whitespace-nowrap transition shrink-0 sm:flex-1 text-center justify-center flex items-center gap-1.5 cursor-pointer";
         } else {
-          btn.className = "exam-tab-btn px-3 py-2.5 rounded-xl font-bold text-xs sm:text-sm bg-slate-50 hover:bg-slate-100 text-slate-700 border border-slate-200 text-left transition flex flex-col justify-between";
+          btn.className = "exam-tab-btn px-3.5 py-2.5 rounded-xl font-bold text-xs sm:text-sm bg-white hover:bg-slate-50 text-slate-700 border border-slate-200/80 whitespace-nowrap transition shrink-0 sm:flex-1 text-center justify-center flex items-center cursor-pointer";
         }
       });
+
+      const activeExamBtn = document.querySelector(`.exam-tab-btn[data-exam="${examCode}"]`);
+      if (activeExamBtn && typeof activeExamBtn.scrollIntoView === "function") {
+        try {
+          activeExamBtn.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
+        } catch (e) {}
+      }
 
       renderExplorer();
     }
