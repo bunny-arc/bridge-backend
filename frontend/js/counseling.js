@@ -70,6 +70,7 @@
       category: "OC",
       region: "ALL",
       district: "ALL",
+      selectedDistricts: ["ALL"],
       branch: "ALL",
       state: "Andhra Pradesh",
       selectedStates: ["Andhra Pradesh"],
@@ -403,21 +404,42 @@
       const distLabel = document.getElementById("district-label-title");
       if (distLabel) {
         if (key === "Andhra Pradesh") {
-          distLabel.textContent = "AP District (All 26 Districts)";
+          distLabel.textContent = "AP District (Multi-Select)";
         } else if (key === "Telangana") {
-          distLabel.textContent = "Telangana District (All 33 Districts)";
+          distLabel.textContent = "Telangana District (Multi-Select)";
         } else if (key === "Karnataka") {
-          distLabel.textContent = "Karnataka District (All 31 Districts)";
+          distLabel.textContent = "Karnataka District (Multi-Select)";
         } else if (key === "ALL") {
-          distLabel.textContent = "District (All Districts)";
+          distLabel.textContent = "District (All India / Multi-Select)";
         } else {
-          distLabel.textContent = `${key} District`;
+          distLabel.textContent = `${key} District (Multi-Select)`;
         }
       }
 
-      const list = stateDistrictsMap[key] || stateDistrictsMap["Andhra Pradesh"];
+      let list = [];
+      if (key === "ALL") {
+        if (Array.isArray(appState.selectedStates) && appState.selectedStates.length > 0 && !appState.selectedStates.includes("ALL")) {
+          appState.selectedStates.forEach(st => {
+            const arr = stateDistrictsMap[st];
+            if (Array.isArray(arr)) {
+              arr.forEach(d => { if (!list.includes(d)) list.push(d); });
+            }
+          });
+        }
+        if (list.length === 0) {
+          // Combine districts across states
+          Object.values(stateDistrictsMap).forEach(arr => {
+            if (Array.isArray(arr)) {
+              arr.forEach(d => { if (!list.includes(d)) list.push(d); });
+            }
+          });
+        }
+      } else {
+        list = stateDistrictsMap[key] || stateDistrictsMap["Andhra Pradesh"];
+      }
+
       const defaultLabel = key === "ALL" 
-        ? "All Districts" 
+        ? "All Districts (Pan-India)" 
         : (key === "Andhra Pradesh" ? "All 26 AP Districts" : (key === "Telangana" ? "All 33 Telangana Districts" : (key === "Karnataka" ? "All 31 Karnataka Districts" : `All ${key} Districts`)));
 
       let html = `<option value="ALL" selected>${defaultLabel}</option>`;
@@ -426,6 +448,7 @@
       });
       distSelect.innerHTML = html;
       appState.district = "ALL";
+      appState.selectedDistricts = ["ALL"];
 
       if (typeof distSelect._refreshCustomRadio === "function") {
         distSelect._refreshCustomRadio();
@@ -471,8 +494,8 @@
           }
         }
 
-        // 2. Filter by State (ONLY for JEE Main & JEE Advanced multi-state selector, or Pan-India exams)
-        if (activeExam === "jee_main" || activeExam === "jee_adv" || activeExam === "ALL") {
+        // 2. Filter by State (for JEE Main, JEE Advanced, Payment Colleges, or Pan-India exams)
+        if (activeExam === "jee_main" || activeExam === "jee_adv" || activeExam === "payment" || activeExam === "ALL") {
           if (Array.isArray(appState.selectedStates) && appState.selectedStates.length > 0 && !appState.selectedStates.includes("ALL")) {
             const cState = (college.state || (college.location && college.location.includes("AP") ? "Andhra Pradesh" : "")).trim().toLowerCase();
             const matched = appState.selectedStates.some(st => st.trim().toLowerCase() === cState);
@@ -513,8 +536,21 @@
           }
         }
 
-        // 4. District Filter (AP CET, TG EAPCET, KCET, etc.)
-        if (appState.district && appState.district !== "ALL") {
+        // 4. District Filter (AP CET, TG EAPCET, KCET, Payment, etc. - supports Multi-Select)
+        if (Array.isArray(appState.selectedDistricts) && appState.selectedDistricts.length > 0 && !appState.selectedDistricts.includes("ALL")) {
+          const cDist = (college.district || "").trim().toLowerCase();
+          const cLoc = (college.location || "").trim().toLowerCase();
+          const matched = appState.selectedDistricts.some(distName => {
+            const d = distName.trim().toLowerCase();
+            if (cDist.includes(d) || cLoc.includes(d) || d.includes(cDist)) return true;
+            if (d.includes("(")) {
+              const parts = d.replace(/[()]/g, " ").split(/\s+/).filter(p => p.length > 2);
+              return parts.some(p => cDist.includes(p) || cLoc.includes(p));
+            }
+            return false;
+          });
+          if (!matched) return false;
+        } else if (appState.district && appState.district !== "ALL") {
           const d = appState.district.trim().toLowerCase();
           const cDist = (college.district || "").trim().toLowerCase();
           const cLoc = (college.location || "").trim().toLowerCase();

@@ -2520,6 +2520,7 @@ function openCollegeDetailPage(collegeId) {
 
         appState.region = "ALL";
         appState.district = "ALL";
+        appState.selectedDistricts = ["ALL"];
         appState.state = "ALL";
         appState.selectedStates = ["ALL"];
         const stSel = document.getElementById("state-select");
@@ -2540,6 +2541,7 @@ function openCollegeDetailPage(collegeId) {
         appState.selectedStates = ["Telangana"];
         appState.region = "ALL";
         appState.district = "ALL";
+        appState.selectedDistricts = ["ALL"];
         const updateReg = window.updateRegionDropdown || (typeof updateRegionDropdown === "function" ? updateRegionDropdown : null);
         const updateDist = window.updateDistrictDropdown || (typeof updateDistrictDropdown === "function" ? updateDistrictDropdown : null);
         if (updateReg) updateReg("tg_eapcet");
@@ -2557,6 +2559,7 @@ function openCollegeDetailPage(collegeId) {
         appState.selectedStates = ["Karnataka"];
         appState.region = "ALL";
         appState.district = "ALL";
+        appState.selectedDistricts = ["ALL"];
         const updateReg = window.updateRegionDropdown || (typeof updateRegionDropdown === "function" ? updateRegionDropdown : null);
         const updateDist = window.updateDistrictDropdown || (typeof updateDistrictDropdown === "function" ? updateDistrictDropdown : null);
         if (updateReg) updateReg("kcet");
@@ -2574,6 +2577,7 @@ function openCollegeDetailPage(collegeId) {
         appState.selectedStates = ["Andhra Pradesh"];
         appState.region = "ALL";
         appState.district = "ALL";
+        appState.selectedDistricts = ["ALL"];
         const updateReg = window.updateRegionDropdown || (typeof updateRegionDropdown === "function" ? updateRegionDropdown : null);
         const updateDist = window.updateDistrictDropdown || (typeof updateDistrictDropdown === "function" ? updateDistrictDropdown : null);
         if (updateReg) updateReg("ap_cet");
@@ -2581,9 +2585,10 @@ function openCollegeDetailPage(collegeId) {
         if (rankUnit) rankUnit.textContent = "Rank";
         if (typeof updateQuickRankChips === "function") updateQuickRankChips("ap_cet");
       } else if (examCode === "payment") {
-        // Payment Colleges: Direct management / NRI admissions
+        // Payment Colleges: Direct management / NRI admissions with pan-India State chooser & Districts!
         if (filterRegionCol) { filterRegionCol.classList.remove("hidden"); filterRegionCol.style.removeProperty("display"); }
         if (apRegionContainer) { apRegionContainer.classList.remove("hidden"); apRegionContainer.style.removeProperty("display"); }
+        if (stateSelectContainer) { stateSelectContainer.classList.remove("hidden"); stateSelectContainer.style.removeProperty("display"); }
         if (filterDistrictCol) { filterDistrictCol.classList.remove("hidden"); filterDistrictCol.style.removeProperty("display"); }
         if (apDistrictContainer) { apDistrictContainer.classList.remove("hidden"); apDistrictContainer.style.removeProperty("display"); }
 
@@ -2591,6 +2596,7 @@ function openCollegeDetailPage(collegeId) {
         appState.selectedStates = ["ALL"];
         appState.region = "ALL";
         appState.district = "ALL";
+        appState.selectedDistricts = ["ALL"];
         const updateReg = window.updateRegionDropdown || (typeof updateRegionDropdown === "function" ? updateRegionDropdown : null);
         const updateDist = window.updateDistrictDropdown || (typeof updateDistrictDropdown === "function" ? updateDistrictDropdown : null);
         if (updateReg) updateReg("payment");
@@ -2979,7 +2985,10 @@ function openCollegeDetailPage(collegeId) {
           appState.state = e.target.value;
           const badge = document.getElementById("state-active-badge");
           if (badge) badge.textContent = appState.state === "ALL" ? "ALL STATES" : appState.state.toUpperCase();
-          updateDistrictDropdown(appState.state);
+          const targetState = (Array.isArray(appState.selectedStates) && appState.selectedStates.length === 1 && appState.selectedStates[0] !== "ALL") 
+            ? appState.selectedStates[0] 
+            : (appState.state !== "ALL" ? appState.state : "ALL");
+          updateDistrictDropdown(targetState);
           appState.currentLimit = appState.pageSize;
           renderExplorer();
         });
@@ -3076,6 +3085,8 @@ function openCollegeDetailPage(collegeId) {
         document.getElementById("category-select").value = "OC";
         document.getElementById("region-select").value = "ALL";
         document.getElementById("district-select").value = "ALL";
+        appState.district = "ALL";
+        appState.selectedDistricts = ["ALL"];
         document.getElementById("branch-select").value = "ALL";
         document.getElementById("type-select").value = "ALL";
         document.getElementById("min-pkg-select").value = "0";
@@ -6316,13 +6327,19 @@ function openCollegeDetailPage(collegeId) {
       menu.setAttribute("role", "listbox");
       wrapper.appendChild(menu);
 
-      const isMulti = select.id === "state-select" || select.id === "counseling-state-select";
-      if (isMulti && (!Array.isArray(appState.selectedStates) || appState.selectedStates.length === 0)) {
+      const isMultiState = select.id === "state-select" || select.id === "counseling-state-select";
+      const isMultiDistrict = select.id === "district-select";
+      const isMulti = isMultiState || isMultiDistrict;
+
+      if (isMultiState && (!Array.isArray(appState.selectedStates) || appState.selectedStates.length === 0)) {
         appState.selectedStates = [select.value || "Andhra Pradesh"];
+      }
+      if (isMultiDistrict && (!Array.isArray(appState.selectedDistricts) || appState.selectedDistricts.length === 0)) {
+        appState.selectedDistricts = [select.value || "ALL"];
       }
 
       function updateTriggerLabel() {
-        if (isMulti) {
+        if (isMultiState) {
           if (!Array.isArray(appState.selectedStates) || appState.selectedStates.length === 0 || appState.selectedStates.includes("ALL")) {
             labelSpan.textContent = "All States (Pan-India)";
             const badge = document.getElementById("state-active-badge");
@@ -6339,6 +6356,17 @@ function openCollegeDetailPage(collegeId) {
             labelSpan.textContent = `${appState.selectedStates[0]}, ${appState.selectedStates[1]} (+${appState.selectedStates.length - 2} more)`;
             const badge = document.getElementById("state-active-badge");
             if (badge) badge.textContent = `${appState.selectedStates.length} STATES`;
+          }
+        } else if (isMultiDistrict) {
+          if (!Array.isArray(appState.selectedDistricts) || appState.selectedDistricts.length === 0 || appState.selectedDistricts.includes("ALL")) {
+            const firstOpt = select.options[0];
+            labelSpan.textContent = firstOpt ? firstOpt.textContent : "All Districts";
+          } else if (appState.selectedDistricts.length === 1) {
+            labelSpan.textContent = appState.selectedDistricts[0];
+          } else if (appState.selectedDistricts.length === 2) {
+            labelSpan.textContent = `${appState.selectedDistricts[0]}, ${appState.selectedDistricts[1]}`;
+          } else {
+            labelSpan.textContent = `${appState.selectedDistricts[0]}, ${appState.selectedDistricts[1]} (+${appState.selectedDistricts.length - 2} more)`;
           }
         } else {
           const selOpt = select.options[select.selectedIndex];
@@ -6377,9 +6405,12 @@ function openCollegeDetailPage(collegeId) {
 
         options.forEach(opt => {
           let isSelected = false;
-          if (isMulti) {
+          if (isMultiState) {
             isSelected = (appState.selectedStates.includes("ALL") && opt.value === "ALL") ||
                          (!appState.selectedStates.includes("ALL") && appState.selectedStates.includes(opt.value));
+          } else if (isMultiDistrict) {
+            isSelected = (appState.selectedDistricts.includes("ALL") && opt.value === "ALL") ||
+                         (!appState.selectedDistricts.includes("ALL") && appState.selectedDistricts.includes(opt.value));
           } else {
             isSelected = opt.value === select.value || opt.selected;
           }
@@ -6408,7 +6439,7 @@ function openCollegeDetailPage(collegeId) {
 
           optDiv.addEventListener("click", (e) => {
             e.stopPropagation();
-            if (isMulti) {
+            if (isMultiState) {
               if (opt.value === "ALL") {
                 appState.selectedStates = ["ALL"];
                 appState.state = "ALL";
@@ -6449,14 +6480,55 @@ function openCollegeDetailPage(collegeId) {
               // Trigger state change
               select.dispatchEvent(new Event("change", { bubbles: true }));
               if (typeof updateDistrictDropdown === "function") {
-                if (appState.selectedStates.length === 1 && appState.selectedStates[0] === "Andhra Pradesh") {
-                  updateDistrictDropdown("Andhra Pradesh");
-                } else if (appState.selectedStates.includes("ALL")) {
-                  updateDistrictDropdown("Andhra Pradesh");
+                if (appState.selectedStates.length === 1 && appState.selectedStates[0] !== "ALL") {
+                  updateDistrictDropdown(appState.selectedStates[0]);
                 } else {
                   updateDistrictDropdown("ALL");
                 }
               }
+              if (typeof renderExplorer === "function") {
+                renderExplorer();
+              }
+            } else if (isMultiDistrict) {
+              if (opt.value === "ALL") {
+                appState.selectedDistricts = ["ALL"];
+                appState.district = "ALL";
+                select.value = "ALL";
+              } else {
+                if (appState.selectedDistricts.includes("ALL")) {
+                  appState.selectedDistricts = [opt.value];
+                } else if (appState.selectedDistricts.includes(opt.value)) {
+                  appState.selectedDistricts = appState.selectedDistricts.filter(d => d !== opt.value);
+                  if (appState.selectedDistricts.length === 0) {
+                    appState.selectedDistricts = ["ALL"];
+                    appState.district = "ALL";
+                    select.value = "ALL";
+                  }
+                } else {
+                  appState.selectedDistricts.push(opt.value);
+                }
+                appState.district = appState.selectedDistricts.length === 1 ? appState.selectedDistricts[0] : (appState.selectedDistricts.includes("ALL") ? "ALL" : appState.selectedDistricts.join(", "));
+                select.value = appState.selectedDistricts[0] || "ALL";
+              }
+
+              // Update all item elements in the menu without closing
+              menu.querySelectorAll(".custom-radio-option").forEach(itemEl => {
+                const val = itemEl.dataset.value;
+                const sel = (appState.selectedDistricts.includes("ALL") && val === "ALL") ||
+                            (!appState.selectedDistricts.includes("ALL") && appState.selectedDistricts.includes(val));
+                itemEl.classList.toggle("is-selected", sel);
+                itemEl.setAttribute("aria-selected", sel ? "true" : "false");
+                const circ = itemEl.querySelector(".custom-radio-circle");
+                if (circ) {
+                  circ.classList.toggle("is-selected", sel);
+                  circ.innerHTML = sel ? '<div class="custom-radio-dot"></div>' : '';
+                }
+              });
+
+              updateTriggerLabel();
+
+              // Trigger district change
+              select.dispatchEvent(new Event("change", { bubbles: true }));
               if (typeof renderExplorer === "function") {
                 renderExplorer();
               }
