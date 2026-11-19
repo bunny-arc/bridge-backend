@@ -64,7 +64,7 @@
 
     let appState = {
       activeView: "explore",
-      exam: null,
+      exam: "ap_cet",
       jeeRankMode: "air", // "air" (All India Rank) or "general" (General / Category Rank)
       rank: null,
       category: "OC",
@@ -346,9 +346,27 @@
     function getFilteredColleges() {
       const q = (appState.search || "").trim().toLowerCase();
       const hasSearch = q.length > 0;
+      const activeExam = appState.exam || "ap_cet";
 
       let list = collegesData.filter(college => {
-        // When searching, match across ALL colleges & universities in India without exam/eligibility barriers!
+        // 1. STRICT FILTER BY ENTRANCE EXAM: Must strictly match the selected exam!
+        if (activeExam === "tg_eapcet" || activeExam === "ts_eamcet") {
+          if (college.exam !== "tg_eapcet" && college.exam !== "ts_eamcet") return false;
+        } else if (activeExam === "ap_cet") {
+          if (college.exam !== "ap_cet") return false;
+        } else if (activeExam === "kcet") {
+          if (college.exam !== "kcet") return false;
+        } else if (activeExam === "jee_main") {
+          if (college.exam !== "jee_main") return false;
+        } else if (activeExam === "jee_adv") {
+          if (college.exam !== "jee_adv") return false;
+        } else if (activeExam === "payment") {
+          if (college.exam !== "payment") return false;
+        } else if (activeExam && activeExam !== "ALL") {
+          if (college.exam !== activeExam) return false;
+        }
+
+        // Search strictly WITHIN the selected exam's colleges:
         if (hasSearch) {
           const matchName = (college.name || "").toLowerCase().includes(q);
           const matchCode = (college.code || "").toLowerCase().includes(q);
@@ -358,80 +376,57 @@
           const matchBr = Array.isArray(college.branches) && college.branches.some(b => 
             (b.code || "").toLowerCase().includes(q) || (b.name || "").toLowerCase().includes(q)
           );
-          return matchName || matchCode || matchLoc || matchDist || matchUniv || matchBr;
-        }
-
-        // 1. Filter by Exam
-        if (appState.exam && appState.exam !== "ALL") {
-          if (appState.exam === "payment") {
-            if (college.exam !== "payment") return false;
-          } else if (appState.exam === "jee_main") {
-            if (college.exam !== "jee_main") return false;
-          } else if (appState.exam === "jee_adv") {
-            if (college.exam !== "jee_adv") return false;
-          } else if (appState.exam === "bitsat") {
-            if (college.exam !== "bitsat") return false;
-          } else if (appState.exam === "kcet") {
-            if (college.exam !== "kcet" && college.state !== "Karnataka") return false;
-          } else if (appState.exam === "tg_eapcet" || appState.exam === "ts_eamcet") {
-            if (college.exam !== "tg_eapcet" && college.exam !== "ts_eamcet" && college.state !== "Telangana") return false;
-          } else if (appState.exam === "tnea") {
-            if (college.exam !== "tnea" && college.state !== "Tamil Nadu") return false;
-          } else if (appState.exam === "mht_cet") {
-            if (college.exam !== "mht_cet" && college.state !== "Maharashtra") return false;
-          } else if (appState.exam === "wbjee") {
-            if (college.exam !== "wbjee" && college.state !== "West Bengal") return false;
-          } else if (appState.exam === "ap_cet") {
-            if (college.exam !== "ap_cet") return false;
-          }
-        }
-
-        // 2. Filter by State (supports multi-selection of states or ALL)
-        if (Array.isArray(appState.selectedStates) && appState.selectedStates.length > 0 && !appState.selectedStates.includes("ALL")) {
-          const cState = (college.state || (college.location && college.location.includes("AP") ? "Andhra Pradesh" : "")).trim().toLowerCase();
-          const matched = appState.selectedStates.some(st => st.trim().toLowerCase() === cState);
-          if (!matched) return false;
-        } else if (appState.state && appState.state !== "ALL") {
-          const s = appState.state.trim().toLowerCase();
-          const cState = (college.state || (college.location && college.location.includes("AP") ? "Andhra Pradesh" : "")).trim().toLowerCase();
-          if (cState !== s) {
+          if (!matchName && !matchCode && !matchLoc && !matchDist && !matchUniv && !matchBr) {
             return false;
           }
         }
 
-        if (appState.region !== "ALL" && college.region !== appState.region) return false;
-        if (appState.district !== "ALL") {
+        // 2. Filter by State (ONLY for JEE Main & JEE Advanced multi-state selector, or Pan-India exams)
+        if (activeExam === "jee_main" || activeExam === "jee_adv" || activeExam === "ALL") {
+          if (Array.isArray(appState.selectedStates) && appState.selectedStates.length > 0 && !appState.selectedStates.includes("ALL")) {
+            const cState = (college.state || (college.location && college.location.includes("AP") ? "Andhra Pradesh" : "")).trim().toLowerCase();
+            const matched = appState.selectedStates.some(st => st.trim().toLowerCase() === cState);
+            if (!matched) return false;
+          } else if (appState.state && appState.state !== "ALL") {
+            const s = appState.state.trim().toLowerCase();
+            const cState = (college.state || (college.location && college.location.includes("AP") ? "Andhra Pradesh" : "")).trim().toLowerCase();
+            if (cState !== s) return false;
+          }
+        }
+
+        // 3. AP Region (AU / SVU) - Only applies to AP CET
+        if (activeExam === "ap_cet" && appState.region !== "ALL" && college.region !== appState.region) return false;
+
+        // 4. District - Only applies to AP CET
+        if (activeExam === "ap_cet" && appState.district !== "ALL") {
           const d = appState.district.trim().toLowerCase();
           const cDist = (college.district || "").trim().toLowerCase();
           const cLoc = (college.location || "").trim().toLowerCase();
           if (!cDist.includes(d) && !cLoc.includes(d) && !d.includes(cDist)) return false;
         }
 
+        // 5. Branch filter
         if (appState.branch !== "ALL") {
-          const hasBranch = college.branches.some(b => b.code === appState.branch);
+          const hasBranch = Array.isArray(college.branches) && college.branches.some(b => b.code === appState.branch);
           if (!hasBranch) return false;
         }
 
+        // 6. College Type filter (Govt / Pvt / etc.)
         if (appState.type !== "ALL" && college.type !== appState.type) return false;
-        if (appState.minPkg > 0 && college.placements.numAvgPkg < appState.minPkg) return false;
+
+        // 7. Minimum Package filter
+        if (appState.minPkg > 0 && college.placements && college.placements.numAvgPkg < appState.minPkg) return false;
+
+        // 8. Low placement filter
         if (appState.hideLowPlacement && college.lowPlacementFlag) return false;
 
-        if (appState.search.trim() !== "") {
-          const q = appState.search.trim().toLowerCase();
-          const matchName = college.name.toLowerCase().includes(q);
-          const matchCode = college.code.toLowerCase().includes(q);
-          const matchLoc = college.location.toLowerCase().includes(q);
-          const matchDist = (college.district || "").toLowerCase().includes(q);
-          const matchState = (college.state || "").toLowerCase().includes(q);
-          if (!matchName && !matchCode && !matchLoc && !matchDist && !matchState) return false;
-        }
-
+        // 9. Cutoff / Rank eligibility
         if (appState.onlyEligible && appState.rank) {
           if (college.exam === "payment") return true;
           const relevantBranches = appState.branch === "ALL"
             ? college.branches
             : college.branches.filter(b => b.code === appState.branch);
-          const hasEligible = relevantBranches.some(b => {
+          const hasEligible = Array.isArray(relevantBranches) && relevantBranches.some(b => {
             const cutoff = getScaledCutoff(b.closingRank, appState.category, college.exam);
             return appState.rank <= Math.round(cutoff * 1.15);
           });
@@ -441,7 +436,7 @@
         return true;
       });
 
-      function getCollegeCutoffForSort(college) {
+    function getCollegeCutoffForSort(college) {
         if (!college.branches || college.branches.length === 0) return 999999;
         const relevantBranches = appState.branch === "ALL"
           ? college.branches

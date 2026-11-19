@@ -2487,91 +2487,82 @@ function openCollegeDetailPage(collegeId) {
         }
       }
 
-      // Handle JEE vs AP CET local area & district filter visibility
+      // Handle visibility of exam-specific filter controls
       const apRegionContainer = document.getElementById("ap-region-container");
       const apDistrictContainer = document.getElementById("ap-district-container");
+      const filterDistrictCol = document.getElementById("filter-district-col");
       const jeeAirContainer = document.getElementById("jee-air-container");
       const jeeGenContainer = document.getElementById("jee-general-container");
       const jeeRankModeBox = document.getElementById("jee-rank-mode-box");
+      const stateSelectContainer = document.getElementById("state-select-container");
       const rankUnit = document.getElementById("rank-unit-tag");
 
+      // 1. Hide all specialized containers by default
+      if (apRegionContainer) { apRegionContainer.classList.add("hidden"); apRegionContainer.style.setProperty("display", "none", "important"); }
+      if (apDistrictContainer) { apDistrictContainer.classList.add("hidden"); apDistrictContainer.style.setProperty("display", "none", "important"); }
+      if (jeeAirContainer) { jeeAirContainer.classList.add("hidden"); jeeAirContainer.style.setProperty("display", "none", "important"); }
+      if (jeeGenContainer) { jeeGenContainer.classList.add("hidden"); jeeGenContainer.style.setProperty("display", "none", "important"); }
+      if (jeeRankModeBox) { jeeRankModeBox.classList.add("hidden"); jeeRankModeBox.style.setProperty("display", "none", "important"); }
+      if (stateSelectContainer) { stateSelectContainer.classList.add("hidden"); stateSelectContainer.style.setProperty("display", "none", "important"); }
+
+      // 2. Configure controls & state per exam
       if (examCode === "jee_main" || examCode === "jee_adv") {
-        // 1. Hide Local Area / University Region (Pic 2) and AP District (Pic 3)
-        if (apRegionContainer) {
-          apRegionContainer.classList.add("hidden");
-          apRegionContainer.style.setProperty("display", "none", "important");
-        }
-        if (apDistrictContainer) {
-          apDistrictContainer.classList.add("hidden");
-          apDistrictContainer.style.setProperty("display", "none", "important");
-        }
+        // JEE Main & JEE Advanced: Pan-India exams -> show JEE rank modes & multi-state chooser (Pic 3)
+        if (jeeAirContainer) { jeeAirContainer.classList.remove("hidden"); jeeAirContainer.style.setProperty("display", "block", "important"); }
+        if (jeeGenContainer) { jeeGenContainer.classList.remove("hidden"); jeeGenContainer.style.setProperty("display", "block", "important"); }
+        if (jeeRankModeBox) { jeeRankModeBox.classList.remove("hidden"); jeeRankModeBox.style.setProperty("display", "block", "important"); }
+        if (stateSelectContainer) { stateSelectContainer.classList.remove("hidden"); stateSelectContainer.style.setProperty("display", "block", "important"); }
+        if (filterDistrictCol) { filterDistrictCol.classList.remove("hidden"); filterDistrictCol.style.setProperty("display", "block", "important"); }
 
-        // 2. In their place, show All India Rank (AIR / CRL) and General Rank / Category Rank
-        if (jeeAirContainer) {
-          jeeAirContainer.classList.remove("hidden");
-          jeeAirContainer.style.setProperty("display", "block", "important");
-        }
-        if (jeeGenContainer) {
-          jeeGenContainer.classList.remove("hidden");
-          jeeGenContainer.style.setProperty("display", "block", "important");
-        }
-        if (jeeRankModeBox) {
-          jeeRankModeBox.classList.remove("hidden");
-          jeeRankModeBox.style.setProperty("display", "block", "important");
-        }
-
-        // Reset AP local area and district state so they do not restrict national JEE results
         appState.region = "ALL";
         appState.district = "ALL";
-        const rSel = document.getElementById("region-select");
-        if (rSel) rSel.value = "ALL";
-        const dSel = document.getElementById("district-select");
-        if (dSel) dSel.value = "ALL";
+        appState.state = "ALL";
+        appState.selectedStates = ["ALL"];
+        const stSel = document.getElementById("state-select");
+        if (stSel) stSel.value = "ALL";
+        const stBadge = document.getElementById("state-active-badge");
+        if (stBadge) stBadge.textContent = "ALL STATES";
 
         if (rankUnit) rankUnit.textContent = appState.jeeRankMode === "general" ? "GEN" : "AIR";
         if (typeof updateQuickRankChips === "function") updateQuickRankChips(examCode);
-      } else {
-        // Restore Local Area / Region and AP District for AP CET
-        if (apRegionContainer) {
-          apRegionContainer.classList.remove("hidden");
-          apRegionContainer.style.setProperty("display", "block", "important");
-        }
-        if (apDistrictContainer) {
-          apDistrictContainer.classList.remove("hidden");
-          apDistrictContainer.style.setProperty("display", "block", "important");
-        }
+      } else if (examCode === "ap_cet") {
+        // AP EAPCET: Andhra Pradesh specific -> show AU/SVU Region and AP 26 Districts. DO NOT show Pic 3 multi-state chooser.
+        if (apRegionContainer) { apRegionContainer.classList.remove("hidden"); apRegionContainer.style.setProperty("display", "block", "important"); }
+        if (apDistrictContainer) { apDistrictContainer.classList.remove("hidden"); apDistrictContainer.style.setProperty("display", "block", "important"); }
+        if (filterDistrictCol) { filterDistrictCol.classList.remove("hidden"); filterDistrictCol.style.setProperty("display", "block", "important"); }
 
-        // Hide JEE options
-        if (jeeAirContainer) {
-          jeeAirContainer.classList.add("hidden");
-          jeeAirContainer.style.setProperty("display", "none", "important");
-        }
-        if (jeeGenContainer) {
-          jeeGenContainer.classList.add("hidden");
-          jeeGenContainer.style.setProperty("display", "none", "important");
-        }
-        if (jeeRankModeBox) {
-          jeeRankModeBox.classList.add("hidden");
-          jeeRankModeBox.style.setProperty("display", "none", "important");
-        }
-
+        appState.state = "Andhra Pradesh";
+        appState.selectedStates = ["Andhra Pradesh"];
         if (rankUnit) rankUnit.textContent = "Rank";
-        if (examCode === "tg_eapcet" || examCode === "ts_eamcet") {
-          appState.state = "Telangana";
-          appState.region = "ALL";
-          appState.district = "ALL";
-          if (typeof updateQuickRankChips === "function") updateQuickRankChips("tg_eapcet");
-        } else if (examCode === "kcet") {
-          appState.state = "Karnataka";
-          appState.region = "ALL";
-          appState.district = "ALL";
-          if (typeof updateQuickRankChips === "function") updateQuickRankChips("kcet");
-        } else if (examCode === "ap_cet") {
-          appState.state = "Andhra Pradesh";
-          if (typeof updateQuickRankChips === "function") updateQuickRankChips("ap_cet");
-        } else {
-          if (typeof updateQuickRankChips === "function") updateQuickRankChips(examCode);
-        }}
+        if (typeof updateQuickRankChips === "function") updateQuickRankChips("ap_cet");
+      } else if (examCode === "tg_eapcet" || examCode === "ts_eamcet") {
+        // TG EAPCET: Telangana specific -> hide AP region/districts and hide multi-state chooser. Show only TG EAPCET colleges.
+        if (filterDistrictCol) { filterDistrictCol.classList.add("hidden"); filterDistrictCol.style.setProperty("display", "none", "important"); }
+        appState.state = "Telangana";
+        appState.selectedStates = ["Telangana"];
+        appState.region = "ALL";
+        appState.district = "ALL";
+        if (rankUnit) rankUnit.textContent = "Rank";
+        if (typeof updateQuickRankChips === "function") updateQuickRankChips("tg_eapcet");
+      } else if (examCode === "kcet") {
+        // KCET: Karnataka specific -> hide AP region/districts and hide multi-state chooser. Show only KCET colleges.
+        if (filterDistrictCol) { filterDistrictCol.classList.add("hidden"); filterDistrictCol.style.setProperty("display", "none", "important"); }
+        appState.state = "Karnataka";
+        appState.selectedStates = ["Karnataka"];
+        appState.region = "ALL";
+        appState.district = "ALL";
+        if (rankUnit) rankUnit.textContent = "Rank";
+        if (typeof updateQuickRankChips === "function") updateQuickRankChips("kcet");
+      } else if (examCode === "payment") {
+        // Payment Colleges: Direct management / NRI admissions. Hide AP region/districts and hide multi-state chooser.
+        if (filterDistrictCol) { filterDistrictCol.classList.add("hidden"); filterDistrictCol.style.setProperty("display", "none", "important"); }
+        appState.state = "ALL";
+        appState.selectedStates = ["ALL"];
+        appState.region = "ALL";
+        appState.district = "ALL";
+      } else {
+        if (typeof updateQuickRankChips === "function") updateQuickRankChips(examCode);
+      }
 
       // If Payment is selected, hide the Rank filter box and show Direct Admission note
       const rankContainer = document.getElementById("rank-input-container");
@@ -8343,6 +8334,7 @@ function openCollegeDetailPage(collegeId) {
     window.addEventListener("DOMContentLoaded", () => {
       initThemeToggle();
       setupCustomRadioDropdowns();
+      if (typeof setExamTab === "function") setExamTab(appState.exam || "ap_cet");
       xq("live-route-btn").addEventListener("click", () => { xGeoDenied = false; xDetect(); });
       xq("modal-prev-btn").addEventListener("click", () => {
         const v = xVisibleTabs(), i = v.indexOf(xTab);
