@@ -221,23 +221,54 @@
         "Mancherial",
         "Nirmal",
         "Bhadradri Kothagudem",
-        "Yadadri Bhuvanagiri"
-      ],
+        "Yadadri Bhuvanagiri",
+        "Wanaparthy",
+        "Nagarkurnool",
+        "Jogulamba Gadwal",
+        "Narayanpet",
+        "Vikarabad",
+        "Jangaon",
+        "Mahabubabad",
+        "Jayashankar Bhupalpally",
+        "Mulugu",
+        "Peddapalli",
+        "Rajanna Sircilla",
+        "Kumuram Bheem Asifabad",
+        "Adilabad"
+],
       "Karnataka": [
-        "Bengaluru Urban",
+        "Bengaluru Urban (Bangalore)",
         "Bengaluru Rural",
-        "Mysuru",
+        "Mysuru (Mysore)",
         "Dakshina Kannada (Mangaluru)",
-        "Udupi",
-        "Belagavi",
+        "Udupi (Manipal)",
+        "Belagavi (Belgaum)",
         "Dharwad (Hubballi)",
-        "Shivamogga",
-        "Tumakuru",
+        "Shivamogga (Shimoga)",
+        "Tumakuru (Tumkur)",
         "Davanagere",
-        "Ballari",
+        "Ballari (Bellary)",
+        "Kalaburagi (Gulbarga)",
         "Hassan",
-        "Kalaburagi"
-      ],
+        "Mandya",
+        "Kolar",
+        "Chikkaballapura",
+        "Bagalkote",
+        "Vijayapura (Bijapur)",
+        "Raichur",
+        "Bidar",
+        "Uttara Kannada (Karwar)",
+        "Chikkamagaluru",
+        "Kodagu (Coorg)",
+        "Ramanagara",
+        "Gadag",
+        "Haveri",
+        "Koppal",
+        "Yadgir",
+        "Chamarajanagar",
+        "Vijayanagara",
+        "Chitradurga"
+],
       "Tamil Nadu": [
         "Chennai",
         "Coimbatore",
@@ -315,25 +346,79 @@
       ]
     };
 
-    function updateDistrictDropdown(chosenState) {
+    function updateRegionDropdown(examCode) {
+      const regSelect = document.getElementById("region-select");
+      if (!regSelect) return;
+
+      const regLabelText = document.getElementById("region-label-text") || document.querySelector("#ap-region-container label");
+      let html = "";
+      if (examCode === "tg_eapcet" || examCode === "ts_eamcet") {
+        if (regLabelText) regLabelText.textContent = "Local Area / University Region (Telangana)";
+        html = `
+          <option value="ALL" selected>All Regions (OU & Non-Local)</option>
+          <option value="OU">OU Region (Osmania University - 85% Local Quota)</option>
+          <option value="NL">Non-Local (15% Open / Unreserved Quota)</option>
+        `;
+      } else if (examCode === "kcet") {
+        if (regLabelText) regLabelText.textContent = "Local Area / Quota Region (Karnataka)";
+        html = `
+          <option value="ALL" selected>All Karnataka Regions</option>
+          <option value="KEA">KEA / General Karnataka (Non-HK - 85% State Quota)</option>
+          <option value="HK">HK Region (Kalyana-Karnataka - Art. 371J Special Quota)</option>
+          <option value="NL">Non-Karnataka (Open Quota)</option>
+        `;
+      } else if (examCode === "ap_cet") {
+        if (regLabelText) regLabelText.textContent = "Local Area / University Region (AP CET)";
+        html = `
+          <option value="ALL" selected>All Regions (AU, SVU & Non-Local)</option>
+          <option value="AU">AU Region (Andhra University - Coastal AP)</option>
+          <option value="SVU">SVU Region (Sri Venkateswara University - Rayalaseema)</option>
+          <option value="NL">Non-Local (15% Open / Unreserved Quota)</option>
+        `;
+      } else {
+        if (regLabelText) regLabelText.textContent = "Local Area / University Region";
+        html = `
+          <option value="ALL" selected>All Regions (Direct Admission)</option>
+        `;
+      }
+
+      regSelect.innerHTML = html;
+      appState.region = "ALL";
+
+      if (typeof regSelect._refreshCustomRadio === "function") {
+        regSelect._refreshCustomRadio();
+      }
+    }
+    window.updateRegionDropdown = updateRegionDropdown;
+
+    function updateDistrictDropdown(chosenKey) {
       const distSelect = document.getElementById("district-select");
       if (!distSelect) return;
 
+      let key = chosenKey;
+      if (chosenKey === "tg_eapcet" || chosenKey === "ts_eamcet") key = "Telangana";
+      else if (chosenKey === "kcet") key = "Karnataka";
+      else if (chosenKey === "ap_cet") key = "Andhra Pradesh";
+
       const distLabel = document.getElementById("district-label-title");
       if (distLabel) {
-        if (chosenState === "Andhra Pradesh") {
+        if (key === "Andhra Pradesh") {
           distLabel.textContent = "AP District (All 26 Districts)";
-        } else if (chosenState === "ALL") {
+        } else if (key === "Telangana") {
+          distLabel.textContent = "Telangana District (All 33 Districts)";
+        } else if (key === "Karnataka") {
+          distLabel.textContent = "Karnataka District (All 31 Districts)";
+        } else if (key === "ALL") {
           distLabel.textContent = "District (All Districts)";
         } else {
-          distLabel.textContent = `${chosenState} District`;
+          distLabel.textContent = `${key} District`;
         }
       }
 
-      const list = stateDistrictsMap[chosenState] || stateDistrictsMap["Andhra Pradesh"];
-      const defaultLabel = chosenState === "ALL" 
-        ? "All 26 AP & National Districts" 
-        : (chosenState === "Andhra Pradesh" ? "All 26 AP Districts" : `All ${chosenState} Districts`);
+      const list = stateDistrictsMap[key] || stateDistrictsMap["Andhra Pradesh"];
+      const defaultLabel = key === "ALL" 
+        ? "All Districts" 
+        : (key === "Andhra Pradesh" ? "All 26 AP Districts" : (key === "Telangana" ? "All 33 Telangana Districts" : (key === "Karnataka" ? "All 31 Karnataka Districts" : `All ${key} Districts`)));
 
       let html = `<option value="ALL" selected>${defaultLabel}</option>`;
       list.forEach(d => {
@@ -341,7 +426,12 @@
       });
       distSelect.innerHTML = html;
       appState.district = "ALL";
+
+      if (typeof distSelect._refreshCustomRadio === "function") {
+        distSelect._refreshCustomRadio();
+      }
     }
+    window.updateDistrictDropdown = updateDistrictDropdown;
 
     function getFilteredColleges() {
       const q = (appState.search || "").trim().toLowerCase();
@@ -394,15 +484,48 @@
           }
         }
 
-        // 3. AP Region (AU / SVU) - Only applies to AP CET
-        if (activeExam === "ap_cet" && appState.region !== "ALL" && college.region !== appState.region) return false;
+        // 3. Local Area / University Region (AP CET, TG EAPCET, KCET)
+        if (appState.region && appState.region !== "ALL") {
+          const r = appState.region;
+          const cReg = college.region || "";
+          if (r === "OU") {
+            if (cReg !== "OU" && activeExam !== "tg_eapcet" && activeExam !== "ts_eamcet") return false;
+          } else if (r === "AU") {
+            if (cReg !== "AU") return false;
+          } else if (r === "SVU") {
+            if (cReg !== "SVU") return false;
+          } else if (r === "KEA") {
+            // General Karnataka (Non-HK Region)
+            const isHK = ["kalaburagi", "ballari", "bidar", "raichur", "koppal", "yadgir", "bellary", "gulbarga"].some(x => 
+              (college.district || "").toLowerCase().includes(x) || (college.location || "").toLowerCase().includes(x)
+            );
+            if (isHK) return false;
+          } else if (r === "HK") {
+            // Hyderabad-Karnataka Region (Art. 371J Special Quota)
+            const isHK = ["kalaburagi", "ballari", "bidar", "raichur", "koppal", "yadgir", "bellary", "gulbarga"].some(x => 
+              (college.district || "").toLowerCase().includes(x) || (college.location || "").toLowerCase().includes(x)
+            );
+            if (!isHK) return false;
+          } else if (r === "NL") {
+            // Non-Local (15% Open Quota) - valid across all colleges
+          } else {
+            if (cReg !== r) return false;
+          }
+        }
 
-        // 4. District - Only applies to AP CET
-        if (activeExam === "ap_cet" && appState.district !== "ALL") {
+        // 4. District Filter (AP CET, TG EAPCET, KCET, etc.)
+        if (appState.district && appState.district !== "ALL") {
           const d = appState.district.trim().toLowerCase();
           const cDist = (college.district || "").trim().toLowerCase();
           const cLoc = (college.location || "").trim().toLowerCase();
-          if (!cDist.includes(d) && !cLoc.includes(d) && !d.includes(cDist)) return false;
+          if (!cDist.includes(d) && !cLoc.includes(d) && !d.includes(cDist)) {
+            let matched = false;
+            if (d.includes("(")) {
+              const parts = d.replace(/[()]/g, " ").split(/\s+/).filter(p => p.length > 2);
+              matched = parts.some(p => cDist.includes(p) || cLoc.includes(p));
+            }
+            if (!matched) return false;
+          }
         }
 
         // 5. Branch filter
