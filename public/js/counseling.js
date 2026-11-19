@@ -134,7 +134,7 @@
       const mult = (appState.jeeRankMode === "general" && (exam === "jee_main" || exam === "jee_adv"))
         ? 1.0
         : (categoryMultipliers[category] || 1.0);
-      const maxCap = exam === "ap_cet" || exam === "payment" ? 350000 : (exam === "jee_main" ? 180000 : 35000);
+      const maxCap = (exam === "ap_cet" || exam === "tg_eapcet" || exam === "ts_eamcet" || exam === "kcet" || exam === "payment") ? 350000 : (exam === "jee_main" ? 180000 : 35000);
       return Math.min(maxCap, Math.round(baseCutoff * mult));
     }
 
@@ -373,8 +373,8 @@
             if (college.exam !== "bitsat") return false;
           } else if (appState.exam === "kcet") {
             if (college.exam !== "kcet" && college.state !== "Karnataka") return false;
-          } else if (appState.exam === "ts_eamcet") {
-            if (college.exam !== "ts_eamcet" && college.state !== "Telangana") return false;
+          } else if (appState.exam === "tg_eapcet" || appState.exam === "ts_eamcet") {
+            if (college.exam !== "tg_eapcet" && college.exam !== "ts_eamcet" && college.state !== "Telangana") return false;
           } else if (appState.exam === "tnea") {
             if (college.exam !== "tnea" && college.state !== "Tamil Nadu") return false;
           } else if (appState.exam === "mht_cet") {

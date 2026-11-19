@@ -284,31 +284,37 @@
             <button type="button" onclick="document.getElementById('exam-required-alert').classList.add('hidden')" class="text-rose-500 hover:text-rose-800 text-sm font-black px-1.5 py-0.5 cursor-pointer">✕</button>
           </div>
 
-          <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+          <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2.5">
             <button type="button" data-exam="ap_cet" onclick="setExamTab('ap_cet')" class="exam-tab-btn px-3 py-2.5 rounded-xl font-bold text-xs sm:text-sm bg-slate-50 hover:bg-blue-50 hover:border-blue-300 text-slate-700 border border-slate-200 text-left transition flex flex-col justify-between cursor-pointer">
               <div class="flex items-center justify-between w-full">
                 <span>AP CET (EAPCET)</span>
               </div>
-              
+            </button>
+            <button type="button" data-exam="tg_eapcet" onclick="setExamTab('tg_eapcet')" class="exam-tab-btn px-3 py-2.5 rounded-xl font-bold text-xs sm:text-sm bg-slate-50 hover:bg-blue-50 hover:border-blue-300 text-slate-700 border border-slate-200 text-left transition flex flex-col justify-between cursor-pointer">
+              <div class="flex items-center justify-between w-full">
+                <span>TG EAPCET (Telangana)</span>
+              </div>
+            </button>
+            <button type="button" data-exam="kcet" onclick="setExamTab('kcet')" class="exam-tab-btn px-3 py-2.5 rounded-xl font-bold text-xs sm:text-sm bg-slate-50 hover:bg-blue-50 hover:border-blue-300 text-slate-700 border border-slate-200 text-left transition flex flex-col justify-between cursor-pointer">
+              <div class="flex items-center justify-between w-full">
+                <span>KCET (Karnataka)</span>
+              </div>
             </button>
             <button type="button" data-exam="jee_main" onclick="setExamTab('jee_main')" class="exam-tab-btn px-3 py-2.5 rounded-xl font-bold text-xs sm:text-sm bg-slate-50 hover:bg-blue-50 hover:border-blue-300 text-slate-700 border border-slate-200 text-left transition flex flex-col justify-between cursor-pointer">
               <div class="flex items-center justify-between w-full">
                 <span>JEE Main</span>
               </div>
-              
             </button>
             <button type="button" data-exam="jee_adv" onclick="setExamTab('jee_adv')" class="exam-tab-btn px-3 py-2.5 rounded-xl font-bold text-xs sm:text-sm bg-slate-50 hover:bg-blue-50 hover:border-blue-300 text-slate-700 border border-slate-200 text-left transition flex flex-col justify-between cursor-pointer">
               <div class="flex items-center justify-between w-full">
                 <span>JEE Advanced</span>
               </div>
-              
             </button>
             <button type="button" data-exam="payment" onclick="setExamTab('payment')" class="exam-tab-btn px-3 py-2.5 rounded-xl font-bold text-xs sm:text-sm bg-amber-50/70 hover:bg-amber-100 text-amber-950 border border-amber-300 text-left transition flex flex-col justify-between cursor-pointer">
               <div class="flex items-center justify-between w-full">
                 <span>Payment Colleges</span>
                 <span class="text-[10px] bg-amber-200 text-amber-900 px-1.5 py-0.2 rounded font-bold">Direct</span>
               </div>
-              
             </button>
           </div>
         </div>
@@ -3530,6 +3536,12 @@
           <button type="button" class="counseling-exam-tab active p-1.5 rounded-xl border-2 border-blue-600 bg-blue-50 text-blue-900 font-extrabold text-[11px] text-center transition cursor-pointer" data-exam="ap_cet">
             AP CET
           </button>
+          <button type="button" class="counseling-exam-tab p-1.5 rounded-xl border border-slate-200 bg-slate-50 text-slate-700 font-semibold text-[11px] text-center transition cursor-pointer" data-exam="tg_eapcet">
+            TG EAPCET
+          </button>
+          <button type="button" class="counseling-exam-tab p-1.5 rounded-xl border border-slate-200 bg-slate-50 text-slate-700 font-semibold text-[11px] text-center transition cursor-pointer" data-exam="kcet">
+            KCET
+          </button>
           <button type="button" class="counseling-exam-tab p-1.5 rounded-xl border border-slate-200 bg-slate-50 text-slate-700 font-semibold text-[11px] text-center transition cursor-pointer" data-exam="jee_main">
             JEE Main
           </button>
@@ -3551,6 +3563,7 @@
               <option value="bitsat">BITSAT (BITS Pilani, Goa, Hyderabad)</option>
             </optgroup>
             <optgroup label="📍 State-Level Engineering CETs">
+              <option value="tg_eapcet">TG EAPCET / TS EAMCET (Telangana Engineering)</option>
               <option value="ts_eamcet">TS EAMCET / TG CET (Telangana Engineering)</option>
               <option value="kcet">KCET (Karnataka State CET)</option>
               <option value="comedk">COMEDK UGET (Karnataka Private Colleges)</option>
@@ -3975,9 +3988,15 @@
               <span id="exam-selected-hint" class="text-[10px] text-blue-600 font-bold">AP CET</span>
             </div>
             <!-- Quick Exam Select Buttons -->
-            <div class="grid grid-cols-4 gap-1 mb-1.5">
+            <div class="grid grid-cols-3 sm:grid-cols-6 gap-1 mb-1.5">
               <button type="button" class="wiz-exam-btn active p-1.5 rounded-xl border-2 border-blue-600 bg-blue-50 text-blue-900 font-extrabold text-[11px] text-center transition cursor-pointer" data-wiz-exam="ap_cet">
                 AP CET
+              </button>
+              <button type="button" class="wiz-exam-btn p-1.5 rounded-xl border border-slate-200 bg-slate-50 text-slate-700 font-semibold text-[11px] text-center transition cursor-pointer" data-wiz-exam="tg_eapcet">
+                TG EAPCET
+              </button>
+              <button type="button" class="wiz-exam-btn p-1.5 rounded-xl border border-slate-200 bg-slate-50 text-slate-700 font-semibold text-[11px] text-center transition cursor-pointer" data-wiz-exam="kcet">
+                KCET
               </button>
               <button type="button" class="wiz-exam-btn p-1.5 rounded-xl border border-slate-200 bg-slate-50 text-slate-700 font-semibold text-[11px] text-center transition cursor-pointer" data-wiz-exam="jee_main">
                 JEE Main

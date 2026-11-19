@@ -2556,8 +2556,22 @@ function openCollegeDetailPage(collegeId) {
         }
 
         if (rankUnit) rankUnit.textContent = "Rank";
-        if (typeof updateQuickRankChips === "function") updateQuickRankChips("ap_cet");
-      }
+        if (examCode === "tg_eapcet" || examCode === "ts_eamcet") {
+          appState.state = "Telangana";
+          appState.region = "ALL";
+          appState.district = "ALL";
+          if (typeof updateQuickRankChips === "function") updateQuickRankChips("tg_eapcet");
+        } else if (examCode === "kcet") {
+          appState.state = "Karnataka";
+          appState.region = "ALL";
+          appState.district = "ALL";
+          if (typeof updateQuickRankChips === "function") updateQuickRankChips("kcet");
+        } else if (examCode === "ap_cet") {
+          appState.state = "Andhra Pradesh";
+          if (typeof updateQuickRankChips === "function") updateQuickRankChips("ap_cet");
+        } else {
+          if (typeof updateQuickRankChips === "function") updateQuickRankChips(examCode);
+        }}
 
       // If Payment is selected, hide the Rank filter box and show Direct Admission note
       const rankContainer = document.getElementById("rank-input-container");
@@ -2823,6 +2837,10 @@ function openCollegeDetailPage(collegeId) {
           ranks = [1500, 5000, 12000, 25000, 45000, 70000, 100000];
         } else if (examCode === "jee_adv") {
           ranks = [500, 1500, 3500, 7000, 12000, 18000, 25000];
+        } else if (examCode === "tg_eapcet" || examCode === "ts_eamcet") {
+          ranks = [2500, 5000, 12000, 25000, 45000, 75000, 110000];
+        } else if (examCode === "kcet") {
+          ranks = [1500, 4000, 10000, 20000, 35000, 60000, 90000];
         }
 
         chipsList.innerHTML = ranks.map(r => {
@@ -4147,6 +4165,9 @@ function openCollegeDetailPage(collegeId) {
     function updateStudentBannersAndSheetHeader() {
       const examNames = {
         ap_cet: "AP EAPCET",
+        tg_eapcet: "TG EAPCET",
+        ts_eamcet: "TG EAPCET",
+        kcet: "KCET",
         jee_main: "JEE Main",
         jee_adv: "JEE Advanced",
         payment: "Payment / Direct"
